@@ -1,0 +1,28 @@
+<div class="course-note">
+  <div class="eyebrow">La méthode du cours</div>
+  <h3>Construire l’arbre avant de chercher l’équilibre</h3>
+  <p>La <strong>forme étendue</strong> montre qui joue, dans quel ordre et ce que chacun observe. On part du nœud initial, en haut. À chaque nœud, on inscrit le joueur qui décide ; chaque branche porte une action disponible. On ajoute ensuite le joueur suivant ou une feuille si le jeu s’arrête. Sous chaque feuille, on écrit les gains dans un <strong>ordre fixe</strong>, même lorsque le joueur qui décide change.</p>
+  <p>Ici, les gains sont toujours empilés <strong>NYT, puis Post, puis gouvernement</strong>. Une branche représente un choix possible, pas une étape obligatoire : dès qu’on atteint une feuille, ce chemin est terminé.</p>
+  <p class="course-ref">Cours fourni : S6 — B2. Jeux séquentiels, diapositives 8–9 et 14.</p>
+</div>
+<div class="course-note">
+  <h3>Un petit arbre pour comprendre la méthode</h3>
+  <p>Dans le jeu de l’entrée du cours, la firme 1 choisit <em>Entrer</em> ou <em>Passer</em>. Après une entrée, la firme 2 choisit <em>Accommoder</em> ou <em>Guerre</em>. Les gains se lisent ici dans l’ordre <strong>firme 1, firme 2</strong>.</p>
+  <svg viewBox="0 0 560 330" role="img" aria-label="Jeu de l’entrée : Entrer puis Accommoder donne les gains 2 et 1. Entrer puis Guerre donne 0 et 0. Passer donne 1 et 2. Les branches Entrer et Accommoder sont retenues par induction à rebours." style="display:block;width:100%;max-width:560px;height:auto;margin:12px auto">
+    <g fill="none" stroke-width="2"><path d="M330 47 200 137" stroke="var(--nyt)" stroke-width="3.5"/><path d="m330 47 130 90" stroke="var(--rule)" stroke-dasharray="5 5"/><path d="M200 137 100 245" stroke="var(--wp)" stroke-width="3.5"/><path d="m200 137 100 108" stroke="var(--rule)" stroke-dasharray="5 5"/></g>
+    <g font-family="DM Sans, sans-serif" font-size="14" fill="var(--ink)"><text x="330" y="26" text-anchor="middle" fill="var(--nyt)">Firme 1</text><text x="185" y="123" text-anchor="end" fill="var(--wp)">Firme 2</text><text x="242" y="82" text-anchor="end" fill="var(--nyt)">Entrer</text><text x="410" y="82" fill="var(--nyt)">Passer</text><text x="126" y="186" text-anchor="end" fill="var(--wp)">Accommoder</text><text x="267" y="186" fill="var(--wp)">Guerre</text></g>
+    <circle cx="330" cy="47" r="6" fill="var(--nyt)"/><circle cx="200" cy="137" r="6" fill="var(--wp)"/>
+    <g fill="var(--ink)"><circle cx="460" cy="137" r="4"/><circle cx="100" cy="245" r="4"/><circle cx="300" cy="245" r="4"/></g>
+    <g font-family="IBM Plex Mono, monospace" font-size="18" text-anchor="middle"><text x="460" y="166" fill="var(--nyt)">1</text><text x="460" y="192" fill="var(--wp)">2</text><text x="100" y="276" fill="var(--nyt)">2</text><text x="100" y="302" fill="var(--wp)">1</text><text x="300" y="276" fill="var(--nyt)">0</text><text x="300" y="302" fill="var(--wp)">0</text></g>
+  </svg>
+  <p>On résout <strong>du bas vers le haut</strong>. La firme 2 compare son propre gain : 1 en accommodant contre 0 en faisant la guerre. Elle accommode. La firme 1 anticipe cette réponse : entrer lui rapporte alors 2, contre 1 en passant. L’ENPS est donc <strong>(Entrer, Accommoder)</strong>.</p>
+  <p><strong>Pourquoi Nash ne suffit-il pas ?</strong> Le profil (Passer, Guerre) est aussi un équilibre de Nash : si la guerre était prévue, entrer rapporterait 0. Mais après une entrée, la firme 2 préférerait accommoder. Cette menace n’est pas crédible. L’ENPS exige une conduite optimale dans chaque sous-jeu, y compris ceux qui ne sont pas atteints.</p>
+  <p class="course-ref">Cours fourni : S6, diapositives 3–6 et 10–13. Illustration redessinée d’après le jeu de l’entrée.</p>
+</div>
+<div class="course-note">
+  <h3>Trois distinctions qui évitent les confusions</h3>
+  <p><strong>Action et stratégie.</strong> Une action est un choix à un nœud. Une stratégie est un plan complet. Le gouvernement doit prévoir sa réaction face au Times <em>et</em> face au Post : poursuivre/poursuivre, poursuivre/laisser faire, laisser faire/poursuivre ou laisser faire/laisser faire. La deuxième décision reste précisée même si elle n’est jamais prise.</p>
+  <p><strong>Information complète et parfaite.</strong> Dans ce modèle, les joueurs connaissent les règles, les gains et les probabilités ; lorsqu’ils décident, ils connaissent aussi l’histoire déjà réalisée. L’incertitude sur un jugement <em>futur</em> n’empêche pas cette observation du passé. La Nature représente cette incertitude et ne cherche pas à maximiser un gain.</p>
+  <p><strong>Séquentiel et répété.</strong> Le gouvernement intervient deux fois dans une même affaire : cela ne transforme pas le modèle en jeu répété. Dans le chapitre B3, un même jeu de période recommence et les joueurs tiennent compte des gains futurs.</p>
+  <p class="course-ref">Cours fourni : S6, diapositives 7 et 15–18 ; S8 — B3. Jeux répétés, diapositives 3–5.</p>
+</div>

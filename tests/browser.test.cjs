@@ -78,12 +78,38 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(exported.parametres.p,.65);assert.ok(Math.abs(exported.resultat.publicationComplete-.755)<1e-9);
     console.log('PASS presets, sliders, live model, persistence, keyboard map and JSON export');
 
+    await page.evaluate(()=>window.Papers.navigate('arbre'));
+    assert.equal(await page.locator('#tree-main [data-node]').count(),1,'guided construction starts with the root only');
+    for(let count=2;count<=6;count++){
+      await page.locator('#build-next').click();
+      assert.equal(await page.locator('#tree-main [data-node]').count(),count,'one decision is added at a time');
+    }
+    assert.equal(await page.locator('#tree-main [data-outcome]').count(),7,'the complete tree preserves all seven outcomes');
+    await page.locator('[data-tree-view="full"]').click();
+    await page.locator('#tree-path').selectOption('O6');
+    assert.equal(await page.locator('#tree-main .dt-history').count(),6,'the historical path traverses all six branches');
+    assert.match(await page.locator('#tree-guide-copy').textContent(),/ne signifie pas que c’est un équilibre/);
+    await page.locator('[data-tree-view="post"]').click();
+    assert.equal(await page.locator('#tree-main [data-node]').count(),3);
+    assert.equal(await page.locator('#tree-main [data-outcome]').count(),4,'a subgame retains every continuation, not just a path');
+    await page.locator('#t-sym').click();
+    assert.ok(await page.locator('#tree-main tspan[baseline-shift="sub"]').count()>0,'symbolic gains retain readable subscripts');
+    await page.locator('#t-num').click();
+    console.log('PASS guided construction, seven outcomes, path exploration, subgames and payoff notation');
+
     await page.evaluate(()=>window.Papers.navigate('rappels'));
     await page.locator('#thr-k').focus();await page.keyboard.press('End');
     assert.match(await page.locator('#thr-msg').textContent(),/49/);
     assert.match(await page.locator('#thr-out').textContent(),/non crédible/);
     await page.evaluate(()=>window.Papers.navigate('resolution'));
-    for(let i=0;i<8;i++)await page.locator('#st-next').click();
+    for(let i=0;i<8;i++){
+      await page.locator('#st-next').click();
+      if(i<6){
+        assert.equal(await page.locator('#tree-step [data-node]').count(),1,'focus shows only the decision currently being resolved');
+        assert.equal(await page.locator('#tree-step').getAttribute('data-tree-scope'),'focus');
+        if(i>0)assert.equal(await page.locator('#tree-step [data-replaced-node]').count(),1,'the solved continuation is replaced by a value');
+      }
+    }
     assert.equal(await page.locator('#st-next').isDisabled(),true);
     assert.match(await page.locator('#st-card').textContent(),/45,5/);
     await page.locator('#st-prev').click();assert.match(await page.locator('#st-card').textContent(),/ENPS/);
@@ -99,7 +125,8 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
       assert.equal(await page.locator(`[data-story-scene="${i}"]`).getAttribute('aria-hidden'),'false');
     }
     await page.locator('[data-story-goto="0"]').click();
-    await page.locator('[data-story-play]').click();await page.waitForTimeout(6250);
+    await page.locator('[data-story-play]').click();
+    await page.waitForFunction(()=>document.querySelector('[data-story-goto="1"]').getAttribute('aria-current')==='step',{},{timeout:12000});
     assert.equal(await page.locator('[data-story-goto="1"]').getAttribute('aria-current'),'step','the narrative actually advances');
     await page.evaluate(()=>window.Papers.navigate('quiz'));await page.waitForTimeout(150);
     assert.equal(await page.locator('[data-story-play]').getAttribute('aria-pressed'),'false','hidden narratives stop running');

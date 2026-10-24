@@ -10,6 +10,7 @@ Refonte de l’application fournie pour le travail de théorie des jeux du group
 - Navigation dans 17 chapitres, suivi de lecture et affichage adapté aux petits écrans.
 - Récit animé en cinq scènes, lecture/pause et navigation manuelle. Il remplace l’emplacement vidéo vide de l’original.
 - Arbres de décision agrandissables, résolution pas à pas, cartes des équilibres et mini-expérience sur les menaces crédibles.
+- Présentation pédagogique alignée sur les PDF du cours ECGEB366 : arbre descendant, construction en six étapes, lecture des sept issues et sous-jeu du Post. L’induction à rebours remplace visuellement les suites résolues par leurs gains et encadre la composante du joueur qui décide.
 - Laboratoire de 12 paramètres, huit scénarios, résultats instantanés, mémorisation locale et export JSON.
 - Quiz de sept questions avec correction et remise à zéro, lexique et sources.
 - Ambiances papier/nuit, clavier, préférences de mouvement réduit et impression de l’intégralité du dossier.
@@ -33,6 +34,8 @@ python3 build.py
 ```
 
 Sources : `src/shell.html` pour l’interface, `src/premium.css` et `src/extras.css` pour les styles, `src/premium.js` pour la navigation et les interactions ajoutées, `src/presentation.*` pour le récit, `src/hero-art.html` pour l’illustration d’accueil. `src/original.html` conserve le document HTML reçu. `build.py` réemploie son contenu et son modèle, applique les corrections de calcul et de formulation, puis embarque les ressources dans `index.html`.
+
+`src/decision-tree.*` dessine la forme étendue ; `src/tree-guide.html` et `src/course-ui.*` gèrent sa construction et sa lecture. `src/course-notes.html` et `src/course-resolution.html` expliquent les concepts à partir des PDF S5, S6 et S8 fournis. Les références de diapositives apparaissent dans le dossier ; les PDF eux-mêmes ne sont pas inclus dans l’application.
 
 Pour un serveur de développement facultatif :
 

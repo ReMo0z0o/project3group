@@ -316,6 +316,35 @@ dl.gloss {font-size:12px;gap:20px 28px;grid-template-columns:200px minmax(0,1fr)
 [hidden]{display:none!important}
 .hero{overflow:clip}
 @media print{#accueil[hidden],section.piece[hidden]{display:grid!important}}
+
+.course-note{padding:25px;border:1px solid var(--rule);border-radius:7px;background:var(--surface);font-size:13px;line-height:1.9}.course-note h3{font-size:27px;margin-bottom:14px}.course-note p+p{margin-top:13px}.course-ref{font:10px/1.7 var(--f-display);color:var(--muted);display:block;margin-top:14px}.tree-key{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.tree-key>div{padding:20px;background:var(--surface);border:1px solid var(--rule);border-radius:6px}.tree-key strong{display:block;font-size:12px;margin:12px 0 8px}.tree-key p{font-size:12px;line-height:1.85;color:var(--ink2)}.tree-key-dot{display:block;width:16px;height:16px;border-radius:50%;background:var(--nyt)}.tree-key-fork{font:25px/16px var(--f-ui);color:var(--gov)}.tree-key-tuple{font:12px/16px var(--f-display);color:var(--wp)}.tree-workshop{border:1px solid var(--rule);border-radius:7px;overflow:hidden;background:var(--surface)}.tree-view-tabs{display:flex;border-bottom:1px solid var(--rule);background:var(--surface2)}.tree-view-tabs button{flex:1;font-size:11px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--ink2);padding:15px 12px;cursor:pointer}.tree-view-tabs button[aria-pressed=true]{color:var(--stamp);border-bottom-color:var(--stamp);background:var(--surface)}.tree-guide-panel{padding:24px;display:grid;gap:18px}.tree-build-controls{display:flex;gap:13px;align-items:center}.tree-build-controls .mono{font-size:11px;color:var(--muted)}#tree-guide-copy h3{font-size:26px;margin-bottom:10px}#tree-guide-copy p{font-size:13px;line-height:1.9;max-width:85ch}.tree-path-control{display:flex;align-items:center;gap:15px;font-size:12px;flex-wrap:wrap}.tree-path-control select{max-width:100%;min-width:0;flex:1;padding:11px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--bg);color:var(--ink);font:12px var(--f-ui)}.course-definitions{border:1px solid var(--rule);padding:18px;border-radius:6px}.course-definitions summary{cursor:pointer;font:500 14px var(--f-ui)}.course-definitions[open] summary{margin-bottom:20px}.course-checkpoint{padding:22px;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}.course-checkpoint h3{font-size:25px;margin:0 0 12px}.course-checkpoint p{font-size:13px;line-height:1.8}.checkpoint-options{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.checkpoint-correct{background:var(--ok)!important;color:var(--bg)!important}.checkpoint-feedback{margin-top:15px;padding:12px;border-left:2px solid var(--ok);font-size:12px;background:var(--surface2)}.course-compare{width:100%;border-collapse:collapse;font-size:12px}.course-compare th,.course-compare td{padding:12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}.course-compare th{font-weight:600}.course-compare td{line-height:1.8}.course-compare th:first-child{width:28%}.course-entry-svg{display:block;width:100%;max-width:600px;margin:15px auto;height:auto}.reduction-tools{display:flex;gap:18px;align-items:center;justify-content:space-between}.reduction-tools .small{font-size:11px;max-width:64ch}.theory-source-list{font-size:12px;line-height:1.9;display:grid;gap:14px}.theory-source-list strong{font-weight:500}.theory-source-list p{padding:14px 0;border-bottom:1px solid var(--rule)}
+@media(max-width:650px){.tree-key{grid-template-columns:1fr;gap:10px}.tree-key>div{padding:17px}.tree-key strong{margin-top:9px}.tree-key p{font-size:12px}.tree-view-tabs button{font-size:10px;line-height:1.6;padding:12px 7px}.tree-guide-panel{padding:19px}#tree-guide-copy h3{font-size:25px}#tree-guide-copy p{font-size:12px}.course-note{padding:19px;font-size:12px}.course-checkpoint{padding:18px}.reduction-tools{align-items:start;flex-direction:column;gap:10px}.course-compare th,.course-compare td{padding:9px 6px;font-size:11px}.course-compare th:first-child{width:25%}.tree-path-control{flex-direction:column;align-items:stretch}.course-ref{font-size:9px}}
+@media print{.tree-workshop,.checkpoint-options,.reduction-tools button{display:none!important}.tree-key{grid-template-columns:repeat(3,1fr)}.course-definitions>div{display:grid!important}.course-note,.course-checkpoint{break-inside:avoid}}
+
+.tree-wrap svg.course-tree{min-width:var(--tree-min-width,1000px);height:auto;max-height:none;overflow:visible}
+.course-tree text{font-family:var(--f-ui);font-size:16px;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.course-tree .dt-orientation{font:10px var(--f-display);letter-spacing:1.2px}
+.course-tree .dt-caption{font:11px var(--f-ui)}
+.course-tree .dt-actor{font-weight:600;font-size:17px}
+.course-tree .dt-node-id{font-family:var(--f-body);font-style:italic;font-size:16px}
+.course-tree .dt-action{font-size:16px;font-weight:500}
+.course-tree .dt-probability{font:12px var(--f-display)}
+.course-tree .dt-outcome-id{font:10px var(--f-display);letter-spacing:1px;stroke:none}
+.course-tree .dt-outcome-title{font:13px var(--f-ui);font-weight:500;stroke:none}
+.course-tree .dt-outcome-prob{font:11px var(--f-display);stroke:none}
+.course-tree .dt-pay-label{font:11px var(--f-display);stroke:none}
+.course-tree .dt-pay-value{font:13px var(--f-display);stroke:none}
+.course-tree .dt-pay-value.dt-symbol{font:italic 15px var(--f-body)}
+.course-tree .dt-node-value .dt-pay-label{font-size:10px}
+.course-tree .dt-node-value .dt-pay-value{font-size:12px}
+.course-tree .dt-node-value text{stroke:none}
+.course-tree .dt-rejected .dt-action{font-size:14px}
+.course-tree .dt-selected-edge{stroke-dasharray:12 2;animation:dt-flow 5s linear infinite}
+.course-tree .dt-terminal,.course-tree .dt-replacement{animation:dt-reveal .25s ease both}
+@keyframes dt-flow{to{stroke-dashoffset:-70}}
+@keyframes dt-reveal{from{opacity:.5}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.course-tree .dt-selected-edge,.course-tree .dt-terminal,.course-tree .dt-replacement{animation:none!important}.course-tree .dt-selected-edge{stroke-dasharray:none}}
+@media print{.tree-wrap svg.course-tree{min-width:0}.course-tree .dt-selected-edge{animation:none;stroke-dasharray:none}}
 </style>
 </head><body>
 <a class="skip-link" href="#app-main">Aller au contenu</a>
@@ -600,7 +629,35 @@ dl.gloss {font-size:12px;gap:20px 28px;grid-template-columns:200px minmax(0,1fr)
     <!-- 3. RAPPELS -->
     <section class="piece" id="rappels" data-toc="Rappels de cours">
       <div class="piece-head"><div class="eyebrow">Pièce 3</div><h2>Les outils de théorie des jeux, en clair</h2></div>
-      <div class="grid2" id="concepts"></div>
+      <div class="course-note">
+  <div class="eyebrow">La méthode du cours</div>
+  <h3>Construire l’arbre avant de chercher l’équilibre</h3>
+  <p>La <strong>forme étendue</strong> montre qui joue, dans quel ordre et ce que chacun observe. On part du nœud initial, en haut. À chaque nœud, on inscrit le joueur qui décide ; chaque branche porte une action disponible. On ajoute ensuite le joueur suivant ou une feuille si le jeu s’arrête. Sous chaque feuille, on écrit les gains dans un <strong>ordre fixe</strong>, même lorsque le joueur qui décide change.</p>
+  <p>Ici, les gains sont toujours empilés <strong>NYT, puis Post, puis gouvernement</strong>. Une branche représente un choix possible, pas une étape obligatoire : dès qu’on atteint une feuille, ce chemin est terminé.</p>
+  <p class="course-ref">Cours fourni : S6 — B2. Jeux séquentiels, diapositives 8–9 et 14.</p>
+</div>
+<div class="course-note">
+  <h3>Un petit arbre pour comprendre la méthode</h3>
+  <p>Dans le jeu de l’entrée du cours, la firme 1 choisit <em>Entrer</em> ou <em>Passer</em>. Après une entrée, la firme 2 choisit <em>Accommoder</em> ou <em>Guerre</em>. Les gains se lisent ici dans l’ordre <strong>firme 1, firme 2</strong>.</p>
+  <svg viewBox="0 0 560 330" role="img" aria-label="Jeu de l’entrée : Entrer puis Accommoder donne les gains 2 et 1. Entrer puis Guerre donne 0 et 0. Passer donne 1 et 2. Les branches Entrer et Accommoder sont retenues par induction à rebours." style="display:block;width:100%;max-width:560px;height:auto;margin:12px auto">
+    <g fill="none" stroke-width="2"><path d="M330 47 200 137" stroke="var(--nyt)" stroke-width="3.5"/><path d="m330 47 130 90" stroke="var(--rule)" stroke-dasharray="5 5"/><path d="M200 137 100 245" stroke="var(--wp)" stroke-width="3.5"/><path d="m200 137 100 108" stroke="var(--rule)" stroke-dasharray="5 5"/></g>
+    <g font-family="DM Sans, sans-serif" font-size="14" fill="var(--ink)"><text x="330" y="26" text-anchor="middle" fill="var(--nyt)">Firme 1</text><text x="185" y="123" text-anchor="end" fill="var(--wp)">Firme 2</text><text x="242" y="82" text-anchor="end" fill="var(--nyt)">Entrer</text><text x="410" y="82" fill="var(--nyt)">Passer</text><text x="126" y="186" text-anchor="end" fill="var(--wp)">Accommoder</text><text x="267" y="186" fill="var(--wp)">Guerre</text></g>
+    <circle cx="330" cy="47" r="6" fill="var(--nyt)"/><circle cx="200" cy="137" r="6" fill="var(--wp)"/>
+    <g fill="var(--ink)"><circle cx="460" cy="137" r="4"/><circle cx="100" cy="245" r="4"/><circle cx="300" cy="245" r="4"/></g>
+    <g font-family="IBM Plex Mono, monospace" font-size="18" text-anchor="middle"><text x="460" y="166" fill="var(--nyt)">1</text><text x="460" y="192" fill="var(--wp)">2</text><text x="100" y="276" fill="var(--nyt)">2</text><text x="100" y="302" fill="var(--wp)">1</text><text x="300" y="276" fill="var(--nyt)">0</text><text x="300" y="302" fill="var(--wp)">0</text></g>
+  </svg>
+  <p>On résout <strong>du bas vers le haut</strong>. La firme 2 compare son propre gain : 1 en accommodant contre 0 en faisant la guerre. Elle accommode. La firme 1 anticipe cette réponse : entrer lui rapporte alors 2, contre 1 en passant. L’ENPS est donc <strong>(Entrer, Accommoder)</strong>.</p>
+  <p><strong>Pourquoi Nash ne suffit-il pas ?</strong> Le profil (Passer, Guerre) est aussi un équilibre de Nash : si la guerre était prévue, entrer rapporterait 0. Mais après une entrée, la firme 2 préférerait accommoder. Cette menace n’est pas crédible. L’ENPS exige une conduite optimale dans chaque sous-jeu, y compris ceux qui ne sont pas atteints.</p>
+  <p class="course-ref">Cours fourni : S6, diapositives 3–6 et 10–13. Illustration redessinée d’après le jeu de l’entrée.</p>
+</div>
+<div class="course-note">
+  <h3>Trois distinctions qui évitent les confusions</h3>
+  <p><strong>Action et stratégie.</strong> Une action est un choix à un nœud. Une stratégie est un plan complet. Le gouvernement doit prévoir sa réaction face au Times <em>et</em> face au Post : poursuivre/poursuivre, poursuivre/laisser faire, laisser faire/poursuivre ou laisser faire/laisser faire. La deuxième décision reste précisée même si elle n’est jamais prise.</p>
+  <p><strong>Information complète et parfaite.</strong> Dans ce modèle, les joueurs connaissent les règles, les gains et les probabilités ; lorsqu’ils décident, ils connaissent aussi l’histoire déjà réalisée. L’incertitude sur un jugement <em>futur</em> n’empêche pas cette observation du passé. La Nature représente cette incertitude et ne cherche pas à maximiser un gain.</p>
+  <p><strong>Séquentiel et répété.</strong> Le gouvernement intervient deux fois dans une même affaire : cela ne transforme pas le modèle en jeu répété. Dans le chapitre B3, un même jeu de période recommence et les joueurs tiennent compte des gains futurs.</p>
+  <p class="course-ref">Cours fourni : S6, diapositives 7 et 15–18 ; S8 — B3. Jeux répétés, diapositives 3–5.</p>
+</div>
+<details class="course-definitions"><summary>Retrouver les huit définitions essentielles</summary><div class="grid2" id="concepts"></div></details>
       <figure>
         <div class="eyebrow">Mini-expérience · menace crédible ou non ?</div>
         <p class="ui" style="font-size:15.5px">Le Times est censuré, le Post vient de publier. Le gouvernement doit choisir : poursuivre le Post (aller jusqu'à la Cour suprême) ou laisser faire. Faites varier le coût de ce procès.</p>
@@ -634,11 +691,29 @@ dl.gloss {font-size:12px;gap:20px 28px;grid-template-columns:200px minmax(0,1fr)
 
     <!-- 5. ARBRE -->
     <section class="piece" id="arbre" data-toc="L'arbre du jeu" data-ch="3">
-      <div class="piece-head"><div class="eyebrow">Pièce 5</div><h2>L'arbre du jeu et ses 7 issues</h2></div>
+      <div class="piece-head"><div class="eyebrow">Pièce 5</div><h2>Construire et lire l’arbre du jeu</h2></div><div class="prose"><p class="lead">On lit l’histoire de haut en bas.<br>On la résout de bas en haut.</p><p>Comme dans le cours, chaque embranchement représente une décision. Commencez par construire l’arbre, puis suivez une issue. Les gains sont affichés en valeurs ; les symboles restent disponibles.</p></div>
+<div class="tree-key" aria-label="Conventions de lecture de l’arbre">
+  <div><span class="tree-key-dot" aria-hidden="true"></span><strong>Un nœud : qui joue ?</strong><p>Le nom du joueur et le repère x₀, x₁… identifient chaque décision. La Nature représente les jugements incertains.</p></div>
+  <div><span class="tree-key-fork" aria-hidden="true">⑂</span><strong>Une branche : quelle action ?</strong><p>Suivez une seule action à chaque décision. Aux nœuds de la Nature, les deux branches portent des probabilités.</p></div>
+  <div><span class="tree-key-tuple" aria-hidden="true">1 / 2 / 3</span><strong>Une feuille : quels gains ?</strong><p>Toujours dans le même ordre : <b>NYT, Post, gouvernement</b>. Chaque joueur compare son propre gain.</p></div>
+</div>
+<div class="tree-workshop">
+  <div class="tree-view-tabs" role="group" aria-label="Mode de lecture de l’arbre">
+    <button type="button" data-tree-view="build" aria-pressed="true">01 · Construire l’arbre</button>
+    <button type="button" data-tree-view="full" aria-pressed="false">02 · Lire les 7 issues</button>
+    <button type="button" data-tree-view="post" aria-pressed="false">03 · Isoler un sous-jeu</button>
+  </div>
+  <div class="tree-guide-panel">
+    <div class="tree-build-controls" id="tree-build-controls"><button class="btn sm ghost" type="button" id="build-prev" aria-label="Étape de construction précédente">←</button><span class="mono" id="build-count">1 / 6</span><button class="btn sm" type="button" id="build-next" aria-label="Étape de construction suivante">Ajouter la suite →</button></div>
+    <div id="tree-guide-copy" aria-live="polite"></div>
+    <label class="tree-path-control" id="tree-path-control" hidden>Suivre une issue <select id="tree-path"><option value="">Toutes les branches</option><option value="O1">O1 · Aucune publication</option><option value="O2">O2 · Publication sans procès</option><option value="O3">O3 · Le juge local donne raison au Times</option><option value="O4">O4 · Le Post se tait</option><option value="O5">O5 · Le Post publie sans procès</option><option value="O6">O6 · Victoire à la Cour suprême</option><option value="O7">O7 · Censure et sanctions</option></select></label>
+  </div>
+</div>
+
       <figure>
         <div class="toolbar"><span class="eyebrow">Afficher les gains :</span><div class="seg" role="group" aria-label="Affichage des gains"><button type="button" id="t-sym" aria-pressed="true">en symboles</button><button type="button" id="t-num" aria-pressed="false">en valeurs</button></div></div>
         <div class="tree-wrap"><svg id="tree-main" viewBox="0 0 1290 660" role="img" aria-label="Arbre du jeu séquentiel"></svg></div>
-        <figcaption>Gains notés (NYT ; WP ; Gouv.). Cercles : joueurs. Losanges : la Nature (les juges). Faites défiler horizontalement sur téléphone.</figcaption>
+        <figcaption>Forme étendue adaptée des conventions du cours S6, diapositives 8–9 et 14. Gains empilés : NYT, Post, gouvernement. Losanges : ajout de la Nature pour représenter les jugements incertains. Faites défiler horizontalement si nécessaire.</figcaption>
       </figure>
       <div class="grid2">
         <div class="card"><div class="tag" style="color:var(--muted)">Pas de publication</div><div class="k"><b>O1</b> · le Times ne publie pas : rien ne sort.</div></div>
@@ -666,10 +741,25 @@ dl.gloss {font-size:12px;gap:20px 28px;grid-template-columns:200px minmax(0,1fr)
     <section class="piece" id="resolution" data-toc="L'induction à rebours" data-ch="5">
       <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 7</div></div><h2>La résolution, pas à pas</h2></div>
       <div class="prose"><p>On remonte l'arbre depuis la fin. À chaque nœud de hasard, on calcule un gain <em>espéré</em> ; à chaque nœud de décision, on garde le meilleur choix du joueur qui décide. Utilisez les flèches ou les numéros.</p></div>
-      <div class="stepper">
+      <div class="course-note">
+  <div class="eyebrow">Backward induction · appliquer le cours</div>
+  <h3>Lire vers le bas, résoudre vers le haut</h3>
+  <p><strong>1. Au dernier nœud de la Nature</strong>, aucune branche n’est « meilleure » : on calcule la moyenne pondérée de chaque gain. À la Cour suprême, 0,65 × (90 ; 105 ; −230) + 0,35 × (−30 ; −165 ; −90) donne <strong>(48 ; 10,5 ; −181)</strong>.</p>
+  <p><strong>2. Au nœud d’un joueur</strong>, on compare uniquement <em>sa</em> composante. Face au Post, le gouvernement compare −181 en poursuivant à −210 en laissant faire : −181 est supérieur. On retient la poursuite et on fait remonter le <strong>triplet entier</strong> (48 ; 10,5 ; −181), car les joueurs précédents auront besoin de leur propre gain.</p>
+  <p><strong>3. On recommence jusqu’à la racine.</strong> Le Post compare 10,5 à 0 ; le juge local produit une nouvelle espérance ; puis le gouvernement et le Times prennent leurs décisions. Une branche écartée reste possible dans l’arbre : on indique simplement qu’elle n’est pas choisie dans l’équilibre retenu.</p>
+  <p><strong>Stratégies et résultat ne sont pas identiques.</strong> L’ENPS décrit les décisions prévues. La Nature détermine ensuite l’issue réalisée : dans le calibrage de référence, O3 a une probabilité de 30 %, O6 de 45,5 % et O7 de 24,5 %. L’ENPS ne signifie donc pas que la victoire historique O6 était certaine.</p>
+  <p class="course-ref">Cours fourni : S6, diapositives 13–18. Le traitement des nœuds de la Nature est l’extension utilisée pour cette application.</p>
+</div>
+<div class="course-checkpoint" data-checkpoint data-correct="gouv" data-explanation="C’est le gouvernement qui décide ici : on compare donc la troisième composante. −181 est supérieur à −210 ; poursuivre lui donne le meilleur gain. Les gains du Times et du Post restent dans le triplet transmis au nœud précédent.">
+  <h3>Avant de remonter l’arbre…</h3>
+  <p>Au nœud « Gouvernement face au Post », à qui appartiennent les gains −181 et −210 que l’on compare ?</p>
+  <div class="checkpoint-options"><button type="button" class="btn sm ghost" data-answer="nyt">Au New York Times</button><button type="button" class="btn sm ghost" data-answer="wp">Au Washington Post</button><button type="button" class="btn sm ghost" data-answer="gouv">Au gouvernement</button></div>
+  <p class="checkpoint-feedback" hidden aria-live="polite"></p>
+</div>
+<div class="stepper">
         <div class="stepnav"><button class="btn sm ghost" type="button" id="st-prev">← Précédent</button><div class="stepdots" id="st-dots"></div><button class="btn sm" type="button" id="st-next">Suivant →</button></div>
         <div class="stepcard" id="st-card" aria-live="polite"></div>
-        <figure><div class="tree-wrap"><svg id="tree-step" viewBox="0 0 1290 660" role="img" aria-label="Arbre pendant l'induction à rebours"></svg></div></figure>
+        <div class="reduction-tools"><p class="small ui" id="reduction-caption"></p><button type="button" class="btn sm ghost" id="reduction-toggle" aria-pressed="true">Voir l’arbre entier</button></div><figure><div class="tree-wrap"><svg id="tree-step" viewBox="0 0 1290 660" role="img" aria-label="Arbre pendant l'induction à rebours"></svg></div></figure>
       </div>
     </section>
 
@@ -686,7 +776,7 @@ dl.gloss {font-size:12px;gap:20px 28px;grid-template-columns:200px minmax(0,1fr)
         <div class="card"><div class="tag" style="color:var(--gov)">Le gouvernement attaque le Post</div><div class="k"><span class="m">(1 − p)(1 − θ)D &gt; k<sub>W</sub></span> ⟺ <span class="m">p &lt; 1 − <span class="frac"><span>k<sub>W</sub></span><span>(1 − θ)D</span></span></span> ≈ <b>86 %</b></div></div>
         <div class="card"><div class="tag" style="color:var(--gov)">Le gouvernement attaque le Times</div><div class="k">Si le Post publie sous une menace crédible de poursuite et si le dénominateur est positif : <span class="m">q &lt; 1 − <span class="frac"><span>k<sub>T</sub></span><span>(1 − p)(1 − θ)D − k<sub>W</sub></span></span></span> (≈ <b>65 %</b> avec <span class="m">p</span> = 0,65)</div><div class="k">Si le Post se tait : <span class="m">q &lt; 1 − <span class="frac"><span>k<sub>T</sub></span><span>(1 − θ)D</span></span></span> ≈ <b>93 %</b></div></div>
       </div>
-      <div class="note">Avec ces valeurs, <strong>le Times publie toujours</strong> : même censuré, il garde le scoop (<span class="m">θB<sub>T</sub></span> = 30 &gt; <span class="m">c<sub>T</sub></span> = 10). Il faudrait des frais beaucoup plus lourds pour qu'il renonce : voir la pièce 9.</div>
+      <div class="note"><strong>Pourquoi le Times publie-t-il pour tous les couples (q, p) de cette carte ?</strong> Si le Post se tait, le Times conserve 30 − 10 = 20. Si le Post publie et sera poursuivi, il faut p ≥ 165/270 ; le Times anticipe alors au moins 120 × (165/270) − 30 ≈ 43,3 après la censure locale. Les autres continuations lui donnent aussi un gain positif. L’issue O7 reste pourtant négative (−30) : c’est l’<em>espérance</em> anticipée, pas chaque issue isolée, qui justifie de publier. Ces conclusions concernent les gains de référence.</div>
     </section>
 
     <!-- 9. SECRET -->
@@ -741,7 +831,7 @@ dl.gloss {font-size:12px;gap:20px 28px;grid-template-columns:200px minmax(0,1fr)
           <div class="explain" id="lab-explain"></div>
         </div>
       </div>
-      <figure><div class="tree-wrap"><svg id="tree-lab" viewBox="0 0 1290 660" role="img" aria-label="Arbre avec l'équilibre pour vos valeurs"></svg></div><figcaption>Traits épais : choix d'équilibre. ✕ : choix écartés. Encadrés noirs : gains espérés à chaque nœud. Pourcentages : probabilité d'atteindre l'issue.</figcaption></figure>
+      <figure><div class="tree-wrap"><svg id="tree-lab" viewBox="0 0 1290 660" role="img" aria-label="Arbre avec l'équilibre pour vos valeurs"></svg></div><figcaption>Traits épais : actions retenues à l’équilibre. Pointillés et × : actions écartées. Cartouches : gains de continuation ou espérances aux nœuds de la Nature. Pourcentages : probabilités d’atteindre les issues depuis le début du jeu. La Nature conserve ses deux branches.</figcaption></figure>
       <div class="mapbox">
         <div class="map" id="map2"><div class="yl"><b>p</b> : Cour suprême →</div><canvas width="520" height="520" aria-label="Carte des équilibres pour vos valeurs"></canvas><div class="xl"><b>q</b> : juge local →</div><div class="tip"></div></div>
         <div class="legend" id="legend2"></div>
@@ -780,7 +870,7 @@ dl.gloss {font-size:12px;gap:20px 28px;grid-template-columns:200px minmax(0,1fr)
     </section>
 
     <section class="piece" id="sources" data-toc="Sources">
-      <div class="piece-head"><div class="eyebrow">Annexe</div><h2>Sources</h2></div>
+      <div class="piece-head"><div class="eyebrow">Annexe</div><h2>Sources</h2></div><div class="course-note"><h3>Le cours utilisé pour cette édition</h3><div class="theory-source-list"><p><strong>Benoit Decerf · ECGEB366 · S6, « B2. Jeux séquentiels ».</strong><br>Diapositives 3–6 : jeu de l’entrée et menace non crédible ; 7–13 : information, forme étendue, sous-jeux et ENPS ; 14–18 : action, stratégie et résultat ; 21–24 : réduction progressive de l’arbre ; 36–39 : ensembles d’information.</p><p><strong>S5, « Jeux simultanés ».</strong><br>Information complète et distinction des décisions simultanées (diapositive 10). Le concept de Nash fournit le point de départ, que la perfection en sous-jeux précise.</p><p><strong>S8, « B3. Jeux répétés ».</strong><br>Répétition d’un jeu entre périodes, stratégies conditionnelles à l’histoire et crédibilité des punitions (diapositives 3–9). Deux procès successifs ne suffisent pas à faire de notre modèle un jeu répété.</p></div><p class="small ui">Explications adaptées des PDF fournis. Les gains des Pentagon Papers et les coups de la Nature constituent notre application pédagogique ; ils ne sont pas des estimations issues du cours.</p><p class="course-ref"><a href="https://strategies-economiques.vercel.app/strategies/theorie/jeux-sequentiels" target="_blank" rel="noopener">Retrouver la page du cours sur les jeux séquentiels ↗</a></p></div>
       <div class="src">
         <a href="https://nixonlibrary.gov/news/50th-anniversary-release-pentagon-papers" target="_blank" rel="noopener">Richard Nixon Presidential Library : 50e anniversaire de la publication des Pentagon Papers</a>
         <a href="https://firstamendment.mtsu.edu/?p=6448" target="_blank" rel="noopener">Free Speech Center (MTSU) : New York Times Co. v. United States (1971)</a>
@@ -927,98 +1017,123 @@ const PLAYERS = [
 $('#players').innerHTML = PLAYERS.map(([l, c, sh, n, a, obj, risk]) => `<div class="card"><div class="player">${sh === 'disc' ? `<div class="disc" style="background:var(${c})">${l}</div>` : `<div class="diam" style="background:var(${c})"></div>`}<h3>${n}</h3></div><div class="k"><b>Action :</b> ${a}</div><div class="k"><b>Objectif :</b> ${obj}</div>${risk !== '—' ? `<div class="k"><b>Risque :</b> ${risk}</div>` : ''}</div>`).join('');
 
 // ====================== ARBRE (SVG) ======================
-const Y0 = 270, NX = [70, 255, 440, 625, 810, 995];
-const LEAF = { O1: [162, 462], O2: [347, 462], O3: [532, 462], O4: [717, 462], O5: [902, 462], O6: [1112, 112], O7: [1112, 400] };
-const GROUP = { O1: 1, O2: 2, O3: 3, O4: 4, O5: 5, O6: 6, O7: 6 };
 const TITLE = { O1: ['Pas de', 'publication'], O2: ['Publication', 'sans procès'], O3: ['Le Times gagne :', 'tout sort'], O4: ['Times censuré,', 'le Post se tait'], O5: ['Le Post publie', 'sans procès'], O6: ['Victoire des', 'journaux'], O7: ['Censure', '+ sanctions'] };
 const SYM = { O1: ['0', '0', '0'], O2: ['B_T', '0', '−D'], O3: ['B_T − c_T', '0', '−D − k_T'], O4: ['θB_T − c_T', '0', '−θD − k_T'], O5: ['θB_T − c_T', 'B_W', '−D − k_T'], O6: ['B_T − c_T', 'B_W − c_W', '−D − k_T − k_W'], O7: ['θB_T − c_T − S_T', '−c_W − S_W', '−θD − k_T − k_W'] };
-const NODES = [['NYT', '--nyt', 'New York Times'], ['G', '--gov', 'Gouvernement'], ['N', '--nat', 'Juge local'], ['WP', '--wp', 'Washington Post'], ['G', '--gov', 'Gouvernement'], ['N', '--nat', 'Cour suprême']];
-const EDGES = [
-  ['e1p', 0, [NX[1], Y0], 'Publier', 1], ['e1n', 0, LEAF.O1, 'Ne pas publier', 1, 'O1'],
-  ['e2s', 1, [NX[2], Y0], 'Poursuivre', 2], ['e2n', 1, LEAF.O2, 'Laisser faire', 2, 'O2'],
-  ['e3c', 2, [NX[3], Y0], 'censure (1−q)', 3], ['e3f', 2, LEAF.O3, 'favorable (q)', 3, 'O3'],
-  ['e4p', 3, [NX[4], Y0], 'Publier', 4], ['e4n', 3, LEAF.O4, 'Se taire', 4, 'O4'],
-  ['e5s', 4, [NX[5], Y0], 'Poursuivre', 5], ['e5n', 4, LEAF.O5, 'Laisser faire', 5, 'O5'],
-  ['e6f', 5, LEAF.O6, 'favorable (p)', 6, 'O6'], ['e6d', 5, LEAF.O7, 'défavorable (1−p)', 6, 'O7'],
-];
 // opt : {mode:'sym'|'num', eq:bool, step:0..9, probs:bool, hist:bool}
-function drawTree(svg, P, opt) {
-  const M = solve(P), o = Object.assign({ mode: 'num', eq: false, step: 99, probs: false, hist: false }, opt);
-  const ink = 'var(--ink)', muted = 'var(--muted)';
-  const C = { 1: '--nyt', 2: '--gov', 3: '--nat', 4: '--wp', 5: '--gov', 6: '--nat' };
-  // étapes : quelles décisions sont résolues ?
-  const STEPNODE = { 1: 6, 2: 5, 3: 4, 4: 3, 5: 2, 6: 1 }; // étape -> nœud traité
-  const solved = n => o.eq || (o.step >= 1 && o.step <= 9 && 7 - n <= o.step); // nœud n (1..6) résolu à l'étape k si 7-n <= k
-  const focusG = (o.step >= 1 && o.step <= 6) ? STEPNODE[o.step] : null;
-  const dim = g => (focusG === null ? 1 : (g === focusG ? 1 : 0.28));
-  const choose = { e2n: M.g1Sue, e2s: !M.g1Sue, e1n: M.tPub, e1p: !M.tPub, e4n: M.wPub, e4p: !M.wPub, e5n: M.g2Sue, e5s: !M.g2Sue };
-  const chosen = { e1p: M.tPub, e1n: !M.tPub, e2s: M.g1Sue, e2n: !M.g1Sue, e4p: M.wPub, e4n: !M.wPub, e5s: M.g2Sue, e5n: !M.g2Sue };
-  const nodeOfEdge = { e1p: 1, e1n: 1, e2s: 2, e2n: 2, e4p: 4, e4n: 4, e5s: 5, e5n: 5 };
-  let s = '';
-  // chemin historique
-  if (o.hist) s += `<polyline points="${NX[0]},${Y0} ${NX[5]},${Y0} ${LEAF.O6[0]},${LEAF.O6[1]}" fill="none" stroke="var(--stamp)" stroke-opacity=".3" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>`;
-  // arêtes
-  for (const [id, from, to, lbl, g, leaf] of EDGES) {
-    const x0 = NX[from], y0 = Y0, [x1, y1] = to;
-    const decided = nodeOfEdge[id] && solved(nodeOfEdge[id]);
-    const rejected = decided && choose[id];
-    const isChosen = decided && chosen[id];
-    const sw = isChosen ? 5.5 : 2.5, dash = rejected ? 'stroke-dasharray="7 8"' : '';
-    const col = rejected ? 'var(--rule)' : ink;
-    s += `<g opacity="${dim(g)}"><line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="${col}" stroke-width="${sw}" class="${isChosen ? 'eq-edge' : ''}" stroke-linecap="round" ${dash}/>`;
-    let lx, ly, an;
-    if (y1 === Y0) { lx = (x0 + x1) / 2; ly = Y0 - 12; an = 'middle'; }
-    else { lx = (x0 + x1) / 2 - 12; ly = (y0 + y1) / 2 + 12; an = 'end'; }
-    if (id === 'e6f') { lx = 1040; ly = 238; an = 'start'; }
-    if (id === 'e6d') { lx = 1040; ly = 300; an = 'start'; }
-    s += `<text x="${lx}" y="${ly}" text-anchor="${an}" font-family="DM Sans, sans-serif" font-weight="600" font-size="16" fill="var(--ink2)">${lbl}</text>`;
-    if (rejected) { const cx = x0 + (x1 - x0) * 0.4, cy = y0 + (y1 - y0) * 0.4; s += `<text x="${cx}" y="${cy + 10}" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="30" fill="var(--stamp)">✕</text>`; }
-    if (leaf) s += `<circle cx="${x1}" cy="${y1}" r="5" fill="${ink}"/>`;
-    s += '</g>';
+/* Forme étendue : lecture descendante, actions colorées, gains sous les feuilles.
+   La structure et les valeurs restent celles du modèle Pentagon Papers. */
+function drawTree(svg, P, opt = {}) {
+  const M = solve(P);
+  const o = { mode:'num', eq:false, step:99, probs:false, hist:false, scope:'full', reduce:false, ...opt };
+  const focus = o.step >= 1 && o.step <= 6 ? 6 - o.step : null;
+  const first = o.scope === 'focus' && focus !== null ? focus : o.scope === 'post' ? 3 : 0;
+  const construction = Number.isInteger(o.constructStage) ? Math.max(1,Math.min(6,o.constructStage)) : 6;
+  const last = Math.max(first,Math.min(5, construction - 1, o.reduce && focus !== null ? focus : 5));
+  const count = last - first + 1;
+  const rootX = 240 + count * 120;
+  const width = rootX + 300;
+  const height = 110 + count * 220 + 175;
+  const position = index => [rootX - (index-first)*120,110 + (index-first)*220];
+  const colours = ['--nyt','--gov','--nat','--wp','--gov','--nat'];
+  const names = ['New York Times','Gouvernement','Juge local · Nature','Washington Post','Gouvernement','Cour suprême · Nature'];
+  const nodeValues = [M.root,M.g1v,M.judge,M.wv,M.g2v,M.sc];
+  const decision = {0:M.tPub,1:M.g1Sue,3:M.wPub,4:M.g2Sue};
+  const outcomeAt = ['O1','O2','O3','O4','O5'];
+  const continuationLabels = ['Publier','Poursuivre','Censure','Publier','Poursuivre'];
+  const exitLabels = ['Ne pas publier','Laisser faire','Favorable au Times','Se taire','Laisser faire'];
+  const solved = index => o.eq || (o.step >= 1 && o.step <= 8 && 6-index <= o.step);
+  const path = o.pathLeaf || (o.hist ? 'O6' : null);
+  const pathEnd = path ? Math.min(5,Number(path.slice(1))-1) : -1;
+  const activeGain = o.scope==='focus' && o.reduce ? ({0:0,1:2,3:1,4:2}[focus] ?? null) : null;
+  const shownProbs = o.scope==='post' ? {O4:!M.wPub?1:0,O5:M.wPub&&!M.g2Sue?1:0,O6:M.wPub&&M.g2Sue?P.p:0,O7:M.wPub&&M.g2Sue?1-P.p:0} : M.probs;
+  const E = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const text = (x,y,content,klass='',anchor='middle',colour='--ink') => `<text x="${x}" y="${y}" text-anchor="${anchor}" class="${klass}" fill="var(${colour})">${E(content)}</text>`;
+  const vector = (x,y,values,symbolic=false) => ['NYT','WP','Gouv.'].map((label,k)=>{
+    const colour=['--nyt','--wp','--gov'][k];
+    const v=symbolic ? E(values[k]).replace(/([A-Za-zθ])_([A-Z])/g,'$1<tspan baseline-shift="sub" font-size="75%">$2</tspan>') : E(fr(values[k],2));
+    const highlight=k===activeGain?`<rect x="${x-104}" y="${y+k*22-15}" width="208" height="21" rx="3" fill="var(${colour})" fill-opacity=".12" stroke="var(${colour})" stroke-width=".6"/>`:'';
+    return highlight+text(x-96,y+k*22,label,'dt-pay-label','start',colour)+`<text x="${x+96}" y="${y+k*22}" text-anchor="end" class="dt-pay-value${symbolic?' dt-symbol':''}" fill="var(${colour})">${v}</text>`;
+  }).join('');
+  let markup = `<title>Arbre du jeu${first===3?' : sous-jeu du Washington Post':''}</title><desc>Lire de haut en bas. Les branches indiquent les actions. Sous chaque issue, les gains sont dans l’ordre New York Times, Washington Post, gouvernement. Les losanges représentent le hasard judiciaire.</desc>`;
+  markup += text(24,27,o.scope==='focus' && focus!==null?'SOUS-JEU ÉTUDIÉ · NŒUD x'+focus:first===3?'SOUS-JEU DU POST · APRÈS LA CENSURE DU TIMES':'FORME ÉTENDUE · DÉROULEMENT DU JEU ↓','dt-orientation','start','--muted');
+  if (o.reduce && focus !== null) markup += text(24,49,'Les suites déjà résolues sont remplacées par leurs gains.','dt-caption','start','--muted');
+
+  function terminal(id,x,y,onPath) {
+    const outline = onPath ? '--stamp' : '--rule';
+    let s=`<g class="dt-terminal" data-outcome="${id}"><circle cx="${x}" cy="${y}" r="5" fill="var(--ink)"/><rect x="${x-113}" y="${y+15}" width="226" height="135" rx="6" fill="var(--surface)" stroke="var(${outline})" stroke-width="${onPath?2.5:1}"/>`;
+    s+=text(x-96,y+36,id,'dt-outcome-id','start','--muted');
+    if(o.probs && shownProbs[id]>1e-9) s+=text(x+96,y+36,pct(shownProbs[id]),'dt-outcome-prob','end','--stamp');
+    s+=text(x,y+55,TITLE[id].join(' '),'dt-outcome-title');
+    s+=vector(x,y+82,o.mode==='sym'?SYM[id]:M.O[id],o.mode==='sym');
+    return s+'</g>';
   }
-  // nœuds
-  NODES.forEach(([w, c, name], i) => {
-    const x = NX[i];
-    s += `<g opacity="${dim(i + 1)}">`;
-    if (w === 'N') s += `<rect x="${x - 22}" y="${Y0 - 22}" width="44" height="44" rx="6" fill="var(${c})" transform="rotate(45 ${x} ${Y0})"/><text x="${x}" y="${Y0 + 6}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="700" font-size="17" fill="var(--on-player)">N</text>`;
-    else s += `<circle cx="${x}" cy="${Y0}" r="27" fill="var(${c})"/><text x="${x}" y="${Y0 + 6}" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="${w.length > 2 ? 15 : 18}" fill="var(--on-player)">${w}</text>`;
-    s += `<text x="${x}" y="${Y0 - 42}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14.5" font-weight="500" fill="var(--ink2)">${name}</text></g>`;
-  });
-  // badges de valeur
-  const vals = [M.root, M.g1v, M.judge, M.wv, M.g2v, M.sc];
-  vals.forEach((v, i) => {
-    if (!solved(i + 1)) return;
-    const x = NX[i], y = Y0 - 140;
-    s += `<g opacity="${focusG === null || focusG === i + 1 || focusG === i ? 1 : 0.35}"><rect x="${x - 44}" y="${y}" width="88" height="70" rx="6" fill="var(--ink)"/>`;
-    [[v[0], '--nyt', 1], [v[1], '--wp', 2], [v[2], '--gov', 1]].forEach(([val, c, d], j) => {
-      s += `<circle cx="${x - 30}" cy="${y + 15 + j * 20}" r="5" fill="var(${c})"/><text x="${x + 36}" y="${y + 20 + j * 20}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="14.5" fill="var(--bg)">${fr(val, d)}</text>`;
-    });
-    s += '</g>';
-  });
-  // boîtes de gains
-  for (const oid of Object.keys(LEAF)) {
-    const [lx, ly] = LEAF[oid]; let bx, by;
-    if (oid === 'O6' || oid === 'O7') { bx = lx + 8; by = ly - 62; } else { bx = lx - 85; by = ly + 16; }
-    const g = GROUP[oid], w = 170, h = 128;
-    s += `<g opacity="${dim(g)}"><rect x="${bx}" y="${by}" width="${w}" height="${h}" rx="5" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.5"/>`;
-    s += `<text x="${bx + 10}" y="${by + 19}" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--muted)">${oid}</text>`;
-    if (o.probs && M.probs[oid] > 1e-9) s += `<text x="${bx + w - 10}" y="${by + 19}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-weight="700" font-size="13" fill="${['O1', 'O4', 'O7'].includes(oid) ? 'var(--stamp)' : 'var(--ok)'}">${pct(M.probs[oid])}</text>`;
-    TITLE[oid].forEach((t, j) => { s += `<text x="${bx + 10}" y="${by + 37 + j * 16}" font-family="DM Sans, sans-serif" font-weight="600" font-size="13.5" fill="var(--ink2)">${t}</text>`; });
-    const vals2 = o.mode === 'sym' ? SYM[oid] : M.O[oid].map(x => fr(x));
-    ['--nyt', '--wp', '--gov'].forEach((c, j) => {
-      const yy = by + 82 + j * 18;
-      s += `<circle cx="${bx + 15}" cy="${yy - 5}" r="4.5" fill="var(${c})"/>`;
-      if (o.mode === 'sym') s += `<text x="${bx + 26}" y="${yy}" font-family="IBM Plex Serif, serif" font-style="italic" font-size="14.5" fill="var(--ink)">${sub(vals2[j])}</text>`;
-      else s += `<text x="${bx + w - 10}" y="${yy}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="15" fill="var(${c})">${vals2[j]}</text>`;
-    });
-    s += '</g>';
+  function replacement(index,x,y) {
+    const isComputed = construction===6 && o.reduce && focus!==null;
+    let s=`<g class="dt-replacement" data-replaced-node="x${index}"><circle cx="${x}" cy="${y}" r="5" fill="var(--ink)"/><rect x="${x-113}" y="${y+15}" width="226" height="${isComputed?135:83}" rx="6" fill="var(--surface2)" stroke="var(--nat)" stroke-dasharray="4 3"/>`;
+    s+=text(x,y+38,isComputed?'SOUS-JEU RÉSOLU':'LA SUITE DU JEU','dt-outcome-id','middle','--nat');
+    s+=text(x,y+58,names[index].replace(' · Nature',''),'dt-outcome-title');
+    s+=isComputed?vector(x,y+84,nodeValues[index]):text(x,y+81,'À développer à l’étape suivante','dt-caption','middle','--muted');
+    return s+'</g>';
   }
-  svg.innerHTML = s;
+  function edge(index,side,x1,y1,label,prob,onPath) {
+    const [x0,y0]=position(index);
+    const nature=index===2||index===5;
+    const selected=!nature && solved(index) && (side==='left' ? decision[index] : !decision[index]);
+    const rejected=!nature && solved(index) && !selected;
+    const colour=rejected?'--muted':colours[index];
+    const pathClass=onPath?' dt-history':'';
+    let s=`<g class="dt-branch${rejected?' dt-rejected':''}${pathClass}" data-from="x${index}" data-side="${side}">`;
+    if(onPath) s+=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="var(--hl)" stroke-width="12" opacity=".5" stroke-linecap="round"/>`;
+    s+=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="var(${colour})" stroke-width="${selected?4.5:2.2}" ${rejected?'stroke-dasharray="5 5"':''} stroke-linecap="round" class="${selected?'dt-selected-edge':''}"/>`;
+    const lx=side==='left'?(x0+x1)/2-14:x1,ly=side==='left'?(y0+y1)/2-4:y1-44,anchor=side==='left'?'end':'middle';
+    s+=text(lx,ly,label,'dt-action',anchor,colour);
+    if(prob) s+=text(lx,ly+22,prob,'dt-probability',anchor,'--nat');
+    if(rejected) s+=text(lx,ly+21,'× choix écarté','dt-caption',anchor,'--muted');
+    return s+'</g>';
+  }
+
+  /* Edges and leaves first; node markers stay above the connecting strokes. */
+  for(let index=first;index<=last;index++) {
+    const [x,y]=position(index),nextY=y+220;
+    if(index===5) {
+      const leftX=x-155,rightX=x+155;
+      markup+=edge(index,'left',leftX,nextY,'Journaux gagnants',`p = ${pct(P.p)}`,path==='O6');
+      markup+=edge(index,'right',rightX,nextY,'Gouvernement gagnant',`1 − p = ${pct(1-P.p)}`,path==='O7');
+      markup+=terminal('O6',leftX,nextY,path==='O6')+terminal('O7',rightX,nextY,path==='O7');
+    } else {
+      const [nextX]=position(index+1),exitX=x+155;
+      const leftPath=!!path && index<pathEnd,rightPath=!!path && index===pathEnd;
+      markup+=edge(index,'left',nextX,nextY,continuationLabels[index],index===2?`1 − q = ${pct(1-P.q)}`:null,leftPath);
+      markup+=edge(index,'right',exitX,nextY,exitLabels[index],index===2?`q = ${pct(P.q)}`:null,rightPath);
+      markup+=terminal(outcomeAt[index],exitX,nextY,rightPath);
+      if(index===last)markup+=replacement(index+1,nextX,nextY);
+    }
+  }
+  for(let index=first;index<=last;index++) {
+    const [x,y]=position(index),colour=colours[index],nature=index===2||index===5;
+    markup+=`<g class="dt-node${focus===index?' dt-focus':''}" data-node="x${index}">`;
+    if(focus===index)markup+=`<circle cx="${x}" cy="${y}" r="27" fill="var(${colour})" opacity=".12"/><circle cx="${x}" cy="${y}" r="27" fill="none" stroke="var(${colour})" stroke-width="1"/>`;
+    markup+=nature?`<rect x="${x-10}" y="${y-10}" width="20" height="20" rx="1" transform="rotate(45 ${x} ${y})" fill="var(${colour})"/>`:`<circle cx="${x}" cy="${y}" r="11" fill="var(${colour})"/>`;
+    markup+=text(x,y-30,names[index],'dt-actor','middle',colour);
+    markup+=text(x+21,y+6,'x'+index,'dt-node-id','start','--muted');
+    if(solved(index) && !(o.reduce && focus!==null)) {
+      markup+=`<g class="dt-node-value"><rect x="${x-334}" y="${y-44}" width="214" height="102" rx="5" fill="var(--surface2)" stroke="var(--rule)"/>`;
+      markup+=text(x-227,y-23,nature?'GAIN ESPÉRÉ':'VALEUR DU SOUS-JEU','dt-caption','middle','--muted');
+      markup+=vector(x-227,y-2,nodeValues[index])+'</g>';
+    }
+    markup+='</g>';
+  }
+  svg.classList.add('course-tree');
+  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
+  svg.style.setProperty('--tree-min-width',`${Math.min(width,first===3?780:1000)}px`);
+  svg.dataset.treeWidth=width;
+  svg.dataset.treeScope=o.scope;
+  svg.innerHTML=markup;
   return M;
 }
 
 // arbre principal
-let mainMode = 'sym';
+let mainMode = 'num';
 function renderMain() { drawTree($('#tree-main'), BASE, { mode: mainMode }); $('#t-sym').setAttribute('aria-pressed', mainMode === 'sym'); $('#t-num').setAttribute('aria-pressed', mainMode === 'num'); }
 $('#t-sym').onclick = () => { mainMode = 'sym'; renderMain(); };
 $('#t-num').onclick = () => { mainMode = 'num'; renderMain(); };
@@ -1061,6 +1176,7 @@ $('#whytable').innerHTML = `<thead><tr><th>Valeur</th><th>Joueur</th><th>Justifi
 
 // ====================== PAS À PAS ======================
 const M0 = solve(BASE);
+let reduceTree = true;
 const STEPS = [
   ['Le principe', `<p>On part de la <b>fin</b> du jeu. À un nœud de la Nature, on remplace la loterie par son <b>gain espéré</b>. À un nœud de décision, on garde le <b>meilleur choix</b> du joueur qui décide et on reporte sa valeur. Puis on remonte, jusqu'au Times.</p>`],
   ['Étape 1 · Cour suprême (Nature)', `<div class="eq">0,65 × (90 ; 105 ; −230) + 0,35 × (−30 ; −165 ; −90) = <b>(48 ; 10,5 ; −181)</b></div><p class="ui" style="font-size:15px">Gains espérés (NYT ; WP ; Gouv.) si l'affaire va jusqu'à la Cour suprême.</p>`],
@@ -1076,7 +1192,7 @@ let step = 0;
 function renderStep() {
   $('#st-card').innerHTML = `<div class="ttl">${STEPS[step][0]}</div>${STEPS[step][1]}`;
   $('#st-dots').innerHTML = STEPS.map((s, i) => `<button type="button" aria-label="${esc(s[0])}" ${i === step ? 'aria-current="step"' : ''} data-i="${i}">${i === 0 ? '·' : i <= 6 ? i : i === 7 ? 'É' : '71'}</button>`).join('');
-  drawTree($('#tree-step'), BASE, { mode: 'num', step, probs: step >= 8, hist: step >= 8 });
+  drawTree($('#tree-step'), BASE, { mode: 'num', step, probs: step >= 8, hist: step >= 8, reduce: reduceTree, scope: reduceTree && step >= 1 && step <= 6 ? 'focus' : 'full' });
   $('#st-prev').disabled = step === 0; $('#st-next').disabled = step === STEPS.length - 1;
 }
 $('#st-dots').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { step = +b.dataset.i; renderStep(); } });
@@ -1395,6 +1511,84 @@ window.initPresentation = function initPresentation() {
   showScene(0);
 };
 </script>
+<script>/* A guided reading of the extensive form, following S6 slides 8–18. */
+const TREE_GUIDE_STEPS = [
+  ['x₀ · La première décision', 'Le Times joue en premier. Dessinez un nœud, écrivez son nom et tracez deux branches : publier ou ne pas publier. Ne pas publier termine immédiatement le jeu en O1, avec trois gains nuls. Publier mène à une nouvelle décision, pas encore à un gain final.'],
+  ['x₁ · La réaction du gouvernement', 'Après la publication du Times, le gouvernement observe cette action. Il poursuit ou laisse faire. Laisser faire termine le jeu en O2. Poursuivre mène au juge local. Les deux nœuds du gouvernement seront distincts : on ne fusionne pas ses décisions.'],
+  ['x₂ · Ajouter l’incertitude judiciaire', 'Le juge local est représenté par la Nature : il ne choisit pas un gain à maximiser. Une décision favorable au Times, de probabilité q, mène à O3. La censure, de probabilité 1 − q, ouvre la décision du Post. Les probabilités de ces deux branches s’additionnent à 1.'],
+  ['x₃ · La décision du Post', 'Le Post décide seulement après la censure du Times. Se taire mène à O4 ; publier ouvre une nouvelle réaction du gouvernement. Tout ce qui suit x₃ constitue le sous-jeu du Post : il faut inclure ses deux branches et toutes leurs suites.'],
+  ['x₄ · La seconde décision du gouvernement', 'Le gouvernement choisit à nouveau entre poursuivre et laisser faire, cette fois face au Post. Laisser faire mène à O5. Poursuivre mène à la Cour suprême. Sa stratégie doit préciser ses actions en x₁ ET en x₄, même si l’un de ces nœuds n’est jamais atteint.'],
+  ['x₅ · Fermer l’arbre par ses deux dernières issues', 'À la Cour suprême, la Nature donne raison aux journaux avec la probabilité p (O6) ou au gouvernement avec 1 − p (O7). L’arbre est complet : six nœuds non terminaux et sept feuilles. Les gains de chaque feuille décrivent toute l’histoire qui y mène.'],
+];
+const TREE_PATHS = {
+ O1:['Le Times ne publie pas.','Aucune publication.'],
+ O2:['Le Times publie → le gouvernement laisse faire.','Aucun procès.'],
+ O3:['Le Times publie → le gouvernement poursuit → le juge local donne raison au Times.','Un procès ; publication complète.'],
+ O4:['Le Times publie → le gouvernement poursuit → censure locale → le Post se tait.','Un procès ; publication partielle seulement.'],
+ O5:['Le Times publie → le gouvernement poursuit → censure locale → le Post publie → le gouvernement laisse faire.','Un procès ; le Post diffuse les documents.'],
+ O6:['Le Times publie → le gouvernement poursuit → censure locale → le Post publie → nouvelle poursuite → victoire des journaux à la Cour suprême.','Deux procès ; publication complète.'],
+ O7:['Le Times publie → le gouvernement poursuit → censure locale → le Post publie → nouvelle poursuite → défaite des journaux à la Cour suprême.','Deux procès ; censure et sanctions.'],
+};
+let treeView = 'build', buildStage = 1, treePath = '';
+function frameTreeRoot(svg) {
+ requestAnimationFrame(()=>{
+  const wrap=svg.closest('.tree-wrap');
+  if(!wrap || !wrap.clientWidth)return;
+  const marker=svg.querySelector('.dt-node circle, .dt-node rect');
+  if(!marker)return;
+  const x=marker.tagName.toLowerCase()==='circle'?Number(marker.getAttribute('cx')):Number(marker.getAttribute('x'))+Number(marker.getAttribute('width'))/2;
+  wrap.scrollLeft=Math.max(0,x*svg.getBoundingClientRect().width/svg.viewBox.baseVal.width-wrap.clientWidth/2);
+ });
+}
+renderMain = function renderGuidedTree() {
+  drawTree($('#tree-main'), BASE, {mode:mainMode,scope:treeView==='post'?'post':'full',constructStage:treeView==='build'?buildStage:undefined,pathLeaf:treeView==='full'?treePath:undefined});
+  $('#t-sym').setAttribute('aria-pressed',String(mainMode==='sym'));
+  $('#t-num').setAttribute('aria-pressed',String(mainMode==='num'));
+  document.querySelectorAll('[data-tree-view]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.treeView===treeView)));
+  $('#tree-build-controls').hidden=treeView!=='build';$('#tree-path-control').hidden=treeView!=='full';
+  $('#build-count').textContent=buildStage+' / 6';$('#build-prev').disabled=buildStage===1;$('#build-next').disabled=buildStage===6;
+  let title,copy;
+  if(treeView==='build') [title,copy]=TREE_GUIDE_STEPS[buildStage-1];
+  else if(treeView==='post') {title='Un sous-jeu contient toutes les suites possibles.';copy='On part de x₃, où le Post décide après la censure du Times, puis on conserve les deux actions du Post et tous les nœuds qui suivent. Un seul chemin vers O6 ne serait pas un sous-jeu. Les coûts déjà engagés restent inclus dans les gains totaux affichés.';}
+  else if(treePath) {title=treePath+' · '+TREE_PATHS[treePath][1];copy=TREE_PATHS[treePath][0]+' On lit ici une histoire possible : la mettre en évidence ne signifie pas que c’est un équilibre.';}
+  else {title='Sept feuilles, sept histoires possibles.';copy='Partez du Times et descendez jusqu’à une feuille. Chaque feuille reçoit trois gains, dans l’ordre NYT / Post / gouvernement. Dans le cours, cet ordre est celui des joueurs : il ne change pas selon la personne qui vient de jouer.';}
+  $('#tree-guide-copy').innerHTML='<h3>'+title+'</h3><p>'+copy+'</p>';
+  frameTreeRoot($('#tree-main'));
+};
+document.querySelectorAll('[data-tree-view]').forEach(button=>button.addEventListener('click',()=>{treeView=button.dataset.treeView;renderMain();}));
+$('#build-prev').addEventListener('click',()=>{buildStage=Math.max(1,buildStage-1);renderMain();});
+$('#build-next').addEventListener('click',()=>{buildStage=Math.min(6,buildStage+1);renderMain();});
+$('#tree-path').addEventListener('change',e=>{treePath=e.target.value;renderMain();});
+$('#reduction-toggle').addEventListener('click',()=>{reduceTree=!reduceTree;renderStep();});
+const baseRenderStep=renderStep;
+renderStep=function renderCourseStep(){
+ baseRenderStep();
+ $('#reduction-toggle').setAttribute('aria-pressed',String(reduceTree));
+ $('#reduction-toggle').textContent=reduceTree?'Voir l’arbre entier':'Isoler le calcul courant';
+ $('#reduction-caption').textContent=step>=1&&step<=6&&reduceTree
+ ? 'Sous-jeu courant : les suites déjà résolues sont remplacées par leurs profils de gains. La composante du joueur qui décide est encadrée. On remonte ensuite d’un nœud.'
+ : step>=7?'Les décisions forment un plan complet. La Nature conserve ses deux branches possibles : un ENPS ne fixe pas le verdict des juges.'
+ : 'Construire : du nœud initial vers les feuilles. Résoudre : des derniers sous-jeux vers le nœud initial.';
+ frameTreeRoot($('#tree-step'));
+};
+renderMain();renderStep();
+document.addEventListener('papers:chapter',event=>document.querySelectorAll('#'+event.detail.id+' .course-tree').forEach(frameTreeRoot));
+let treeBeforePrint;
+window.addEventListener('beforeprint',()=>{treeBeforePrint={treeView,treePath,reduceTree};treeView='full';treePath='';reduceTree=false;renderMain();renderStep();});
+window.addEventListener('afterprint',()=>{if(treeBeforePrint){({treeView,treePath,reduceTree}=treeBeforePrint);renderMain();renderStep();}});
+
+// Short, answerable checkpoints before applying the method to all six nodes.
+document.querySelectorAll('[data-checkpoint]').forEach(box=>{
+ box.addEventListener('click',event=>{
+  const button=event.target.closest('[data-answer]');if(!button)return;
+  const correct=button.dataset.answer===box.dataset.correct;
+  const response=box.querySelector('.checkpoint-feedback');
+  response.textContent=correct?box.dataset.explanation:'Reprenez la règle : à un nœud de décision, on compare uniquement les gains du joueur qui décide, en gardant le même ordre des composantes.';
+  response.hidden=false;
+  box.querySelectorAll('[data-answer]').forEach(b=>{b.classList.toggle('checkpoint-correct',correct&&b===button);b.setAttribute('aria-pressed',String(b===button));});
+ });
+});
+</script>
 <script>/* Navigation, reading comfort and presentation enhancements. No dependencies. */
 (() => {
   const qs = (s, root = document) => root.querySelector(s);
@@ -1607,7 +1801,7 @@ window.initPresentation = function initPresentation() {
   dialog.innerHTML='<div class="tree-dialog-head"><div><span class="eyebrow">LE MODÈLE EN GRAND</span><h2 id="tree-dialog-title">L’arbre de décision</h2></div><button type="button" class="icon-btn" aria-label="Fermer l’arbre" id="tree-close">×</button></div><div class="tree-dialog-controls"><button type="button" class="btn sm ghost" id="tree-zoom-out" aria-label="Réduire l’arbre">−</button><span id="tree-zoom">100 %</span><button type="button" class="btn sm ghost" id="tree-zoom-in" aria-label="Agrandir l’arbre">+</button><span class="small ui">Faites défiler pour explorer les branches.</span></div><div class="tree-dialog-body"></div>';
   document.body.append(dialog);
   let zoom=1;
-  function applyZoom(){const svg=qs('.tree-dialog-body svg');if(svg)svg.style.width=`${1290*zoom}px`;qs('#tree-zoom').textContent=Math.round(zoom*100)+' %';qs('#tree-zoom-out').disabled=zoom<=.6;qs('#tree-zoom-in').disabled=zoom>=1.8;}
+  function applyZoom(){const svg=qs('.tree-dialog-body svg');if(svg)svg.style.width=`${Number(svg.dataset.treeWidth || 1290)*zoom}px`;qs('#tree-zoom').textContent=Math.round(zoom*100)+' %';qs('#tree-zoom-out').disabled=zoom<=.6;qs('#tree-zoom-in').disabled=zoom>=1.8;}
   all('.tree-wrap').forEach(wrap=>{
     const figure=wrap.closest('figure');
     const button=document.createElement('button');button.type='button';button.className='tree-expand';button.innerHTML='↗ Agrandir l’arbre';

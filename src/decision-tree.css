@@ -1,0 +1,24 @@
+.tree-wrap svg.course-tree{min-width:var(--tree-min-width,1000px);height:auto;max-height:none;overflow:visible}
+.course-tree text{font-family:var(--f-ui);font-size:16px;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.course-tree .dt-orientation{font:10px var(--f-display);letter-spacing:1.2px}
+.course-tree .dt-caption{font:11px var(--f-ui)}
+.course-tree .dt-actor{font-weight:600;font-size:17px}
+.course-tree .dt-node-id{font-family:var(--f-body);font-style:italic;font-size:16px}
+.course-tree .dt-action{font-size:16px;font-weight:500}
+.course-tree .dt-probability{font:12px var(--f-display)}
+.course-tree .dt-outcome-id{font:10px var(--f-display);letter-spacing:1px;stroke:none}
+.course-tree .dt-outcome-title{font:13px var(--f-ui);font-weight:500;stroke:none}
+.course-tree .dt-outcome-prob{font:11px var(--f-display);stroke:none}
+.course-tree .dt-pay-label{font:11px var(--f-display);stroke:none}
+.course-tree .dt-pay-value{font:13px var(--f-display);stroke:none}
+.course-tree .dt-pay-value.dt-symbol{font:italic 15px var(--f-body)}
+.course-tree .dt-node-value .dt-pay-label{font-size:10px}
+.course-tree .dt-node-value .dt-pay-value{font-size:12px}
+.course-tree .dt-node-value text{stroke:none}
+.course-tree .dt-rejected .dt-action{font-size:14px}
+.course-tree .dt-selected-edge{stroke-dasharray:12 2;animation:dt-flow 5s linear infinite}
+.course-tree .dt-terminal,.course-tree .dt-replacement{animation:dt-reveal .25s ease both}
+@keyframes dt-flow{to{stroke-dashoffset:-70}}
+@keyframes dt-reveal{from{opacity:.5}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.course-tree .dt-selected-edge,.course-tree .dt-terminal,.course-tree .dt-replacement{animation:none!important}.course-tree .dt-selected-edge{stroke-dasharray:none}}
+@media print{.tree-wrap svg.course-tree{min-width:0}.course-tree .dt-selected-edge{animation:none;stroke-dasharray:none}}

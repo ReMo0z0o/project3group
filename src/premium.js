@@ -210,7 +210,7 @@
   dialog.innerHTML='<div class="tree-dialog-head"><div><span class="eyebrow">LE MODÈLE EN GRAND</span><h2 id="tree-dialog-title">L’arbre de décision</h2></div><button type="button" class="icon-btn" aria-label="Fermer l’arbre" id="tree-close">×</button></div><div class="tree-dialog-controls"><button type="button" class="btn sm ghost" id="tree-zoom-out" aria-label="Réduire l’arbre">−</button><span id="tree-zoom">100 %</span><button type="button" class="btn sm ghost" id="tree-zoom-in" aria-label="Agrandir l’arbre">+</button><span class="small ui">Faites défiler pour explorer les branches.</span></div><div class="tree-dialog-body"></div>';
   document.body.append(dialog);
   let zoom=1;
-  function applyZoom(){const svg=qs('.tree-dialog-body svg');if(svg)svg.style.width=`${1290*zoom}px`;qs('#tree-zoom').textContent=Math.round(zoom*100)+' %';qs('#tree-zoom-out').disabled=zoom<=.6;qs('#tree-zoom-in').disabled=zoom>=1.8;}
+  function applyZoom(){const svg=qs('.tree-dialog-body svg');if(svg)svg.style.width=`${Number(svg.dataset.treeWidth || 1290)*zoom}px`;qs('#tree-zoom').textContent=Math.round(zoom*100)+' %';qs('#tree-zoom-out').disabled=zoom<=.6;qs('#tree-zoom-in').disabled=zoom>=1.8;}
   all('.tree-wrap').forEach(wrap=>{
     const figure=wrap.closest('figure');
     const button=document.createElement('button');button.type='button';button.className='tree-expand';button.innerHTML='↗ Agrandir l’arbre';

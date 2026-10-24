@@ -1,0 +1,18 @@
+<div class="prose"><p class="lead">On lit l’histoire de haut en bas.<br>On la résout de bas en haut.</p><p>Comme dans le cours, chaque embranchement représente une décision. Commencez par construire l’arbre, puis suivez une issue. Les gains sont affichés en valeurs ; les symboles restent disponibles.</p></div>
+<div class="tree-key" aria-label="Conventions de lecture de l’arbre">
+  <div><span class="tree-key-dot" aria-hidden="true"></span><strong>Un nœud : qui joue ?</strong><p>Le nom du joueur et le repère x₀, x₁… identifient chaque décision. La Nature représente les jugements incertains.</p></div>
+  <div><span class="tree-key-fork" aria-hidden="true">⑂</span><strong>Une branche : quelle action ?</strong><p>Suivez une seule action à chaque décision. Aux nœuds de la Nature, les deux branches portent des probabilités.</p></div>
+  <div><span class="tree-key-tuple" aria-hidden="true">1 / 2 / 3</span><strong>Une feuille : quels gains ?</strong><p>Toujours dans le même ordre : <b>NYT, Post, gouvernement</b>. Chaque joueur compare son propre gain.</p></div>
+</div>
+<div class="tree-workshop">
+  <div class="tree-view-tabs" role="group" aria-label="Mode de lecture de l’arbre">
+    <button type="button" data-tree-view="build" aria-pressed="true">01 · Construire l’arbre</button>
+    <button type="button" data-tree-view="full" aria-pressed="false">02 · Lire les 7 issues</button>
+    <button type="button" data-tree-view="post" aria-pressed="false">03 · Isoler un sous-jeu</button>
+  </div>
+  <div class="tree-guide-panel">
+    <div class="tree-build-controls" id="tree-build-controls"><button class="btn sm ghost" type="button" id="build-prev" aria-label="Étape de construction précédente">←</button><span class="mono" id="build-count">1 / 6</span><button class="btn sm" type="button" id="build-next" aria-label="Étape de construction suivante">Ajouter la suite →</button></div>
+    <div id="tree-guide-copy" aria-live="polite"></div>
+    <label class="tree-path-control" id="tree-path-control" hidden>Suivre une issue <select id="tree-path"><option value="">Toutes les branches</option><option value="O1">O1 · Aucune publication</option><option value="O2">O2 · Publication sans procès</option><option value="O3">O3 · Le juge local donne raison au Times</option><option value="O4">O4 · Le Post se tait</option><option value="O5">O5 · Le Post publie sans procès</option><option value="O6">O6 · Victoire à la Cour suprême</option><option value="O7">O7 · Censure et sanctions</option></select></label>
+  </div>
+</div>

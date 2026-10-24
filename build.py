@@ -25,6 +25,14 @@ sections = sections.replace("Si le Post publierait :", "Si le Post publie sous u
 sections = sections.replace("Si le Post se tairait :", "Si le Post se tait :")
 sections = sections.replace("si le gouvernement le poursuivrait ; sinon il publie toujours.", "si le gouvernement le poursuit ; sans poursuite, il publie (gain non négatif).")
 sections = sections.replace("Le Times renonce si c<sub>T</sub> = 40 et q = 10 %", "Le Times renonce si c<sub>T</sub> = 40, q = 10 % et p = 50 %")
+sections = sections.replace('<div class="grid2" id="concepts"></div>', (SRC / 'course-notes.html').read_text() + '<details class="course-definitions"><summary>Retrouver les huit définitions essentielles</summary><div class="grid2" id="concepts"></div></details>')
+sections = sections.replace('<h2>L\'arbre du jeu et ses 7 issues</h2></div>', '<h2>Construire et lire l’arbre du jeu</h2></div>' + (SRC / 'tree-guide.html').read_text())
+sections = sections.replace('Gains notés (NYT ; WP ; Gouv.). Cercles : joueurs. Losanges : la Nature (les juges). Faites défiler horizontalement sur téléphone.', 'Forme étendue adaptée des conventions du cours S6, diapositives 8–9 et 14. Gains empilés : NYT, Post, gouvernement. Losanges : ajout de la Nature pour représenter les jugements incertains. Faites défiler horizontalement si nécessaire.')
+sections = sections.replace('Traits épais : choix d\'équilibre. ✕ : choix écartés. Encadrés noirs : gains espérés à chaque nœud. Pourcentages : probabilité d\'atteindre l\'issue.', 'Traits épais : actions retenues à l’équilibre. Pointillés et × : actions écartées. Cartouches : gains de continuation ou espérances aux nœuds de la Nature. Pourcentages : probabilités d’atteindre les issues depuis le début du jeu. La Nature conserve ses deux branches.')
+sections = sections.replace('<div class="stepper">', (SRC / 'course-resolution.html').read_text() + '<div class="stepper">')
+sections = sections.replace('<figure><div class="tree-wrap"><svg id="tree-step"', '<div class="reduction-tools"><p class="small ui" id="reduction-caption"></p><button type="button" class="btn sm ghost" id="reduction-toggle" aria-pressed="true">Voir l’arbre entier</button></div><figure><div class="tree-wrap"><svg id="tree-step"')
+sections = re.sub(r'<div class="note">Avec ces valeurs, <strong>le Times publie toujours</strong>[\s\S]*?</div>', '<div class="note"><strong>Pourquoi le Times publie-t-il pour tous les couples (q, p) de cette carte ?</strong> Si le Post se tait, le Times conserve 30 − 10 = 20. Si le Post publie et sera poursuivi, il faut p ≥ 165/270 ; le Times anticipe alors au moins 120 × (165/270) − 30 ≈ 43,3 après la censure locale. Les autres continuations lui donnent aussi un gain positif. L’issue O7 reste pourtant négative (−30) : c’est l’<em>espérance</em> anticipée, pas chaque issue isolée, qui justifie de publier. Ces conclusions concernent les gains de référence.</div>', sections)
+sections = sections.replace('<h2>Sources</h2></div>', '<h2>Sources</h2></div><div class="course-note"><h3>Le cours utilisé pour cette édition</h3><div class="theory-source-list"><p><strong>Benoit Decerf · ECGEB366 · S6, « B2. Jeux séquentiels ».</strong><br>Diapositives 3–6 : jeu de l’entrée et menace non crédible ; 7–13 : information, forme étendue, sous-jeux et ENPS ; 14–18 : action, stratégie et résultat ; 21–24 : réduction progressive de l’arbre ; 36–39 : ensembles d’information.</p><p><strong>S5, « Jeux simultanés ».</strong><br>Information complète et distinction des décisions simultanées (diapositive 10). Le concept de Nash fournit le point de départ, que la perfection en sous-jeux précise.</p><p><strong>S8, « B3. Jeux répétés ».</strong><br>Répétition d’un jeu entre périodes, stratégies conditionnelles à l’histoire et crédibilité des punitions (diapositives 3–9). Deux procès successifs ne suffisent pas à faire de notre modèle un jeu répété.</p></div><p class="small ui">Explications adaptées des PDF fournis. Les gains des Pentagon Papers et les coups de la Nature constituent notre application pédagogique ; ils ne sont pas des estimations issues du cours.</p><p class="course-ref"><a href="https://strategies-economiques.vercel.app/strategies/theorie/jeux-sequentiels" target="_blank" rel="noopener">Retrouver la page du cours sur les jeux séquentiels ↗</a></p></div>')
 
 script = re.search(r'<script>([\s\S]*?)</script>', original).group(1)
 script = re.sub(r'// ====================== VIDÉO[\s\S]*?(?=// ====================== FRISE)', '', script)
@@ -71,6 +79,15 @@ script = script.replace('stroke-width="${sw}" stroke-linecap="round"', 'stroke-w
 # Cache the raster so probability sliders and keyboard movement remain smooth.
 script = script.replace('  const grid = [];', "  const mapKey = JSON.stringify([Object.entries(P).filter(([k]) => k !== 'q' && k !== 'p'), ['--reg-none','--reg-nosuit','--reg-nyt','--reg-both','--ok','--ink','--ink2'].map(css), document.fonts?.status]);\n  if (cv._mapKey === mapKey && cv._mapRaster) { g.putImageData(cv._mapRaster,0,0); } else {\n  const grid = [];")
 script = script.replace('  if (marker) {', '  cv._mapRaster = g.getImageData(0,0,W,W); cv._mapKey = mapKey;\n  }\n  if (marker) {')
+# Replace the original horizontal chart with the course's downward extensive form.
+tree_start = script.index('function drawTree(')
+tree_end = script.index('// arbre principal', tree_start)
+script = script[:tree_start] + (SRC / 'decision-tree.js').read_text() + '\n' + script[tree_end:]
+script = re.sub(r'^const (?:Y0|LEAF|GROUP|NODES) = [^\n]*\n', '', script, flags=re.M)
+script = re.sub(r'const EDGES = \[[\s\S]*?\n\];\n', '', script)
+script = script.replace("let mainMode = 'sym';", "let mainMode = 'num';")
+script = script.replace('const STEPS = [', 'let reduceTree = true;\nconst STEPS = [')
+script = script.replace("mode: 'num', step, probs: step >= 8, hist: step >= 8", "mode: 'num', step, probs: step >= 8, hist: step >= 8, reduce: reduceTree, scope: reduceTree && step >= 1 && step <= 6 ? 'focus' : 'full'")
 # Keep map tooltip inside mobile containers.
 script = script.replace("Math.min(x + 14, box.clientWidth - 250)", "Math.max(0, Math.min(x + 14, box.clientWidth - 225))")
 # A new input cancels the pending frame so rapid slider movements do not queue work.
@@ -83,10 +100,11 @@ for filename, family, weight, style in [('newsreader','Newsreader','400 600','no
     data = base64.b64encode((ROOT / 'assets' / (filename + '.woff')).read_bytes()).decode()
     fonts.append(f"@font-face{{font-family:'{family}';font-style:{style};font-weight:{weight};font-display:swap;src:url(data:font/woff;base64,{data}) format('woff')}}")
 fonts.append("@font-face{font-family:'IBM Plex Sans';src:local('DM Sans');font-weight:400 700}")
-styles = (SRC / 'premium.css').read_text() + '\n' + (SRC / 'extras.css').read_text()
+styles = '\n'.join((SRC / name).read_text() for name in ['premium.css','extras.css','course-ui.css','decision-tree.css'])
 early_theme = "try{document.documentElement.dataset.theme=localStorage.getItem('pp-theme')==='dark'?'dark':'light'}catch{document.documentElement.dataset.theme='light'}"
 page = '<!doctype html>\n<html lang="fr" data-theme="light"><head>\n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#f4f1e9"><meta name="description" content="Pentagon Papers : un dossier interactif sur la presse, le pouvoir et la théorie des jeux. Explorez le jeu séquentiel, ses équilibres et un laboratoire de scénarios."><title>Pentagon Papers — Une affaire de décisions</title>\n<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2732%27 fill=%27%23912f2c%27/%3E%3Ctext x=%2715%27 y=%2748%27 font-family=%27Georgia%27 font-size=%2750%27 fill=%27%23f4f1e9%27%3EP%3C/text%3E%3C/svg%3E">\n<script>' + early_theme + '</script>\n<style>' + ''.join(fonts) + '</style>\n' + original_style + '\n<style>' + styles + '</style>\n</head><body>\n' + shell + '\n<script>\n' + script + '\n</script>\n<script>' + (SRC / 'presentation.js').read_text() + '</script>\n<script>' + (SRC / 'premium.js').read_text() + '</script>\n</body></html>\n'
 # SVG trees use the same embedded sans font as the rest of the UI.
+page = page.replace('<script>' + (SRC / 'premium.js').read_text(), '<script>' + (SRC / 'course-ui.js').read_text() + '</script>\n<script>' + (SRC / 'premium.js').read_text())
 page = page.replace('font-family="IBM Plex Sans, sans-serif"', 'font-family="DM Sans, sans-serif"')
 (ROOT / 'index.html').write_text(page)
 print(f'Built index.html: {len(page.encode()):,} bytes; all fonts, art and scripts embedded.')
