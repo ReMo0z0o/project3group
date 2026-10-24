@@ -1,0 +1,102 @@
+<style>
+.story-player{--story-cream:#f2eee5;--story-ink:#292a26;--story-red:#8d2e2b;--story-muted:#797669;background:var(--story-cream);border:1px solid #d6cebe;border-radius:4px;overflow:hidden;color:var(--story-ink);font-family:'DM Sans',system-ui,sans-serif;isolation:isolate}.story-player *{box-sizing:border-box}.story-topline{padding:20px 26px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font:10px 'IBM Plex Mono',monospace;letter-spacing:1.6px;text-transform:uppercase;color:var(--story-muted)}.story-live-dot{width:6px;height:6px;display:inline-block;border-radius:50%;background:var(--story-red);margin-right:8px}.story-player.story-playing .story-live-dot{animation:story-pulse 2s ease-in-out infinite}.story-visual{position:relative;padding:0 18px}.story-svg{display:block;width:100%;height:auto;max-height:430px;overflow:visible}.story-svg{font-family:'IBM Plex Mono',monospace}.story-scene{opacity:0;visibility:hidden;transition:opacity .75s ease,visibility .75s}.story-scene.story-current{opacity:1;visibility:visible}.story-scene.story-current .story-rise{animation:story-rise .9s cubic-bezier(.2,.7,.2,1) both}.story-scene.story-current .story-ink{animation:story-ink 1.4s ease both}.story-playing .story-current .story-drift{animation:story-drift 6s ease-in-out infinite alternate}.story-playing .story-current .story-press{animation:story-press 1.8s ease-in-out infinite}.story-playing .story-current .story-flash{animation:story-flash 2.4s ease-in-out infinite}.story-captions{padding:0 32px 27px;display:grid;grid-template-columns:48px minmax(0,1fr) minmax(180px,.85fr);align-items:start;gap:20px;min-height:100px}.story-number{font:12px 'IBM Plex Mono',monospace;color:var(--story-red);padding-top:9px}.story-heading{font-family:'Newsreader',Georgia,serif;font-size:clamp(25px,3.1vw,37px);font-weight:400;line-height:1.06;margin:0;letter-spacing:-.6px}.story-date{display:block;font:9px 'IBM Plex Mono',monospace;letter-spacing:1.3px;color:var(--story-muted);margin:0 0 9px;text-transform:uppercase}.story-description{font-size:13px;line-height:1.65;color:#68665b;margin:3px 0 0;max-width:45ch}.story-controls{border-top:1px solid #d6cebe;padding:17px 25px;display:flex;gap:20px;align-items:center}.story-controls button{font-family:inherit;cursor:pointer}.story-play{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:10px 14px;border:0;border-radius:2px;background:var(--story-ink);color:var(--story-cream);font-size:11px;font-weight:500;min-width:154px;white-space:nowrap}.story-play:hover{background:var(--story-red)}.story-play svg{width:11px;height:11px;fill:currentColor}.story-progress{display:flex;gap:6px;flex:1;align-items:center}.story-progress button{position:relative;display:block;padding:12px 0;border:0;background:transparent;flex:1;min-width:18px;height:29px}.story-progress button::before,.story-progress button::after{content:'';position:absolute;left:0;right:0;top:13px;height:3px;background:#d3ccbd;transform-origin:left}.story-progress button::after{background:var(--story-red);transform:scaleX(0)}.story-progress button.story-complete::after{transform:scaleX(1)}.story-progress button.story-active::after{transform:scaleX(var(--story-progress,0));min-width:3px}.story-progress button:hover::before{background:#b8ab96}.story-arrows{display:flex;gap:7px}.story-arrow{width:31px;height:31px;display:grid;place-items:center;border:1px solid #c8bfaf;border-radius:50%;background:transparent;color:var(--story-ink);font-size:15px;padding:0}.story-arrow:hover{background:#e4ddce}.story-arrow:disabled{opacity:.25;cursor:default}.story-player button:focus-visible{outline:2px solid var(--story-red);outline-offset:4px}.story-svg .story-fine{stroke:#847f6c;stroke-width:1;fill:none}.story-svg .story-paper{fill:#faf6ec;stroke:#b8ad96;stroke-width:1}.story-a11y{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@keyframes story-rise{from{opacity:0;transform:translateY(17px)}to{opacity:1;transform:translateY(0)}}@keyframes story-ink{from{opacity:0}to{opacity:1}}@keyframes story-drift{from{transform:translateY(0)}to{transform:translateY(-7px)}}@keyframes story-press{0%,100%{transform:translateY(0)}45%,60%{transform:translateY(5px)}}@keyframes story-flash{0%,100%{opacity:.35}50%{opacity:1}}@keyframes story-pulse{0%,100%{opacity:1}50%{opacity:.35}}@media(max-width:620px){.story-topline{padding:18px 18px 0;font-size:8px;letter-spacing:1px}.story-visual{padding:10px 0}.story-captions{padding:0 20px 22px;grid-template-columns:27px minmax(0,1fr);gap:11px;min-height:140px}.story-description{grid-column:2}.story-heading{font-size:29px}.story-number{padding-top:4px}.story-controls{padding:15px;gap:12px;flex-wrap:wrap}.story-play{min-width:148px;flex:1}.story-progress{order:3;flex-basis:100%}.story-arrows{margin-left:auto}.story-svg{min-height:190px}}@media(prefers-reduced-motion:reduce){.story-player *,.story-player *::before,.story-player *::after{animation:none!important;transition:none!important}}
+</style>
+<div class="story-player" id="storyPresentation" aria-label="Récit animé des Pentagon Papers">
+  <div class="story-topline"><span><i class="story-live-dot" aria-hidden="true"></i>Récit animé · 5 séquences</span><span data-story-counter>01 / 05</span></div>
+  <div class="story-visual">
+    <svg class="story-svg" viewBox="0 0 900 435" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="story-svg-title">
+      <title id="story-svg-title">Daniel Ellsberg photocopie les documents secrets</title>
+      <defs>
+        <pattern id="story-dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#9b9582" opacity=".4"/></pattern>
+        <pattern id="story-lines" width="5" height="5" patternUnits="userSpaceOnUse"><path d="M0 5L5 0" stroke="#8e8a78" stroke-width=".5" opacity=".45"/></pattern>
+        <filter id="story-shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="2" dy="9" stdDeviation="9" flood-color="#3d362b" flood-opacity=".14"/></filter>
+        <linearGradient id="story-metal" x1="330" y1="200" x2="480" y2="350" gradientUnits="userSpaceOnUse"><stop stop-color="#797c6b"/><stop offset="1" stop-color="#42483c"/></linearGradient>
+        <symbol id="story-doc" viewBox="0 0 130 170"><rect x="1" y="1" width="128" height="168" rx="1" fill="#faf6eb" stroke="#b9af98"/><text x="13" y="23" fill="#8d2e2b" font-family="monospace" font-size="7" letter-spacing="1">TOP SECRET</text><path d="M13 34h103M13 46h103m-103 7h99m-99 7h103m-103 7h93m-93 7h103m-103 33h103m-103 7h95m-95 7h103m-103 7h88m-88 7h103m-103 7h95m-95 7h103" stroke="#9d9582" stroke-width="1.3"/><path d="M13 87h99m-99 11h83" stroke="#393b32" stroke-width="6"/></symbol>
+        <symbol id="story-column" viewBox="0 0 26 112"><path d="M2 1h22v7H2zM5 8h16v96H5zM2 104h22v7H2z" fill="#d7d0bd" stroke="#686d5c" stroke-width="1"/><path d="M9 13v84m4-84v84m4-84v84" stroke="#959986" stroke-width=".8"/></symbol>
+        <symbol id="story-court" viewBox="0 0 460 245"><path d="M23 236h414M35 226h390M49 216h362M63 206h334" stroke="#6c715f" stroke-width="3"/><path d="M51 65L230 5L409 65Z" fill="#e5dfce" stroke="#666b59" stroke-width="2"/><path d="M73 60L230 17L387 60Z" stroke="#a19e87"/><path d="M56 70h348v15H56zM62 194h336v12H62z" fill="#ded7c5" stroke="#666b59" stroke-width="1.5"/><path d="M65 86h330v106H65z" fill="#7e8470"/><use href="#story-column" x="67" y="83" width="26" height="112"/><use href="#story-column" x="107" y="83" width="26" height="112"/><use href="#story-column" x="147" y="83" width="26" height="112"/><use href="#story-column" x="187" y="83" width="26" height="112"/><use href="#story-column" x="227" y="83" width="26" height="112"/><use href="#story-column" x="267" y="83" width="26" height="112"/><use href="#story-column" x="307" y="83" width="26" height="112"/><use href="#story-column" x="347" y="83" width="26" height="112"/><text x="230" y="54" text-anchor="middle" fill="#6d705d" font-family="monospace" font-size="7" letter-spacing="1.5">EQUAL JUSTICE UNDER LAW</text></symbol>
+        <symbol id="story-newspaper" viewBox="0 0 220 290"><rect x="1" y="1" width="218" height="288" fill="#f8f2e5" stroke="#b7ab93"/><path d="M14 17h192m-192 4h192M14 51h192m-192 15h192" stroke="#575b4c"/><text x="110" y="43" fill="#292e25" font-family="Georgia,serif" font-size="19" font-weight="700" text-anchor="middle">The New York Times</text><text x="110" y="61" fill="#74705d" font-family="monospace" font-size="5.5" letter-spacing="1" text-anchor="middle">SUNDAY, JUNE 13, 1971</text><text x="110" y="92" fill="#292e25" font-family="Georgia,serif" font-size="16" font-weight="700" text-anchor="middle">VIETNAM ARCHIVE:</text><text x="110" y="111" fill="#292e25" font-family="Georgia,serif" font-size="16" font-weight="700" text-anchor="middle">PENTAGON STUDY</text><rect x="14" y="125" width="192" height="63" fill="#cbccba"/><path d="M20 181l25-30 25 8 20-17 20 9 20-12 22 14 24-17 24 45" fill="#929982"/><path d="M14 205h59m-59 6h59m-59 6h56m-56 6h59m-59 6h57m-57 6h59m-59 6h56m-56 6h59m-59 6h57m-57 6h59m-59 6h54m-54 6h59m-59 6h57M82 205h56m-56 6h56m-56 6h56m-56 6h56m-56 6h54m-54 6h56m-56 6h51m-51 6h56m-56 6h56m-56 6h56m-56 6h54m-54 6h56m-56 6h56M148 205h58m-58 6h58m-58 6h56m-56 6h58m-58 6h57m-57 6h58m-58 6h56m-56 6h58m-58 6h57m-57 6h58m-58 6h54m-54 6h58m-58 6h57" stroke="#9c9581" stroke-width="1.5"/></symbol>
+      </defs>
+      <path d="M99 367H804" stroke="#bcb49f" stroke-width="1"/><path d="M115 373H787" stroke="#d6cebd" stroke-width="1"/>
+      <circle cx="450" cy="211" r="150" stroke="#cec5b1" stroke-width=".7"/><circle cx="450" cy="211" r="166" stroke="#d9d1c0" stroke-width=".7" stroke-dasharray="2 7"/>
+      <text x="91" y="335" transform="rotate(-90 91 335)" fill="#928773" font-size="8" letter-spacing="2">WASHINGTON · 1971 · ARCHIVES</text>
+      <!-- 01 : the clandestine Xerox machine -->
+      <g class="story-scene story-current" data-story-scene="0">
+        <g class="story-rise">
+          <path d="M281 214h301l15 127H266Z" fill="url(#story-metal)" stroke="#444b3d" stroke-width="1.5"/><path d="M281 214h301l-32-33H313Z" fill="#b5b8a3" stroke="#4e5645" stroke-width="1.5"/><path d="M312 199h239" stroke="#eef0dc" stroke-width="7"/>
+          <path d="M266 341h331v14H266z" fill="#323b30"/><path d="M284 355v12m293-12v12" stroke="#414c3c" stroke-width="6"/>
+          <path d="M306 225h252v28H306z" fill="#5c6553" stroke="#aab09b"/><path d="M320 239h159" stroke="#313a2e" stroke-width="8"/><circle cx="536" cy="238" r="5" fill="#c5c69e" class="story-flash"/>
+          <path d="M295 271h271v47H295z" fill="#4d5747" stroke="#87917b"/><path d="M311 283h239m-239 7h239m-239 7h239m-239 7h239" stroke="#313d2f" stroke-width="2"/>
+          <text x="432" y="335" fill="#c6ccb7" font-size="7" letter-spacing="3" text-anchor="middle">XEROX 914</text>
+          <g transform="translate(338 112) rotate(-6 70 70)"><use href="#story-doc" width="110" height="143" class="story-press"/></g>
+          <g transform="translate(581 249) rotate(9)"><use href="#story-doc" width="77" height="101"/></g>
+          <path d="M651 352l-92-4m93 9l-94-4m93 9l-94-4" stroke="#c6bca6" stroke-width="3"/>
+          <g transform="translate(227 275) rotate(-9)"><use href="#story-doc" width="67" height="88"/></g>
+        </g>
+        <path class="story-ink" d="M559 151c59-8 94 21 92 62m0 0-6-7m6 7 4-9" stroke="#8d2e2b" stroke-width="1.3"/>
+        <text x="581" y="133" fill="#8d2e2b" font-size="8" letter-spacing="1.5">7 000 PAGES</text>
+        <text x="234" y="103" fill="#847862" font-size="8" letter-spacing="1.3">UNE COPIE. UN RISQUE.</text>
+      </g>
+      <!-- 02 : publication and the machinery of the press -->
+      <g class="story-scene" data-story-scene="1">
+        <g class="story-rise">
+          <path d="M248 329h368v25H248z" fill="#666e5b" stroke="#454e3e"/><path d="M273 236h317v93H273z" fill="#959c85" stroke="#454e3e"/><path d="M295 176h273v59H295z" fill="#58634f" stroke="#454e3e"/><path d="M310 192h242v27H310z" fill="#252f26"/><circle cx="332" cy="205" r="8" fill="#a4ae96"/><circle cx="531" cy="205" r="8" fill="#a4ae96"/>
+          <path d="M288 266h285m-285 13h285m-285 13h285m-285 13h285" stroke="#5c6851" stroke-width="4"/>
+          <circle cx="299" cy="342" r="7" fill="#d7d7c1"/><circle cx="569" cy="342" r="7" fill="#d7d7c1"/>
+          <path d="M255 355v12m350-12v12" stroke="#414c3c" stroke-width="6"/>
+        </g>
+        <g transform="translate(331 66) rotate(6 100 145)" filter="url(#story-shadow)"><use href="#story-newspaper" width="194" height="256" class="story-drift"/></g>
+        <g transform="translate(590 221) rotate(15)" class="story-ink"><use href="#story-newspaper" width="98" height="129"/></g>
+        <path d="M227 150h62m-51 9h49m-34 9h34" stroke="#8d2e2b" stroke-width="1.5"/>
+        <text x="602" y="130" fill="#8d2e2b" font-size="9" letter-spacing="1.4">SOUS PRESSE</text>
+        <path d="M601 138h69" stroke="#8d2e2b"/>
+      </g>
+      <!-- 03 : an injunction presses down on the front page -->
+      <g class="story-scene" data-story-scene="2">
+        <g class="story-ink" transform="translate(212 74)"><use href="#story-court" width="463" height="247" opacity=".37"/></g>
+        <g transform="translate(314 133) rotate(-8 93 116)" filter="url(#story-shadow)"><use href="#story-newspaper" width="177" height="233"/></g>
+        <g transform="translate(430 149) rotate(13 65 85)" filter="url(#story-shadow)">
+          <path d="M0 0h163v206H0z" class="story-paper"/><text x="81" y="29" text-anchor="middle" fill="#474c3f" font-size="9" letter-spacing="1.3">DISTRICT COURT</text><path d="M17 41h129" stroke="#7e816d"/><text x="81" y="64" text-anchor="middle" fill="#8d2e2b" font-family="Georgia,serif" font-size="17">INJUNCTION</text><path d="M19 84h124m-124 8h124m-124 8h113m-113 8h124m-124 8h118m-118 8h124m-124 8h111m-111 8h124m-124 8h118m-118 8h124" stroke="#aaa18c" stroke-width="1.4"/>
+          <path d="M63 176c12-14 16 4 25-7 7-9 7 8 20-3" stroke="#5f6653" stroke-width="1.2"/>
+        </g>
+        <g class="story-ink" transform="rotate(-9 457 254)"><rect x="280" y="223" width="347" height="60" rx="2" stroke="#8d2e2b" stroke-width="3"/><rect x="286" y="229" width="335" height="48" stroke="#8d2e2b" stroke-width=".8"/><text x="453" y="262" text-anchor="middle" fill="#8d2e2b" font-size="27" font-weight="700" letter-spacing="4">PUBLICATION STOP</text></g>
+        <text x="265" y="106" fill="#8d2e2b" font-size="8" letter-spacing="1.4">L’ADMINISTRATION NIXON ATTAQUE</text>
+      </g>
+      <!-- 04 : Graham's decision at The Washington Post -->
+      <g class="story-scene" data-story-scene="3">
+        <g class="story-rise">
+          <path d="M226 303h442v19H226z" fill="#696651" stroke="#5e5b47"/><path d="M246 322v44m401-44v44" stroke="#6b6852" stroke-width="8"/>
+          <path d="M257 276h106l12 26H245Z" fill="#4e5a48" stroke="#313e30"/><path d="M276 281h61" stroke="#a1ac91" stroke-width="2"/><path d="M272 277c-20-25 6-30 19-23l30 8c23 4 26 20 11 25" stroke="#36432f" stroke-width="8" stroke-linecap="round"/>
+          <path d="M581 278v24m-21 0h43" stroke="#4e5843" stroke-width="4"/><path d="M552 276l29-72 28 72Z" fill="#9ba78b" stroke="#56664b"/><path d="M548 276h65" stroke="#4e5843" stroke-width="3"/>
+        </g>
+        <g transform="translate(365 63) rotate(5 105 130)" filter="url(#story-shadow)">
+          <rect x="0" y="0" width="216" height="255" class="story-paper"/><path d="M14 18h188M14 53h188" stroke="#5c604e"/>
+          <text x="108" y="43" text-anchor="middle" fill="#2d3429" font-family="Georgia,serif" font-size="20" font-weight="700">The Washington Post</text>
+          <text x="108" y="67" text-anchor="middle" fill="#79705b" font-size="6" letter-spacing="1.1">FRIDAY, JUNE 18, 1971</text>
+          <text x="108" y="95" text-anchor="middle" fill="#30382c" font-family="Georgia,serif" font-size="19" font-weight="700">DOCUMENTS REVEAL</text><text x="108" y="118" text-anchor="middle" fill="#30382c" font-family="Georgia,serif" font-size="19" font-weight="700">U.S. DECEPTION</text>
+          <path d="M15 140h88m-88 7h88m-88 7h82m-82 7h88m-88 7h85m-85 7h88m-88 7h82m-82 7h88m-88 7h85m-85 7h88m-88 7h82m-82 7h88m-88 7h85m-85 7h88m-88 7h82M115 140h87m-87 7h87m-87 7h82m-82 7h87m-87 7h85m-85 7h87m-87 7h82m-82 7h87m-87 7h85m-85 7h87m-87 7h82m-82 7h87m-87 7h85m-85 7h87m-87 7h82" stroke="#9d947d" stroke-width="1.3"/>
+        </g>
+        <g class="story-ink" transform="rotate(-13 491 226)"><rect x="396" y="198" width="208" height="51" rx="2" fill="#f2eee5" fill-opacity=".9" stroke="#8d2e2b" stroke-width="2.5"/><text x="500" y="231" text-anchor="middle" fill="#8d2e2b" font-size="23" font-weight="700" letter-spacing="2">ON PUBLIE.</text></g>
+        <text x="208" y="148" fill="#8d2e2b" font-size="8" letter-spacing="1.1">KATHARINE GRAHAM</text><path d="M208 157h89l34 66" stroke="#8d2e2b" stroke-width=".9"/>
+      </g>
+      <!-- 05 : the final decision -->
+      <g class="story-scene" data-story-scene="4">
+        <g class="story-rise"><use href="#story-court" x="222" y="102" width="463" height="247"/></g>
+        <text x="450" y="80" fill="#8d2e2b" font-size="8" letter-spacing="2" text-anchor="middle">LE PREMIER AMENDEMENT L’EMPORTE</text>
+        <g class="story-ink" transform="translate(450 345)"><rect x="-174" y="-26" width="348" height="41" fill="#f2eee5" stroke="#c7bda6"/><text x="0" y="1" fill="#8d2e2b" font-size="26" font-weight="600" letter-spacing="5" text-anchor="middle">6 VOIX CONTRE 3</text></g>
+        <g transform="translate(165 241) rotate(-11 45 59)" class="story-ink"><use href="#story-newspaper" width="89" height="117"/></g>
+        <g transform="translate(672 241) rotate(10 45 59)" class="story-ink"><use href="#story-newspaper" width="89" height="117"/></g>
+        <path d="M169 203l12 5m-2-27 9 8m-36 2 12 5m563 8-12 5m2-27-9 8m36 2-12 5" stroke="#8d2e2b" stroke-width="1.3"/>
+      </g>
+    </svg>
+  </div>
+  <div class="story-captions" aria-live="polite" aria-atomic="true">
+    <span class="story-number" data-story-number>01</span>
+    <div><span class="story-date" data-story-date>1969 — 1971 · Le lanceur d’alerte</span><h3 class="story-heading" data-story-heading>La vérité sort de l’ombre.</h3></div>
+    <p class="story-description" data-story-description>Daniel Ellsberg photocopie une étude secrète sur le Vietnam. Des milliers de pages contredisent le récit officiel.</p>
+  </div>
+  <div class="story-controls">
+    <button class="story-play" type="button" data-story-play aria-pressed="false"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg><span>Lancer la séquence</span></button>
+    <div class="story-progress" role="group" aria-label="Choisir une séquence"><button type="button" class="story-active" data-story-goto="0" aria-label="Séquence 1 : Ellsberg photocopie" aria-current="step"></button><button type="button" data-story-goto="1" aria-label="Séquence 2 : le New York Times publie"></button><button type="button" data-story-goto="2" aria-label="Séquence 3 : l’administration Nixon fait censurer"></button><button type="button" data-story-goto="3" aria-label="Séquence 4 : le Washington Post publie"></button><button type="button" data-story-goto="4" aria-label="Séquence 5 : la Cour suprême tranche"></button></div>
+    <div class="story-arrows"><button class="story-arrow" type="button" data-story-prev aria-label="Séquence précédente" disabled>←</button><button class="story-arrow" type="button" data-story-next aria-label="Séquence suivante">→</button></div>
+  </div>
+</div>

@@ -1,0 +1,1018 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Le jeu des Pentagon Papers</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap">
+<style>
+/* Dossier déclassifié : colonne de lecture ≈ 68 caractères, figures larges ; sommaire collant à gauche sur grand écran */
+:root {
+  --bg: #EBEBE4; --surface: #F8F8F3; --surface2: #DFDFD6; --ink: #16171A; --ink2: #3B3E44; --muted: #63666C; --rule: #C6C6BC;
+  --stamp: #B42318; --hl: #F2CF3D; --on-player: #FFFFFF;
+  --nyt: #1F3B63; --wp: #17695B; --gov: #B42318; --nat: #9A6212; --ell: #6D4A8F; --ok: #2C7A4B;
+  --reg-none: #C6C2B8; --reg-nosuit: #CBE2C3; --reg-nyt: #F0C5BD; --reg-both: #F1D69B;
+  --f-display: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  --f-body: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+  --f-ui: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-stamp: 'Special Elite', 'Courier New', monospace;
+  --radius: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121315; --surface: #1B1C1F; --surface2: #26282C; --ink: #ECEAE4; --ink2: #CAC8C1; --muted: #9B9DA2; --rule: #36383D;
+    --stamp: #E8604C; --hl: #B8962C; --on-player: #111214;
+    --nyt: #8DB0EC; --wp: #57C7AE; --gov: #F07A69; --nat: #E3AA52; --ell: #BB9BE0; --ok: #6BCB8F;
+    --reg-none: #3B3934; --reg-nosuit: #213A29; --reg-nyt: #4E2722; --reg-both: #4A3A18;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121315; --surface: #1B1C1F; --surface2: #26282C; --ink: #ECEAE4; --ink2: #CAC8C1; --muted: #9B9DA2; --rule: #36383D;
+  --stamp: #E8604C; --hl: #B8962C; --on-player: #111214;
+  --nyt: #8DB0EC; --wp: #57C7AE; --gov: #F07A69; --nat: #E3AA52; --ell: #BB9BE0; --ok: #6BCB8F;
+  --reg-none: #3B3934; --reg-nosuit: #213A29; --reg-nyt: #4E2722; --reg-both: #4A3A18;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17.5px; line-height: 1.62; margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 48px; }
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--nat); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 600; letter-spacing: -0.5px; }
+h3 { font-size: 20px; font-weight: 600; }
+p { margin: 0; }
+.wrap { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; }
+@media (max-width: 1020px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+.eyebrow { font-family: var(--f-display); font-size: 12.5px; font-weight: 600; letter-spacing: 2.2px; text-transform: uppercase; color: var(--muted); }
+.ui { font-family: var(--f-ui); }
+.mono { font-family: var(--f-display); font-variant-numeric: tabular-nums; }
+.stamp { font-family: var(--f-stamp); color: var(--stamp); border: 3px solid var(--stamp); border-radius: 6px; padding: 3px 12px 0; letter-spacing: 2px; text-transform: uppercase; display: inline-block; transform: rotate(-4deg); }
+.hl { background: linear-gradient(transparent 52%, color-mix(in srgb, var(--hl) 60%, transparent) 52%); padding: 0 2px; }
+.prose { max-width: 68ch; display: grid; gap: 16px; }
+.prose p strong { font-weight: 600; }
+.lead { font-size: 20px; line-height: 1.55; color: var(--ink2); }
+.small { font-size: 15px; color: var(--muted); }
+
+/* sommaire */
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; padding-top: 40px; font-family: var(--f-ui); font-size: 14.5px; }
+nav.toc ol { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 2px; counter-reset: none; }
+nav.toc a { display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 6px 8px; border-radius: var(--radius); text-decoration: none; color: var(--ink2); }
+nav.toc a:hover { background: var(--surface2); }
+nav.toc a.on { background: var(--surface); color: var(--ink); box-shadow: inset 3px 0 0 var(--stamp); }
+nav.toc a span:first-child { font-family: var(--f-display); font-size: 12.5px; color: var(--muted); padding-top: 2px; }
+details.toc-m { display: none; }
+@media (max-width: 1020px) {
+  nav.toc { display: none; }
+  details.toc-m { display: block; margin: 16px 0 0; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); font-family: var(--f-ui); }
+  details.toc-m summary { cursor: pointer; padding: 12px 14px; font-weight: 600; }
+  details.toc-m ol { margin: 0; padding: 0 14px 12px 34px; display: grid; gap: 6px; }
+}
+
+/* en-tête */
+header.hero { padding-top: 48px; display: grid; gap: 22px; }
+.classif { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.classif .strike { font-family: var(--f-display); font-size: 13px; letter-spacing: 3px; color: var(--muted); text-decoration: line-through; text-decoration-color: var(--stamp); text-decoration-thickness: 2px; }
+.hero h1 { font-size: clamp(38px, 7vw, 76px); font-weight: 700; letter-spacing: -1.5px; position: relative; display: inline-block; }
+.hero h1 .w { position: relative; display: inline-block; }
+.hero h1 .w::after { content: ""; position: absolute; left: -4px; right: -4px; top: 14%; bottom: 8%; background: var(--ink); transform-origin: right center; animation: unredact .7s cubic-bezier(.7,0,.2,1) forwards; }
+.hero h1 .w:nth-child(2)::after { animation-delay: .15s; } .hero h1 .w:nth-child(3)::after { animation-delay: .3s; } .hero h1 .w:nth-child(4)::after { animation-delay: .45s; } .hero h1 .w:nth-child(5)::after { animation-delay: .6s; }
+@keyframes unredact { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@media (prefers-reduced-motion: reduce) { .hero h1 .w::after { display: none; } }
+.tldr { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px 24px; display: grid; gap: 14px; max-width: 860px; }
+.tldr ol { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { font-family: var(--f-ui); font-weight: 600; font-size: 15px; padding: 10px 16px; border-radius: var(--radius); border: 1.5px solid var(--ink); background: var(--ink); color: var(--bg); text-decoration: none; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.sm { font-size: 13.5px; padding: 6px 11px; }
+.btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.btn[aria-pressed="false"] { background: transparent; color: var(--ink); }
+
+/* sections */
+section.piece { padding-top: 64px; display: grid; gap: 22px; scroll-margin-top: 16px; }
+.piece-head { display: grid; gap: 10px; border-top: 2px solid var(--ink); padding-top: 14px; }
+.piece-head .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+.vid-chip { font-family: var(--f-ui); font-size: 13px; font-weight: 600; border: 1px solid var(--rule); background: var(--surface); color: var(--ink2); border-radius: 999px; padding: 4px 11px; cursor: pointer; }
+.vid-chip:hover { border-color: var(--ink2); }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 18px; display: grid; gap: 12px; min-width: 0; }
+figcaption { font-family: var(--f-ui); font-size: 14px; color: var(--muted); }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card h3 { font-size: 18px; }
+.card .k { font-family: var(--f-ui); font-size: 14.5px; line-height: 1.5; color: var(--ink2); }
+.tag { font-family: var(--f-ui); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; flex: none; }
+.player { display: flex; gap: 12px; align-items: center; }
+.disc { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: var(--on-player); font-family: var(--f-ui); font-weight: 700; font-size: 15px; flex: none; }
+.diam { width: 36px; height: 36px; transform: rotate(45deg); border-radius: 5px; margin: 5px; flex: none; }
+.note { border-left: 4px solid var(--nat); background: color-mix(in srgb, var(--nat) 9%, var(--surface)); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; font-family: var(--f-ui); font-size: 15.5px; line-height: 1.55; }
+.note.red { border-color: var(--stamp); background: color-mix(in srgb, var(--stamp) 8%, var(--surface)); }
+.note.green { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 9%, var(--surface)); }
+
+/* maths en HTML */
+.m { font-family: var(--f-body); font-style: italic; white-space: nowrap; }
+.m sub { font-size: 70%; font-style: normal; }
+.m .up { font-style: normal; }
+.frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; font-size: .9em; margin: 0 .15em; }
+.frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 .25em; }
+.frac > span:last-child { padding: 0 .25em; }
+.eq { font-size: 19px; padding: 12px 14px; background: var(--surface2); border-radius: var(--radius); overflow-x: auto; line-height: 2; }
+
+/* frise */
+.timeline { display: grid; gap: 0; border-left: 2px solid var(--rule); margin-left: 8px; }
+.tl-item { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 10px 0 14px 18px; position: relative; }
+.tl-item::before { content: ""; position: absolute; left: -8px; top: 17px; width: 14px; height: 14px; border-radius: 50%; background: var(--c, var(--muted)); border: 3px solid var(--bg); }
+.tl-item .d { font-family: var(--f-display); font-size: 14px; font-weight: 600; color: var(--c, var(--ink2)); padding-top: 3px; }
+.tl-item .t { font-family: var(--f-ui); font-size: 15.5px; line-height: 1.55; }
+@media (max-width: 560px) { .tl-item { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+
+/* tableau */
+table.pay { border-collapse: collapse; width: 100%; font-family: var(--f-ui); font-size: 15px; }
+table.pay th { text-align: left; font-family: var(--f-display); font-size: 12.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 2px solid var(--ink2); }
+table.pay td { padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+table.pay td.v { text-align: right; font-family: var(--f-display); font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+table.pay td.v .m { font-weight: 400; }
+
+/* arbre */
+.tree-wrap { overflow-x: auto; }
+.tree-wrap svg { display: block; width: 100%; min-width: 880px; height: auto; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.seg { display: inline-flex; border: 1.5px solid var(--ink); border-radius: var(--radius); overflow: hidden; }
+.seg button { font-family: var(--f-ui); font-size: 13.5px; font-weight: 600; padding: 6px 12px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+/* pas à pas */
+.stepper { display: grid; gap: 14px; }
+.stepnav { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.stepdots { display: flex; gap: 6px; flex-wrap: wrap; }
+.stepdots button { width: 34px; height: 30px; border-radius: var(--radius); border: 1.5px solid var(--rule); background: var(--surface); font-family: var(--f-display); font-size: 13px; cursor: pointer; color: var(--ink2); }
+.stepdots button[aria-current="step"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.stepcard { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--stamp); border-radius: var(--radius); padding: 16px 18px; display: grid; gap: 10px; min-height: 170px; }
+.stepcard .ttl { font-family: var(--f-display); font-weight: 600; font-size: 17px; }
+.cmp { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-family: var(--f-ui); font-size: 15.5px; }
+.cmp .opt { border: 2px solid var(--rule); border-radius: var(--radius); padding: 6px 12px; }
+.cmp .opt.win { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 10%, var(--surface)); }
+.cmp .opt b { font-family: var(--f-display); }
+.verdict { color: var(--ok); font-weight: 700; font-family: var(--f-ui); }
+
+/* carte */
+.mapbox { display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 860px) { .mapbox { grid-template-columns: minmax(0, 1fr); } }
+.map { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 40px; }
+.map canvas { width: 100%; height: auto; aspect-ratio: 1 / 1; display: block; border: 1.5px solid var(--ink2); cursor: crosshair; touch-action: none; max-width: 100%; }
+.map .yl { writing-mode: vertical-rl; transform: rotate(180deg); font-family: var(--f-ui); font-size: 13.5px; text-align: center; color: var(--ink2); }
+.map .xl { grid-column: 2; font-family: var(--f-ui); font-size: 13.5px; text-align: center; color: var(--ink2); padding-top: 8px; }
+.map .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-family: var(--f-ui); font-size: 13px; padding: 7px 10px; border-radius: var(--radius); max-width: 240px; line-height: 1.4; opacity: 0; transition: opacity .12s; z-index: 2; }
+.legend { display: grid; gap: 8px; font-family: var(--f-ui); font-size: 14.5px; }
+.legend .sw { width: 18px; height: 18px; border-radius: 3px; display: inline-block; vertical-align: -3px; margin-right: 8px; border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
+
+/* bandes de régime */
+.strip { display: grid; gap: 6px; }
+.strip .lab { font-family: var(--f-ui); font-size: 14.5px; font-weight: 600; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.strip .bar { position: relative; height: 34px; display: flex; border-radius: var(--radius); overflow: hidden; border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); }
+.strip .bar > div { height: 100%; display: flex; align-items: center; justify-content: center; font-family: var(--f-ui); font-size: 12.5px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; }
+.strip .ticks { position: relative; height: 22px; font-family: var(--f-display); font-size: 12.5px; color: var(--stamp); }
+.strip .ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.strip .mk { position: absolute; top: -6px; bottom: -6px; width: 4px; margin-left: -2px; background: var(--ink); border-radius: 2px; box-shadow: 0 0 0 2px var(--surface); }
+
+/* labo */
+.lab { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 960px) { .lab { grid-template-columns: minmax(0, 1fr); } }
+.sliders { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px; }
+.sgroup { display: grid; gap: 8px; }
+.sgroup > .tag { display: flex; align-items: center; gap: 8px; }
+.sl { display: grid; grid-template-columns: minmax(0, 1fr) 64px; gap: 2px 10px; align-items: center; font-family: var(--f-ui); font-size: 14px; }
+.sl label { color: var(--ink2); }
+.sl output { font-family: var(--f-display); font-size: 14px; text-align: right; font-weight: 600; }
+.sl input { grid-column: 1 / -1; width: 100%; accent-color: var(--stamp); }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.out { display: grid; gap: 14px; min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--f-ui); font-size: 14px; font-weight: 600; border-radius: 999px; padding: 6px 12px; border: 2px solid var(--c, var(--ink)); background: var(--surface); }
+.probbar { display: flex; height: 40px; border-radius: var(--radius); overflow: hidden; border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); }
+.probbar > div { display: flex; align-items: center; justify-content: center; font-family: var(--f-display); font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; min-width: 0; }
+.problab { display: flex; flex-wrap: wrap; gap: 8px 16px; font-family: var(--f-ui); font-size: 13.5px; }
+.explain { font-family: var(--f-ui); font-size: 15px; line-height: 1.6; display: grid; gap: 6px; }
+.explain .ln { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; }
+.explain .ln b.n { font-family: var(--f-display); color: var(--muted); }
+.regime { font-family: var(--f-display); font-weight: 700; font-size: 18px; padding: 10px 14px; border-radius: var(--radius); }
+
+/* vidéo */
+.video { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 18px; align-items: start; }
+@media (max-width: 900px) { .video { grid-template-columns: minmax(0, 1fr); } }
+.video video { width: 100%; aspect-ratio: 16 / 9; background: #0f0e0c; border-radius: var(--radius); display: block; max-width: 100%; }
+.video .ph { aspect-ratio: 16 / 9; border-radius: var(--radius); background: var(--surface2); display: grid; place-items: center; text-align: center; padding: 20px; font-family: var(--f-ui); color: var(--muted); }
+.chap { display: grid; gap: 4px; font-family: var(--f-ui); font-size: 14.5px; }
+.chap button { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 8px; text-align: left; padding: 7px 9px; border-radius: var(--radius); border: 1px solid transparent; background: transparent; color: var(--ink); cursor: pointer; font: inherit; }
+.chap button:hover { background: var(--surface2); }
+.chap button.on { border-color: var(--ink2); background: var(--surface); }
+.chap button span:first-child { font-family: var(--f-display); color: var(--muted); font-size: 13.5px; }
+
+/* cas */
+.case { background: color-mix(in srgb, #C9A970 22%, var(--surface)); border: 1px solid var(--rule); border-radius: var(--radius); padding: 18px; display: grid; gap: 12px; position: relative; }
+.case .stamp { position: absolute; right: 14px; top: 12px; font-size: 14px; }
+
+/* quiz */
+.q { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px 18px; display: grid; gap: 10px; }
+.q .opts { display: grid; gap: 6px; }
+.q .opts button { text-align: left; font-family: var(--f-ui); font-size: 15px; padding: 9px 12px; border-radius: var(--radius); border: 1.5px solid var(--rule); background: var(--bg); color: var(--ink); cursor: pointer; }
+.q .opts button.good { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 14%, var(--surface)); }
+.q .opts button.bad { border-color: var(--stamp); background: color-mix(in srgb, var(--stamp) 12%, var(--surface)); }
+.q .fb { font-family: var(--f-ui); font-size: 14.5px; color: var(--ink2); }
+.score { font-family: var(--f-display); font-weight: 700; }
+
+dl.gloss { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 10px 20px; margin: 0; font-family: var(--f-ui); font-size: 15.5px; }
+dl.gloss dt { font-weight: 700; }
+dl.gloss dd { margin: 0; color: var(--ink2); }
+@media (max-width: 640px) { dl.gloss { grid-template-columns: minmax(0, 1fr); gap: 2px 0; } dl.gloss dd { margin-bottom: 10px; } }
+ul.check { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+ul.check li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; }
+ul.check li::before { content: "✓"; font-family: var(--f-display); font-weight: 700; color: var(--ok); font-size: 20px; line-height: 1.3; }
+.src { font-family: var(--f-ui); font-size: 14.5px; display: grid; gap: 6px; }
+footer { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--f-ui); font-size: 13.5px; color: var(--muted); }
+</style>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Sommaire">
+    <div class="eyebrow">Sommaire du dossier</div>
+    <ol id="toc"></ol>
+  </nav>
+
+  <main>
+    <header class="hero" id="top">
+      <div class="classif"><span class="strike">TOP SECRET</span><span class="stamp" style="font-size:15px">Déclassifié</span><span class="eyebrow">Jeu séquentiel · juin 1971</span></div>
+      <h1><span class="w">Le</span> <span class="w">jeu</span> <span class="w">des</span> <span class="w">Pentagon</span> <span class="w">Papers</span></h1>
+      <p class="lead" style="max-width:62ch">En juin 1971, deux journaux publient une étude secrète sur la guerre du Vietnam et l'administration Nixon les attaque en justice. Ce dossier explique pas à pas pourquoi chacun a agi ainsi, avec un <strong>jeu séquentiel</strong> résolu par <strong>induction à rebours</strong>.</p>
+      <div class="tldr">
+        <div class="eyebrow">La réponse en 30 secondes</div>
+        <ol class="ui" style="font-size:16px;line-height:1.55">
+          <li><strong>Le Times publie</strong> : même censuré, il garde le bénéfice de son scoop.</li>
+          <li><strong>Le gouvernement attaque le Times</strong> parce qu'il est prêt à attaquer aussi le Post. Sans cette deuxième menace, la censure ne servirait à rien.</li>
+          <li><strong>Le Post publie</strong> parce qu'il estime ses chances à la Cour suprême à 65 %, juste au-dessus de son seuil de 61 %.</li>
+          <li>Résultat : un <strong>équilibre de Nash parfait en sous-jeux</strong> avec deux procès. C'est exactement l'histoire de 1971.</li>
+        </ol>
+        <div class="cta"><a class="btn" href="#video">▶ Regarder la vidéo</a><a class="btn ghost" href="#resolution">Voir la résolution</a><a class="btn ghost" href="#labo">Ouvrir le laboratoire</a></div>
+      </div>
+      <details class="toc-m"><summary>Sommaire du dossier</summary><ol id="toc-m"></ol></details>
+    </header>
+
+    <!-- VIDÉO -->
+    <section class="piece" id="video" data-toc="Vidéo">
+      <div class="piece-head"><div class="eyebrow">Support</div><h2>La vidéo, chapitre par chapitre</h2></div>
+      <div class="video">
+        <div id="vidbox"><div class="ph">La vidéo s'affiche ici.</div></div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:8px">Chapitres · 12 min</div>
+          <div class="chap" id="chapters"></div>
+        </div>
+      </div>
+      <p class="small ui">Chaque chapitre correspond à une pièce de ce dossier : cliquez sur ▶ à côté d'un titre pour retrouver le passage dans la vidéo.</p>
+    </section>
+
+    <!-- 1. AFFAIRE -->
+    <section class="piece" id="affaire" data-toc="L'affaire" data-ch="1">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 1</div><button class="vid-chip" data-seek="1">▶ Vidéo 0:43</button></div><h2>L'affaire, en dates</h2></div>
+      <div class="prose">
+        <p class="lead">En 1971, les États-Unis sont enlisés au Vietnam. Les discours officiels restent optimistes, mais une étude secrète du Pentagone raconte une autre histoire.</p>
+        <p>En 1967, le secrétaire à la Défense <strong>Robert McNamara</strong> commande une étude sur l'engagement américain au Vietnam depuis 1945 : <strong>47 volumes, environ 7 000 pages</strong>. Elle montre que les présidents, de Truman à Johnson, savaient la guerre pratiquement impossible à gagner, tout en affirmant le contraire en public.</p>
+      </div>
+      <div class="timeline" id="timeline"></div>
+      <div class="grid2">
+        <div class="note"><strong>Pourquoi les documents gênent Nixon ?</strong> L'étude s'arrête en 1967, avant son mandat. Mais si une fuite de cette ampleur passe sans réaction, plus aucun secret de l'État n'est protégé. C'est ce dommage, D dans notre modèle, que le gouvernement veut éviter.</div>
+        <div class="note red"><strong>Ce que risque le Post.</strong> Il est entré en bourse le 15 juin (action à 26 $). Des poursuites pénales pouvaient compromettre l'opération, menacer ses licences de télévision (environ 100 millions de dollars) et exposer ses dirigeants à des amendes, voire à la prison, pour avoir publié après une interdiction visant le Times.</div>
+      </div>
+    </section>
+
+    <!-- 2. QUESTION -->
+    <section class="piece" id="question" data-toc="La question" data-ch="2">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 2</div><button class="vid-chip" data-seek="2">▶ Vidéo 2:29</button></div><h2>Ce que l'exercice demande</h2></div>
+      <div class="prose">
+        <p>L'énoncé demande de modéliser la décision du <strong>Washington Post</strong> (et du <strong>New York Times</strong>) de publier les documents, par un <strong>jeu séquentiel</strong> qui explique deux choses :</p>
+      </div>
+      <div class="grid2">
+        <div class="card" style="border-top:4px solid var(--wp)"><div class="tag" style="color:var(--wp)">Question 1</div><h3>Pourquoi les journaux publient-ils, malgré les risques ?</h3></div>
+        <div class="card" style="border-top:4px solid var(--gov)"><div class="tag" style="color:var(--gov)">Question 2</div><h3>Pourquoi le gouvernement porte-t-il l'affaire devant les tribunaux ?</h3></div>
+      </div>
+      <div class="prose">
+        <p><strong>Pourquoi un jeu séquentiel ?</strong> Parce que les décisions se prennent <em>à tour de rôle</em> : le Times publie d'abord, le gouvernement réagit, le juge tranche, puis le Post décide en connaissant tout ce qui précède. Chaque joueur peut donc anticiper la réaction de ceux qui jouent après lui. La page <a href="#enonce">Réponses à l'énoncé</a> reprend chaque consigne point par point.</p>
+      </div>
+    </section>
+
+    <!-- 3. RAPPELS -->
+    <section class="piece" id="rappels" data-toc="Rappels de cours">
+      <div class="piece-head"><div class="eyebrow">Pièce 3</div><h2>Les outils de théorie des jeux, en clair</h2></div>
+      <div class="grid2" id="concepts"></div>
+      <figure>
+        <div class="eyebrow">Mini-expérience · menace crédible ou non ?</div>
+        <p class="ui" style="font-size:15.5px">Le Times est censuré, le Post vient de publier. Le gouvernement doit choisir : poursuivre le Post (aller jusqu'à la Cour suprême) ou laisser faire. Faites varier le coût de ce procès.</p>
+        <div class="sl" style="max-width:520px"><label for="thr-k">Coût du procès contre le Post pour le gouvernement, <span class="m">k<sub>W</sub></span></label><output id="thr-kv">20</output><input type="range" id="thr-k" min="0" max="80" step="1" value="20"></div>
+        <div id="thr-out" class="cmp"></div>
+        <p class="small ui" id="thr-msg"></p>
+      </figure>
+    </section>
+
+    <!-- 4. JOUEURS -->
+    <section class="piece" id="joueurs" data-toc="Les joueurs" data-ch="3">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 4</div><button class="vid-chip" data-seek="3">▶ Vidéo 2:49</button></div><h2>Les joueurs et l'ordre du jeu</h2></div>
+      <div class="grid3" id="players"></div>
+      <div class="prose">
+        <p><strong>Pourquoi les juges sont-ils « la Nature » ?</strong> Un juge ne cherche pas à maximiser un gain dans cette histoire : il applique le droit. Pour les trois vrais joueurs, son verdict est simplement <em>incertain</em>. On le représente donc par un tirage au sort avec des probabilités connues de tous : <span class="m">q</span> pour le juge local, <span class="m">p</span> pour la Cour suprême (probabilités de donner raison aux journaux).</p>
+        <p><strong>Et Ellsberg ?</strong> Son objectif est que tout sorte, quoi qu'il lui en coûte. Son choix est donc fixé d'avance : il donne les documents au Times, puis au Post si le Times est censuré. Il déclenche le jeu sans y faire de choix stratégique.</p>
+      </div>
+      <figure>
+        <div class="eyebrow">Ordre des coups</div>
+        <ol class="ui" style="margin:0;padding-left:22px;display:grid;gap:6px;font-size:15.5px">
+          <li><span class="dot" style="background:var(--nyt)"></span> <strong>New York Times</strong> : publier ou non.</li>
+          <li><span class="dot" style="background:var(--gov)"></span> <strong>Gouvernement</strong> : poursuivre le Times ou laisser faire.</li>
+          <li><span class="dot" style="background:var(--nat)"></span> <strong>Nature, juge local</strong> : donne raison au Times (proba <span class="m">q</span>) ou le censure (proba <span class="m">1 − q</span>).</li>
+          <li><span class="dot" style="background:var(--ell)"></span> <strong>Ellsberg</strong> transmet les documents au Post (coup fixé).</li>
+          <li><span class="dot" style="background:var(--wp)"></span> <strong>Washington Post</strong> : publier ou se taire.</li>
+          <li><span class="dot" style="background:var(--gov)"></span> <strong>Gouvernement</strong> : poursuivre le Post ou laisser faire.</li>
+          <li><span class="dot" style="background:var(--nat)"></span> <strong>Nature, Cour suprême</strong> : donne raison aux journaux (proba <span class="m">p</span>) ou au gouvernement (<span class="m">1 − p</span>).</li>
+        </ol>
+      </figure>
+    </section>
+
+    <!-- 5. ARBRE -->
+    <section class="piece" id="arbre" data-toc="L'arbre du jeu" data-ch="3">
+      <div class="piece-head"><div class="eyebrow">Pièce 5</div><h2>L'arbre du jeu et ses 7 issues</h2></div>
+      <figure>
+        <div class="toolbar"><span class="eyebrow">Afficher les gains :</span><div class="seg" role="group" aria-label="Affichage des gains"><button type="button" id="t-sym" aria-pressed="true">en symboles</button><button type="button" id="t-num" aria-pressed="false">en valeurs</button></div></div>
+        <div class="tree-wrap"><svg id="tree-main" viewBox="0 0 1290 660" role="img" aria-label="Arbre du jeu séquentiel"></svg></div>
+        <figcaption>Gains notés (NYT ; WP ; Gouv.). Cercles : joueurs. Losanges : la Nature (les juges). Faites défiler horizontalement sur téléphone.</figcaption>
+      </figure>
+      <div class="grid2">
+        <div class="card"><div class="tag" style="color:var(--muted)">Pas de publication</div><div class="k"><b>O1</b> · le Times ne publie pas : rien ne sort.</div></div>
+        <div class="card"><div class="tag" style="color:var(--ok)">Pas d'action en justice</div><div class="k"><b>O2</b> · le Times publie, le gouvernement laisse faire.</div></div>
+        <div class="card"><div class="tag" style="color:var(--gov)">Procès contre le Times seulement</div><div class="k"><b>O3</b> · le juge local donne raison au Times : tout sort.<br><b>O4</b> · le Times est censuré et le Post se tait.<br><b>O5</b> · le Times est censuré, le Post publie et n'est pas poursuivi.</div></div>
+        <div class="card"><div class="tag" style="color:var(--nat)">Procès contre le Post aussi</div><div class="k"><b>O6</b> · la Cour suprême donne raison aux journaux.<br><b>O7</b> · la Cour suprême donne raison au gouvernement : censure et sanctions.</div></div>
+      </div>
+    </section>
+
+    <!-- 6. GAINS -->
+    <section class="piece" id="gains" data-toc="Les gains" data-ch="4">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 6</div><button class="vid-chip" data-seek="4">▶ Vidéo 4:28</button></div><h2>Des gains cohérents avec les objectifs</h2></div>
+      <div class="prose"><p>Chaque gain se construit avec quelques ingrédients, toujours appliqués de la même façon dans tous les sous-jeux : une publication complète coûte toujours <span class="m">D</span> au gouvernement, un Times censuré garde toujours <span class="m">θB<sub>T</sub></span>, un procès coûte toujours ses frais. C'est ce qui rend les gains <strong>cohérents entre les sous-jeux</strong>.</p></div>
+      <div class="grid3" id="ingredients"></div>
+      <figure>
+        <div class="toolbar"><span class="eyebrow">Tableau des gains :</span><div class="seg" role="group" aria-label="Affichage du tableau"><button type="button" id="p-sym" aria-pressed="true">en symboles</button><button type="button" id="p-num" aria-pressed="false">en valeurs</button></div></div>
+        <div class="scroll-x"><table class="pay" id="paytable"></table></div>
+        <figcaption>Valeurs en points d'utilité, avec les paramètres de 1971 ci-dessous.</figcaption>
+      </figure>
+      <h3>Pourquoi ces valeurs ?</h3>
+      <div class="scroll-x"><table class="pay" id="whytable"></table></div>
+    </section>
+
+    <!-- 7. RÉSOLUTION -->
+    <section class="piece" id="resolution" data-toc="L'induction à rebours" data-ch="5">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 7</div><button class="vid-chip" data-seek="5">▶ Vidéo 5:44</button></div><h2>La résolution, pas à pas</h2></div>
+      <div class="prose"><p>On remonte l'arbre depuis la fin. À chaque nœud de hasard, on calcule un gain <em>espéré</em> ; à chaque nœud de décision, on garde le meilleur choix du joueur qui décide. Utilisez les flèches ou les numéros.</p></div>
+      <div class="stepper">
+        <div class="stepnav"><button class="btn sm ghost" type="button" id="st-prev">← Précédent</button><div class="stepdots" id="st-dots"></div><button class="btn sm" type="button" id="st-next">Suivant →</button></div>
+        <div class="stepcard" id="st-card" aria-live="polite"></div>
+        <figure><div class="tree-wrap"><svg id="tree-step" viewBox="0 0 1290 660" role="img" aria-label="Arbre pendant l'induction à rebours"></svg></div></figure>
+      </div>
+    </section>
+
+    <!-- 8. CARTE -->
+    <section class="piece" id="carte" data-toc="La carte des équilibres" data-ch="6">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 8</div><button class="vid-chip" data-seek="6">▶ Vidéo 8:14</button></div><h2>Pour quelles probabilités publie-t-on, attaque-t-on ?</h2></div>
+      <div class="prose"><p>Chaque point de la carte est un couple (<span class="m">q</span>, <span class="m">p</span>) : les chances du Times devant le juge local et celles des journaux à la Cour suprême. La couleur indique l'équilibre obtenu, les autres paramètres restant ceux de 1971. Survolez ou touchez la carte pour lire le détail.</p></div>
+      <div class="mapbox">
+        <div class="map" id="map1"><div class="yl"><b>p</b> : chances des journaux à la Cour suprême →</div><canvas width="520" height="520" aria-label="Carte des équilibres selon q et p"></canvas><div class="xl"><b>q</b> : chances du Times devant le juge local →</div><div class="tip"></div></div>
+        <div class="legend" id="legend1"></div>
+      </div>
+      <div class="grid3">
+        <div class="card"><div class="tag" style="color:var(--wp)">Le Post publie</div><div class="k"><span class="m">p ≥ <span class="frac"><span>c<sub>W</sub> + S<sub>W</sub></span><span>B<sub>W</sub> + S<sub>W</sub></span></span></span> = <span class="frac"><span>165</span><span>270</span></span> ≈ <b>61 %</b></div><div class="k">si le gouvernement le poursuivrait ; sinon il publie toujours.</div></div>
+        <div class="card"><div class="tag" style="color:var(--gov)">Le gouvernement attaque le Post</div><div class="k"><span class="m">(1 − p)(1 − θ)D &gt; k<sub>W</sub></span> ⟺ <span class="m">p &lt; 1 − <span class="frac"><span>k<sub>W</sub></span><span>(1 − θ)D</span></span></span> ≈ <b>86 %</b></div></div>
+        <div class="card"><div class="tag" style="color:var(--gov)">Le gouvernement attaque le Times</div><div class="k">Si le Post publierait : <span class="m">q &lt; 1 − <span class="frac"><span>k<sub>T</sub></span><span>(1 − p)(1 − θ)D − k<sub>W</sub></span></span></span> (≈ <b>65 %</b> avec <span class="m">p</span> = 0,65)</div><div class="k">Si le Post se tairait : <span class="m">q &lt; 1 − <span class="frac"><span>k<sub>T</sub></span><span>(1 − θ)D</span></span></span> ≈ <b>93 %</b></div></div>
+      </div>
+      <div class="note">Avec ces valeurs, <strong>le Times publie toujours</strong> : même censuré, il garde le scoop (<span class="m">θB<sub>T</sub></span> = 30 &gt; <span class="m">c<sub>T</sub></span> = 10). Il faudrait des frais beaucoup plus lourds pour qu'il renonce : voir la pièce 9.</div>
+    </section>
+
+    <!-- 9. SECRET -->
+    <section class="piece" id="secret" data-toc="Quand le secret est gardé" data-ch="7">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 9</div><button class="vid-chip" data-seek="7">▶ Vidéo 9:17</button></div><h2>Les cas où les documents ne sortent pas</h2></div>
+      <div class="grid2">
+        <div class="case">
+          <span class="stamp">Secret gardé</span>
+          <div class="eyebrow">Cas n°1</div><h3>Le Post prend peur</h3>
+          <p class="ui" style="font-size:15.5px">S'il était poursuivi, le Post gagnerait en moyenne <span class="m">pB<sub>W</sub> − c<sub>W</sub> − (1 − p)S<sub>W</sub></span>.</p>
+          <div class="eq"><span class="m">p</span> = 50 % : 0,5 × 120 − 15 − 0,5 × 150 = <b>−30</b> &lt; 0<br><span class="m">S<sub>W</sub></span> = 250 : 0,65 × 120 − 15 − 0,35 × 250 = <b>−24,5</b> &lt; 0</div>
+          <p class="ui" style="font-size:15.5px"><strong>Il se tait.</strong> Le gouvernement le sait : sa menace est crédible, donc poursuivre le Times devient très rentable (−112 au lieu de −200). Dans 70 % des cas (juge local défavorable), la censure tient et l'essentiel des documents reste secret.</p>
+          <div class="cta"><button class="btn sm ghost" type="button" data-preset="peur">Charger dans le laboratoire</button></div>
+        </div>
+        <div class="case">
+          <span class="stamp">Rien ne sort</span>
+          <div class="eyebrow">Cas n°2</div><h3>Le Times renonce</h3>
+          <p class="ui" style="font-size:15.5px">Frais de procédure énormes (<span class="m">c<sub>T</sub></span> = 40), juge local presque sûrement hostile (<span class="m">q</span> = 10 %) et un Post qui ne prendra pas le relais (<span class="m">p</span> = 50 %).</p>
+          <div class="eq">0,1 × 100 + 0,9 × 30 − 40 = <b>−3</b> &lt; 0</div>
+          <p class="ui" style="font-size:15.5px">10 % du temps il gagne tout (100) ; 90 % du temps il est censuré et ne garde que la part déjà publiée (30) ; dans tous les cas il paie 40 de frais. <strong>Il ne publie pas</strong> : issue O1, personne ne saura rien.</p>
+          <div class="cta"><button class="btn sm ghost" type="button" data-preset="renonce">Charger dans le laboratoire</button></div>
+        </div>
+      </div>
+      <div class="note red"><strong>Même en 1971, rien n'était joué d'avance.</strong> Avec nos valeurs, avant le premier article, il y avait 30 % de chances que le juge local donne raison au Times, 45,5 % que la Cour suprême tranche pour les journaux, et <strong>24,5 %</strong> (près d'une chance sur quatre) que tout finisse par la censure et des sanctions.</div>
+    </section>
+
+    <!-- 10. COÛTS -->
+    <section class="piece" id="couts" data-toc="Le rôle des coûts" data-ch="8">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 10</div><button class="vid-chip" data-seek="8">▶ Vidéo 10:13</button></div><h2>Le rôle des coûts des procès</h2></div>
+      <div class="prose">
+        <p class="lead">Résultat surprenant : <strong>c'est le coût du deuxième procès qui décide si le premier a lieu.</strong></p>
+        <p>Poursuivre le Times n'a de valeur que comme première étape d'une censure qui tient jusqu'au bout. Si le gouvernement sait qu'il n'ira pas jusqu'à la Cour suprême contre le Post, censurer le Times ne sert à rien : le Post publierait sans risque. Chaque bande ci-dessous montre l'équilibre obtenu quand on fait varier un seul coût, les autres valeurs restant celles de 1971. Le trait noir marque la valeur de 1971.</p>
+      </div>
+      <figure id="strips1" style="gap:22px"></figure>
+      <div class="grid2">
+        <div class="note green"><strong>Procès chers pour le pouvoir ⇒ presse plus libre.</strong> Au-delà de 49 pour <span class="m">k<sub>W</sub></span>, le gouvernement ne poursuivrait même plus le Post : la menace devient <em>non crédible</em> et l'ENPS l'élimine. Entre 34,7 et 49, il poursuivrait le Post, mais le gain net de ce 2<sup>e</sup> procès (49 − <span class="m">k<sub>W</sub></span>) ne justifie plus le 1<sup>er</sup>.</div>
+        <div class="note red"><strong>Procès chers pour les journaux ⇒ autocensure.</strong> Si les frais du Post dépassent 25,5 ou sa sanction 180, il se tait et la censure du Times devient efficace. Le Times, lui, ne renoncerait qu'au-delà de 70,6 de frais.</div>
+      </div>
+    </section>
+
+    <!-- LABO -->
+    <section class="piece" id="labo" data-toc="Le laboratoire">
+      <div class="piece-head"><div class="eyebrow">Pièce 11</div><h2>Le laboratoire : testez vos valeurs</h2></div>
+      <div class="prose"><p>Modifiez les paramètres : l'arbre, l'équilibre, les probabilités des issues et l'explication se mettent à jour. Cliquez sur la carte pour choisir <span class="m">q</span> et <span class="m">p</span>.</p></div>
+      <div class="presets" id="presets"></div>
+      <div class="lab">
+        <div class="sliders" id="sliders"></div>
+        <div class="out">
+          <div class="regime" id="lab-regime"></div>
+          <div><div class="eyebrow" style="margin-bottom:6px">Stratégies d'équilibre (ENPS)</div><div class="chips" id="lab-strat"></div></div>
+          <div><div class="eyebrow" style="margin-bottom:6px">Probabilité de chaque issue</div><div class="probbar" id="lab-prob"></div><div class="problab" id="lab-problab" style="margin-top:8px"></div></div>
+          <div class="explain" id="lab-explain"></div>
+        </div>
+      </div>
+      <figure><div class="tree-wrap"><svg id="tree-lab" viewBox="0 0 1290 660" role="img" aria-label="Arbre avec l'équilibre pour vos valeurs"></svg></div><figcaption>Traits épais : choix d'équilibre. ✕ : choix écartés. Encadrés noirs : gains espérés à chaque nœud. Pourcentages : probabilité d'atteindre l'issue.</figcaption></figure>
+      <div class="mapbox">
+        <div class="map" id="map2"><div class="yl"><b>p</b> : Cour suprême →</div><canvas width="520" height="520" aria-label="Carte des équilibres pour vos valeurs"></canvas><div class="xl"><b>q</b> : juge local →</div><div class="tip"></div></div>
+        <div class="legend" id="legend2"></div>
+      </div>
+      <figure id="strips2" style="gap:22px"></figure>
+    </section>
+
+    <!-- ÉNONCÉ -->
+    <section class="piece" id="enonce" data-toc="Réponses à l'énoncé">
+      <div class="piece-head"><div class="eyebrow">Pièce 12</div><h2>Réponses à l'énoncé, point par point</h2></div>
+      <ul class="check ui" style="font-size:16px;line-height:1.6" id="answers"></ul>
+    </section>
+
+    <!-- LIMITES -->
+    <section class="piece" id="limites" data-toc="Limites du modèle" data-ch="9">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 13</div><button class="vid-chip" data-seek="9">▶ Vidéo 11:13</button></div><h2>Limites et pistes</h2></div>
+      <div class="grid2">
+        <div class="card"><h3>Des croyances communes</h3><div class="k">Tous les joueurs partagent les mêmes <span class="m">q</span> et <span class="m">p</span>. Si le Post était plus optimiste que le gouvernement sur la Cour suprême, les deux conditions (Post : <span class="m">p</span> ≥ 61 % ; gouvernement : <span class="m">p</span> &lt; 86 %) pourraient être remplies plus facilement.</div></div>
+        <div class="card"><h3>Des juges réduits au hasard</h3><div class="k">En réalité, le juge Gurfein a d'abord suspendu la publication (15 juin), puis refusé l'interdiction définitive (19 juin), et la cour d'appel a maintenu la suspension. Notre modèle résume ces étapes en un seul tirage.</div></div>
+        <div class="card"><h3>D'autres journaux</h3><div class="k">Ellsberg a aussi transmis les documents à d'autres titres, dont le Boston Globe. Chaque nouveau journal rend la censure plus coûteuse : une extension naturelle ajoute des « Post » successifs.</div></div>
+        <div class="card"><h3>Des gains hypothétiques</h3><div class="k">Les valeurs (100, 150, 200…) sont des hypothèses de modélisation. Ce qui compte, ce sont les conditions générales : le laboratoire montre quelles conclusions résistent quand on les change.</div></div>
+      </div>
+      <div class="note"><strong>Ce qu'il faut retenir.</strong> La liberté de la presse dépend aussi du prix que le pouvoir est prêt à payer pour la faire taire : quand les procès lui coûtent cher, sa menace perd sa crédibilité.</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="piece" id="quiz" data-toc="Testez-vous">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 14</div><span class="score" id="score"></span></div><h2>Testez-vous</h2></div>
+      <div class="grid2" id="quizbox"></div>
+    </section>
+
+    <!-- LEXIQUE -->
+    <section class="piece" id="lexique" data-toc="Lexique">
+      <div class="piece-head"><div class="eyebrow">Annexe</div><h2>Lexique</h2></div>
+      <dl class="gloss" id="gloss"></dl>
+    </section>
+
+    <section class="piece" id="sources" data-toc="Sources">
+      <div class="piece-head"><div class="eyebrow">Annexe</div><h2>Sources</h2></div>
+      <div class="src">
+        <a href="https://nixonlibrary.gov/news/50th-anniversary-release-pentagon-papers" target="_blank" rel="noopener">Richard Nixon Presidential Library : 50e anniversaire de la publication des Pentagon Papers</a>
+        <a href="https://firstamendment.mtsu.edu/?p=6448" target="_blank" rel="noopener">Free Speech Center (MTSU) : New York Times Co. v. United States (1971)</a>
+        <a href="https://firstamendment.mtsu.edu/?p=3909" target="_blank" rel="noopener">Free Speech Center (MTSU) : le juge Murray Gurfein</a>
+        <a href="https://www.law.cornell.edu/supct/cases/403us713.htm" target="_blank" rel="noopener">Cornell LII : arrêt 403 U.S. 713 (1971)</a>
+        <a href="https://www.biography.com/movies-tv/true-story-behind-the-post-movie-washington-post-pentagon-papers" target="_blank" rel="noopener">Biography : l'histoire vraie derrière le film The Post</a>
+        <a href="https://theweekendinvestor.substack.com/p/becoming-berkshire-1973-part-2-katharine" target="_blank" rel="noopener">The Weekend Investor : Katharine Graham et l'entrée en bourse du Post</a>
+        <a href="https://en.wikipedia.org/wiki/Daniel_Ellsberg" target="_blank" rel="noopener">Wikipedia : Daniel Ellsberg</a>
+      </div>
+      <p class="small ui">Film : <em>Pentagon Papers</em> (<em>The Post</em>), Steven Spielberg, 2017, avec Meryl Streep (Katharine Graham) et Tom Hanks (Ben Bradlee).</p>
+    </section>
+
+    <footer>Dossier réalisé pour le travail « Pentagon Papers » (groupe 5-6). Modèle : jeu séquentiel à information parfaite avec coups de la Nature, résolu par induction à rebours. Les gains sont des hypothèses de modélisation.</footer>
+  </main>
+</div>
+
+<script>
+'use strict';
+// ====================== MODÈLE ======================
+const BASE = { q: 0.30, p: 0.65, B_T: 100, c_T: 10, S_T: 50, th: 0.30, B_W: 120, c_W: 15, S_W: 150, D: 200, k_T: 10, k_W: 20 };
+function outcomes(P) {
+  const { B_T, c_T, S_T, th, B_W, c_W, S_W, D, k_T, k_W } = P;
+  return {
+    O1: [0, 0, 0], O2: [B_T, 0, -D], O3: [B_T - c_T, 0, -D - k_T], O4: [th * B_T - c_T, 0, -th * D - k_T],
+    O5: [th * B_T - c_T, B_W, -D - k_T], O6: [B_T - c_T, B_W - c_W, -D - k_T - k_W], O7: [th * B_T - c_T - S_T, -c_W - S_W, -th * D - k_T - k_W],
+  };
+}
+const mix = (a, pa, b) => a.map((x, i) => pa * x + (1 - pa) * b[i]);
+function solve(P) {
+  const O = outcomes(P);
+  const sc = mix(O.O6, P.p, O.O7);
+  const g2Sue = sc[2] > O.O5[2]; const g2v = g2Sue ? sc : O.O5;
+  const wPub = g2v[1] > O.O4[1]; const wv = wPub ? g2v : O.O4;
+  const judge = mix(O.O3, P.q, wv);
+  const g1Sue = judge[2] > O.O2[2]; const g1v = g1Sue ? judge : O.O2;
+  const tPub = g1v[0] > O.O1[0]; const root = tPub ? g1v : O.O1;
+  const probs = { O1: 0, O2: 0, O3: 0, O4: 0, O5: 0, O6: 0, O7: 0 };
+  if (!tPub) probs.O1 = 1; else if (!g1Sue) probs.O2 = 1; else {
+    probs.O3 = P.q; const r = 1 - P.q;
+    if (!wPub) probs.O4 = r; else if (!g2Sue) probs.O5 = r; else { probs.O6 = r * P.p; probs.O7 = r * (1 - P.p); }
+  }
+  const regime = !tPub ? 'NONE' : !g1Sue ? 'NOSUIT' : !wPub ? 'NYT_ONLY' : 'BOTH';
+  const pG = 1 - P.k_W / ((1 - P.th) * P.D), pW = (P.c_W + P.S_W) / (P.B_W + P.S_W);
+  return { O, sc, g2Sue, g2v, wPub, wv, judge, g1Sue, g1v, tPub, root, probs, regime, pG, pW, full: probs.O2 + probs.O3 + probs.O5 + probs.O6 };
+}
+const regKey = M => (M.regime === 'NOSUIT' && !M.g2Sue ? 'NC' : M.regime);
+const REG = {
+  NONE: { label: 'Aucune publication', css: '--reg-none', long: 'Le Times ne publie pas : rien ne sort.' },
+  NOSUIT: { label: 'Publication sans procès', css: '--reg-nosuit', long: 'Le Times publie et le gouvernement ne poursuit personne.' },
+  NYT_ONLY: { label: 'Procès contre le Times seulement', css: '--reg-nyt', long: 'Le gouvernement poursuit le Times ; si le juge local le censure, le Post se tait.' },
+  BOTH: { label: 'Deux procès (comme en 1971)', css: '--reg-both', long: 'Le gouvernement poursuit le Times, le Post publie, le gouvernement poursuit aussi le Post.' },
+  NC: { label: 'Aucun procès · menace non crédible', css: '--reg-nosuit', long: 'Le gouvernement ne poursuivrait même pas le Post : toute menace de procès serait non crédible.', hatch: true },
+};
+const hatchBg = r => REG[r].hatch ? `background-image:repeating-linear-gradient(135deg, color-mix(in srgb, var(--ok) 45%, transparent) 0 2px, transparent 2px 9px);` : '';
+
+// ====================== OUTILS ======================
+const $ = s => document.querySelector(s);
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+function fr(x, dec = 1) {
+  const r = Math.round(x * 10 ** dec) / 10 ** dec;
+  let s = Math.abs(r).toFixed(dec); if (s.includes('.')) s = s.replace(/0+$/, '').replace(/\.$/, '');
+  s = s.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return (r < 0 ? '−' : '') + s;
+}
+const pct = (x, d = 1) => fr(x * 100, d) + ' %';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const sub = s => s.replace(/([A-Za-zθ])_([A-Z])/g, '$1<tspan baseline-shift="sub" font-size="72%">$2</tspan>');
+const subH = s => s.replace(/([A-Za-zθ])_([A-Z])/g, '$1<sub>$2</sub>');
+let saved = null; try { saved = JSON.parse(localStorage.getItem('pp-lab') || 'null'); } catch (e) { saved = null; }
+
+// ====================== VIDÉO ======================
+const VIDEO_URL = '';
+const POSTER_URL = '';
+const CHAPTERS = [[0, 'Ouverture', 'top'], [42.8, "1. L'affaire", 'affaire'], [149.1, '2. La question', 'question'], [169.1, "3. Les joueurs et l'arbre", 'joueurs'], [267.6, '4. Les gains', 'gains'], [343.5, "5. L'induction à rebours", 'resolution'], [493.9, '6. La carte des équilibres', 'carte'], [557.3, '7. Quand le secret est gardé', 'secret'], [613.0, '8. Le rôle des coûts', 'couts'], [672.7, 'Conclusion', 'limites']];
+const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+let videoEl = null;
+(function setupVideo() {
+  const box = $('#vidbox');
+  if (VIDEO_URL) {
+    box.innerHTML = `<video id="vid" controls playsinline preload="metadata" ${POSTER_URL ? `poster="${POSTER_URL}"` : ''} src="${VIDEO_URL}"></video>`;
+    videoEl = $('#vid');
+  } else {
+    box.innerHTML = `<div class="ph">La vidéo (12 min) accompagne ce dossier : chaque chapitre ci-contre renvoie à la pièce correspondante.</div>`;
+  }
+  const list = $('#chapters');
+  list.innerHTML = CHAPTERS.map(([t, name, sec], i) => `<button type="button" data-i="${i}"><span>${mmss(t)}</span><span>${esc(name)}</span></button>`).join('');
+  list.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const [t, , sec] = CHAPTERS[+b.dataset.i];
+    if (videoEl) { videoEl.currentTime = Math.max(0, t - (t > 1 ? 2.6 : 0)); videoEl.play().catch(() => {}); }
+    else document.getElementById(sec)?.scrollIntoView();
+  });
+  document.querySelectorAll('[data-seek]').forEach(b => b.addEventListener('click', () => {
+    const t = CHAPTERS[+b.dataset.seek][0];
+    document.getElementById('video').scrollIntoView();
+    if (videoEl) { videoEl.currentTime = Math.max(0, t - 2.6); videoEl.play().catch(() => {}); }
+  }));
+  if (videoEl) videoEl.addEventListener('timeupdate', () => {
+    let k = 0; CHAPTERS.forEach(([t], i) => { if (videoEl.currentTime >= t - 2.6) k = i; });
+    list.querySelectorAll('button').forEach((b, i) => b.classList.toggle('on', i === k));
+  });
+  if (!videoEl) document.querySelectorAll('[data-seek]').forEach(b => { b.hidden = true; });
+})();
+
+// ====================== SOMMAIRE ======================
+(function toc() {
+  const secs = [...document.querySelectorAll('section.piece')];
+  const html = secs.map((s, i) => `<li><a href="#${s.id}"><span>${s.id === 'video' ? '▶' : ['lexique', 'sources'].includes(s.id) ? 'A' : String(i).padStart(2, '0')}</span><span>${esc(s.dataset.toc)}</span></a></li>`).join('');
+  $('#toc').innerHTML = html;
+  $('#toc-m').innerHTML = secs.map(s => `<li><a href="#${s.id}">${esc(s.dataset.toc)}</a></li>`).join('');
+  const links = [...document.querySelectorAll('#toc a')];
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  secs.forEach(s => io.observe(s));
+})();
+
+// ====================== FRISE ======================
+const TL = [
+  ['1945 → 1967', '--muted', "Période couverte par l'étude : présidences de Truman, Eisenhower, Kennedy et Johnson."],
+  ['1967', '--gov', "Robert McNamara commande l'étude secrète : 47 volumes, environ 7 000 pages, terminés en janvier 1969, juste avant l'arrivée de Nixon."],
+  ['fin 1969', '--ell', "Daniel Ellsberg, analyste de la RAND qui a participé à l'étude, la photocopie en secret avec Anthony Russo."],
+  ['13 juin 1971', '--nyt', "Dimanche : le New York Times publie le premier article de sa série."],
+  ['14 juin', '--gov', "Le ministre de la Justice, John Mitchell, demande l'arrêt de la publication. Le Times refuse."],
+  ['15 juin', '--gov', "Après le troisième article, le juge fédéral Murray Gurfein (New York) ordonne une suspension temporaire. Le même jour, le Washington Post entre en bourse."],
+  ['16-17 juin', '--wp', "Ben Bagdikian, journaliste du Post, obtient environ 4 400 pages. Le 17 au soir, Katharine Graham tranche : « Let's go. Let's publish. »"],
+  ['18 juin', '--wp', "Premier article du Post. Le gouvernement l'attaque aussi : une cour ordonne la suspension dans la nuit."],
+  ['26 juin', '--nat', "Audience devant la Cour suprême, qui a joint les deux affaires."],
+  ['30 juin 1971', '--nat', "La Cour donne raison aux journaux, à 6 voix contre 3 : le gouvernement n'a pas justifié une censure préalable."],
+  ['1er juillet', '--nyt', "Le Times reprend la publication de la série."],
+  ['11 mai 1973', '--ell', "Les poursuites contre Ellsberg (jusqu'à 115 ans de prison encourus) sont abandonnées, à cause des agissements illégaux du gouvernement contre lui."],
+];
+$('#timeline').innerHTML = TL.map(([d, c, t]) => `<div class="tl-item" style="--c:var(${c})"><div class="d">${d}</div><div class="t">${t}</div></div>`).join('');
+
+// ====================== CONCEPTS ======================
+const CONCEPTS = [
+  ['Jeu séquentiel', "Les joueurs jouent à tour de rôle et chacun voit les coups déjà joués (information parfaite).", "Le Post décide après avoir vu le Times publier puis être censuré."],
+  ['Arbre et nœuds', "Chaque nœud est un moment de décision ; chaque branche, une action ; chaque feuille, une issue avec les gains de tous les joueurs.", "7 issues, de O1 (rien ne sort) à O7 (censure et sanctions)."],
+  ['La Nature et le gain espéré', "Un coup de hasard est joué par « la Nature » avec des probabilités connues. On évalue alors un gain espéré : E = p × gain si oui + (1 − p) × gain si non.", "Le juge local (q) et la Cour suprême (p)."],
+  ['Stratégie', "Un plan complet : une action prévue à chaque nœud où le joueur pourrait jouer, même si ce nœud n'est jamais atteint.", "Le gouvernement prévoit à la fois sa réaction face au Times et face au Post."],
+  ['Sous-jeu', "La partie de l'arbre qui commence à un nœud et contient tout ce qui suit.", "Le « jeu du Post » qui démarre après la censure du Times."],
+  ['Induction à rebours', "On résout depuis la fin : on trouve le meilleur choix au dernier nœud, on le remplace par sa valeur, et on remonte.", "On commence par la Cour suprême et on finit par le Times."],
+  ['ENPS', "Équilibre de Nash parfait en sous-jeux : un profil de stratégies qui est un équilibre de Nash dans chaque sous-jeu. Il élimine les menaces non crédibles.", "Times : publier ; gouvernement : poursuivre le Times et le Post ; Post : publier."],
+  ['Menace non crédible', "Une menace qu'on n'aurait pas intérêt à exécuter le moment venu. Un joueur rationnel ne s'y laisse pas dissuader.", "« Nous poursuivrons tout journal qui publie », si le procès coûte plus qu'il ne rapporte."],
+];
+$('#concepts').innerHTML = CONCEPTS.map(([t, d, ex]) => `<div class="card"><h3>${t}</h3><div class="k">${d}</div><div class="k" style="color:var(--muted)"><b>Ici :</b> ${ex}</div></div>`).join('');
+
+// mini-expérience menace crédible
+(function threat() {
+  const r = $('#thr-k'), o = $('#thr-out'), m = $('#thr-msg'), v = $('#thr-kv');
+  const upd = () => {
+    const k = +r.value; v.textContent = k;
+    const sue = -10 - k - 200 * (0.65 + 0.35 * 0.3), let_ = -210;
+    const cred = sue > let_;
+    o.innerHTML = `<span class="opt ${cred ? 'win' : ''}">Poursuivre le Post : <b>${fr(sue)}</b></span><span>${cred ? '&gt;' : '&lt;'}</span><span class="opt ${cred ? '' : 'win'}">Laisser faire : <b>${fr(let_)}</b></span><span class="verdict" style="color:${cred ? 'var(--ok)' : 'var(--stamp)'}">⇒ menace ${cred ? 'crédible' : 'non crédible'}</span>`;
+    m.innerHTML = cred ? `Tant que <span class="m">k<sub>W</sub></span> &lt; 49, poursuivre limite les dégâts : le Post doit prendre la menace au sérieux.` : `Avec <span class="m">k<sub>W</sub></span> ≥ 49, le procès coûte plus que le dommage qu'il éviterait en moyenne (49) : le gouvernement laisserait faire. Le Post le sait et publie sans crainte.`;
+  };
+  r.addEventListener('input', upd); upd();
+})();
+
+// ====================== JOUEURS ======================
+const PLAYERS = [
+  ['NYT', '--nyt', 'disc', 'New York Times', 'Publier ou non.', "Informer, décrocher le scoop et le prestige.", "Frais de procès, censure, sanctions si la Cour suprême lui donne tort."],
+  ['G', '--gov', 'disc', 'Administration Nixon', 'Poursuivre en justice ou laisser faire (deux fois).', "Protéger ses secrets et sa crédibilité ; éviter un précédent.", "Le coût des procès, surtout son image de censeur."],
+  ['WP', '--wp', 'disc', 'Washington Post', 'Publier ou se taire.', "Devenir un grand journal national, informer.", "Amendes, prison, entrée en bourse ratée, faillite."],
+  ['', '--nat', 'diam', 'Juge local (Nature)', 'Donne raison au Times avec la probabilité q.', "Applique le droit : ce n'est pas un joueur stratégique.", "—"],
+  ['', '--nat', 'diam', 'Cour suprême (Nature)', 'Donne raison aux journaux avec la probabilité p.', "Tranche définitivement les deux affaires.", "—"],
+  ['DE', '--ell', 'disc', 'Daniel Ellsberg', 'Coup fixé : Times, puis Post si censure.', "Que tout soit publié.", "Jusqu'à 115 ans de prison (poursuites abandonnées en 1973)."],
+];
+$('#players').innerHTML = PLAYERS.map(([l, c, sh, n, a, obj, risk]) => `<div class="card"><div class="player">${sh === 'disc' ? `<div class="disc" style="background:var(${c})">${l}</div>` : `<div class="diam" style="background:var(${c})"></div>`}<h3>${n}</h3></div><div class="k"><b>Action :</b> ${a}</div><div class="k"><b>Objectif :</b> ${obj}</div>${risk !== '—' ? `<div class="k"><b>Risque :</b> ${risk}</div>` : ''}</div>`).join('');
+
+// ====================== ARBRE (SVG) ======================
+const Y0 = 270, NX = [70, 255, 440, 625, 810, 995];
+const LEAF = { O1: [162, 462], O2: [347, 462], O3: [532, 462], O4: [717, 462], O5: [902, 462], O6: [1112, 112], O7: [1112, 400] };
+const GROUP = { O1: 1, O2: 2, O3: 3, O4: 4, O5: 5, O6: 6, O7: 6 };
+const TITLE = { O1: ['Pas de', 'publication'], O2: ['Publication', 'sans procès'], O3: ['Le Times gagne :', 'tout sort'], O4: ['Times censuré,', 'le Post se tait'], O5: ['Le Post publie', 'sans procès'], O6: ['Victoire des', 'journaux'], O7: ['Censure', '+ sanctions'] };
+const SYM = { O1: ['0', '0', '0'], O2: ['B_T', '0', '−D'], O3: ['B_T − c_T', '0', '−D − k_T'], O4: ['θB_T − c_T', '0', '−θD − k_T'], O5: ['θB_T − c_T', 'B_W', '−D − k_T'], O6: ['B_T − c_T', 'B_W − c_W', '−D − k_T − k_W'], O7: ['θB_T − c_T − S_T', '−c_W − S_W', '−θD − k_T − k_W'] };
+const NODES = [['NYT', '--nyt', 'New York Times'], ['G', '--gov', 'Gouvernement'], ['N', '--nat', 'Juge local'], ['WP', '--wp', 'Washington Post'], ['G', '--gov', 'Gouvernement'], ['N', '--nat', 'Cour suprême']];
+const EDGES = [
+  ['e1p', 0, [NX[1], Y0], 'Publier', 1], ['e1n', 0, LEAF.O1, 'Ne pas publier', 1, 'O1'],
+  ['e2s', 1, [NX[2], Y0], 'Poursuivre', 2], ['e2n', 1, LEAF.O2, 'Laisser faire', 2, 'O2'],
+  ['e3c', 2, [NX[3], Y0], 'censure (1−q)', 3], ['e3f', 2, LEAF.O3, 'favorable (q)', 3, 'O3'],
+  ['e4p', 3, [NX[4], Y0], 'Publier', 4], ['e4n', 3, LEAF.O4, 'Se taire', 4, 'O4'],
+  ['e5s', 4, [NX[5], Y0], 'Poursuivre', 5], ['e5n', 4, LEAF.O5, 'Laisser faire', 5, 'O5'],
+  ['e6f', 5, LEAF.O6, 'favorable (p)', 6, 'O6'], ['e6d', 5, LEAF.O7, 'défavorable (1−p)', 6, 'O7'],
+];
+// opt : {mode:'sym'|'num', eq:bool, step:0..9, probs:bool, hist:bool}
+function drawTree(svg, P, opt) {
+  const M = solve(P), o = Object.assign({ mode: 'num', eq: false, step: 99, probs: false, hist: false }, opt);
+  const ink = 'var(--ink)', muted = 'var(--muted)';
+  const C = { 1: '--nyt', 2: '--gov', 3: '--nat', 4: '--wp', 5: '--gov', 6: '--nat' };
+  // étapes : quelles décisions sont résolues ?
+  const STEPNODE = { 1: 6, 2: 5, 3: 4, 4: 3, 5: 2, 6: 1 }; // étape -> nœud traité
+  const solved = n => o.eq || (o.step >= 1 && o.step <= 9 && 7 - n <= o.step); // nœud n (1..6) résolu à l'étape k si 7-n <= k
+  const focusG = (o.step >= 1 && o.step <= 6) ? STEPNODE[o.step] : null;
+  const dim = g => (focusG === null ? 1 : (g === focusG ? 1 : 0.28));
+  const choose = { e2n: M.g1Sue, e2s: !M.g1Sue, e1n: M.tPub, e1p: !M.tPub, e4n: M.wPub, e4p: !M.wPub, e5n: M.g2Sue, e5s: !M.g2Sue };
+  const chosen = { e1p: M.tPub, e1n: !M.tPub, e2s: M.g1Sue, e2n: !M.g1Sue, e4p: M.wPub, e4n: !M.wPub, e5s: M.g2Sue, e5n: !M.g2Sue };
+  const nodeOfEdge = { e1p: 1, e1n: 1, e2s: 2, e2n: 2, e4p: 4, e4n: 4, e5s: 5, e5n: 5 };
+  let s = '';
+  // chemin historique
+  if (o.hist) s += `<polyline points="${NX[0]},${Y0} ${NX[5]},${Y0} ${LEAF.O6[0]},${LEAF.O6[1]}" fill="none" stroke="var(--stamp)" stroke-opacity=".3" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>`;
+  // arêtes
+  for (const [id, from, to, lbl, g, leaf] of EDGES) {
+    const x0 = NX[from], y0 = Y0, [x1, y1] = to;
+    const decided = nodeOfEdge[id] && solved(nodeOfEdge[id]);
+    const rejected = decided && choose[id];
+    const isChosen = decided && chosen[id];
+    const sw = isChosen ? 5.5 : 2.5, dash = rejected ? 'stroke-dasharray="7 8"' : '';
+    const col = rejected ? 'var(--rule)' : ink;
+    s += `<g opacity="${dim(g)}"><line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="${col}" stroke-width="${sw}" stroke-linecap="round" ${dash}/>`;
+    let lx, ly, an;
+    if (y1 === Y0) { lx = (x0 + x1) / 2; ly = Y0 - 12; an = 'middle'; }
+    else { lx = (x0 + x1) / 2 - 12; ly = (y0 + y1) / 2 + 12; an = 'end'; }
+    if (id === 'e6f') { lx = 1040; ly = 238; an = 'start'; }
+    if (id === 'e6d') { lx = 1040; ly = 300; an = 'start'; }
+    s += `<text x="${lx}" y="${ly}" text-anchor="${an}" font-family="IBM Plex Sans, sans-serif" font-weight="600" font-size="16" fill="var(--ink2)">${lbl}</text>`;
+    if (rejected) { const cx = x0 + (x1 - x0) * 0.4, cy = y0 + (y1 - y0) * 0.4; s += `<text x="${cx}" y="${cy + 10}" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="700" font-size="30" fill="var(--stamp)">✕</text>`; }
+    if (leaf) s += `<circle cx="${x1}" cy="${y1}" r="5" fill="${ink}"/>`;
+    s += '</g>';
+  }
+  // nœuds
+  NODES.forEach(([w, c, name], i) => {
+    const x = NX[i];
+    s += `<g opacity="${dim(i + 1)}">`;
+    if (w === 'N') s += `<rect x="${x - 22}" y="${Y0 - 22}" width="44" height="44" rx="6" fill="var(${c})" transform="rotate(45 ${x} ${Y0})"/><text x="${x}" y="${Y0 + 6}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-weight="700" font-size="17" fill="var(--on-player)">N</text>`;
+    else s += `<circle cx="${x}" cy="${Y0}" r="27" fill="var(${c})"/><text x="${x}" y="${Y0 + 6}" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="700" font-size="${w.length > 2 ? 15 : 18}" fill="var(--on-player)">${w}</text>`;
+    s += `<text x="${x}" y="${Y0 - 42}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14.5" font-weight="500" fill="var(--ink2)">${name}</text></g>`;
+  });
+  // badges de valeur
+  const vals = [M.root, M.g1v, M.judge, M.wv, M.g2v, M.sc];
+  vals.forEach((v, i) => {
+    if (!solved(i + 1)) return;
+    const x = NX[i], y = Y0 - 140;
+    s += `<g opacity="${focusG === null || focusG === i + 1 || focusG === i ? 1 : 0.35}"><rect x="${x - 44}" y="${y}" width="88" height="70" rx="6" fill="var(--ink)"/>`;
+    [[v[0], '--nyt', 1], [v[1], '--wp', 2], [v[2], '--gov', 1]].forEach(([val, c, d], j) => {
+      s += `<circle cx="${x - 30}" cy="${y + 15 + j * 20}" r="5" fill="var(${c})"/><text x="${x + 36}" y="${y + 20 + j * 20}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="14.5" fill="var(--bg)">${fr(val, d)}</text>`;
+    });
+    s += '</g>';
+  });
+  // boîtes de gains
+  for (const oid of Object.keys(LEAF)) {
+    const [lx, ly] = LEAF[oid]; let bx, by;
+    if (oid === 'O6' || oid === 'O7') { bx = lx + 8; by = ly - 62; } else { bx = lx - 85; by = ly + 16; }
+    const g = GROUP[oid], w = 170, h = 128;
+    s += `<g opacity="${dim(g)}"><rect x="${bx}" y="${by}" width="${w}" height="${h}" rx="5" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.5"/>`;
+    s += `<text x="${bx + 10}" y="${by + 19}" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--muted)">${oid}</text>`;
+    if (o.probs && M.probs[oid] > 1e-9) s += `<text x="${bx + w - 10}" y="${by + 19}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-weight="700" font-size="13" fill="${['O1', 'O4', 'O7'].includes(oid) ? 'var(--stamp)' : 'var(--ok)'}">${pct(M.probs[oid])}</text>`;
+    TITLE[oid].forEach((t, j) => { s += `<text x="${bx + 10}" y="${by + 37 + j * 16}" font-family="IBM Plex Sans, sans-serif" font-weight="600" font-size="13.5" fill="var(--ink2)">${t}</text>`; });
+    const vals2 = o.mode === 'sym' ? SYM[oid] : M.O[oid].map(x => fr(x));
+    ['--nyt', '--wp', '--gov'].forEach((c, j) => {
+      const yy = by + 82 + j * 18;
+      s += `<circle cx="${bx + 15}" cy="${yy - 5}" r="4.5" fill="var(${c})"/>`;
+      if (o.mode === 'sym') s += `<text x="${bx + 26}" y="${yy}" font-family="IBM Plex Serif, serif" font-style="italic" font-size="14.5" fill="var(--ink)">${sub(vals2[j])}</text>`;
+      else s += `<text x="${bx + w - 10}" y="${yy}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-weight="600" font-size="15" fill="var(${c})">${vals2[j]}</text>`;
+    });
+    s += '</g>';
+  }
+  svg.innerHTML = s;
+  return M;
+}
+
+// arbre principal
+let mainMode = 'sym';
+function renderMain() { drawTree($('#tree-main'), BASE, { mode: mainMode }); $('#t-sym').setAttribute('aria-pressed', mainMode === 'sym'); $('#t-num').setAttribute('aria-pressed', mainMode === 'num'); }
+$('#t-sym').onclick = () => { mainMode = 'sym'; renderMain(); };
+$('#t-num').onclick = () => { mainMode = 'num'; renderMain(); };
+
+// ====================== GAINS ======================
+const ING = [
+  ['B', 'Gain d’une publication complète', 'Le scoop, le prestige, la mission d’informer. B<sub>T</sub> pour le Times, B<sub>W</sub> pour le Post.'],
+  ['θ', 'Part déjà publiée avant la censure', 'Un Times censuré garde θB<sub>T</sub> ; pour le gouvernement, le dommage est alors θD.'],
+  ['c', 'Frais d’un procès pour un journal', 'Avocats, temps, stress : c<sub>T</sub> pour le Times, c<sub>W</sub> pour le Post.'],
+  ['S', 'Sanction si la Cour suprême donne tort', 'Amendes, prison, et pour le Post une entrée en bourse ratée : S<sub>T</sub>, S<sub>W</sub>.'],
+  ['D', 'Dommage du gouvernement si tout sort', 'Perte de crédibilité, précédent pour toutes les fuites futures.'],
+  ['k', 'Coût d’un procès pour le gouvernement', 'Frais et surtout image de censeur : k<sub>T</sub> contre le Times, k<sub>W</sub> contre le Post (jusqu’à la Cour suprême).'],
+];
+$('#ingredients').innerHTML = ING.map(([s, t, d]) => `<div class="card"><div style="display:flex;gap:12px;align-items:baseline"><span class="m" style="font-size:30px">${s}</span><h3 style="font-size:16.5px">${t}</h3></div><div class="k">${d}</div></div>`).join('');
+const DESC = { O1: 'Pas de publication', O2: 'Publication, pas de procès', O3: 'Procès du Times : juge favorable', O4: 'Times censuré, le Post se tait', O5: 'Times censuré, le Post publie, pas de procès', O6: 'Procès du Post : victoire des journaux', O7: 'Procès du Post : défaite des journaux' };
+let payMode = 'sym';
+function renderPay() {
+  const O = outcomes(BASE);
+  let h = `<thead><tr><th>Issue</th><th></th><th style="text-align:right;color:var(--nyt)">NYT</th><th style="text-align:right;color:var(--wp)">WP</th><th style="text-align:right;color:var(--gov)">Gouv.</th></tr></thead><tbody>`;
+  for (const k of Object.keys(O)) {
+    h += `<tr><td class="mono" style="color:var(--muted)">${k}</td><td>${DESC[k]}</td>` + [0, 1, 2].map(j => `<td class="v" style="color:${['var(--nyt)', 'var(--wp)', 'var(--gov)'][j]}">${payMode === 'sym' ? `<span class="m" style="color:var(--ink)">${subH(SYM[k][j])}</span>` : fr(O[k][j])}</td>`).join('') + '</tr>';
+  }
+  $('#paytable').innerHTML = h + '</tbody>';
+  $('#p-sym').setAttribute('aria-pressed', payMode === 'sym'); $('#p-num').setAttribute('aria-pressed', payMode === 'num');
+}
+$('#p-sym').onclick = () => { payMode = 'sym'; renderPay(); };
+$('#p-num').onclick = () => { payMode = 'num'; renderPay(); };
+const WHY = [
+  ['D = 200', 'Gouvernement', 'Le plus gros enjeu : quatre administrations prises en défaut, et un précédent qui menacerait tous les secrets futurs.'],
+  ['B<sub>T</sub> = 100', 'Times', 'Le scoop historique, le prestige, la mission d’informer.'],
+  ['B<sub>W</sub> = 120', 'Post', 'Pour le Post, publier c’est entrer dans la cour des grands : le gain relatif est encore plus fort.'],
+  ['θ = 0,3', 'Times / Gouv.', 'Trois articles étaient parus avant la suspension : une partie seulement.'],
+  ['c<sub>T</sub> = 10 · c<sub>W</sub> = 15', 'Journaux', 'Frais d’avocats et procédures d’urgence ; un peu plus pour le Post, en pleine entrée en bourse.'],
+  ['S<sub>T</sub> = 50 · S<sub>W</sub> = 150', 'Journaux', 'Le Post publie après une interdiction visant le Times : il risque l’outrage au tribunal, des poursuites, son introduction en bourse et ses licences de télévision.'],
+  ['k<sub>T</sub> = 10 · k<sub>W</sub> = 20', 'Gouvernement', 'Chaque procès coûte, surtout en image de censeur ; le second, qui va jusqu’à la Cour suprême, coûte plus.'],
+  ['q = 0,3', 'Nature', 'Le juge local a d’abord suspendu la publication : on suppose 70 % de chances que le gouvernement obtienne la censure localement.'],
+  ['p = 0,65', 'Nature', 'La jurisprudence est très hostile à la censure préalable (Near v. Minnesota, 1931) : les journaux sont plutôt confiants, sans certitude.'],
+];
+$('#whytable').innerHTML = `<thead><tr><th>Valeur</th><th>Joueur</th><th>Justification</th></tr></thead><tbody>` + WHY.map(([v, j, t]) => `<tr><td class="v" style="text-align:left"><span class="m">${v}</span></td><td>${j}</td><td>${t}</td></tr>`).join('') + '</tbody>';
+
+// ====================== PAS À PAS ======================
+const M0 = solve(BASE);
+const STEPS = [
+  ['Le principe', `<p>On part de la <b>fin</b> du jeu. À un nœud de la Nature, on remplace la loterie par son <b>gain espéré</b>. À un nœud de décision, on garde le <b>meilleur choix</b> du joueur qui décide et on reporte sa valeur. Puis on remonte, jusqu'au Times.</p>`],
+  ['Étape 1 · Cour suprême (Nature)', `<div class="eq">0,65 × (90 ; 105 ; −230) + 0,35 × (−30 ; −165 ; −90) = <b>(48 ; 10,5 ; −181)</b></div><p class="ui" style="font-size:15px">Gains espérés (NYT ; WP ; Gouv.) si l'affaire va jusqu'à la Cour suprême.</p>`],
+  ['Étape 2 · Le gouvernement face au Post', `<div class="cmp"><span class="opt win">Poursuivre : <b>−181</b></span> &gt; <span class="opt">Laisser faire : <b>−210</b></span><span class="verdict">⇒ il poursuit</span></div><div class="eq"><span class="m">(1 − p)(1 − θ)D &gt; k<sub>W</sub></span> ⟺ <span class="m">p &lt; 1 − <span class="frac"><span>k<sub>W</sub></span><span>(1 − θ)D</span></span></span> ≈ 86 % &nbsp;·&nbsp; ici 0,35 × 0,7 × 200 = <b>49</b> &gt; 20</div><p class="ui" style="font-size:15px">Le dommage encore évitable en espérance (49) dépasse le coût du procès (20) : la menace contre le Post est <b>crédible</b>.</p>`],
+  ['Étape 3 · Le Post', `<div class="cmp"><span class="opt win">Publier : <b>10,5</b></span> &gt; <span class="opt">Se taire : <b>0</b></span><span class="verdict">⇒ il publie, de justesse</span></div><div class="eq"><span class="m">pB<sub>W</sub> − c<sub>W</sub> − (1 − p)S<sub>W</sub> ≥ 0</span> ⟺ <span class="m">p ≥ <span class="frac"><span>c<sub>W</sub> + S<sub>W</sub></span><span>B<sub>W</sub> + S<sub>W</sub></span></span></span> = <span class="frac"><span>165</span><span>270</span></span> ≈ <b>61 %</b></div><p class="ui" style="font-size:15px">Avec 65 %, le Post passe à peine au-dessus du seuil : c'est pourquoi la décision a été si difficile.</p>`],
+  ['Étape 4 · Juge local (Nature)', `<div class="eq">0,3 × (90 ; 0 ; −210) + 0,7 × (48 ; 10,5 ; −181) = <b>(60,6 ; 7,35 ; −189,7)</b></div><p class="ui" style="font-size:15px">Ce que chacun peut espérer si le gouvernement poursuit le Times.</p>`],
+  ['Étape 5 · Le gouvernement face au Times', `<div class="cmp"><span class="opt win">Poursuivre : <b>−189,7</b></span> &gt; <span class="opt">Laisser faire : <b>−200</b></span><span class="verdict">⇒ il poursuit</span></div><div class="eq"><span class="m">(1 − q)[(1 − p)(1 − θ)D − k<sub>W</sub>] &gt; k<sub>T</sub></span> &nbsp;·&nbsp; ici 0,7 × (49 − 20) = <b>20,3</b> &gt; 10</div><p class="ui" style="font-size:15px">Ce premier procès n'a de sens que parce que le gouvernement est prêt à aller jusqu'au bout contre le Post. Sinon, le Post publierait sans risque et la censure du Times ne servirait à rien.</p>`],
+  ['Étape 6 · Le Times', `<div class="cmp"><span class="opt win">Publier : <b>60,6</b></span> &gt; <span class="opt">Ne pas publier : <b>0</b></span><span class="verdict">⇒ il publie</span></div><p class="ui" style="font-size:15px">Même s'il est censuré, le Times garde l'avantage d'avoir publié en premier.</p>`],
+  ['L’ENPS', `<div class="chips"><span class="chip" style="--c:var(--nyt)">NYT : publier</span><span class="chip" style="--c:var(--gov)">Gouv. : (poursuivre le Times ; poursuivre le Post)</span><span class="chip" style="--c:var(--wp)">WP : publier</span></div><p class="ui" style="font-size:15px">Une stratégie dit quoi faire à <b>chaque</b> nœud. Gains espérés à l'équilibre : NYT <b>60,6</b> · WP <b>7,35</b> · Gouv. <b>−189,7</b>.</p>`],
+  ['1971 : le chemin suivi', `<p class="ui" style="font-size:15.5px">Le chemin d'équilibre, combiné aux tirages réels de la Nature : <b>15 juin</b>, le juge local censure le Times (probabilité 70 %) ; <b>30 juin</b>, la Cour suprême donne raison aux journaux (65 %). On arrive en <b>O6</b>.</p><p class="ui" style="font-size:15.5px">Avant le 13 juin, trois avenirs étaient possibles : O3 <b>30 %</b>, O6 <b>45,5 %</b>, O7 <b>24,5 %</b> (près d'une chance sur quatre de censure et de sanctions).</p>`],
+];
+let step = 0;
+function renderStep() {
+  $('#st-card').innerHTML = `<div class="ttl">${STEPS[step][0]}</div>${STEPS[step][1]}`;
+  $('#st-dots').innerHTML = STEPS.map((s, i) => `<button type="button" aria-label="${esc(s[0])}" ${i === step ? 'aria-current="step"' : ''} data-i="${i}">${i === 0 ? '·' : i <= 6 ? i : i === 7 ? 'É' : '71'}</button>`).join('');
+  drawTree($('#tree-step'), BASE, { mode: 'num', step, probs: step >= 8, hist: step >= 8 });
+  $('#st-prev').disabled = step === 0; $('#st-next').disabled = step === STEPS.length - 1;
+}
+$('#st-dots').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { step = +b.dataset.i; renderStep(); } });
+$('#st-prev').onclick = () => { if (step > 0) { step--; renderStep(); } };
+$('#st-next').onclick = () => { if (step < STEPS.length - 1) { step++; renderStep(); } };
+
+// ====================== CARTE ======================
+function regColor(r) { return css(REG[r].css); }
+function drawMap(box, P, marker) {
+  const cv = box.querySelector('canvas'), g = cv.getContext('2d'), N = 130, W = cv.width, cell = W / N;
+  const grid = [];
+  const nc = [];
+  for (let j = 0; j < N; j++) { grid.push([]); nc.push([]); for (let i = 0; i < N; i++) { const q = (i + 0.5) / N, p = 1 - (j + 0.5) / N; const M = solve(Object.assign({}, P, { q, p })); grid[j].push(M.regime); nc[j].push(regKey(M) === 'NC'); } }
+  const cols = {}; for (const r in REG) cols[r] = regColor(r);
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { g.fillStyle = cols[grid[j][i]]; g.fillRect(Math.floor(i * cell), Math.floor(j * cell), Math.ceil(cell) + 1, Math.ceil(cell) + 1); }
+  // hachures : menace non crédible (le gouvernement ne poursuivrait même pas le Post)
+  g.save(); g.beginPath();
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) if (nc[j][i]) g.rect(i * cell, j * cell, cell + 0.6, cell + 0.6);
+  g.clip(); g.strokeStyle = css('--ok'); g.globalAlpha = 0.45; g.lineWidth = 2;
+  for (let d = -W; d < W; d += 12) { g.beginPath(); g.moveTo(d, W); g.lineTo(d + W, 0); g.stroke(); }
+  g.restore(); g.globalAlpha = 1;
+  g.fillStyle = css('--ink');
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+    if (i < N - 1 && grid[j][i] !== grid[j][i + 1]) g.fillRect((i + 1) * cell - 1, j * cell, 2, cell + 1);
+    if (j < N - 1 && grid[j][i] !== grid[j + 1][i]) g.fillRect(i * cell, (j + 1) * cell - 1, cell + 1, 2);
+  }
+  g.strokeStyle = css('--ink2'); g.globalAlpha = 0.25; g.lineWidth = 1;
+  for (let k = 1; k < 4; k++) { const x = W * k / 4; g.beginPath(); g.moveTo(x, 0); g.lineTo(x, W); g.stroke(); g.beginPath(); g.moveTo(0, x); g.lineTo(W, x); g.stroke(); }
+  g.globalAlpha = 1;
+  g.font = '600 15px "IBM Plex Mono", monospace'; g.fillStyle = css('--ink2');
+  ['0', '25 %', '50 %', '75 %'].forEach((t, k) => { g.fillText(t, W * k / 4 + 5, W - 7); if (k) g.fillText(t, 5, W - W * k / 4 - 6); });
+  if (marker) {
+    const x = P.q * W, y = (1 - P.p) * W;
+    g.beginPath(); g.arc(x, y, 11, 0, 7); g.fillStyle = css('--stamp'); g.fill(); g.lineWidth = 4; g.strokeStyle = css('--surface'); g.stroke();
+    g.font = '700 17px "IBM Plex Mono", monospace'; g.fillStyle = css('--ink'); g.fillText(marker, Math.min(x + 16, W - 70), Math.max(y - 12, 20));
+  }
+}
+function legend(el, P) {
+  const M = solve(P);
+  el.innerHTML = Object.entries(REG).map(([k, r]) => `<div><span class="sw" style="background-color:var(${r.css});${hatchBg(k)}"></span><b>${r.label}</b><div class="small ui" style="margin-left:26px">${r.long}</div></div>`).join('') +
+    `<div class="note" style="margin-top:6px">Seuils actuels : le Post publie si <span class="m">p</span> ≥ <b>${pct(M.pW)}</b> ; le gouvernement attaquerait le Post si <span class="m">p</span> &lt; <b>${pct(M.pG)}</b>.</div>`;
+}
+function hookMap(box, getP, onPick) {
+  const cv = box.querySelector('canvas'), tip = box.querySelector('.tip');
+  const at = e => { const r = cv.getBoundingClientRect(); return [clamp01((e.clientX - r.left) / r.width), clamp01(1 - (e.clientY - r.top) / r.height), e.clientX - box.getBoundingClientRect().left, e.clientY - box.getBoundingClientRect().top]; };
+  cv.addEventListener('pointermove', e => {
+    const [q, p, x, y] = at(e); const M = solve(Object.assign({}, getP(), { q, p }));
+    tip.innerHTML = `<b>q = ${pct(q, 0)} · p = ${pct(p, 0)}</b><br>${REG[M.regime].label}<br>Tout sort avec la probabilité ${pct(M.full, 0)}`;
+    tip.style.left = Math.min(x + 14, box.clientWidth - 250) + 'px'; tip.style.top = (y + 14) + 'px'; tip.style.opacity = 1;
+  });
+  cv.addEventListener('pointerleave', () => { tip.style.opacity = 0; });
+  if (onPick) cv.addEventListener('click', e => { const [q, p] = at(e); onPick(Math.round(q * 100) / 100, Math.round(p * 100) / 100); });
+}
+const clamp01 = x => Math.max(0, Math.min(1, x));
+
+// ====================== BANDES DE RÉGIME ======================
+const STRIPS = [
+  ['k_W', 'Coût du procès contre le Post pour le gouvernement (k<sub>W</sub>)', 0, 80],
+  ['k_T', 'Coût du procès contre le Times pour le gouvernement (k<sub>T</sub>)', 0, 40],
+  ['c_W', 'Frais de procès du Post (c<sub>W</sub>)', 0, 60],
+  ['S_W', 'Sanction du Post si défaite (S<sub>W</sub>)', 0, 300],
+  ['c_T', 'Frais de procès du Times (c<sub>T</sub>)', 0, 100],
+];
+function drawStrips(fig, P, interactive) {
+  fig.innerHTML = STRIPS.map(([k, lab, mn, mx]) => {
+    const n = 400; const segs = []; let prev = null, start = mn, lastV = mn;
+    const keyAt = v => regKey(solve(Object.assign({}, P, { [k]: v })));
+    for (let i = 0; i <= n; i++) {
+      const v = mn + (mx - mn) * i / n; const r = keyAt(v);
+      if (r !== prev) {
+        let b = v;
+        if (prev) { let lo = lastV, hi = v; for (let it = 0; it < 30; it++) { const mid = (lo + hi) / 2; if (keyAt(mid) === prev) lo = mid; else hi = mid; } b = hi; segs.push([start, b, prev]); }
+        prev = r; start = b;
+      }
+      lastV = v;
+    }
+    segs.push([start, mx, prev]);
+    const val = P[k];
+    const bars = segs.map(([a, b, r]) => `<div style="width:${(b - a) / (mx - mn) * 100}%;background-color:var(${REG[r].css});${hatchBg(r)}" title="${REG[r].label}">${(b - a) / (mx - mn) > 0.16 ? REG[r].label.replace(' (comme en 1971)', '').replace('Aucun procès · ', '') : ''}</div>`).join('');
+    const ticks = segs.slice(1).map(([a]) => `<span style="left:${(a - mn) / (mx - mn) * 100}%">${fr(a, 1)}</span>`).join('');
+    return `<div class="strip" data-k="${k}"><div class="lab"><span>${lab}</span><span class="mono">valeur : ${fr(val, 1)}</span></div><div class="bar" ${interactive ? 'style="cursor:pointer"' : ''} data-min="${mn}" data-max="${mx}">${bars}<span class="mk" style="left:${(val - mn) / (mx - mn) * 100}%"></span></div><div class="ticks">${ticks}</div></div>`;
+  }).join('');
+}
+
+// ====================== LABORATOIRE ======================
+const SL = [
+  ['Nature', '--nat', [['q', 'Juge local favorable au Times (q)', 0, 1, 0.01, 'pct'], ['p', 'Cour suprême favorable aux journaux (p)', 0, 1, 0.01, 'pct']]],
+  ['New York Times', '--nyt', [['B_T', 'Gain si tout est publié (B<sub>T</sub>)', 0, 300, 1], ['c_T', 'Frais de procès (c<sub>T</sub>)', 0, 120, 1], ['S_T', 'Sanction si défaite (S<sub>T</sub>)', 0, 300, 1], ['th', 'Part publiée avant censure (θ)', 0, 0.95, 0.01, 'dec']]],
+  ['Washington Post', '--wp', [['B_W', 'Gain si tout est publié (B<sub>W</sub>)', 0, 300, 1], ['c_W', 'Frais de procès (c<sub>W</sub>)', 0, 120, 1], ['S_W', 'Sanction si défaite (S<sub>W</sub>)', 0, 400, 1]]],
+  ['Gouvernement', '--gov', [['D', 'Dommage si tout sort (D)', 0, 500, 1], ['k_T', 'Coût du procès contre le Times (k<sub>T</sub>)', 0, 120, 1], ['k_W', 'Coût du procès contre le Post (k<sub>W</sub>)', 0, 120, 1]]],
+];
+const PRESETS = {
+  '1971': ['1971 (référence)', {}],
+  peur: ['Le Post prend peur', { p: 0.5 }],
+  sanction: ['Sanction du Post à 250', { S_W: 250 }],
+  renonce: ['Le Times renonce', { q: 0.1, p: 0.5, c_T: 40 }],
+  cher: ['Procès du Post trop cher', { k_W: 40 }],
+  noncred: ['Menace non crédible', { k_W: 60 }],
+  cour: ['Cour suprême acquise', { p: 0.9 }],
+  juge: ['Juge local favorable', { q: 0.8 }],
+};
+let LP = Object.assign({}, BASE, saved || {});
+const fmtP = (k, v) => { const meta = SL.flatMap(g => g[2]).find(s => s[0] === k); return meta && meta[5] === 'pct' ? pct(v, 0) : meta && meta[5] === 'dec' ? fr(v, 2) : fr(v, 0); };
+$('#sliders').innerHTML = SL.map(([g, c, list]) => `<div class="sgroup"><div class="tag" style="color:var(${c})"><span class="dot" style="background:var(${c})"></span>${g}</div>` + list.map(([k, lab, mn, mx, st]) => `<div class="sl"><label for="s-${k}">${lab}</label><output id="o-${k}"></output><input type="range" id="s-${k}" min="${mn}" max="${mx}" step="${st}" data-k="${k}"></div>`).join('') + '</div>').join('');
+$('#presets').innerHTML = Object.entries(PRESETS).map(([id, [lab]]) => `<button type="button" class="btn sm ghost" data-p="${id}">${lab}</button>`).join('');
+function setLab(over) { LP = Object.assign({}, BASE, over); syncSliders(); renderLab(); }
+function syncSliders() { document.querySelectorAll('#sliders input').forEach(i => { i.value = LP[i.dataset.k]; $('#o-' + i.dataset.k).textContent = fmtP(i.dataset.k, LP[i.dataset.k]); }); }
+$('#sliders').addEventListener('input', e => { const k = e.target.dataset.k; if (!k) return; LP[k] = +e.target.value; $('#o-' + k).textContent = fmtP(k, LP[k]); renderLab(); });
+$('#presets').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setLab(PRESETS[b.dataset.p][1]); });
+document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => { setLab(PRESETS[b.dataset.preset][1]); document.getElementById('labo').scrollIntoView(); }));
+$('#strips2').addEventListener('click', e => {
+  const bar = e.target.closest('.bar'); if (!bar) return; const k = bar.parentElement.dataset.k;
+  const r = bar.getBoundingClientRect(); const v = +bar.dataset.min + (+bar.dataset.max - +bar.dataset.min) * clamp01((e.clientX - r.left) / r.width);
+  LP[k] = Math.round(v); syncSliders(); renderLab();
+});
+function explain(P, M) {
+  const L = [];
+  const sueWP = M.sc[2], letWP = M.O.O5[2];
+  L.push(`Cour suprême : si le Post est poursuivi, les gains espérés valent (${fr(M.sc[0])} ; ${fr(M.sc[1], 2)} ; ${fr(M.sc[2])}).`);
+  L.push(`Face au Post, le gouvernement ${M.g2Sue ? '<b>poursuivrait</b>' : '<b>laisserait faire</b>'} : ${fr(sueWP)} en poursuivant contre ${fr(letWP)} sans procès. Il poursuit tant que <span class="m">p</span> &lt; ${pct(M.pG)}.`);
+  const wGain = M.g2v[1];
+  L.push(`Le Post ${M.wPub ? '<b>publierait</b>' : '<b>se tairait</b>'} : publier lui rapporterait ${fr(wGain, 2)} ${M.wPub ? '&gt;' : '≤'} 0.${M.g2Sue ? ` Seuil de publication sous la menace : <span class="m">p</span> ≥ ${pct(M.pW)}.` : ' Comme personne ne le poursuivrait, publier ne lui coûte rien.'}`);
+  L.push(`Juge local : si le Times est poursuivi, les gains espérés valent (${fr(M.judge[0])} ; ${fr(M.judge[1], 2)} ; ${fr(M.judge[2])}).`);
+  L.push(`Face au Times, le gouvernement ${M.g1Sue ? '<b>poursuit</b>' : '<b>laisse faire</b>'} : ${fr(M.judge[2])} en poursuivant contre ${fr(M.O.O2[2])} sans procès.${!M.g1Sue && M.wPub && !M.g2Sue ? ' Censurer le Times ne servirait à rien : le Post publierait sans risque.' : ''}`);
+  L.push(`Le Times ${M.tPub ? '<b>publie</b>' : '<b>ne publie pas</b>'} : ${fr(M.g1v[0])} en publiant contre 0.`);
+  return L.map((t, i) => `<div class="ln"><b class="n">${i + 1}</b><span>${t}</span></div>`).join('') +
+    `<div class="note ${M.full > 0.5 ? 'green' : 'red'}" style="margin-top:6px">Probabilité que tout sorte : <b>${pct(M.full)}</b>. Probabilité que l'essentiel reste secret : <b>${pct(1 - M.full)}</b>.</div>`;
+}
+function renderLab() {
+  const M = drawTree($('#tree-lab'), LP, { mode: 'num', eq: true, probs: true });
+  const reg = $('#lab-regime'); reg.textContent = REG[M.regime].label; reg.style.background = `var(${REG[M.regime].css})`;
+  $('#lab-strat').innerHTML = `<span class="chip" style="--c:var(--nyt)">NYT : ${M.tPub ? 'publier' : 'ne pas publier'}</span><span class="chip" style="--c:var(--gov)">Gouv. : (${M.g1Sue ? 'poursuivre' : 'laisser faire'} le Times ; ${M.g2Sue ? 'poursuivre' : 'laisser faire'} le Post)</span><span class="chip" style="--c:var(--wp)">WP : ${M.wPub ? 'publier' : 'se taire'}</span>`;
+  const PC = { O1: ['#7d776b', 'O1 rien ne sort'], O2: ['#2C7A4B', 'O2 publication sans procès'], O3: ['#4E8F72', 'O3 le juge donne raison au Times'], O4: ['#B42318', 'O4 censure, le Post se tait'], O5: ['#3E7D8C', 'O5 le Post publie sans procès'], O6: ['#17695B', 'O6 victoire à la Cour suprême'], O7: ['#8F1C13', 'O7 censure et sanctions'] };
+  const ent = Object.entries(M.probs).filter(([, v]) => v > 1e-9);
+  $('#lab-prob').innerHTML = ent.map(([k, v]) => `<div style="width:${v * 100}%;background:${PC[k][0]}">${v > 0.07 ? pct(v) : ''}</div>`).join('');
+  $('#lab-problab').innerHTML = ent.map(([k, v]) => `<span><span class="dot" style="background:${PC[k][0]}"></span> ${PC[k][1]} · <b class="mono">${pct(v)}</b></span>`).join('');
+  $('#lab-explain').innerHTML = explain(LP, M);
+  drawMap($('#map2'), LP, 'vous'); legend($('#legend2'), LP);
+  drawStrips($('#strips2'), LP, true);
+  try { localStorage.setItem('pp-lab', JSON.stringify(LP)); } catch (e) {}
+}
+hookMap($('#map2'), () => LP, (q, p) => { LP.q = q; LP.p = p; syncSliders(); renderLab(); });
+
+// ====================== ÉNONCÉ ======================
+const ANS = [
+  ['Identifier les joueurs et l’ordre', 'Trois joueurs stratégiques : New York Times → gouvernement → (juge local, Nature) → Washington Post → gouvernement → (Cour suprême, Nature). Ellsberg déclenche le jeu avec un coup fixé (pièce 4).'],
+  ['Identifier les résultats potentiels', 'Sept issues : pas de publication (O1) ; pas d’action en justice (O2) ; action contre le Times seulement (O3, O4, O5) ; action contre le Post également (O6, O7) (pièce 5).'],
+  ['Impact des coûts et des probabilités', 'Le Post publie si p ≥ (c<sub>W</sub> + S<sub>W</sub>)/(B<sub>W</sub> + S<sub>W</sub>) ≈ 61 %. Le gouvernement attaque le Post si p &lt; 1 − k<sub>W</sub>/((1 − θ)D) ≈ 86 %, et le Times si q &lt; 1 − k<sub>T</sub>/[(1 − p)(1 − θ)D − k<sub>W</sub>] ≈ 65 % (pièces 7 et 8).'],
+  ['Valeurs pour lesquelles rien n’est publié', 'Le Post se tait si p = 50 % ou S<sub>W</sub> = 250 (gain espéré négatif) : la censure du Times tient dans 70 % des cas. Le Times renonce si c<sub>T</sub> = 40 et q = 10 % (gain espéré −3) (pièce 9).'],
+  ['Importance des coûts', 'Le coût du 2e procès décide du 1er : au-delà de k<sub>W</sub> ≈ 34,7, aucun procès ; au-delà de 49, menace non crédible. De même k<sub>T</sub> &gt; 20,3 ⇒ aucun procès ; c<sub>W</sub> &gt; 25,5 ou S<sub>W</sub> &gt; 180 ⇒ le Post se tait (pièce 10).'],
+  ['Payoffs cohérents et ENPS', 'Avec les valeurs de 1971, l’ENPS est (NYT : publier ; Gouv. : poursuivre le Times, poursuivre le Post ; WP : publier). Avec les tirages réels de la Nature (censure locale, puis victoire à la Cour suprême), on obtient O6 : l’histoire de 1971 (pièce 7).'],
+];
+$('#answers').innerHTML = ANS.map(([t, a]) => `<li><div><b>${t}</b><br><span style="color:var(--ink2)">${a}</span></div></li>`).join('');
+
+// ====================== QUIZ ======================
+const QUIZ = [
+  ['Pourquoi modélise-t-on les juges comme « la Nature » ?', ['Parce qu’ils jouent toujours en dernier', 'Parce que leur verdict est incertain pour les joueurs et ne suit pas une logique de gains', 'Parce qu’ils sont neutres politiquement'], 1, 'On ne leur attribue pas de gains : on représente l’incertitude sur leur verdict par des probabilités (q, p).'],
+  ['Par quel nœud commence l’induction à rebours ?', ['Le Times', 'Le gouvernement face au Times', 'La Cour suprême'], 2, 'On part de la fin de l’arbre : la Cour suprême, puis on remonte jusqu’au Times.'],
+  ['Avec nos valeurs, à partir de quelle probabilité de victoire le Post publie-t-il sous la menace d’un procès ?', ['50 %', '61 %', '86 %'], 1, '(c_W + S_W)/(B_W + S_W) = 165/270 ≈ 61 %. 86 % est le seuil du gouvernement.'],
+  ['Si poursuivre le Post coûtait 40 au gouvernement (au lieu de 20), que se passerait-il ?', ['Toujours deux procès', 'Aucun procès : le Times publie librement', 'Le Times renoncerait à publier'], 1, 'Le gain net du 2e procès tombe à 9 : 0,7 × 9 = 6,3 &lt; 10, poursuivre le Times ne vaut plus la peine.'],
+  ['Qu’est-ce qu’une menace non crédible ?', ['Une menace qu’on n’aurait pas intérêt à exécuter le moment venu', 'Une menace annoncée en secret', 'Une menace qui coûte cher à celui qui la subit'], 0, 'L’ENPS impose d’agir au mieux dans chaque sous-jeu : une telle menace ne dissuade personne.'],
+  ['Quelle est la stratégie d’équilibre du gouvernement en 1971 ?', ['Poursuivre le Times seulement', 'Poursuivre le Times et poursuivre le Post', 'Ne poursuivre personne'], 1, 'Une stratégie précise l’action à chacun de ses deux nœuds : poursuivre, puis poursuivre.'],
+  ['Avant le premier article, quelle était la probabilité (dans le modèle) d’une issue avec censure et sanctions ?', ['7 %', '24,5 %', '65 %'], 1, '(1 − q)(1 − p) = 0,7 × 0,35 = 0,245.'],
+];
+let good = 0, done = 0;
+$('#quizbox').innerHTML = QUIZ.map(([q, opts], i) => `<div class="q" data-i="${i}"><div class="tag" style="color:var(--muted)">Question ${i + 1}</div><h3 style="font-size:17px">${q}</h3><div class="opts">${opts.map((o, j) => `<button type="button" data-j="${j}">${o}</button>`).join('')}</div><div class="fb" hidden></div></div>`).join('');
+$('#quizbox').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return; const box = b.closest('.q'); if (box.dataset.done) return;
+  const i = +box.dataset.i, j = +b.dataset.j, [, , ok, why] = QUIZ[i];
+  box.dataset.done = 1; done++; if (j === ok) good++;
+  box.querySelectorAll('button').forEach((x, k) => { if (k === ok) x.classList.add('good'); else if (k === j) x.classList.add('bad'); x.disabled = true; });
+  const fb = box.querySelector('.fb'); fb.hidden = false; fb.innerHTML = (j === ok ? '<b style="color:var(--ok)">Exact.</b> ' : '<b style="color:var(--stamp)">Pas tout à fait.</b> ') + why;
+  $('#score').textContent = `${good} / ${done} bonne${good > 1 ? 's' : ''} réponse${good > 1 ? 's' : ''}`;
+});
+
+// ====================== LEXIQUE ======================
+const GL = [
+  ['Jeu séquentiel', 'Jeu où les joueurs décident à tour de rôle, en connaissant les coups précédents.'],
+  ['Information parfaite', 'Chaque joueur sait exactement où il se trouve dans l’arbre quand il décide.'],
+  ['Nature', 'Joueur fictif qui représente le hasard ; ses coups ont des probabilités connues.'],
+  ['Gain espéré', 'Moyenne des gains pondérée par les probabilités : p × a + (1 − p) × b.'],
+  ['Stratégie', 'Plan complet qui précise une action à chaque nœud où le joueur pourrait jouer.'],
+  ['Sous-jeu', 'Partie de l’arbre qui commence à un nœud et comprend tout ce qui suit.'],
+  ['Induction à rebours', 'Méthode de résolution qui part de la fin de l’arbre et remonte nœud par nœud.'],
+  ['Équilibre de Nash', 'Profil de stratégies où aucun joueur n’a intérêt à changer seul de stratégie.'],
+  ['ENPS', 'Équilibre de Nash parfait en sous-jeux : un équilibre de Nash dans chaque sous-jeu.'],
+  ['Menace non crédible', 'Menace qu’on n’aurait pas intérêt à exécuter le moment venu ; l’ENPS l’écarte.'],
+  ['Censure préalable', 'Interdiction de publier décidée avant la publication (prior restraint). La Cour suprême exige une justification très lourde.'],
+  ['Espionage Act', 'Loi américaine de 1917 sur la divulgation d’informations de défense, invoquée contre Ellsberg.'],
+  ['Entrée en bourse (IPO)', 'Première vente d’actions au public. Celle du Post a eu lieu le 15 juin 1971.'],
+];
+$('#gloss').innerHTML = GL.map(([t, d]) => `<dt>${t}</dt><dd>${d}</dd>`).join('');
+
+// ====================== INITIALISATION ======================
+function renderAll() {
+  renderMain(); renderPay(); renderStep();
+  drawMap($('#map1'), BASE, '1971'); legend($('#legend1'), BASE);
+  drawStrips($('#strips1'), BASE, false);
+  syncSliders(); renderLab();
+}
+hookMap($('#map1'), () => BASE, null);
+renderAll();
+document.fonts && document.fonts.ready.then(() => { drawMap($('#map1'), BASE, '1971'); drawMap($('#map2'), LP, 'vous'); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', renderAll);
+new MutationObserver(renderAll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>
+
+</body></html>
