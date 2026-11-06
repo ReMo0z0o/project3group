@@ -30,7 +30,7 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(await page.title(),'Pentagon Papers — Une affaire de décisions');
     assert.equal(await page.locator('#chapter-nav').isVisible(),false,'no previous-chapter controls on the overview');
     const ids=await page.locator('section.piece').evaluateAll(elements=>elements.map(e=>e.id));
-    assert.equal(ids.length,17,'all the original educational chapters remain available');
+    assert.equal(ids.length,18,'all the educational chapters are available');
     let routes=0;
     for(const width of [1440,768,390,320]){
       await page.setViewportSize({width,height:900});
@@ -51,7 +51,7 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(await page.locator('#labo').isVisible(),true);
     assert.equal(await page.locator('#menu-toggle').getAttribute('aria-expanded'),'false');
     await page.setViewportSize({width:1440,height:1000});
-    const scenarios={1971:'Deux procès',peur:'Times seulement',sanction:'Times seulement',renonce:'Aucune publication',cher:'Publication sans procès',noncred:'Publication sans procès',cour:'Publication sans procès',juge:'Publication sans procès'};
+    const scenarios={1971:'Deux procès',peur:'Times seulement',sanction:'Times seulement',renonce:'Rien ne sort',hostile:'Rien ne sort',cher:'Publication sans procès',noncred:'menace non crédible',cour:'menace non crédible',juge:'Publication sans procès',preempt:'Times seulement',nash:'menace non crédible'};
     for(const [key,label]of Object.entries(scenarios)){
       await page.locator(`#presets [data-p="${key}"]`).click();
       assert.ok((await page.locator('#lab-regime').textContent()).includes(label),key);
@@ -61,7 +61,7 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.match(await page.locator('#live-full').textContent(),/75,5/);
     await page.locator('#s-p').focus();await page.keyboard.press('End');
     await page.waitForTimeout(150);
-    assert.match(await page.locator('#lab-regime').textContent(),/sans procès/,'a real slider keyboard edit changes equilibrium');
+    assert.match(await page.locator('#lab-regime').textContent(),/sans procès/i,'a real slider keyboard edit changes equilibrium');
     await page.reload();
     assert.equal(await page.locator('#s-p').inputValue(),'1','scenario survives a reload');
     await page.locator('#presets [data-p="1971"]').click();
@@ -80,34 +80,40 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
 
     await page.evaluate(()=>window.Papers.navigate('arbre'));
     assert.equal(await page.locator('#tree-main [data-node]').count(),1,'guided construction starts with the root only');
-    for(let count=2;count<=6;count++){
+    for(let count=2;count<=9;count++){
       await page.locator('#build-next').click();
-      assert.equal(await page.locator('#tree-main [data-node]').count(),count,'one decision is added at a time');
+      assert.equal(await page.locator('#tree-main [data-node]').count(),count,'one node is added at a time');
     }
-    assert.equal(await page.locator('#tree-main [data-outcome]').count(),7,'the complete tree preserves all seven outcomes');
+    assert.equal(await page.locator('#build-next').isDisabled(),true,'construction ends with the ninth node');
+    assert.equal(await page.locator('#tree-main [data-outcome]').count(),10,'the complete tree shows all ten outcomes');
+    assert.equal(await page.locator('#tree-main [data-pending-node]').count(),0,'nothing is left to develop');
     await page.locator('[data-tree-view="full"]').click();
-    await page.locator('#tree-path').selectOption('O6');
-    assert.equal(await page.locator('#tree-main .dt-history').count(),6,'the historical path traverses all six branches');
+    await page.locator('#tree-path').selectOption('O2');
+    assert.equal(await page.locator('#tree-main .dt-history').count(),6,'the historical path traverses six branches');
     assert.match(await page.locator('#tree-guide-copy').textContent(),/ne signifie pas que c’est un équilibre/);
     await page.locator('[data-tree-view="post"]').click();
     assert.equal(await page.locator('#tree-main [data-node]').count(),3);
     assert.equal(await page.locator('#tree-main [data-outcome]').count(),4,'a subgame retains every continuation, not just a path');
+    await page.locator('[data-subgame="x6"]').click();
+    assert.equal(await page.locator('#tree-main [data-node="x6"]').count(),1,'the unreached subgame can be isolated too');
+    assert.equal(await page.locator('#tree-main [data-outcome="O10"]').count(),1);
     await page.locator('#t-sym').click();
     assert.ok(await page.locator('#tree-main tspan[baseline-shift="sub"]').count()>0,'symbolic gains retain readable subscripts');
     await page.locator('#t-num').click();
-    console.log('PASS guided construction, seven outcomes, path exploration, subgames and payoff notation');
+    console.log('PASS guided construction, ten outcomes, path exploration, subgames and payoff notation');
 
     await page.evaluate(()=>window.Papers.navigate('rappels'));
     await page.locator('#thr-k').focus();await page.keyboard.press('End');
     assert.match(await page.locator('#thr-msg').textContent(),/49/);
     assert.match(await page.locator('#thr-out').textContent(),/non crédible/);
     await page.evaluate(()=>window.Papers.navigate('resolution'));
-    for(let i=0;i<8;i++){
+    const replaced=[0,1,1,1,1,0,1,1,2];
+    for(let i=0;i<11;i++){
       await page.locator('#st-next').click();
-      if(i<6){
-        assert.equal(await page.locator('#tree-step [data-node]').count(),1,'focus shows only the decision currently being resolved');
+      if(i<9){
+        assert.equal(await page.locator('#tree-step [data-node]').count(),1,'focus shows only the node currently being resolved');
         assert.equal(await page.locator('#tree-step').getAttribute('data-tree-scope'),'focus');
-        if(i>0)assert.equal(await page.locator('#tree-step [data-replaced-node]').count(),1,'the solved continuation is replaced by a value');
+        assert.equal(await page.locator('#tree-step [data-replaced-node]').count(),replaced[i],'solved continuations are replaced by their values');
       }
     }
     assert.equal(await page.locator('#st-next').isDisabled(),true);
@@ -130,9 +136,9 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(await page.locator('[data-story-goto="1"]').getAttribute('aria-current'),'step','the narrative actually advances');
     await page.evaluate(()=>window.Papers.navigate('quiz'));await page.waitForTimeout(150);
     assert.equal(await page.locator('[data-story-play]').getAttribute('aria-pressed'),'false','hidden narratives stop running');
-    const answers=[1,2,1,1,0,1,1];
+    const answers=[1,1,1,1,1,1,0,1];
     for(let i=0;i<answers.length;i++)await page.locator(`.q[data-i="${i}"] button[data-j="${answers[i]}"]`).click();
-    assert.match(await page.locator('#score').textContent(),/^7 \/ 7 bonnes/);
+    assert.match(await page.locator('#score').textContent(),/^8 \/ 8 bonnes/);
     await page.locator('#reset-quiz').click();assert.equal(await page.locator('#quizbox button:disabled').count(),0);
     await page.locator('.q[data-i="0"] button[data-j="0"]').click();
     assert.equal(await page.locator('.q[data-i="0"] .bad').count(),1);
@@ -144,7 +150,7 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     await page.reload();assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
     await page.locator('#theme-toggle').click();
     await page.emulateMedia({media:'print'});
-    assert.equal(await page.locator('section.piece:visible').count(),17,'print includes every chapter');
+    assert.equal(await page.locator('section.piece:visible').count(),18,'print includes every chapter');
     assert.equal(await page.locator('#accueil').isVisible(),true,'print includes the overview');
     await page.emulateMedia({media:'screen',reducedMotion:'reduce'});
     const animation=await page.locator('.archive-art').evaluate(element=>getComputedStyle(element).animationName);

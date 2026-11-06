@@ -1,47 +1,42 @@
 # Pentagon Papers — Une affaire de décisions
 
-Refonte de l’application fournie pour le travail de théorie des jeux du groupe 5–6.
+Application du travail de théorie des jeux du groupe 5–6 (cours ECGEB366, jeux séquentiels).
 
-**Ouvrir `index.html` dans un navigateur récent.** Ce fichier contient toute l’application : styles, scripts, polices et illustrations. Il fonctionne hors ligne ; seules les références bibliographiques ouvrent des sites externes. Aucun compte, service distant ou gestionnaire de paquets n’est nécessaire.
+**Ouvrir `index.html` dans un navigateur récent.** Ce fichier contient toute l’application : styles, scripts, polices et illustrations. Il fonctionne hors ligne ; seules les références bibliographiques ouvrent des sites externes.
 
-## Dans cette édition
+## Le modèle
 
-- Direction artistique de dossier d’archives : papier ivoire, rouge profond, typographie éditoriale et illustrations SVG originales.
-- Navigation dans 17 chapitres, suivi de lecture et affichage adapté aux petits écrans.
-- Récit animé en cinq scènes, lecture/pause et navigation manuelle. Il remplace l’emplacement vidéo vide de l’original.
-- Arbres de décision agrandissables, résolution pas à pas, cartes des équilibres et mini-expérience sur les menaces crédibles.
-- Présentation pédagogique alignée sur les PDF du cours ECGEB366 : arbre descendant, construction en six étapes, lecture des sept issues et sous-jeu du Post. L’induction à rebours remplace visuellement les suites résolues par leurs gains et encadre la composante du joueur qui décide.
-- Laboratoire de 12 paramètres, huit scénarios, résultats instantanés, mémorisation locale et export JSON.
-- Quiz de sept questions avec correction et remise à zéro, lexique et sources.
-- Ambiances papier/nuit, clavier, préférences de mouvement réduit et impression de l’intégralité du dossier.
+Jeu séquentiel à information parfaite avec coups de la Nature. Gains toujours dans l’ordre **Times, Post, Nixon**.
 
-Les objectifs du document Word sont conservés : joueurs et ordre des décisions, sept issues, coûts des procédures, seuils de probabilité, situations de non-publication et équilibre parfait en sous-jeux. Les probabilités et gains restent un **calibrage illustratif**. Aux frontières d’indifférence, l’application retient la publication et l’absence de poursuite ; plusieurs ENPS peuvent alors exister.
+- **Neuf nœuds non terminaux** : six décisions (Times x0 ; Nixon x1, x4, x7 ; Post x3, x6) et trois coups de la Nature (juge local x2 et x8, probabilité `q` de refuser la censure ; Cour suprême x5, probabilité `p` de donner raison aux journaux).
+- **Dix issues** (O1 à O10, de gauche à droite sous l’arbre). La branche « le Times ne publie pas » permet au Post de publier seul.
+- **Cinq règles de gains**, identiques dans tous les sous-jeux : un journal reçoit `B` si tout sort et `θB` si sa censure est maintenue ; un journal poursuivi paie `c` ; une censure maintenue coûte `S` ; Nixon perd `D` si tout sort, `θD` sinon, et paie `k` par procès ; si le Times renonce et que le Post publie, le Times perd `R_T` au prorata de ce qui sort.
+- **Hypothèse sur les tribunaux** : la Cour suprême n’est saisie en urgence que si deux journaux sont poursuivis (affaires jointes). Sinon, la censure du juge local tient.
+- **Calibrage de référence** : q = 0,3 ; p = 0,65 ; θ = 0,3 ; B_T = 100 ; c_T = 10 ; S_T = 50 ; R_T = 50 ; B_W = 120 ; c_W = 15 ; S_W = 180 ; D = 200 ; k_T = 10 ; k_W = 20.
+- **ENPS** : Times publie ; Post (publie en relais ; se tait seul) ; Nixon poursuit à ses trois nœuds. Gains espérés (60,6 ; 8,82 ; −189,7). Issues : O5 30 %, O2 (1971) 45,5 %, O1 24,5 %.
 
-## Déployer sur Vercel
+Les probabilités et gains sont un **calibrage illustratif**. Aux frontières d’indifférence, l’application retient la publication et l’absence de poursuite.
 
-L’application générée est prête pour un hébergement statique. La configuration `vercel.json` désactive l’installation et la compilation : Vercel sert directement `index.html`.
-
-Après envoi du dépôt sur GitHub, dans Vercel, choisir **Add New → Project → Import Git Repository**, puis `ReMo0z0o/project3group`. Si le dépôt n’apparaît pas, ouvrir **Adjust GitHub App Permissions** et autoriser ce dépôt pour l’application GitHub de Vercel, avec le compte GitHub qui possède le dépôt. Conserver le dossier racine du projet et le préréglage **Other**, puis déployer.
-
-Après une modification des sources, lancer `python3 build.py` et inclure le fichier `index.html` reconstruit dans le commit envoyé à GitHub.
+Le raisonnement complet (choix de l’arbre, construction des gains, calculs, réponses à l’énoncé, liens avec le cours) est détaillé dans [`docs/modele-revise.md`](docs/modele-revise.md).
 
 ## Modifier et reconstruire
-
-Le HTML livré est généré, mais ne nécessite aucune compilation pour être utilisé.
 
 ```sh
 python3 build.py
 ```
 
-Sources : `src/shell.html` pour l’interface, `src/premium.css` et `src/extras.css` pour les styles, `src/premium.js` pour la navigation et les interactions ajoutées, `src/presentation.*` pour le récit, `src/hero-art.html` pour l’illustration d’accueil. `src/original.html` conserve le document HTML reçu. `build.py` réemploie son contenu et son modèle, applique les corrections de calcul et de formulation, puis embarque les ressources dans `index.html`.
+Sources :
 
-`src/decision-tree.*` dessine la forme étendue ; `src/tree-guide.html` et `src/course-ui.*` gèrent sa construction et sa lecture. `src/course-notes.html` et `src/course-resolution.html` expliquent les concepts à partir des PDF S5, S6 et S8 fournis. Les références de diapositives apparaissent dans le dossier ; les PDF eux-mêmes ne sont pas inclus dans l’application.
+- `src/model.js` : paramètres, arbre (`NODES`), gains des issues, résolution par induction à rebours (`solve`) et seuils ;
+- `src/decision-tree.js` : dessin de la forme étendue (construction, sous-jeux, réduction, équilibre) ;
+- `src/app.js` : chapitres interactifs (gains, résolution pas à pas, carte, coûts, laboratoire, réponses, quiz) ;
+- `src/sections.html` : contenu des chapitres ; `src/shell.html` : interface ; `src/hero-art.html` : illustration d’accueil ;
+- `src/presentation.*` : récit animé ; `src/premium.js` : navigation et confort de lecture ;
+- styles : `src/dossier.css`, `src/premium.css`, `src/extras.css`, `src/course-ui.css`, `src/decision-tree.css`.
 
-Pour un serveur de développement facultatif :
+`src/original.html` est une archive de la première version reçue ; elle n’est plus utilisée par `build.py`.
 
-```sh
-python3 -m http.server 8000 --bind 0.0.0.0
-```
+Après une modification, lancer `python3 build.py` et inclure le fichier `index.html` reconstruit dans le commit.
 
 ## Vérifications
 
@@ -50,12 +45,14 @@ node --test tests/model.test.cjs
 node tests/browser.test.cjs
 ```
 
-Le premier test utilise seulement Node.js et vérifie le modèle extrait du fichier livré, les scénarios, les égalités et plus de 1 400 configurations. Le second nécessite Chromium et Playwright : il cherche un module `playwright` ou `playwright-core` installé, ou le module présent dans l’environnement Codex. Les chemins peuvent être fournis par `PLAYWRIGHT_MODULE` et `CHROMIUM_PATH`.
+Le premier test utilise seulement Node.js. Il exécute le modèle embarqué dans `index.html` : gains des dix issues, solution de référence, onze scénarios du laboratoire, égalités, plus de 1 000 configurations, et recensement des 64 profils de stratégies (4 équilibres de Nash dans le jeu de référence, dont un seul ENPS ; 12 lorsque la menace contre le Post n’est pas crédible).
 
-Les contrôles navigateur couvrent 72 combinaisons de chapitre/largeur (320, 390, 768 et 1440 pixels), les paramètres, l’export, la persistance, le quiz, le récit animé, le thème, le clavier, l’impression et l’absence de dépendances réseau. Le serveur de test temporaire se ferme automatiquement.
+Le second nécessite Chromium et Playwright (`PLAYWRIGHT_MODULE` et `CHROMIUM_PATH` permettent d’indiquer leurs chemins). Il couvre les 18 chapitres à 320, 390, 768 et 1440 pixels, la construction de l’arbre en neuf étapes, les sous-jeux, l’induction à rebours, le laboratoire, l’export, le quiz, le thème et l’impression.
+
+## Déployer sur Vercel
+
+La configuration `vercel.json` désactive l’installation et la compilation : Vercel sert directement `index.html`. Dans Vercel, **Add New → Project → Import Git Repository**, puis `ReMo0z0o/project3group`, préréglage **Other**.
 
 ## Ressources
 
-Les illustrations SVG sont créées pour cette refonte. Les polices Newsreader, DM Sans et IBM Plex Mono sont issues du dépôt officiel `google/fonts`, sous licence SIL Open Font License ; leurs licences sont conservées dans `assets/`. Les fontes embarquées sont des sous-ensembles adaptés au français. Les sources historiques figurent dans le chapitre Sources de l’application.
-
-L’original n’incluait aucun fichier vidéo. La séquence intégrée est une animation SVG native, sans vidéo externe ni bande sonore.
+Les illustrations SVG sont originales. Les polices Newsreader, DM Sans et IBM Plex Mono viennent du dépôt officiel `google/fonts`, sous licence SIL Open Font License ; leurs licences sont dans `assets/`.

@@ -1,0 +1,366 @@
+    {{PRESENTATION}}
+
+    <!-- 1. AFFAIRE -->
+    <section class="piece" id="affaire" data-toc="L'affaire">
+      <div class="piece-head"><div class="eyebrow">Pièce 1</div><h2>L'affaire, en dates</h2></div>
+      <div class="prose">
+        <p class="lead">En 1971, les États-Unis sont enlisés au Vietnam. Les discours officiels restent optimistes, mais une étude secrète du Pentagone raconte une autre histoire.</p>
+        <p>En 1967, le secrétaire à la Défense <strong>Robert McNamara</strong> commande une étude sur l'engagement américain au Vietnam depuis 1945 : <strong>47 volumes, environ 7 000 pages</strong>. Elle montre que les présidents, de Truman à Johnson, savaient la guerre pratiquement impossible à gagner, tout en affirmant le contraire en public.</p>
+      </div>
+      <div class="timeline" id="timeline"></div>
+      <div class="grid2">
+        <div class="note"><strong>Pourquoi les documents gênent Nixon ?</strong> L'étude s'arrête en 1967, avant son mandat. Mais si une fuite de cette ampleur passe sans réaction, plus aucun secret de l'État n'est protégé. C'est ce dommage, <span class="m">D</span> dans notre modèle, que l'administration veut éviter.</div>
+        <div class="note red"><strong>Ce que risque le Post.</strong> Il est entré en bourse le 15 juin (action à 26 $). Des poursuites pénales pouvaient compromettre l'opération, menacer ses licences de télévision (environ 100 millions de dollars) et exposer ses dirigeants à des amendes, voire à la prison, pour avoir publié après une interdiction visant le Times.</div>
+      </div>
+    </section>
+
+    <!-- 2. QUESTION -->
+    <section class="piece" id="question" data-toc="La question">
+      <div class="piece-head"><div class="eyebrow">Pièce 2</div><h2>Ce que l'exercice demande</h2></div>
+      <div class="prose">
+        <p>L'énoncé demande de modéliser la décision du <strong>Washington Post</strong> (et du <strong>New York Times</strong>) de publier les documents, par un <strong>jeu séquentiel</strong> qui explique deux choses :</p>
+      </div>
+      <div class="grid2">
+        <div class="card" style="border-top:4px solid var(--wp)"><div class="tag" style="color:var(--wp)">Question 1</div><h3>Pourquoi les journaux publient-ils, malgré les risques ?</h3></div>
+        <div class="card" style="border-top:4px solid var(--gov)"><div class="tag" style="color:var(--gov)">Question 2</div><h3>Pourquoi l'administration Nixon porte-t-elle l'affaire devant les tribunaux ?</h3></div>
+      </div>
+      <div class="prose">
+        <p><strong>Pourquoi un jeu séquentiel ?</strong> Parce que les décisions se prennent <em>à tour de rôle</em> : le Times publie d'abord, Nixon réagit, un juge tranche, puis le Post décide en connaissant tout ce qui précède. Chaque joueur peut donc anticiper la réaction de ceux qui jouent après lui.</p>
+        <p><strong>Et si le Times avait refusé ?</strong> Ellsberg aurait cherché un autre journal. Notre arbre le prévoit : le Post peut aussi publier <em>seul</em>. Cette branche permet de répondre à une question que l'histoire ne montre pas : le secret aurait-il tenu sans le Times ? La page <a href="#enonce">Réponses à l'énoncé</a> reprend chaque consigne point par point.</p>
+      </div>
+    </section>
+
+    <!-- 3. RAPPELS -->
+    <section class="piece" id="rappels" data-toc="Rappels de cours">
+      <div class="piece-head"><div class="eyebrow">Pièce 3</div><h2>Les outils de théorie des jeux, en clair</h2></div>
+      <div class="course-note">
+        <div class="eyebrow">La méthode du cours</div>
+        <h3>Construire l’arbre avant de chercher l’équilibre</h3>
+        <p>La <strong>forme étendue</strong> montre qui joue, dans quel ordre et ce que chacun observe. On part du nœud initial, en haut. À chaque nœud, on inscrit le joueur qui décide ; chaque branche porte une action disponible. On ajoute ensuite le joueur suivant ou une feuille si le jeu s’arrête. Sous chaque feuille, on écrit les gains dans un <strong>ordre fixe</strong>, même lorsque le joueur qui décide change.</p>
+        <p>Ici, les gains sont toujours empilés <strong>Times, puis Post, puis Nixon</strong>. Une branche représente un choix possible, pas une étape obligatoire : dès qu’on atteint une feuille, ce chemin est terminé.</p>
+        <p class="course-ref">Cours fourni : S6 — B2. Jeux séquentiels, diapositives 8–9 et 14.</p>
+      </div>
+      <div class="course-note">
+        <h3>Un petit arbre pour comprendre la méthode</h3>
+        <p>Dans le jeu de l’entrée du cours, la firme 1 choisit <em>Entrer</em> ou <em>Passer</em>. Après une entrée, la firme 2 choisit <em>Accommoder</em> ou <em>Guerre</em>. Les gains se lisent ici dans l’ordre <strong>firme 1, firme 2</strong>.</p>
+        <svg viewBox="0 0 560 330" role="img" aria-label="Jeu de l’entrée : Entrer puis Accommoder donne les gains 2 et 1. Entrer puis Guerre donne 0 et 0. Passer donne 1 et 2. Les branches Entrer et Accommoder sont retenues par induction à rebours." style="display:block;width:100%;max-width:560px;height:auto;margin:12px auto">
+          <g fill="none" stroke-width="2"><path d="M330 47 200 137" stroke="var(--nyt)" stroke-width="3.5"/><path d="m330 47 130 90" stroke="var(--rule)" stroke-dasharray="5 5"/><path d="M200 137 100 245" stroke="var(--wp)" stroke-width="3.5"/><path d="m200 137 100 108" stroke="var(--rule)" stroke-dasharray="5 5"/></g>
+          <g font-family="DM Sans, sans-serif" font-size="14" fill="var(--ink)"><text x="330" y="26" text-anchor="middle" fill="var(--nyt)">Firme 1</text><text x="185" y="123" text-anchor="end" fill="var(--wp)">Firme 2</text><text x="242" y="82" text-anchor="end" fill="var(--nyt)">Entrer</text><text x="410" y="82" fill="var(--nyt)">Passer</text><text x="126" y="186" text-anchor="end" fill="var(--wp)">Accommoder</text><text x="267" y="186" fill="var(--wp)">Guerre</text></g>
+          <circle cx="330" cy="47" r="6" fill="var(--nyt)"/><circle cx="200" cy="137" r="6" fill="var(--wp)"/>
+          <g fill="var(--ink)"><circle cx="460" cy="137" r="4"/><circle cx="100" cy="245" r="4"/><circle cx="300" cy="245" r="4"/></g>
+          <g font-family="IBM Plex Mono, monospace" font-size="18" text-anchor="middle"><text x="460" y="166" fill="var(--nyt)">1</text><text x="460" y="192" fill="var(--wp)">2</text><text x="100" y="276" fill="var(--nyt)">2</text><text x="100" y="302" fill="var(--wp)">1</text><text x="300" y="276" fill="var(--nyt)">0</text><text x="300" y="302" fill="var(--wp)">0</text></g>
+        </svg>
+        <p>On résout <strong>du bas vers le haut</strong>. La firme 2 compare son propre gain : 1 en accommodant contre 0 en faisant la guerre. Elle accommode. La firme 1 anticipe cette réponse : entrer lui rapporte alors 2, contre 1 en passant. L’ENPS est donc <strong>(Entrer, Accommoder)</strong>.</p>
+        <p><strong>Pourquoi Nash ne suffit-il pas ?</strong> Le profil (Passer, Guerre) est aussi un équilibre de Nash : si la guerre était prévue, entrer rapporterait 0. Mais après une entrée, la firme 2 préférerait accommoder. Cette menace n’est pas crédible. L’ENPS exige une conduite optimale dans chaque sous-jeu, y compris ceux qui ne sont pas atteints.</p>
+        <p><strong>Le lien avec notre affaire.</strong> Le Post joue le rôle de l’entrant (publier = entrer) et Nixon celui de la firme en place (poursuivre = faire la guerre). La question devient : la menace de procès contre le Post est-elle crédible ?</p>
+        <p class="course-ref">Cours fourni : S6, diapositives 3–6 et 10–13. Illustration redessinée d’après le jeu de l’entrée.</p>
+      </div>
+      <div class="course-note">
+        <h3>Trois distinctions qui évitent les confusions</h3>
+        <p><strong>Action et stratégie.</strong> Une action est un choix à un nœud. Une stratégie est un plan complet. Le Post décide à deux nœuds (après la censure du Times, et si le Times se tait) : il a donc 2 × 2 = <strong>4 stratégies</strong>. Nixon décide à trois nœuds : 2 × 2 × 2 = <strong>8 stratégies</strong>. Le Times en a 2. Il existe donc 2 × 4 × 8 = 64 profils de stratégies. Une stratégie précise aussi ce que le joueur ferait à un nœud qui n’est jamais atteint.</p>
+        <p><strong>Information complète et parfaite.</strong> Les joueurs connaissent les règles, les gains et les probabilités ; lorsqu’ils décident, ils connaissent aussi l’histoire déjà réalisée. Chaque ensemble d’information contient un seul nœud. L’incertitude sur un jugement <em>futur</em> n’empêche pas cette observation du passé. La Nature représente cette incertitude et ne cherche pas à maximiser un gain.</p>
+        <p><strong>Séquentiel et répété.</strong> Nixon intervient jusqu’à deux fois dans une même affaire : cela ne transforme pas le modèle en jeu répété. Dans le chapitre B3, un même jeu de période recommence et les joueurs tiennent compte des gains futurs.</p>
+        <p class="course-ref">Cours fourni : S6, diapositives 7, 15–18 et 36–39 ; S8 — B3. Jeux répétés, diapositives 3–5.</p>
+      </div>
+      <details class="course-definitions"><summary>Retrouver les huit définitions essentielles</summary><div class="grid2" id="concepts"></div></details>
+      <figure>
+        <div class="eyebrow">Mini-expérience · menace crédible ou non ?</div>
+        <p class="ui" style="font-size:15.5px">Le Times est censuré, le Post vient de publier. Nixon doit choisir : poursuivre le Post (jusqu'à la Cour suprême) ou laisser faire. Faites varier le coût de ce procès.</p>
+        <div class="sl" style="max-width:520px"><label for="thr-k">Coût du procès contre le Post pour Nixon, <span class="m">k<sub>W</sub></span></label><output id="thr-kv">20</output><input type="range" id="thr-k" min="0" max="80" step="1" value="20"></div>
+        <div id="thr-out" class="cmp"></div>
+        <p class="small ui" id="thr-msg"></p>
+      </figure>
+    </section>
+
+    <!-- 4. JOUEURS -->
+    <section class="piece" id="joueurs" data-toc="Les joueurs">
+      <div class="piece-head"><div class="eyebrow">Pièce 4</div><h2>Les joueurs et l'ordre du jeu</h2></div>
+      <h3 class="players-title">Trois joueurs : ils choisissent et ils ont des gains</h3>
+      <div class="grid3" id="players"></div>
+      <h3 class="players-title">Ce ne sont pas des joueurs : ni choix stratégique, ni gains</h3>
+      <div class="grid3" id="non-players"></div>
+      <div class="prose">
+        <p><strong>Pourquoi les juges ne sont-ils pas des joueurs ?</strong> Un joueur choisit une action pour maximiser son propre gain. Dans notre modèle, les juges n’ont pas de gains : on ne leur prête aucun objectif. Leur verdict est un événement incertain, un « coup de la Nature », avec des probabilités connues de tous : <span class="m">q</span> qu’un juge local refuse la censure, <span class="m">p</span> que la Cour suprême donne raison aux journaux.</p>
+        <p><strong>Ils n’agissent que sur les gains des trois joueurs.</strong> Sous chaque issue, il y a trois gains (Times, Post, Nixon) et aucun pour les juges. À un losange, personne ne compare rien : on remplace les deux verdicts possibles par la moyenne des gains des trois joueurs, pondérée par <span class="m">q</span> ou <span class="m">p</span>. À la Cour suprême : 0,35 × (−30 ; −159 ; −90) + 0,65 × (90 ; 105 ; −230) = (48 ; 12,6 ; −181).</p>
+        <p><strong>Et Ellsberg ?</strong> Pour simplifier, nous supposons que son objectif de divulgation prime : son choix est fixé d’avance. Il remet les documents au Times ; si le Times est censuré <em>ou</em> s'il refuse, il les remet au Post. Il déclenche le jeu sans y faire de choix stratégique.</p>
+      </div>
+      <figure>
+        <div class="eyebrow">Ordre des coups</div>
+        <div class="grid2">
+          <div>
+            <div class="tag" style="color:var(--nyt);margin-bottom:8px">Si le Times publie</div>
+            <ol class="ui order-list">
+              <li><span class="dot" style="background:var(--nyt)"></span> <strong>Times</strong> (x0) : publier ou non.</li>
+              <li><span class="dot" style="background:var(--gov)"></span> <strong>Nixon</strong> (x1) : poursuivre le Times ou laisser faire.</li>
+              <li><span class="dot" style="background:var(--nat)"></span> <strong>Nature, juge local</strong> (x2) : refuse la censure (<span class="m">q</span>) ou censure le Times (<span class="m">1 − q</span>).</li>
+              <li><span class="dot" style="background:var(--ell)"></span> <strong>Ellsberg</strong> transmet les documents au Post (coup fixé).</li>
+              <li><span class="dot" style="background:var(--wp)"></span> <strong>Post</strong> (x3) : publier en relais ou non.</li>
+              <li><span class="dot" style="background:var(--gov)"></span> <strong>Nixon</strong> (x4) : poursuivre le Post ou laisser faire.</li>
+              <li><span class="dot" style="background:var(--nat)"></span> <strong>Nature, Cour suprême</strong> (x5), affaires jointes : journaux (<span class="m">p</span>) ou gouvernement (<span class="m">1 − p</span>).</li>
+            </ol>
+          </div>
+          <div>
+            <div class="tag" style="color:var(--wp);margin-bottom:8px">Si le Times ne publie pas</div>
+            <ol class="ui order-list">
+              <li><span class="dot" style="background:var(--ell)"></span> <strong>Ellsberg</strong> se tourne vers le Post (coup fixé).</li>
+              <li><span class="dot" style="background:var(--wp)"></span> <strong>Post</strong> (x6) : publier seul ou non.</li>
+              <li><span class="dot" style="background:var(--gov)"></span> <strong>Nixon</strong> (x7) : poursuivre le Post ou laisser faire.</li>
+              <li><span class="dot" style="background:var(--nat)"></span> <strong>Nature, juge local</strong> (x8) : refuse la censure (<span class="m">q</span>) ou censure le Post (<span class="m">1 − q</span>).</li>
+            </ol>
+          </div>
+        </div>
+      </figure>
+    </section>
+
+    <!-- 5. ARBRE -->
+    <section class="piece" id="arbre" data-toc="L'arbre du jeu">
+      <div class="piece-head"><div class="eyebrow">Pièce 5</div><h2>Construire et lire l’arbre du jeu</h2></div>
+      <div class="prose"><p class="lead">On lit l’histoire de haut en bas.<br>On la résout de bas en haut.</p><p>Comme dans le cours, chaque embranchement représente une décision. Commencez par construire l’arbre, puis suivez une issue. Les gains sont affichés en valeurs ; les symboles restent disponibles.</p></div>
+      <div class="tree-key" aria-label="Conventions de lecture de l’arbre">
+        <div><span class="tree-key-dot" aria-hidden="true"></span><strong>Un nœud : qui joue ?</strong><p>Un cercle : un des trois joueurs. Un losange : la Nature (un juge), qui n’est pas un joueur. Le repère x₀ … x₈ identifie chaque nœud.</p></div>
+        <div><span class="tree-key-fork" aria-hidden="true">⑂</span><strong>Une branche : quelle action ?</strong><p>Suivez une seule action à chaque décision. Aux nœuds de la Nature, les deux branches portent des probabilités.</p></div>
+        <div><span class="tree-key-tuple" aria-hidden="true">1 / 2 / 3</span><strong>Une feuille : quels gains ?</strong><p>Toujours dans le même ordre : <b>Times, Post, Nixon</b>. Chaque joueur compare son propre gain. Les juges n’ont pas de ligne : ils ne gagnent rien.</p></div>
+      </div>
+      <div class="tree-workshop">
+        <div class="tree-view-tabs" role="group" aria-label="Mode de lecture de l’arbre">
+          <button type="button" data-tree-view="build" aria-pressed="true">01 · Construire l’arbre</button>
+          <button type="button" data-tree-view="full" aria-pressed="false">02 · Lire les 10 issues</button>
+          <button type="button" data-tree-view="post" aria-pressed="false">03 · Isoler un sous-jeu</button>
+        </div>
+        <div class="tree-guide-panel">
+          <div class="tree-build-controls" id="tree-build-controls"><button class="btn sm ghost" type="button" id="build-prev" aria-label="Étape de construction précédente">←</button><span class="mono" id="build-count">1 / 9</span><button class="btn sm" type="button" id="build-next" aria-label="Étape de construction suivante">Ajouter la suite →</button></div>
+          <div id="tree-guide-copy" aria-live="polite"></div>
+          <label class="tree-path-control" id="tree-path-control" hidden>Suivre une issue <select id="tree-path"><option value="">Toutes les branches</option></select></label>
+          <div class="tree-sub-control" id="tree-sub-control" hidden><div class="seg" role="group" aria-label="Sous-jeu affiché"><button type="button" data-subgame="x3" aria-pressed="true">Le Post après la censure (x3)</button><button type="button" data-subgame="x6" aria-pressed="false">Le Post si le Times se tait (x6)</button></div></div>
+        </div>
+      </div>
+      <figure>
+        <div class="toolbar"><span class="eyebrow">Afficher les gains :</span><div class="seg" role="group" aria-label="Affichage des gains"><button type="button" id="t-sym" aria-pressed="false">en symboles</button><button type="button" id="t-num" aria-pressed="true">en valeurs</button></div></div>
+        <div class="tree-wrap"><svg id="tree-main" viewBox="0 0 1640 920" role="img" aria-label="Arbre du jeu séquentiel"></svg></div>
+        <figcaption>Forme étendue adaptée des conventions du cours S6, diapositives 8–9 et 14. Gains empilés : Times, Post, Nixon. Losanges : la Nature (les juges). Faites défiler horizontalement si nécessaire.</figcaption>
+      </figure>
+      <div class="grid2" id="outcome-cards"></div>
+    </section>
+
+    <!-- 6. CHOIX -->
+    <section class="piece" id="choix" data-toc="Pourquoi cet arbre ?">
+      <div class="piece-head"><div class="eyebrow">Pièce 6</div><h2>Pourquoi cet arbre ? Nos choix de modélisation</h2></div>
+      <div class="prose">
+        <p class="lead">Un arbre est un modèle : il garde l’essentiel de l’histoire et rend chaque hypothèse explicite. Voici nos six choix, et ce qu’ils changent.</p>
+        <p>Point de départ : un arbre « en chaîne » (Times → Nixon → juge → Post → Nixon → Cour suprême) où le jeu s’arrête dès que le Times renonce. Il explique 1971, mais il ne dit rien de ce qui se serait passé sans le Times.</p>
+      </div>
+      <div class="grid2 choices">
+        <div class="card"><div class="tag" style="color:var(--wp)">Choix 1 · une nouvelle branche</div><h3>Le Times n’est pas le seul à pouvoir publier</h3><div class="k">Ellsberg avait déjà proposé l’étude à des sénateurs, dont J. William Fulbright, avant de la confier au Times. Si le Times refuse, il se tourne vers le Post. Sans cette branche, « ne pas publier » donnerait toujours 0 au Times et l’arbre s’arrêterait : impossible de savoir si le secret aurait tenu.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> le Post décide à deux nœuds, Nixon à trois. Les stratégies s’enrichissent (4 pour le Post, 8 pour Nixon).</div></div>
+        <div class="card"><div class="tag" style="color:var(--nat)">Choix 2 · le juge local</div><h3>Poursuivre n’est pas censurer</h3><div class="k">Une poursuite ne fait taire un journal que si un juge l’ordonne. Le juge Gurfein a suspendu le Times le 15 juin, mais il aurait pu refuser (le 19 juin, il a d’ailleurs refusé l’injonction demandée par le gouvernement). On ajoute donc un coup de la Nature : refus de la censure avec la probabilité <span class="m">q</span>.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> avec <span class="m">q</span> = 0, on retrouve l’idée « poursuivre = censurer ».</div></div>
+        <div class="card"><div class="tag" style="color:var(--nat)">Choix 3 · la Cour suprême</div><h3>Saisie en urgence quand deux journaux sont poursuivis</h3><div class="k">En 1971, la Cour a joint les deux affaires et tranché 17 jours après le premier article. Sans second journal, la procédure suit son cours ordinaire : la censure provisoire reste en place assez longtemps pour que les révélations perdent l’essentiel de leur portée.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> « Times censuré, Post muet » et « Post censuré » sont des feuilles. La Cour suprême ne joue qu’après un second procès.</div></div>
+        <div class="card"><div class="tag" style="color:var(--stamp)">Choix 4 · le prix d’une censure</div><h3>Une censure maintenue coûte au journal</h3><div class="k">Un journal censuré garde la valeur de ce qu’il a déjà publié (<span class="m">θB</span>), paie ses frais (<span class="m">c</span>) et subit la sanction <span class="m">S</span> : poursuites, amendes et, pour le Post, son entrée en bourse et ses licences de télévision.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> la même règle vaut pour le Times et pour le Post, quelle que soit la branche.</div></div>
+        <div class="card"><div class="tag" style="color:var(--nyt)">Choix 5 · la rivalité</div><h3>Le Times n’aime pas être doublé</h3><div class="k">Le Times détenait les documents depuis mars et y travaillait en secret depuis près de trois mois. S’il renonce et que le Post publie, il perd le scoop au profit de son rival : une perte <span class="m">R<sub>T</sub></span>, proportionnelle à ce qui sort.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> sans ce terme, la nouvelle branche ne changerait jamais la décision du Times.</div></div>
+        <div class="card"><div class="tag" style="color:var(--ok)">Choix 6 · la cohérence</div><h3>Les mêmes ingrédients dans tous les sous-jeux</h3><div class="k">Chaque gain est construit avec cinq règles fixes (pièce 7). « Tout sort » coûte toujours <span class="m">D</span> à Nixon, une censure maintenue toujours <span class="m">θD</span>. Une même situation reçoit donc le même gain, quel que soit le chemin qui y mène.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> c’est ce que l’énoncé appelle des gains « cohérents entre les (sous-)jeux ».</div></div>
+      </div>
+      <figure>
+        <div class="eyebrow">Les juges ne sont pas des joueurs · le même arbre sans losanges</div>
+        <p class="ui" style="font-size:15.5px">Les juges n’ont pas de gains : ils ne font que pondérer ceux des trois joueurs. On peut donc retirer les losanges et mettre les tribunaux <em>dans les gains</em>, comme les « + tribunaux » de l’ébauche du groupe. On obtient un arbre avec seulement les trois joueurs et sept feuilles, dont les gains sont des espérances :</p>
+        <div class="scroll-x"><table class="pay" id="folded-table"></table></div>
+        <p class="ui small" id="folded-note"></p>
+      </figure>
+      <figure>
+        <div class="eyebrow">Deux arbres comparés</div>
+        <div class="scroll-x"><table class="pay compare-table">
+          <thead><tr><th></th><th>Arbre en chaîne</th><th>Arbre retenu</th></tr></thead>
+          <tbody>
+            <tr><td>Nœuds de décision</td><td>4 (Times, Nixon ×2, Post)</td><td>6 (Times, Post ×2, Nixon ×3)</td></tr>
+            <tr><td>Coups de la Nature</td><td>2</td><td>3 (deux juges locaux, la Cour suprême)</td></tr>
+            <tr><td>Issues</td><td>7</td><td>10</td></tr>
+            <tr><td>Si le Times renonce</td><td>Fin du jeu : rien ne sort</td><td>Le Post peut publier seul</td></tr>
+            <tr><td>Stratégies</td><td>2 × 2 × 4 = 16 profils</td><td>2 × 4 × 8 = 64 profils</td></tr>
+            <tr><td>Chemin d’équilibre en 1971</td><td>Deux procès, victoire possible à la Cour suprême</td><td>Identique, avec en plus une prédiction hors du chemin : seul, le Post n’aurait pas publié</td></tr>
+          </tbody>
+        </table></div>
+      </figure>
+    </section>
+
+    <!-- 7. GAINS -->
+    <section class="piece" id="gains" data-toc="Les gains">
+      <div class="piece-head"><div class="eyebrow">Pièce 7</div><h2>Des gains cohérents avec les objectifs</h2></div>
+      <div class="prose"><p>Chaque gain se calcule avec les <strong>mêmes règles</strong>, dans tous les sous-jeux. Elles traduisent les objectifs des joueurs : les journaux veulent publier sans y laisser leur avenir, Nixon veut garder le secret sans multiplier les procès coûteux.</p></div>
+      <ol class="rules ui">
+        <li><b>Publier rapporte.</b> Un journal qui a publié reçoit <span class="m">B</span> si tout finit par sortir, <span class="m">θB</span> si sa censure est maintenue (il garde la part déjà publiée).</li>
+        <li><b>Un procès coûte.</b> Un journal poursuivi paie ses frais <span class="m">c</span> ; Nixon paie <span class="m">k</span> par procès engagé.</li>
+        <li><b>Une censure maintenue punit.</b> Le journal censuré subit en plus la sanction <span class="m">S</span>.</li>
+        <li><b>La fuite fait mal.</b> Nixon perd <span class="m">D</span> si tout sort, <span class="m">θD</span> si une censure est maintenue, 0 si rien ne sort.</li>
+        <li><b>Être doublé coûte.</b> Si le Times renonce et que le Post publie, le Times perd <span class="m">R<sub>T</sub></span> si tout sort, <span class="m">θR<sub>T</sub></span> si le Post est censuré.</li>
+      </ol>
+      <div class="grid3" id="ingredients"></div>
+      <h3>Pourquoi ces valeurs ?</h3>
+      <div class="scroll-x"><table class="pay" id="whytable"></table></div>
+      <figure>
+        <div class="toolbar"><span class="eyebrow">Tableau des gains :</span><div class="seg" role="group" aria-label="Affichage du tableau"><button type="button" id="p-sym" aria-pressed="false">en symboles</button><button type="button" id="p-num" aria-pressed="true">en valeurs</button></div></div>
+        <div class="scroll-x"><table class="pay" id="paytable"></table></div>
+        <figcaption>Valeurs en points d’utilité, avec le calibrage illustratif ci-dessus. Aucun montant monétaire réel n’est estimé.</figcaption>
+      </figure>
+      <details class="calc-details" open><summary>Le calcul, issue par issue</summary><div class="calc" id="calc"></div></details>
+    </section>
+
+    <!-- 8. RÉSOLUTION -->
+    <section class="piece" id="resolution" data-toc="L'induction à rebours">
+      <div class="piece-head"><div class="eyebrow">Pièce 8</div><h2>La résolution, pas à pas</h2></div>
+      <div class="prose"><p>On remonte l'arbre depuis la fin. À chaque nœud de hasard, on calcule un gain <em>espéré</em> ; à chaque nœud de décision, on garde le meilleur choix du joueur qui décide. Utilisez les flèches ou les numéros.</p></div>
+      <div class="course-note">
+        <div class="eyebrow">Backward induction · appliquer le cours</div>
+        <h3>Lire vers le bas, résoudre vers le haut</h3>
+        <p><strong>1. Au dernier nœud de la Nature</strong>, aucune branche n’est « meilleure » : on calcule la moyenne pondérée de chaque gain. À la Cour suprême, 0,35 × (−30 ; −159 ; −90) + 0,65 × (90 ; 105 ; −230) donne <strong>(48 ; 12,6 ; −181)</strong>.</p>
+        <p><strong>2. Au nœud d’un joueur</strong>, on compare uniquement <em>sa</em> composante. Face au Post, Nixon compare −181 en poursuivant à −210 en laissant faire : −181 est supérieur. On retient la poursuite et on fait remonter le <strong>triplet entier</strong> (48 ; 12,6 ; −181), car les joueurs précédents auront besoin de leur propre gain.</p>
+        <p><strong>3. On recommence jusqu’à la racine,</strong> branche par branche. L’ordre importe peu, pourvu que chaque nœud soit traité après toutes ses suites : ici, la branche « le Times publie » (x5 à x1), puis la branche « le Times se tait » (x8 à x6), puis le Times (x0).</p>
+        <p><strong>Stratégies et résultat ne sont pas identiques.</strong> L’ENPS décrit les décisions prévues à chaque nœud, y compris x6 à x8, que l’histoire n’a pas atteints. La Nature détermine ensuite l’issue réalisée : O5 a une probabilité de 30 %, O2 de 45,5 % et O1 de 24,5 %. L’ENPS ne signifie donc pas que la victoire historique O2 était certaine.</p>
+        <p class="course-ref">Cours fourni : S6, diapositives 13–18 et 21–24. Le traitement des nœuds de la Nature est l’extension utilisée pour cette application.</p>
+      </div>
+      <div class="course-checkpoint" data-checkpoint data-correct="gouv" data-explanation="C’est Nixon qui décide ici : on compare donc la troisième composante. −181 est supérieur à −210 ; poursuivre lui donne le meilleur gain. Les gains du Times et du Post restent dans le triplet transmis au nœud précédent.">
+        <h3>Avant de remonter l’arbre…</h3>
+        <p>Au nœud x4, « Nixon face au Post », à qui appartiennent les gains −181 et −210 que l’on compare ?</p>
+        <div class="checkpoint-options"><button type="button" class="btn sm ghost" data-answer="nyt">Au New York Times</button><button type="button" class="btn sm ghost" data-answer="wp">Au Washington Post</button><button type="button" class="btn sm ghost" data-answer="gouv">À l’administration Nixon</button></div>
+        <p class="checkpoint-feedback" hidden aria-live="polite"></p>
+      </div>
+      <div class="stepper">
+        <div class="stepnav"><button class="btn sm ghost" type="button" id="st-prev">← Précédent</button><div class="stepdots" id="st-dots"></div><button class="btn sm" type="button" id="st-next">Suivant →</button></div>
+        <div class="stepcard" id="st-card" aria-live="polite"></div>
+        <div class="reduction-tools"><p class="small ui" id="reduction-caption"></p><button type="button" class="btn sm ghost" id="reduction-toggle" aria-pressed="true">Voir l’arbre entier</button></div>
+        <figure><div class="tree-wrap"><svg id="tree-step" viewBox="0 0 1640 920" role="img" aria-label="Arbre pendant l'induction à rebours"></svg></div><figcaption>Traits épais : actions retenues à l’équilibre. Pointillés et × : actions écartées. Cartouches : gains de continuation ou espérances aux nœuds de la Nature. Pourcentages : probabilités d’atteindre les issues depuis le début du jeu.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- 9. CARTE -->
+    <section class="piece" id="carte" data-toc="La carte des équilibres">
+      <div class="piece-head"><div class="eyebrow">Pièce 9</div><h2>Pour quelles probabilités publie-t-on, attaque-t-on ?</h2></div>
+      <div class="prose"><p>Chaque point de la carte est un couple (<span class="m">q</span>, <span class="m">p</span>) : la probabilité que le juge local refuse la censure et celle que la Cour suprême donne raison aux journaux. La couleur indique l'équilibre obtenu, les autres paramètres restant ceux du calibrage illustratif. Survolez ou touchez la carte pour lire le détail.</p></div>
+      <div class="mapbox">
+        <div class="map" id="map1"><div class="yl"><b>p</b> : chances des journaux à la Cour suprême →</div><canvas width="520" height="520" aria-label="Carte des équilibres selon q et p"></canvas><div class="xl"><b>q</b> : chances qu’un juge local refuse la censure →</div><div class="tip"></div></div>
+        <div class="legend" id="legend1"></div>
+      </div>
+      <div class="grid2" id="threshold-cards"></div>
+      <div class="note"><strong>Une seule formule pour les deux journaux.</strong> Face à un procès, un journal publie si la probabilité que la justice lui donne finalement raison dépasse son seuil <span class="m">τ = (c + S − θB) / ((1 − θ)B + S)</span>. Pour le Post, <span class="m">τ<sub>W</sub></span> ≈ 60,2 % ; pour le Times, <span class="m">τ<sub>T</sub></span> = 25 %. Ce qui change d’une branche à l’autre, c’est le tribunal que le journal affronte : la Cour suprême (<span class="m">p</span>) pour le Post en relais, le juge local (<span class="m">q</span>) pour le Post seul, les deux (<span class="m">q + (1 − q)p</span>) pour le Times s’il sait que le Post prendra le relais.</div>
+    </section>
+
+    <!-- 10. SECRET -->
+    <section class="piece" id="secret" data-toc="Quand le secret est gardé">
+      <div class="piece-head"><div class="eyebrow">Pièce 10</div><h2>Les cas où les documents ne sortent pas</h2></div>
+      <div class="grid2 cases">
+        <div class="case">
+          <span class="stamp">Secret gardé</span>
+          <div class="eyebrow">Cas n°1</div><h3>Le Post prend peur</h3>
+          <p class="ui" style="font-size:15.5px">En relais, s'il était poursuivi, le Post gagnerait en moyenne <span class="m">p(B<sub>W</sub> − c<sub>W</sub>) + (1 − p)(θB<sub>W</sub> − c<sub>W</sub> − S<sub>W</sub>)</span>.</p>
+          <div class="eq"><span class="m">p</span> = 50 % : 0,5 × 105 + 0,5 × (−159) = <b>−27</b> &lt; 0<br><span class="m">S<sub>W</sub></span> = 250 : 0,65 × 105 + 0,35 × (−229) = <b>−11,9</b> &lt; 0</div>
+          <p class="ui" style="font-size:15.5px"><strong>Il se tait.</strong> Nixon le sait : poursuivre le Times devient très rentable (−112 au lieu de −200). Dans 70 % des cas (juge local favorable à la censure), la censure tient : <strong>O4, Times censuré, Post muet</strong>.</p>
+          <div class="cta"><button class="btn sm ghost" type="button" data-preset="peur">Charger dans le laboratoire</button></div>
+        </div>
+        <div class="case">
+          <span class="stamp">Rien ne sort</span>
+          <div class="eyebrow">Cas n°2</div><h3>Le Times renonce… et le Post n'ose pas seul</h3>
+          <p class="ui" style="font-size:15.5px">Avec des frais de procédure énormes (<span class="m">c<sub>T</sub></span> = 80), publier rapporterait au Times, en espérance :</p>
+          <div class="eq">0,3 × 20 + 0,7 × [0,65 × 20 + 0,35 × (−100)] = <b>−9,4</b> &lt; 0</div>
+          <p class="ui" style="font-size:15.5px"><strong>Il ne publie pas.</strong> Le Post, lui, aurait pris le relais (12,6 &gt; 0) mais seul, face au juge local, il perdrait en moyenne 79,8 : il se tait. Issue <strong>O10 : rien ne sort.</strong> C'est l'absence du Times, pas le manque de courage du Post, qui garde le secret.</p>
+          <div class="cta"><button class="btn sm ghost" type="button" data-preset="renonce">Charger dans le laboratoire</button></div>
+        </div>
+        <div class="case">
+          <span class="stamp">Rien ne sort</span>
+          <div class="eyebrow">Cas n°3</div><h3>Des tribunaux hostiles</h3>
+          <p class="ui" style="font-size:15.5px">Juge local favorable à la censure dans 80 % des cas (<span class="m">q</span> = 20 %) et Cour suprême incertaine (<span class="m">p</span> = 50 %). Le Post ne prendrait pas le relais (−27). Le Times, privé de relais, n'a plus que le juge local pour gagner :</p>
+          <div class="eq">0,2 × 90 + 0,8 × (−30) = <b>−6</b> &lt; 0 &nbsp;·&nbsp; Post seul : 0,2 × 105 + 0,8 × (−159) = <b>−106,2</b></div>
+          <p class="ui" style="font-size:15.5px"><strong>Personne ne publie.</strong> Les chances du Times (20 %) passent sous son seuil de 25 %. Issue O10.</p>
+          <div class="cta"><button class="btn sm ghost" type="button" data-preset="hostile">Charger dans le laboratoire</button></div>
+        </div>
+        <div class="case">
+          <span class="stamp">Faux semblant</span>
+          <div class="eyebrow">Cas n°4</div><h3>Une menace qu'il serait faux de croire</h3>
+          <p class="ui" style="font-size:15.5px">Avec <span class="m">p</span> = 50 % et un procès du Post très coûteux (<span class="m">k<sub>W</sub></span> = 80), poursuivre le Post rapporterait à Nixon −220 contre −210 en laissant faire : <strong>la menace n'est pas crédible</strong>.</p>
+          <div class="eq">Si le Post y croyait : il se tairait (−27 &lt; 0) et la censure du Times tiendrait 7 fois sur 10.</div>
+          <p class="ui" style="font-size:15.5px">Ce profil est un <strong>équilibre de Nash</strong> : la menace ne coûte rien à Nixon tant qu'elle n'est pas mise à l'épreuve. Mais il n'est <strong>pas parfait en sous-jeux</strong>. L'ENPS l'élimine : le Post publierait, et Nixon ne poursuivrait même pas le Times. Tout sort, sans procès (O6).</p>
+          <div class="cta"><button class="btn sm ghost" type="button" data-preset="nash">Charger dans le laboratoire</button></div>
+        </div>
+      </div>
+      <div class="note red"><strong>Même en 1971, rien n'était joué d'avance.</strong> Dans le modèle, avant le premier article, il y a 30 % de chances que le juge local donne raison au Times (O5), 45,5 % que la Cour suprême tranche pour les journaux (O2), et <strong>24,5 %</strong> (près d'une chance sur quatre) que tout finisse par la censure et des sanctions (O1).</div>
+    </section>
+
+    <!-- 11. COÛTS -->
+    <section class="piece" id="couts" data-toc="Le rôle des coûts">
+      <div class="piece-head"><div class="eyebrow">Pièce 11</div><h2>Le rôle des coûts des procès</h2></div>
+      <div class="prose">
+        <p class="lead">Résultat surprenant : <strong>c'est le coût du deuxième procès qui décide si le premier a lieu.</strong></p>
+        <p>Poursuivre le Times n'a de valeur que comme première étape d'une censure qui tient jusqu'au bout. Si Nixon sait qu'il ne poursuivra pas le Post, censurer le Times ne sert à rien : le Post publierait sans risque. Chaque bande ci-dessous montre l'équilibre obtenu quand on fait varier un seul coût, les autres valeurs restant celles du calibrage de référence. Le trait noir marque la valeur de référence.</p>
+        <p><strong>Le coût total des procédures, en une inégalité.</strong> Nixon engage les deux procès si leur coût total espéré reste inférieur au dommage qu'ils évitent en espérance, et si la seconde menace est crédible :</p>
+        <div class="eq"><span class="m">k<sub>T</sub> + (1 − q)k<sub>W</sub> &lt; (1 − q)(1 − p)(1 − θ)D</span> &nbsp;·&nbsp; ici 10 + 0,7 × 20 = <b>24</b> &lt; 0,7 × 0,35 × 140 = <b>34,3</b> &nbsp;et&nbsp; <span class="m">k<sub>W</sub> &lt; (1 − p)(1 − θ)D</span> = <b>49</b></div>
+      </div>
+      <figure id="strips1" style="gap:22px"></figure>
+      <div class="grid2">
+        <div class="note green"><strong>Procès chers pour le pouvoir ⇒ presse plus libre.</strong> Au-delà de 49 pour <span class="m">k<sub>W</sub></span>, Nixon ne poursuivrait même plus le Post : la menace devient <em>non crédible</em> et l'ENPS l'élimine. Entre 34,7 et 49, il poursuivrait le Post, mais le gain net de ce 2<sup>e</sup> procès (49 − <span class="m">k<sub>W</sub></span>) ne justifie plus le 1<sup>er</sup>. De même, au-delà de 20,3 pour <span class="m">k<sub>T</sub></span>, aucun procès n'a lieu.</div>
+        <div class="note red"><strong>Procès chers pour les journaux ⇒ autocensure.</strong> Si les frais du Post dépassent 27,6 ou sa sanction 216, il ne prend plus le relais et la censure du Times devient efficace. Le Times, plus solide, ne renoncerait qu'au-delà de 70,6 de frais ou de 297 de sanction ; le Post n'osant pas publier seul, plus rien ne sortirait alors.</div>
+      </div>
+    </section>
+
+    <!-- LABO -->
+    <section class="piece" id="labo" data-toc="Le laboratoire">
+      <div class="piece-head"><div class="eyebrow">Pièce 12</div><h2>Le laboratoire : testez vos valeurs</h2></div>
+      <div class="prose"><p>Modifiez les paramètres : l'arbre, l'équilibre, les probabilités des issues et l'explication se mettent à jour. Cliquez sur la carte pour choisir <span class="m">q</span> et <span class="m">p</span>.</p></div>
+      <div class="presets" id="presets"></div>
+      <div class="lab">
+        <div class="sliders" id="sliders"></div>
+        <div class="out">
+          <div class="regime" id="lab-regime"></div>
+          <div><div class="eyebrow" style="margin-bottom:6px">Stratégies d'équilibre (ENPS)</div><div class="chips" id="lab-strat"></div></div>
+          <div><div class="eyebrow" style="margin-bottom:6px">Probabilité de chaque issue</div><div class="probbar" id="lab-prob"></div><div class="problab" id="lab-problab" style="margin-top:8px"></div></div>
+          <div class="explain" id="lab-explain"></div>
+        </div>
+      </div>
+      <figure><div class="tree-wrap"><svg id="tree-lab" viewBox="0 0 1640 920" role="img" aria-label="Arbre avec l'équilibre pour vos valeurs"></svg></div><figcaption>Traits épais : choix d'équilibre. Pointillés et × : choix écartés. Cartouches : gains espérés à chaque nœud. Pourcentages : probabilité d'atteindre l'issue.</figcaption></figure>
+      <div class="mapbox">
+        <div class="map" id="map2"><div class="yl"><b>p</b> : Cour suprême →</div><canvas width="520" height="520" aria-label="Carte des équilibres pour vos valeurs"></canvas><div class="xl"><b>q</b> : juge local →</div><div class="tip"></div></div>
+        <div class="legend" id="legend2"></div>
+      </div>
+      <figure id="strips2" style="gap:22px"></figure>
+    </section>
+
+    <!-- ÉNONCÉ -->
+    <section class="piece" id="enonce" data-toc="Réponses à l'énoncé">
+      <div class="piece-head"><div class="eyebrow">Pièce 13</div><h2>Réponses à l'énoncé, point par point</h2></div>
+      <div class="answers" id="answers"></div>
+    </section>
+
+    <!-- LIMITES -->
+    <section class="piece" id="limites" data-toc="Limites du modèle">
+      <div class="piece-head"><div class="eyebrow">Pièce 14</div><h2>Limites et pistes</h2></div>
+      <div class="grid2">
+        <div class="card"><h3>Des croyances communes</h3><div class="k">Tous les joueurs partagent les mêmes <span class="m">q</span> et <span class="m">p</span>. Si le Post était plus optimiste que Nixon sur la Cour suprême, les deux conditions (Post : <span class="m">p</span> ≥ 60,2 % ; Nixon : <span class="m">p</span> &lt; 85,7 %) pourraient être remplies plus facilement.</div></div>
+        <div class="card"><h3>Des juges réduits au hasard</h3><div class="k">En réalité, le juge Gurfein a d'abord suspendu la publication (15 juin), puis refusé l'injonction demandée par le gouvernement (19 juin), et la cour d'appel a maintenu la suspension. Le procès du Post a connu les mêmes allers-retours. Notre modèle résume ces étapes en un tirage par tribunal.</div></div>
+        <div class="card"><h3>La Cour suprême et le journal seul</h3><div class="k">Nous supposons que la Cour n'est saisie en urgence que si deux journaux sont poursuivis. Si elle tranchait aussi l'affaire d'un journal seul, le Post oserait publier seul (gain espéré 40,3) : le secret ne tiendrait plus si le Times renonçait. Le chemin d'équilibre de 1971, lui, resterait le même.</div></div>
+        <div class="card"><h3>D'autres journaux</h3><div class="k">Ellsberg a aussi transmis les documents à d'autres titres, dont le Boston Globe. Chaque nouveau journal rend la censure plus coûteuse : une extension naturelle ajoute des « Post » successifs. Si les journaux décidaient sans s'observer, le jeu deviendrait en partie simultané (S5).</div></div>
+        <div class="card"><h3>Une seule affaire, pas un jeu répété</h3><div class="k">Presse et pouvoir se retrouvent d'une affaire à l'autre (Watergate commence un an plus tard). Une réputation de fermeté, ou de recul, compterait alors pour les fuites futures : c'est le terrain des jeux répétés (B3), que nous ne modélisons pas.</div></div>
+        <div class="card"><h3>Des gains hypothétiques</h3><div class="k">Les valeurs (100, 120, 200…) sont des hypothèses de modélisation. Ce qui compte, ce sont les conditions générales : le laboratoire montre quelles conclusions résistent quand on les change.</div></div>
+      </div>
+      <div class="note"><strong>Ce qu'il faut retenir.</strong> La liberté de la presse dépend aussi du prix que le pouvoir est prêt à payer pour la faire taire : quand les procès lui coûtent cher, sa menace perd sa crédibilité. Et un journal ose davantage quand un autre a ouvert la voie.</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="piece" id="quiz" data-toc="Testez-vous">
+      <div class="piece-head"><div class="row"><div class="eyebrow">Pièce 15</div><span class="score" id="score"></span></div><h2>Testez-vous</h2></div>
+      <div class="grid2" id="quizbox"></div>
+    </section>
+
+    <!-- LEXIQUE -->
+    <section class="piece" id="lexique" data-toc="Lexique">
+      <div class="piece-head"><div class="eyebrow">Annexe</div><h2>Lexique</h2></div>
+      <dl class="gloss" id="gloss"></dl>
+    </section>
+
+    <section class="piece" id="sources" data-toc="Sources">
+      <div class="piece-head"><div class="eyebrow">Annexe</div><h2>Sources</h2></div>
+      <div class="course-note"><h3>Le cours utilisé pour cette édition</h3><div class="theory-source-list"><p><strong>Benoit Decerf · ECGEB366 · S6, « B2. Jeux séquentiels ».</strong><br>Diapositives 3–6 : jeu de l’entrée et menace non crédible ; 7–13 : information, forme étendue, sous-jeux et ENPS ; 14–18 : action, stratégie et résultat ; 21–24 : réduction progressive de l’arbre ; 36–39 : ensembles d’information.</p><p><strong>S5, « Jeux simultanés ».</strong><br>Information complète et distinction des décisions simultanées (diapositive 10). Le concept de Nash fournit le point de départ, que la perfection en sous-jeux précise.</p><p><strong>S8, « B3. Jeux répétés ».</strong><br>Répétition d’un jeu entre périodes, stratégies conditionnelles à l’histoire et crédibilité des punitions (diapositives 3–9). Deux procès successifs ne suffisent pas à faire de notre modèle un jeu répété.</p></div><p class="small ui">Explications adaptées des PDF fournis. Les gains des Pentagon Papers et les coups de la Nature constituent notre application pédagogique ; ils ne sont pas des estimations issues du cours.</p><p class="course-ref"><a href="https://strategies-economiques.vercel.app/strategies/theorie/jeux-sequentiels" target="_blank" rel="noopener">Retrouver la page du cours sur les jeux séquentiels ↗</a></p></div>
+      <div class="src">
+        <a href="https://nixonlibrary.gov/news/50th-anniversary-release-pentagon-papers" target="_blank" rel="noopener">Richard Nixon Presidential Library : 50e anniversaire de la publication des Pentagon Papers</a>
+        <a href="https://firstamendment.mtsu.edu/?p=6448" target="_blank" rel="noopener">Free Speech Center (MTSU) : New York Times Co. v. United States (1971)</a>
+        <a href="https://firstamendment.mtsu.edu/?p=3909" target="_blank" rel="noopener">Free Speech Center (MTSU) : le juge Murray Gurfein</a>
+        <a href="https://www.law.cornell.edu/supct/cases/403us713.htm" target="_blank" rel="noopener">Cornell LII : arrêt 403 U.S. 713 (1971)</a>
+        <a href="https://www.biography.com/movies-tv/true-story-behind-the-post-movie-washington-post-pentagon-papers" target="_blank" rel="noopener">Biography : l'histoire vraie derrière le film The Post</a>
+        <a href="https://theweekendinvestor.substack.com/p/becoming-berkshire-1973-part-2-katharine" target="_blank" rel="noopener">The Weekend Investor : Katharine Graham et l'entrée en bourse du Post</a>
+        <a href="https://en.wikipedia.org/wiki/Daniel_Ellsberg" target="_blank" rel="noopener">Wikipedia : Daniel Ellsberg</a>
+      </div>
+      <p class="small ui">Film : <em>Pentagon Papers</em> (<em>The Post</em>), Steven Spielberg, 2017, avec Meryl Streep (Katharine Graham) et Tom Hanks (Ben Bradlee).</p>
+    </section>
