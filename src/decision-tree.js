@@ -1,111 +1,154 @@
-/* Forme étendue : lecture descendante, actions colorées, gains sous les feuilles.
-   La structure et les valeurs restent celles du modèle Pentagon Papers. */
+/* Forme étendue dessinée de haut en bas, comme dans le cours (S6, diapositives 8–9 et 14).
+   Chaque feuille reçoit sa colonne ; un nœud se place au milieu de ses branches.
+   Options :
+   - root : nœud de départ (un sous-jeu commence à un nœud et contient toutes ses suites) ;
+   - built : nœuds déjà construits (les autres apparaissent « à développer ») ;
+   - solved : nœuds déjà résolus (action retenue en trait plein, action écartée en pointillés) ;
+   - reduce : remplace les sous-jeux déjà résolus par leur profil de gains ;
+   - values : affiche les gains de continuation des nœuds résolus ;
+   - probs : probabilités d'atteindre chaque issue ; path : issue dont on suit le chemin ;
+   - focus : nœud étudié ; mode : 'num' ou 'sym'. */
 function drawTree(svg, P, opt = {}) {
   const M = solve(P);
-  const o = { mode:'num', eq:false, step:99, probs:false, hist:false, scope:'full', reduce:false, ...opt };
-  const focus = o.step >= 1 && o.step <= 6 ? 6 - o.step : null;
-  const first = o.scope === 'focus' && focus !== null ? focus : o.scope === 'post' ? 3 : 0;
-  const construction = Number.isInteger(o.constructStage) ? Math.max(1,Math.min(6,o.constructStage)) : 6;
-  const last = Math.max(first,Math.min(5, construction - 1, o.reduce && focus !== null ? focus : 5));
-  const count = last - first + 1;
-  const rootX = 240 + count * 120;
-  const width = rootX + 300;
-  const height = 110 + count * 220 + 175;
-  const position = index => [rootX - (index-first)*120,110 + (index-first)*220];
-  const colours = ['--nyt','--gov','--nat','--wp','--gov','--nat'];
-  const names = ['New York Times','Gouvernement','Juge local · Nature','Washington Post','Gouvernement','Cour suprême · Nature'];
-  const nodeValues = [M.root,M.g1v,M.judge,M.wv,M.g2v,M.sc];
-  const decision = {0:M.tPub,1:M.g1Sue,3:M.wPub,4:M.g2Sue};
-  const outcomeAt = ['O1','O2','O3','O4','O5'];
-  const continuationLabels = ['Publier','Poursuivre','Censure','Publier','Poursuivre'];
-  const exitLabels = ['Ne pas publier','Laisser faire','Favorable au Times','Se taire','Laisser faire'];
-  const solved = index => o.eq || (o.step >= 1 && o.step <= 8 && 6-index <= o.step);
-  const path = o.pathLeaf || (o.hist ? 'O6' : null);
-  const pathEnd = path ? Math.min(5,Number(path.slice(1))-1) : -1;
-  const activeGain = o.scope==='focus' && o.reduce ? ({0:0,1:2,3:1,4:2}[focus] ?? null) : null;
-  const shownProbs = o.scope==='post' ? {O4:!M.wPub?1:0,O5:M.wPub&&!M.g2Sue?1:0,O6:M.wPub&&M.g2Sue?P.p:0,O7:M.wPub&&M.g2Sue?1-P.p:0} : M.probs;
-  const E = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const text = (x,y,content,klass='',anchor='middle',colour='--ink') => `<text x="${x}" y="${y}" text-anchor="${anchor}" class="${klass}" fill="var(${colour})">${E(content)}</text>`;
-  const vector = (x,y,values,symbolic=false) => ['NYT','WP','Gouv.'].map((label,k)=>{
-    const colour=['--nyt','--wp','--gov'][k];
-    const v=symbolic ? E(values[k]).replace(/([A-Za-zθ])_([A-Z])/g,'$1<tspan baseline-shift="sub" font-size="75%">$2</tspan>') : E(fr(values[k],2));
-    const highlight=k===activeGain?`<rect x="${x-104}" y="${y+k*22-15}" width="208" height="21" rx="3" fill="var(${colour})" fill-opacity=".12" stroke="var(${colour})" stroke-width=".6"/>`:'';
-    return highlight+text(x-96,y+k*22,label,'dt-pay-label','start',colour)+`<text x="${x+96}" y="${y+k*22}" text-anchor="end" class="dt-pay-value${symbolic?' dt-symbol':''}" fill="var(${colour})">${v}</text>`;
+  const o = { mode: 'num', root: 'x0', built: null, solved: null, eq: false, reduce: false, values: false, probs: false, path: null, focus: null, ...opt };
+  const solvedSet = new Set(o.eq ? NODE_ORDER : (o.solved || []));
+  const builtSet = o.built ? new Set(o.built) : null;
+  const COLW = 146, LEVEL = 128, SIDE = 46, TOP = 112, BOX_W = 134, BOX_H = 118;
+  const colour = n => n.kind === 'chance' ? '--nat' : ['--nyt', '--wp', '--gov'][n.player];
+  const E = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const subs = value => E(value).replace(/([A-Za-zθ])_([A-Z])/g, '$1<tspan baseline-shift="sub" font-size="72%">$2</tspan>');
+  const text = (x, y, content, klass = '', anchor = 'middle', fill = '--ink', raw = false) => `<text x="${x}" y="${y}" text-anchor="${anchor}" class="${klass}" fill="var(${fill})">${raw ? content : E(content)}</text>`;
+
+  /* 1. Structure visible. */
+  function build(id, depth, parentIndex) {
+    if (isOutcome(id)) return { id, type: 'leaf', depth, parentIndex };
+    if (builtSet && !builtSet.has(id)) return { id, type: 'pending', depth, parentIndex };
+    if (o.reduce && id !== o.root && solvedSet.has(id)) return { id, type: 'replaced', depth, parentIndex };
+    return { id, type: 'node', depth, parentIndex, children: NODES[id].actions.map((action, index) => build(action[1], depth + 1, index)) };
+  }
+  const tree = build(o.root, 0, null);
+  let columns = 0, maxDepth = 0;
+  (function place(t) {
+    maxDepth = Math.max(maxDepth, t.depth);
+    if (t.type !== 'node') { t.col = columns++; return; }
+    t.children.forEach(place);
+    t.col = (t.children[0].col + t.children[t.children.length - 1].col) / 2;
+  })(tree);
+  const width = Math.max(columns * COLW + 2 * SIDE, 640);
+  const offset = (width - columns * COLW) / 2;
+  const X = col => Math.round(offset + COLW / 2 + col * COLW);
+  const Y = depth => TOP + depth * LEVEL;
+  const height = TOP + maxDepth * LEVEL + BOX_H + 40;
+
+  /* 2. Chemin suivi et décisions résolues. */
+  const pathEdges = new Set();
+  if (o.path) {
+    (function find(id) {
+      if (id === o.path) return true;
+      if (isOutcome(id)) return false;
+      for (const action of NODES[id].actions) if (find(action[1])) { pathEdges.add(id + '>' + action[1]); return true; }
+      return false;
+    })(o.root);
+  }
+  const shown = o.root === 'x0' ? M.probs : null;
+  const subProbs = {};
+  if (o.probs && o.root !== 'x0') (function walk(id, w) {
+    if (isOutcome(id)) { subProbs[id] = (subProbs[id] || 0) + w; return; }
+    const n = NODES[id];
+    if (n.kind === 'chance') n.actions.forEach(a => walk(a[1], w * a[2](P)));
+    else walk(n.actions[M.choice[id]][1], w);
+  })(o.root, 1);
+  const probOf = id => (shown ? shown[id] : subProbs[id]) || 0;
+
+  const vector = (x, y, values, symbolic, highlight) => [0, 1, 2].map(k => {
+    const fill = ['--nyt', '--wp', '--gov'][k];
+    const v = symbolic ? subs(values[k]) : E(fr(values[k], 2));
+    const box = k === highlight ? `<rect x="${x - BOX_W / 2 + 5}" y="${y + k * 19 - 14}" width="${BOX_W - 10}" height="19" rx="3" fill="var(${fill})" fill-opacity=".14" stroke="var(${fill})" stroke-width=".8"/>` : '';
+    return box + text(x - BOX_W / 2 + 12, y + k * 19, PLAYERS3[k], 'dt-pay-label', 'start', fill) + `<text x="${x + BOX_W / 2 - 12}" y="${y + k * 19}" text-anchor="end" class="dt-pay-value${symbolic ? ' dt-symbol' : ''}" fill="var(${fill})">${v}</text>`;
   }).join('');
-  let markup = `<title>Arbre du jeu${first===3?' : sous-jeu du Washington Post':''}</title><desc>Lire de haut en bas. Les branches indiquent les actions. Sous chaque issue, les gains sont dans l’ordre New York Times, Washington Post, gouvernement. Les losanges représentent le hasard judiciaire.</desc>`;
-  markup += text(24,27,o.scope==='focus' && focus!==null?'SOUS-JEU ÉTUDIÉ · NŒUD x'+focus:first===3?'SOUS-JEU DU POST · APRÈS LA CENSURE DU TIMES':'FORME ÉTENDUE · DÉROULEMENT DU JEU ↓','dt-orientation','start','--muted');
-  if (o.reduce && focus !== null) markup += text(24,49,'Les suites déjà résolues sont remplacées par leurs gains.','dt-caption','start','--muted');
 
-  function terminal(id,x,y,onPath) {
-    const outline = onPath ? '--stamp' : '--rule';
-    let s=`<g class="dt-terminal" data-outcome="${id}"><circle cx="${x}" cy="${y}" r="5" fill="var(--ink)"/><rect x="${x-113}" y="${y+15}" width="226" height="135" rx="6" fill="var(--surface)" stroke="var(${outline})" stroke-width="${onPath?2.5:1}"/>`;
-    s+=text(x-96,y+36,id,'dt-outcome-id','start','--muted');
-    if(o.probs && shownProbs[id]>1e-9) s+=text(x+96,y+36,pct(shownProbs[id]),'dt-outcome-prob','end','--stamp');
-    s+=text(x,y+55,TITLE[id].join(' '),'dt-outcome-title');
-    s+=vector(x,y+82,o.mode==='sym'?SYM[id]:M.O[id],o.mode==='sym');
-    return s+'</g>';
+  let edges = '', boxes = '', nodes = '';
+  function leafBox(t, highlight) {
+    const x = X(t.col), y = Y(t.depth), onPath = o.path === t.id;
+    let s = `<g class="dt-terminal" data-outcome="${t.id}"><circle cx="${x}" cy="${y}" r="5" fill="var(--ink)"/>`;
+    s += `<rect x="${x - BOX_W / 2}" y="${y + 12}" width="${BOX_W}" height="${BOX_H}" rx="6" fill="var(--surface)" stroke="var(${onPath ? '--stamp' : '--rule'})" stroke-width="${onPath ? 2.5 : 1}"/>`;
+    s += text(x - BOX_W / 2 + 10, y + 30, t.id, 'dt-outcome-id', 'start', '--muted');
+    if (o.probs && probOf(t.id) > 1e-9) s += text(x + BOX_W / 2 - 10, y + 30, pct(probOf(t.id)), 'dt-outcome-prob', 'end', '--stamp');
+    s += text(x, y + 49, TITLE[t.id][0], 'dt-outcome-title') + text(x, y + 65, TITLE[t.id][1], 'dt-outcome-title');
+    s += vector(x, y + 87, o.mode === 'sym' ? SYM[t.id] : M.O[t.id], o.mode === 'sym', highlight);
+    return s + '</g>';
   }
-  function replacement(index,x,y) {
-    const isComputed = construction===6 && o.reduce && focus!==null;
-    let s=`<g class="dt-replacement" data-replaced-node="x${index}"><circle cx="${x}" cy="${y}" r="5" fill="var(--ink)"/><rect x="${x-113}" y="${y+15}" width="226" height="${isComputed?135:83}" rx="6" fill="var(--surface2)" stroke="var(--nat)" stroke-dasharray="4 3"/>`;
-    s+=text(x,y+38,isComputed?'SOUS-JEU RÉSOLU':'LA SUITE DU JEU','dt-outcome-id','middle','--nat');
-    s+=text(x,y+58,names[index].replace(' · Nature',''),'dt-outcome-title');
-    s+=isComputed?vector(x,y+84,nodeValues[index]):text(x,y+81,'À développer à l’étape suivante','dt-caption','middle','--muted');
-    return s+'</g>';
+  function replacedBox(t, highlight) {
+    const x = X(t.col), y = Y(t.depth), n = NODES[t.id];
+    let s = `<g class="dt-replacement" data-replaced-node="${t.id}"><circle cx="${x}" cy="${y}" r="5" fill="var(--ink)"/>`;
+    s += `<rect x="${x - BOX_W / 2}" y="${y + 12}" width="${BOX_W}" height="${BOX_H}" rx="6" fill="var(--surface2)" stroke="var(--nat)" stroke-dasharray="4 3"/>`;
+    s += text(x, y + 30, t.id + ' · RÉSOLU', 'dt-outcome-id', 'middle', '--nat');
+    s += text(x, y + 49, n.kind === 'chance' ? 'Espérance' : 'Valeur', 'dt-outcome-title') + text(x, y + 65, n.long.replace(/\s*\(.*\)/, ''), 'dt-outcome-title dt-small');
+    s += vector(x, y + 87, M.V[t.id], false, highlight);
+    return s + '</g>';
   }
-  function edge(index,side,x1,y1,label,prob,onPath) {
-    const [x0,y0]=position(index);
-    const nature=index===2||index===5;
-    const selected=!nature && solved(index) && (side==='left' ? decision[index] : !decision[index]);
-    const rejected=!nature && solved(index) && !selected;
-    const colour=rejected?'--muted':colours[index];
-    const pathClass=onPath?' dt-history':'';
-    let s=`<g class="dt-branch${rejected?' dt-rejected':''}${pathClass}" data-from="x${index}" data-side="${side}">`;
-    if(onPath) s+=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="var(--hl)" stroke-width="12" opacity=".5" stroke-linecap="round"/>`;
-    s+=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="var(${colour})" stroke-width="${selected?4.5:2.2}" ${rejected?'stroke-dasharray="5 5"':''} stroke-linecap="round" class="${selected?'dt-selected-edge':''}"/>`;
-    const lx=side==='left'?(x0+x1)/2-14:x1,ly=side==='left'?(y0+y1)/2-4:y1-44,anchor=side==='left'?'end':'middle';
-    s+=text(lx,ly,label,'dt-action',anchor,colour);
-    if(prob) s+=text(lx,ly+22,prob,'dt-probability',anchor,'--nat');
-    if(rejected) s+=text(lx,ly+21,'× choix écarté','dt-caption',anchor,'--muted');
-    return s+'</g>';
+  function pendingBox(t) {
+    const x = X(t.col), y = Y(t.depth);
+    return `<g class="dt-pending" data-pending-node="${t.id}"><circle cx="${x}" cy="${y}" r="5" fill="var(--muted)"/><rect x="${x - BOX_W / 2}" y="${y + 12}" width="${BOX_W}" height="58" rx="6" fill="none" stroke="var(--muted)" stroke-dasharray="4 4"/>` +
+      text(x, y + 36, 'La suite du jeu', 'dt-outcome-title', 'middle', '--muted') + text(x, y + 55, 'à développer', 'dt-caption', 'middle', '--muted') + '</g>';
+  }
+  function badge(t) {
+    /* Gains de continuation, du côté opposé à la branche qui arrive au nœud. */
+    const x = X(t.col), y = Y(t.depth), w = 92, h = 64, left = t.parentIndex !== 1;
+    const bx = left ? x - 58 - w : x + 58, by = y - h - 6;
+    let s = `<g class="dt-node-value"><rect x="${bx}" y="${by}" width="${w}" height="${h}" rx="5" fill="var(--surface2)" stroke="var(--rule)"/>`;
+    s += text(bx + w / 2, by + 13, NODES[t.id].kind === 'chance' ? 'ESPÉRANCE' : 'VALEUR', 'dt-caption', 'middle', '--muted');
+    s += [0, 1, 2].map(k => text(bx + w - 8, by + 29 + k * 14, fr(M.V[t.id][k], 2), 'dt-pay-value', 'end', ['--nyt', '--wp', '--gov'][k]) + `<circle cx="${bx + 10}" cy="${by + 25 + k * 14}" r="3.5" fill="var(${['--nyt', '--wp', '--gov'][k]})"/>`).join('');
+    return s + '</g>';
   }
 
-  /* Edges and leaves first; node markers stay above the connecting strokes. */
-  for(let index=first;index<=last;index++) {
-    const [x,y]=position(index),nextY=y+220;
-    if(index===5) {
-      const leftX=x-155,rightX=x+155;
-      markup+=edge(index,'left',leftX,nextY,'Journaux gagnants',`p = ${pct(P.p)}`,path==='O6');
-      markup+=edge(index,'right',rightX,nextY,'Gouvernement gagnant',`1 − p = ${pct(1-P.p)}`,path==='O7');
-      markup+=terminal('O6',leftX,nextY,path==='O6')+terminal('O7',rightX,nextY,path==='O7');
-    } else {
-      const [nextX]=position(index+1),exitX=x+155;
-      const leftPath=!!path && index<pathEnd,rightPath=!!path && index===pathEnd;
-      markup+=edge(index,'left',nextX,nextY,continuationLabels[index],index===2?`1 − q = ${pct(1-P.q)}`:null,leftPath);
-      markup+=edge(index,'right',exitX,nextY,exitLabels[index],index===2?`q = ${pct(P.q)}`:null,rightPath);
-      markup+=terminal(outcomeAt[index],exitX,nextY,rightPath);
-      if(index===last)markup+=replacement(index+1,nextX,nextY);
-    }
-  }
-  for(let index=first;index<=last;index++) {
-    const [x,y]=position(index),colour=colours[index],nature=index===2||index===5;
-    markup+=`<g class="dt-node${focus===index?' dt-focus':''}" data-node="x${index}">`;
-    if(focus===index)markup+=`<circle cx="${x}" cy="${y}" r="27" fill="var(${colour})" opacity=".12"/><circle cx="${x}" cy="${y}" r="27" fill="none" stroke="var(${colour})" stroke-width="1"/>`;
-    markup+=nature?`<rect x="${x-10}" y="${y-10}" width="20" height="20" rx="1" transform="rotate(45 ${x} ${y})" fill="var(${colour})"/>`:`<circle cx="${x}" cy="${y}" r="11" fill="var(${colour})"/>`;
-    markup+=text(x,y-30,names[index],'dt-actor','middle',colour);
-    markup+=text(x+21,y+6,'x'+index,'dt-node-id','start','--muted');
-    if(solved(index) && !(o.reduce && focus!==null)) {
-      markup+=`<g class="dt-node-value"><rect x="${x-334}" y="${y-44}" width="214" height="102" rx="5" fill="var(--surface2)" stroke="var(--rule)"/>`;
-      markup+=text(x-227,y-23,nature?'GAIN ESPÉRÉ':'VALEUR DU SOUS-JEU','dt-caption','middle','--muted');
-      markup+=vector(x-227,y-2,nodeValues[index])+'</g>';
-    }
-    markup+='</g>';
-  }
+  (function render(t) {
+    if (t.type !== 'node') return;
+    const n = NODES[t.id], x0 = X(t.col), y0 = Y(t.depth);
+    const decided = n.kind === 'decision' && solvedSet.has(t.id);
+    t.children.forEach((child, index) => {
+      const x1 = X(child.col), y1 = Y(child.depth), action = n.actions[index];
+      const selected = decided && M.choice[t.id] === index, rejected = decided && !selected;
+      const onPath = pathEdges.has(t.id + '>' + child.id);
+      const fill = rejected ? '--muted' : colour(n);
+      edges += `<g class="dt-branch${rejected ? ' dt-rejected' : ''}${onPath ? ' dt-history' : ''}" data-from="${t.id}" data-to="${child.id}">`;
+      if (onPath) edges += `<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="var(--hl)" stroke-width="13" opacity=".55" stroke-linecap="round"/>`;
+      edges += `<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="var(${fill})" stroke-width="${selected ? 4.5 : 2.2}" ${rejected ? 'stroke-dasharray="5 5"' : ''} stroke-linecap="round" class="${selected ? 'dt-selected-edge eq-edge' : ''}"/>`;
+      /* Each label line keeps a fixed gap from the branch at its own height. */
+      const mx = (x0 + x1) / 2, my = (y0 + y1) / 2, anchor = index === 0 ? 'end' : 'start', gap = index === 0 ? -11 : 11;
+      const at = y => Math.round(mx + (x1 - x0) * (y - my) / (y1 - y0) + gap);
+      edges += text(at(my - 2), my - 4, action[0], 'dt-action', anchor, fill);
+      if (action[2]) edges += text(at(my + 17), my + 15, `${action[3]} = ${pct(action[2](P))}`, 'dt-probability', anchor, '--nat');
+      else if (rejected) edges += text(at(my + 17), my + 15, '× écarté', 'dt-caption', anchor, '--muted');
+      edges += '</g>';
+      if (child.type === 'leaf') boxes += leafBox(child, o.reduce && t.id === o.root && n.kind === 'decision' ? n.player : null);
+      else if (child.type === 'replaced') boxes += replacedBox(child, o.reduce && t.id === o.root && n.kind === 'decision' ? n.player : null);
+      else if (child.type === 'pending') boxes += pendingBox(child);
+      else render(child);
+    });
+    nodes += `<g class="dt-node${o.focus === t.id ? ' dt-focus' : ''}" data-node="${t.id}">`;
+    if (o.focus === t.id) nodes += `<circle cx="${x0}" cy="${y0}" r="27" fill="var(${colour(n)})" opacity=".13"/><circle cx="${x0}" cy="${y0}" r="27" fill="none" stroke="var(${colour(n)})"/>`;
+    nodes += n.kind === 'chance'
+      ? `<rect x="${x0 - 10}" y="${y0 - 10}" width="20" height="20" rx="1.5" transform="rotate(45 ${x0} ${y0})" fill="var(${colour(n)})"/>`
+      : `<circle cx="${x0}" cy="${y0}" r="11" fill="var(${colour(n)})"/>`;
+    nodes += text(x0, y0 - 24, n.name, 'dt-actor', 'middle', colour(n));
+    nodes += text(x0 + 19, y0 + 22, t.id, 'dt-node-id', 'start', '--muted');
+    if (o.values && solvedSet.has(t.id) && !(o.reduce && t.id === o.root)) nodes += badge(t);
+    nodes += '</g>';
+  })(tree);
+  if (tree.type === 'leaf') boxes += leafBox(tree, null);
+
+  const title = o.root === 'x0' ? 'Arbre du jeu' : `Sous-jeu qui commence en ${o.root} (${NODES[o.root].long})`;
+  let markup = `<title>${E(title)}</title><desc>Lire de haut en bas. Les branches portent les actions et, pour la Nature, leurs probabilités. Sous chaque issue, les gains sont dans l’ordre Times, Post, Nixon.</desc>`;
+  const heading = o.reduce && o.focus ? `SOUS-JEU ÉTUDIÉ · NŒUD ${o.focus}` : o.root === 'x0' ? 'FORME ÉTENDUE · DÉROULEMENT DU JEU ↓' : `SOUS-JEU · À PARTIR DE ${o.root}`;
+  markup += text(24, 30, heading, 'dt-orientation', 'start', '--muted');
+  if (o.reduce && o.focus) markup += text(24, 52, 'Les suites déjà résolues sont remplacées par leurs gains.', 'dt-caption', 'start', '--muted');
+  markup += edges + boxes + nodes;
   svg.classList.add('course-tree');
-  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
-  svg.style.setProperty('--tree-min-width',`${Math.min(width,first===3?780:1000)}px`);
-  svg.dataset.treeWidth=width;
-  svg.dataset.treeScope=o.scope;
-  svg.innerHTML=markup;
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.style.setProperty('--tree-min-width', `${Math.min(width, 1240)}px`);
+  svg.dataset.treeWidth = width;
+  svg.dataset.treeScope = o.reduce && o.focus ? 'focus' : o.root === 'x0' ? 'full' : 'subgame';
+  svg.innerHTML = markup;
   return M;
 }

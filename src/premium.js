@@ -5,7 +5,7 @@
   const sections = all('section.piece');
   const groups = [
     { id:'histoire', label:'01 — Comprendre', pages:['video','affaire','question','rappels','joueurs'] },
-    { id:'modele', label:'02 — Modéliser', pages:['arbre','gains','resolution'] },
+    { id:'modele', label:'02 — Modéliser', pages:['arbre','choix','gains','resolution'] },
     { id:'explorer', label:'03 — Expérimenter', pages:['carte','secret','couts','labo'] },
     { id:'synthese', label:'04 — Retenir', pages:['enonce','limites','quiz','lexique','sources'] },
   ];
@@ -132,14 +132,14 @@
   qs('#gains .prose').after(modelNote);
   const assumptions = document.createElement('div');
   assumptions.className = 'note';
-  assumptions.innerHTML = '<strong>Une simplification assumée.</strong> Les juges sont représentés par la Nature : leur verdict est incertain pour les joueurs. Le choix d’Ellsberg est fixé. Si le Times renonce, le jeu s’arrête ; si le Post se tait, on ne représente pas l’appel autonome du Times. Ces hypothèses définissent le modèle, pas toutes les possibilités de l’histoire réelle.';
+  assumptions.innerHTML = '<strong>Des simplifications assumées.</strong> Les juges sont représentés par la Nature : leur verdict est incertain pour les joueurs. Le choix d’Ellsberg est fixé. La Cour suprême n’est saisie en urgence que si deux journaux sont poursuivis ; sinon, la censure du juge local tient. Si le Times renonce, il ne revient pas dans le jeu. Ces hypothèses définissent le modèle, pas toutes les possibilités de l’histoire réelle (voir la pièce 6).';
   qs('#joueurs').append(assumptions);
 
   /* Compact live summary for the laboratory. */
   const metrics = document.createElement('div');
   metrics.className = 'lab-summary';
   metrics.setAttribute('aria-live','polite');
-  metrics.innerHTML = '<div><span>PUBLICATION COMPLÈTE</span><strong id="live-full">75,5 %</strong><small>Probabilité dans le modèle</small></div><div><span>GAIN ESPÉRÉ · TIMES</span><strong id="live-nyt">60,6</strong><small>Points d’utilité</small></div><div><span>GAIN ESPÉRÉ · POST</span><strong id="live-wp">7,35</strong><small>Points d’utilité</small></div>';
+  metrics.innerHTML = '<div><span>PUBLICATION COMPLÈTE</span><strong id="live-full">75,5 %</strong><small>Probabilité dans le modèle</small></div><div><span>GAIN ESPÉRÉ · TIMES</span><strong id="live-nyt">60,6</strong><small>Points d’utilité</small></div><div><span>GAIN ESPÉRÉ · POST</span><strong id="live-wp">8,82</strong><small>Points d’utilité</small></div>';
   qs('#presets').after(metrics);
   const liveBadge = document.createElement('div');
   liveBadge.className='lab-live';
@@ -176,7 +176,7 @@
       avertissement:'Gains et probabilités illustratifs, pas des estimations historiques.',
       convention:'À égalité : publication, absence de poursuite.',
       parametres:LP,
-      resultat:{regime:REG[result.regime].label,probabilites:result.probs,gainsEsperes:result.root,publicationComplete:result.full},
+      resultat:{regime:REG[regKey(result)].label,probabilites:result.probs,gainsEsperes:result.root,publicationComplete:result.full,strategies:{times:result.tPub?'publier':'ne pas publier',post:[result.wPub?'publier en relais':'se taire en relais',result.wAlone?'publier seul':'se taire seul'],nixon:[result.g1Sue,result.g2Sue,result.g3Sue].map(s=>s?'poursuivre':'laisser faire')}},
     };
     const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
     const a=document.createElement('a');a.href=url;a.download='pentagon-papers-scenario.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -224,15 +224,15 @@
 
   const quizTools = document.createElement('div');
   quizTools.className='quiz-tools';
-  quizTools.innerHTML='<span class="small ui">7 questions pour vérifier votre compréhension.</span><button type="button" class="btn sm ghost" id="reset-quiz">Recommencer ↻</button>';
+  quizTools.innerHTML=`<span class="small ui">${QUIZ.length} questions pour vérifier votre compréhension.</span><button type="button" class="btn sm ghost" id="reset-quiz">Recommencer ↻</button>`;
   qs('#quizbox').before(quizTools);
-  qs('#score').textContent='0 / 7 réponses';
+  qs('#score').textContent=`0 / ${QUIZ.length} réponses`;
   qs('#reset-quiz').addEventListener('click',()=>{
-    good=0;done=0;qs('#score').textContent='0 / 7 réponses';
+    good=0;done=0;qs('#score').textContent=`0 / ${QUIZ.length} réponses`;
     all('#quizbox .q').forEach(box=>{delete box.dataset.done;all('button',box).forEach(b=>{b.disabled=false;b.classList.remove('good','bad');});qs('.fb',box).hidden=true;qs('.fb',box).textContent='';});
     toast('Le quiz est prêt pour une nouvelle tentative.');
   });
-  qs('#quizbox').addEventListener('click',()=>{qs('#score').textContent=`${good} / 7 bonnes réponses · ${done} / 7 complétées`;});
+  qs('#quizbox').addEventListener('click',()=>{qs('#score').textContent=`${good} / ${QUIZ.length} bonnes réponses · ${done} / ${QUIZ.length} complétées`;});
   all('#quizbox .fb').forEach(fb=>fb.setAttribute('aria-live','polite'));
   window.initPresentation?.();
   navigate(location.hash,{focus:false});
