@@ -132,7 +132,7 @@
   qs('#gains .prose').after(modelNote);
   const assumptions = document.createElement('div');
   assumptions.className = 'note';
-  assumptions.innerHTML = '<strong>Des simplifications assumées.</strong> Les juges sont représentés par la Nature : leur verdict est incertain pour les joueurs. Le choix d’Ellsberg est fixé. La Cour suprême n’est saisie en urgence que si deux journaux sont poursuivis ; sinon, la censure du juge local tient. Si le Times renonce, il ne revient pas dans le jeu. Ces hypothèses définissent le modèle, pas toutes les possibilités de l’histoire réelle (voir la pièce 6).';
+  assumptions.innerHTML = '<strong>Des simplifications assumées.</strong> Les juges ne sont pas des joueurs : leurs verdicts incertains sont intégrés dans les gains espérés des feuilles. Le choix d’Ellsberg est fixé. La Cour suprême n’est saisie en urgence que si deux journaux sont poursuivis ; sinon, la censure du juge local tient. Si le Times renonce, il ne revient pas dans le jeu. Ces hypothèses définissent le modèle, pas toutes les possibilités de l’histoire réelle (voir la pièce 6).';
   qs('#joueurs').append(assumptions);
 
   /* Compact live summary for the laboratory. */

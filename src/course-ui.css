@@ -29,3 +29,5 @@ table.pay td.issue-id{font:600 13px var(--f-ui);color:var(--muted);letter-spacin
 .grid2.cases{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
 .players-title{font-size:19px;margin-top:6px}
 .not-player{background:color-mix(in srgb,var(--nat) 6%,var(--surface));border-style:dashed}
+.order-list .judges-line{list-style:none;margin-left:-4px;color:var(--muted);font-size:14px;border-left:2px dashed var(--nat);padding-left:10px}
+table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:600}

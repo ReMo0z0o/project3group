@@ -1,4 +1,5 @@
 /* Forme étendue dessinée de haut en bas, comme dans le cours (S6, diapositives 8–9 et 14).
+   Seuls les joueurs ont des nœuds ; les verdicts des juges sont dans les gains des feuilles.
    Chaque feuille reçoit sa colonne ; un nœud se place au milieu de ses branches.
    Options :
    - root : nœud de départ (un sous-jeu commence à un nœud et contient toutes ses suites) ;
@@ -73,9 +74,10 @@ function drawTree(svg, P, opt = {}) {
     let s = `<g class="dt-terminal" data-outcome="${t.id}"><circle cx="${x}" cy="${y}" r="5" fill="var(--ink)"/>`;
     s += `<rect x="${x - BOX_W / 2}" y="${y + 12}" width="${BOX_W}" height="${BOX_H}" rx="6" fill="var(--surface)" stroke="var(${onPath ? '--stamp' : '--rule'})" stroke-width="${onPath ? 2.5 : 1}"/>`;
     s += text(x - BOX_W / 2 + 10, y + 30, t.id, 'dt-outcome-id', 'start', '--muted');
-    if (o.probs && probOf(t.id) > 1e-9) s += text(x + BOX_W / 2 - 10, y + 30, pct(probOf(t.id)), 'dt-outcome-prob', 'end', '--stamp');
+    if (o.probs && probOf(t.id) > 1e-9) s += text(x + BOX_W / 2 - 10, y + 30, '★ ÉQUILIBRE', 'dt-outcome-prob', 'end', '--stamp');
+    else if (COURT_LEAVES.includes(t.id)) s += text(x + BOX_W / 2 - 10, y + 30, 'gains espérés', 'dt-outcome-prob', 'end', '--nat');
     s += text(x, y + 49, TITLE[t.id][0], 'dt-outcome-title') + text(x, y + 65, TITLE[t.id][1], 'dt-outcome-title');
-    s += vector(x, y + 87, o.mode === 'sym' ? SYM[t.id] : M.O[t.id], o.mode === 'sym', highlight);
+    s += vector(x, y + 87, M.O[t.id], false, highlight);
     return s + '</g>';
   }
   function replacedBox(t, highlight) {
@@ -139,7 +141,7 @@ function drawTree(svg, P, opt = {}) {
   if (tree.type === 'leaf') boxes += leafBox(tree, null);
 
   const title = o.root === 'x0' ? 'Arbre du jeu' : `Sous-jeu qui commence en ${o.root} (${NODES[o.root].long})`;
-  let markup = `<title>${E(title)}</title><desc>Lire de haut en bas. Les branches portent les actions et, pour la Nature, leurs probabilités. Sous chaque issue, les gains sont dans l’ordre Times, Post, Nixon.</desc>`;
+  let markup = `<title>${E(title)}</title><desc>Lire de haut en bas. Seuls les trois joueurs ont des nœuds. Les branches portent leurs actions. Sous chaque feuille, les gains sont dans l’ordre Times, Post, Nixon ; quand un procès a lieu, ce sont des gains espérés qui intègrent les verdicts des juges.</desc>`;
   const heading = o.reduce && o.focus ? `SOUS-JEU ÉTUDIÉ · NŒUD ${o.focus}` : o.root === 'x0' ? 'FORME ÉTENDUE · DÉROULEMENT DU JEU ↓' : `SOUS-JEU · À PARTIR DE ${o.root}`;
   markup += text(24, 30, heading, 'dt-orientation', 'start', '--muted');
   if (o.reduce && o.focus) markup += text(24, 52, 'Les suites déjà résolues sont remplacées par leurs gains.', 'dt-caption', 'start', '--muted');
