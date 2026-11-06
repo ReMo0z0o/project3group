@@ -80,37 +80,38 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
 
     await page.evaluate(()=>window.Papers.navigate('arbre'));
     assert.equal(await page.locator('#tree-main [data-node]').count(),1,'guided construction starts with the root only');
-    for(let count=2;count<=9;count++){
+    for(let count=2;count<=6;count++){
       await page.locator('#build-next').click();
       assert.equal(await page.locator('#tree-main [data-node]').count(),count,'one node is added at a time');
     }
-    assert.equal(await page.locator('#build-next').isDisabled(),true,'construction ends with the ninth node');
-    assert.equal(await page.locator('#tree-main [data-outcome]').count(),10,'the complete tree shows all ten outcomes');
+    assert.equal(await page.locator('#build-next').isDisabled(),true,'construction ends with the sixth node');
+    assert.equal(await page.locator('#tree-main [data-outcome]').count(),7,'the complete tree shows the seven leaves of the sketch');
     assert.equal(await page.locator('#tree-main [data-pending-node]').count(),0,'nothing is left to develop');
     await page.locator('[data-tree-view="full"]').click();
-    await page.locator('#tree-path').selectOption('O2');
-    assert.equal(await page.locator('#tree-main .dt-history').count(),6,'the historical path traverses six branches');
+    await page.locator('#tree-path').selectOption('O1');
+    assert.equal(await page.locator('#tree-main .dt-history').count(),4,'the historical path traverses four branches');
     assert.match(await page.locator('#tree-guide-copy').textContent(),/ne signifie pas que c’est un équilibre/);
     await page.locator('[data-tree-view="post"]').click();
-    assert.equal(await page.locator('#tree-main [data-node]').count(),3);
-    assert.equal(await page.locator('#tree-main [data-outcome]').count(),4,'a subgame retains every continuation, not just a path');
-    await page.locator('[data-subgame="x6"]').click();
-    assert.equal(await page.locator('#tree-main [data-node="x6"]').count(),1,'the unreached subgame can be isolated too');
-    assert.equal(await page.locator('#tree-main [data-outcome="O10"]').count(),1);
-    await page.locator('#t-sym').click();
-    assert.ok(await page.locator('#tree-main tspan[baseline-shift="sub"]').count()>0,'symbolic gains retain readable subscripts');
-    await page.locator('#t-num').click();
-    console.log('PASS guided construction, ten outcomes, path exploration, subgames and payoff notation');
+    assert.equal(await page.locator('#tree-main [data-node]').count(),2);
+    assert.equal(await page.locator('#tree-main [data-outcome]').count(),3,'a subgame retains every continuation, not just a path');
+    await page.locator('[data-subgame="x4"]').click();
+    assert.equal(await page.locator('#tree-main [data-node="x4"]').count(),1,'the unreached subgame can be isolated too');
+    assert.equal(await page.locator('#tree-main [data-outcome="O7"]').count(),1);
+    await page.evaluate(()=>window.Papers.navigate('gains'));
+    await page.locator('#p-sym').click();
+    assert.ok(await page.locator('#paytable sub').count()>0,'symbolic gains retain readable subscripts');
+    await page.locator('#p-num').click();
+    console.log('PASS guided construction, seven leaves, path exploration, subgames and payoff notation');
 
     await page.evaluate(()=>window.Papers.navigate('rappels'));
     await page.locator('#thr-k').focus();await page.keyboard.press('End');
     assert.match(await page.locator('#thr-msg').textContent(),/49/);
     assert.match(await page.locator('#thr-out').textContent(),/non crédible/);
     await page.evaluate(()=>window.Papers.navigate('resolution'));
-    const replaced=[0,1,1,1,1,0,1,1,2];
-    for(let i=0;i<11;i++){
+    const replaced=[0,1,1,0,1,2];
+    for(let i=0;i<8;i++){
       await page.locator('#st-next').click();
-      if(i<9){
+      if(i<6){
         assert.equal(await page.locator('#tree-step [data-node]').count(),1,'focus shows only the node currently being resolved');
         assert.equal(await page.locator('#tree-step').getAttribute('data-tree-scope'),'focus');
         assert.equal(await page.locator('#tree-step [data-replaced-node]').count(),replaced[i],'solved continuations are replaced by their values');

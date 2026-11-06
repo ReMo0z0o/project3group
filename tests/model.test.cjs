@@ -16,13 +16,13 @@ const context = vm.createContext({});
 vm.runInContext(
   '"use strict";' + html.slice(modelStart, modelEnd)
     + '\nconst PRESETS = ' + presetsSource[1] + ';'
-    + '\nglobalThis.model = { BASE, solve, outcomes, NODES, DOCS, PRESETS, regKey };',
+    + '\nglobalThis.model = { BASE, solve, outcomes, situations, NODES, LEAVES, SITUATION, PRESETS, regKey };',
   context,
   { timeout: 1000 },
 );
-const { BASE, solve, NODES, DOCS, PRESETS, regKey } = context.model;
+const { BASE, solve, NODES, LEAVES, SITUATION, PRESETS, regKey } = context.model;
 const EPS = 1e-9;
-const OUTCOMES = ['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7', 'O8', 'O9', 'O10'];
+const OUTCOMES = ['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7'];
 
 function near(actual, expected, message, tolerance = 1e-8) {
   assert.ok(Number.isFinite(actual), `${message}: expected a finite number, got ${actual}`);
@@ -31,21 +31,24 @@ function near(actual, expected, message, tolerance = 1e-8) {
 
 function checkSolution(parameters, label) {
   const result = solve(parameters);
-  const probabilities = OUTCOMES.map(id => result.probs[id]);
-  assert.equal(Object.keys(result.probs).length, 10, `${label}: all ten terminal outcomes exist`);
-  for (const probability of probabilities) {
-    assert.ok(Number.isFinite(probability) && probability >= -EPS && probability <= 1 + EPS, `${label}: terminal probabilities stay between zero and one`);
+  assert.equal(Object.keys(result.probs).length, 7, `${label}: seven leaves, as in the group's sketch`);
+  const reached = OUTCOMES.filter(id => result.probs[id] > 0);
+  assert.equal(reached.length, 1, `${label}: pure strategies reach exactly one leaf`);
+  assert.equal(result.probs[reached[0]], 1, `${label}: the reached leaf has probability one`);
+  for (const [id, leaf] of Object.entries(LEAVES)) {
+    const lottery = leaf.lottery(parameters);
+    near(lottery.reduce((s, [, w]) => s + w, 0), 1, `${label}: the court verdicts of ${id} sum to one`);
+    for (const [, w] of lottery) assert.ok(w >= -EPS && w <= 1 + EPS, `${label}: verdict probabilities in [0, 1]`);
+    // A leaf payoff is the expectation of the final situations over the judges' verdicts.
+    for (let k = 0; k < 3; k++) near(result.O[id][k], lottery.reduce((s, [sit, w]) => s + w * result.S[sit][k], 0), `${label}: expected payoff of ${id}`, 1e-7);
   }
-  near(probabilities.reduce((sum, value) => sum + value, 0), 1, `${label}: terminal probabilities sum to one`);
-  near(result.full, OUTCOMES.filter(id => DOCS[id] === 'all').reduce((s, id) => s + result.probs[id], 0), `${label}: complete publication counts the correct outcomes`);
-  // Expected utility at the root equals the expectation over the terminal distribution.
-  for (let player = 0; player < 3; player++) {
-    const expectedUtility = OUTCOMES.reduce((sum, id) => sum + result.probs[id] * result.O[id][player], 0);
-    near(result.root[player], expectedUtility, `${label}: root utility for player ${player}`, 1e-7);
-  }
+  near(Object.values(result.situ).reduce((s, v) => s + v, 0), 1, `${label}: final situations sum to one`);
+  near(result.full + result.part + result.none, 1, `${label}: documents fully, partly or not published`);
+  for (let player = 0; player < 3; player++) near(result.root[player], result.O[reached[0]][player], `${label}: root utility for player ${player}`, 1e-7);
+  // Only the three players have nodes: the judges are not players.
+  for (const node of Object.values(NODES)) assert.equal(node.kind, 'decision', `${label}: every node belongs to a player`);
   // Every decision node, reached or not, chooses a best action; ties follow the documented convention.
   for (const [id, node] of Object.entries(NODES)) {
-    if (node.kind !== 'decision') continue;
     const value = child => (child in result.O ? result.O[child] : result.V[child]);
     const chosen = value(node.actions[result.choice[id]][1])[node.player];
     const other = value(node.actions[1 - result.choice[id]][1])[node.player];
@@ -53,20 +56,18 @@ function checkSolution(parameters, label) {
     assert.ok(chosen >= other - EPS, `${label}: ${id} must not choose a strictly worse action`);
     if (Math.abs(chosen - other) <= EPS) assert.equal(result.choice[id], node.tie, `${label}: ${id} follows the convention at indifference`);
   }
-  assert.equal(result.tPub, result.probs.O7 + result.probs.O8 + result.probs.O9 + result.probs.O10 < EPS, `${label}: the Times' choice matches the outcomes`);
+  assert.equal(result.tPub, result.probs.O5 + result.probs.O6 + result.probs.O7 < EPS, `${label}: the Times' choice matches the leaves`);
   for (const value of Object.values(result.th)) assert.ok(!Number.isNaN(value), `${label}: thresholds are never NaN`);
   return result;
 }
 
 /* Brute force over the 64 pure strategy profiles, independently of backward induction. */
-const DECISIONS = ['x0', 'x1', 'x3', 'x4', 'x6', 'x7'];
+const DECISIONS = ['x0', 'x1', 'x2', 'x3', 'x4', 'x5'];
 function profilePayoff(P, profile) {
   const O = context.model.outcomes(P);
   const walk = id => {
     if (id in O) return O[id];
-    const node = NODES[id];
-    if (node.kind === 'chance') return [0, 1, 2].map(k => node.actions.reduce((s, a) => s + a[2](P) * walk(a[1])[k], 0));
-    return walk(node.actions[profile[id]][1]);
+    return walk(NODES[id].actions[profile[id]][1]);
   };
   return walk('x0');
 }
@@ -91,12 +92,11 @@ test('the illustrative 1971 calibration reproduces the worked solution', () => {
   const result = checkSolution({ ...BASE }, '1971');
   assert.equal(result.regime, 'BOTH');
   assert.deepEqual([result.tPub, result.g1Sue, result.wPub, result.g2Sue, result.wAlone, result.g3Sue], [true, true, true, true, false, true]);
+  assert.equal(result.probs.O1, 1, 'the equilibrium leads to the trial of the Post');
   [60.6, 8.82, -189.7].forEach((value, index) => near(result.root[index], value, `reference expected utility ${index}`));
-  [48, 12.6, -181].forEach((value, index) => near(result.V.x5[index], value, `Supreme Court expectation ${index}`));
-  [-25.5, -79.8, -122].forEach((value, index) => near(result.V.x8[index], value, `local judge, Post alone ${index}`));
-  near(result.probs.O5, .30, 'local victory');
-  near(result.probs.O2, .455, 'Supreme Court victory');
-  near(result.probs.O1, .245, 'censorship and sanctions');
+  near(result.situ.judgeTimes, .30, 'local judge favourable to the Times');
+  near(result.situ.press, .455, 'Supreme Court victory');
+  near(result.situ.gov, .245, 'censorship and sanctions');
   near(result.full, .755, 'complete publication');
   near(result.th.tauW, 159 / 264, 'Post threshold');
   near(result.th.tauT, .25, 'Times threshold');
@@ -109,13 +109,13 @@ test('the illustrative 1971 calibration reproduces the worked solution', () => {
   near(result.th.avoided, 34.3, 'expected damage avoided');
 });
 
-test('the leaf payoffs match the worked table', () => {
+test('the leaf and situation payoffs match the worked tables', () => {
   const O = context.model.outcomes(BASE);
-  const table = {
-    O1: [-30, -159, -90], O2: [90, 105, -230], O3: [90, 120, -210], O4: [-30, 0, -70], O5: [90, 0, -210],
-    O6: [100, 0, -200], O7: [-15, -159, -80], O8: [-50, 105, -220], O9: [-50, 120, -200], O10: [0, 0, 0],
-  };
-  for (const [id, values] of Object.entries(table)) values.forEach((v, k) => near(O[id][k], v, `${id} payoff ${k}`));
+  const leaves = { O1: [60.6, 8.82, -189.7], O2: [90, 84, -210], O3: [6, 0, -112], O4: [100, 0, -200], O5: [-25.5, -79.8, -122], O6: [-50, 120, -200], O7: [0, 0, 0] };
+  for (const [id, values] of Object.entries(leaves)) values.forEach((v, k) => near(O[id][k], v, `${id} payoff ${k}`));
+  const S = context.model.situations(BASE);
+  const table = { judgeTimes: [90, 0, -210], press: [90, 105, -230], gov: [-30, -159, -90], postFree: [90, 120, -210], timesCensored: [-30, 0, -70], noSuit: [100, 0, -200], judgePost: [-50, 105, -220], postCensored: [-15, -159, -80], postAlone: [-50, 120, -200], nothing: [0, 0, 0] };
+  for (const [id, values] of Object.entries(table)) values.forEach((v, k) => near(S[id][k], v, `${id} payoff ${k}`));
 });
 
 test('every named laboratory scenario has the advertised result', () => {
@@ -144,7 +144,7 @@ test('every named laboratory scenario has the advertised result', () => {
   // Without the scoop loss, the Times would leave the story to the Post: the new branch matters.
   const noRivalry = checkSolution({ ...BASE, ...PRESETS.preempt[1], R_T: 0 }, 'preempt without R_T');
   assert.equal(noRivalry.regime, 'ALONE');
-  near(noRivalry.probs.O8, .65, 'the Post alone wins before the local judge');
+  near(noRivalry.situ.judgePost, .65, 'the Post alone wins before the local judge');
 });
 
 test('Nash equilibria: the subgame-perfect profile is one of them, non-credible threats add others', () => {
@@ -160,23 +160,23 @@ test('Nash equilibria: the subgame-perfect profile is one of them, non-credible 
   const threat = { ...BASE, ...PRESETS.nash[1] };
   const threatEquilibria = nashEquilibria(threat);
   assert.equal(threatEquilibria.length, 12);
-  const sustainedByThreat = threatEquilibria.filter(profile => profile.x1 === 0 && profile.x3 === 1 && profile.x4 === 0);
+  const sustainedByThreat = threatEquilibria.filter(profile => profile.x1 === 0 && profile.x2 === 1 && profile.x3 === 0);
   assert.ok(sustainedByThreat.length > 0, 'a Nash equilibrium keeps the secret through a non-credible threat');
   assert.equal(solve(threat).g2Sue, false, 'the threat is not credible in the subgame');
 });
 
 test('indifference follows publication and no-litigation conventions', () => {
   const postTie = checkSolution({ ...BASE, S_W: 216 }, 'Post indifferent');
-  near(postTie.V.x4[1], 0, 'Post gain at the exact sanction threshold');
+  near(postTie.V.x3[1], postTie.O.O3[1], 'Post indifferent at the exact sanction threshold');
   assert.equal(postTie.wPub, true);
   const postAloneTie = checkSolution({ ...BASE, q: 159 / 264 }, 'Post alone indifferent');
-  near(postAloneTie.V.x8[1], 0, 'Post alone gain at the threshold');
+  near(postAloneTie.O.O5[1], 0, 'Post alone gain at the threshold');
   assert.equal(postAloneTie.wAlone, true);
   const secondLawsuitTie = checkSolution({ ...BASE, k_W: 49 }, 'second lawsuit indifferent');
-  near(secondLawsuitTie.V.x5[2], secondLawsuitTie.O.O3[2], 'government second lawsuit tie');
+  near(secondLawsuitTie.O.O1[2], secondLawsuitTie.O.O2[2], 'government second lawsuit tie');
   assert.equal(secondLawsuitTie.g2Sue, false);
   const firstLawsuitTie = checkSolution({ ...BASE, k_T: 20.3 }, 'first lawsuit indifferent');
-  near(firstLawsuitTie.V.x2[2], firstLawsuitTie.O.O6[2], 'government first lawsuit tie');
+  near(firstLawsuitTie.V.x2[2], firstLawsuitTie.O.O4[2], 'government first lawsuit tie');
   assert.equal(firstLawsuitTie.g1Sue, false);
   const timesTie = checkSolution({ ...BASE, c_T: 70.6 }, 'Times indifferent');
   near(timesTie.V.x1[0], 0, 'Times gain at indifference', 1e-7);
