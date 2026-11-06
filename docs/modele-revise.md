@@ -74,6 +74,30 @@ x0 Times
 
 Chaque joueur observe tout ce qui précède : chaque ensemble d’information contient un seul nœud (information parfaite).
 
+### Les juges ne sont pas des joueurs
+
+Un joueur choisit une action pour maximiser son propre gain. Les juges n’ont **pas de gains** dans le modèle et ne choisissent rien de stratégique. Ce ne sont donc pas des joueurs. Leur verdict n’agit que sur les gains des trois joueurs (Times, Post, Nixon). Concrètement :
+
+- chaque feuille porte **trois** gains, aucun pour les juges ;
+- les stratégies et l’ENPS ne concernent que les trois joueurs (2 stratégies pour le Times, 4 pour le Post, 8 pour Nixon) ;
+- à un losange (coup de la Nature), personne ne compare rien : on remplace les deux verdicts par la **moyenne des gains des joueurs**, pondérée par `q` ou `p`. Exemple, Cour suprême : 0,35 × (−30 ; −159 ; −90) + 0,65 × (90 ; 105 ; −230) = (48 ; 12,6 ; −181).
+
+**Le même arbre sans losanges.** Puisque les juges ne font que pondérer les gains, on peut les retirer de l’arbre et mettre les tribunaux *dans les gains*, comme les « + tribunaux » de ton ébauche. On retrouve tes 7 feuilles, avec des gains espérés :
+
+| Feuille (arbre à 3 joueurs) | Calcul | Gains (Times ; Post ; Nixon) |
+|---|---|---|
+| Procès du Post + tribunaux (le Times a publié) | 0,3 × O5 + 0,7 × [0,65 × O2 + 0,35 × O1] | (60,6 ; 8,82 ; −189,7) |
+| Tout sort : le Post publie, pas de procès | 0,3 × O5 + 0,7 × O3 | (90 ; 84 ; −210) |
+| Times poursuivi, Post muet | 0,3 × O5 + 0,7 × O4 | (6 ; 0 ; −112) |
+| Tout sort, sans procès | O6 | (100 ; 0 ; −200) |
+| Procès du Post seul + tribunaux | 0,3 × O8 + 0,7 × O7 | (−25,5 ; −79,8 ; −122) |
+| Le Post publie seul | O9 | (−50 ; 120 ; −200) |
+| Rien ne sort | O10 | (0 ; 0 ; 0) |
+
+L’induction à rebours sur cet arbre donne **le même ENPS** et **les mêmes seuils** : Nixon poursuit le Post (−189,7 > −210), le Post publie en relais (8,82 > 0), Nixon poursuit le Times (−189,7 > −200), le Post se tairait seul (−79,8 < 0), le Times publie (60,6 > 0). Les deux dessins sont deux présentations du même modèle.
+
+Ce que les losanges ajoutent : ils montrent **quand** le hasard tombe. Le Post décide après avoir vu le Times censuré, mais avant l’arrêt de la Cour suprême. Dans la version sans losanges, les trois premières feuilles mélangent les deux verdicts possibles du juge local du Times (30 % de refus, 70 % de censure) : par exemple « Times poursuivi, Post muet » = 0,3 × (90 ; 0 ; −210) + 0,7 × (−30 ; 0 ; −70). Il faut le préciser si vous présentez cette version.
+
 ## 4. Les gains
 
 ### 4.1 Cinq règles, identiques dans tous les sous-jeux

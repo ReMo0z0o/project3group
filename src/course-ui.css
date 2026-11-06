@@ -27,3 +27,5 @@
 @media print{.calc-details>div{display:grid!important}.answer,.calc-row{break-inside:avoid}}
 table.pay td.issue-id{font:600 13px var(--f-ui);color:var(--muted);letter-spacing:.4px}
 .grid2.cases{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.players-title{font-size:19px;margin-top:6px}
+.not-player{background:color-mix(in srgb,var(--nat) 6%,var(--surface));border-style:dashed}

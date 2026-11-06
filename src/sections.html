@@ -75,9 +75,13 @@
     <!-- 4. JOUEURS -->
     <section class="piece" id="joueurs" data-toc="Les joueurs">
       <div class="piece-head"><div class="eyebrow">Pièce 4</div><h2>Les joueurs et l'ordre du jeu</h2></div>
+      <h3 class="players-title">Trois joueurs : ils choisissent et ils ont des gains</h3>
       <div class="grid3" id="players"></div>
+      <h3 class="players-title">Ce ne sont pas des joueurs : ni choix stratégique, ni gains</h3>
+      <div class="grid3" id="non-players"></div>
       <div class="prose">
-        <p><strong>Pourquoi les juges sont-ils « la Nature » ?</strong> Dans notre modèle, on ne prête pas d’objectif stratégique aux juges : leur décision est représentée comme un événement incertain. Pour les trois joueurs, chaque verdict est un tirage au sort avec des probabilités connues de tous : <span class="m">q</span> que le juge local refuse la censure, <span class="m">p</span> que la Cour suprême donne raison aux journaux.</p>
+        <p><strong>Pourquoi les juges ne sont-ils pas des joueurs ?</strong> Un joueur choisit une action pour maximiser son propre gain. Dans notre modèle, les juges n’ont pas de gains : on ne leur prête aucun objectif. Leur verdict est un événement incertain, un « coup de la Nature », avec des probabilités connues de tous : <span class="m">q</span> qu’un juge local refuse la censure, <span class="m">p</span> que la Cour suprême donne raison aux journaux.</p>
+        <p><strong>Ils n’agissent que sur les gains des trois joueurs.</strong> Sous chaque issue, il y a trois gains (Times, Post, Nixon) et aucun pour les juges. À un losange, personne ne compare rien : on remplace les deux verdicts possibles par la moyenne des gains des trois joueurs, pondérée par <span class="m">q</span> ou <span class="m">p</span>. À la Cour suprême : 0,35 × (−30 ; −159 ; −90) + 0,65 × (90 ; 105 ; −230) = (48 ; 12,6 ; −181).</p>
         <p><strong>Et Ellsberg ?</strong> Pour simplifier, nous supposons que son objectif de divulgation prime : son choix est fixé d’avance. Il remet les documents au Times ; si le Times est censuré <em>ou</em> s'il refuse, il les remet au Post. Il déclenche le jeu sans y faire de choix stratégique.</p>
       </div>
       <figure>
@@ -113,9 +117,9 @@
       <div class="piece-head"><div class="eyebrow">Pièce 5</div><h2>Construire et lire l’arbre du jeu</h2></div>
       <div class="prose"><p class="lead">On lit l’histoire de haut en bas.<br>On la résout de bas en haut.</p><p>Comme dans le cours, chaque embranchement représente une décision. Commencez par construire l’arbre, puis suivez une issue. Les gains sont affichés en valeurs ; les symboles restent disponibles.</p></div>
       <div class="tree-key" aria-label="Conventions de lecture de l’arbre">
-        <div><span class="tree-key-dot" aria-hidden="true"></span><strong>Un nœud : qui joue ?</strong><p>Le nom du joueur et le repère x₀ … x₈ identifient chaque nœud. Les losanges représentent la Nature (les juges).</p></div>
+        <div><span class="tree-key-dot" aria-hidden="true"></span><strong>Un nœud : qui joue ?</strong><p>Un cercle : un des trois joueurs. Un losange : la Nature (un juge), qui n’est pas un joueur. Le repère x₀ … x₈ identifie chaque nœud.</p></div>
         <div><span class="tree-key-fork" aria-hidden="true">⑂</span><strong>Une branche : quelle action ?</strong><p>Suivez une seule action à chaque décision. Aux nœuds de la Nature, les deux branches portent des probabilités.</p></div>
-        <div><span class="tree-key-tuple" aria-hidden="true">1 / 2 / 3</span><strong>Une feuille : quels gains ?</strong><p>Toujours dans le même ordre : <b>Times, Post, Nixon</b>. Chaque joueur compare son propre gain.</p></div>
+        <div><span class="tree-key-tuple" aria-hidden="true">1 / 2 / 3</span><strong>Une feuille : quels gains ?</strong><p>Toujours dans le même ordre : <b>Times, Post, Nixon</b>. Chaque joueur compare son propre gain. Les juges n’ont pas de ligne : ils ne gagnent rien.</p></div>
       </div>
       <div class="tree-workshop">
         <div class="tree-view-tabs" role="group" aria-label="Mode de lecture de l’arbre">
@@ -153,6 +157,12 @@
         <div class="card"><div class="tag" style="color:var(--nyt)">Choix 5 · la rivalité</div><h3>Le Times n’aime pas être doublé</h3><div class="k">Le Times détenait les documents depuis mars et y travaillait en secret depuis près de trois mois. S’il renonce et que le Post publie, il perd le scoop au profit de son rival : une perte <span class="m">R<sub>T</sub></span>, proportionnelle à ce qui sort.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> sans ce terme, la nouvelle branche ne changerait jamais la décision du Times.</div></div>
         <div class="card"><div class="tag" style="color:var(--ok)">Choix 6 · la cohérence</div><h3>Les mêmes ingrédients dans tous les sous-jeux</h3><div class="k">Chaque gain est construit avec cinq règles fixes (pièce 7). « Tout sort » coûte toujours <span class="m">D</span> à Nixon, une censure maintenue toujours <span class="m">θD</span>. Une même situation reçoit donc le même gain, quel que soit le chemin qui y mène.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> c’est ce que l’énoncé appelle des gains « cohérents entre les (sous-)jeux ».</div></div>
       </div>
+      <figure>
+        <div class="eyebrow">Les juges ne sont pas des joueurs · le même arbre sans losanges</div>
+        <p class="ui" style="font-size:15.5px">Les juges n’ont pas de gains : ils ne font que pondérer ceux des trois joueurs. On peut donc retirer les losanges et mettre les tribunaux <em>dans les gains</em>, comme les « + tribunaux » de l’ébauche du groupe. On obtient un arbre avec seulement les trois joueurs et sept feuilles, dont les gains sont des espérances :</p>
+        <div class="scroll-x"><table class="pay" id="folded-table"></table></div>
+        <p class="ui small" id="folded-note"></p>
+      </figure>
       <figure>
         <div class="eyebrow">Deux arbres comparés</div>
         <div class="scroll-x"><table class="pay compare-table">
