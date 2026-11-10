@@ -57,13 +57,54 @@ Six nœuds de décision, sept feuilles. **Seuls les trois joueurs ont des nœuds
 
 **Notre ajout** : les verdicts des juges étant incertains, une feuille avec procès vaut la moyenne des gains de ses verdicts possibles (gain espéré). Cela suppose que les points d’utilité mesurent l’intensité des préférences, pas seulement leur ordre.
 
-### Les fonctions de gain
+### Les fonctions de gain (en LaTeX)
 
-Avec `σ` = part des documents qui finit par être publique (1 si tout sort, `θ` si une censure est maintenue, 0 si rien ne sort) :
+Part des documents qui finit par être publique :
 
-- **Times** : `u_T = B_T·σ` (s’il a publié) `− c_T` (s’il est poursuivi) `− S_T` (si sa censure est maintenue) `− R_T·σ` (s’il a renoncé et que le Post publie).
-- **Post** : `u_W = B_W·σ` (s’il a publié) `− c_W` (s’il est poursuivi) `− S_W` (si sa censure est maintenue).
-- **Nixon** : `u_N = −D·σ − k_T` (s’il poursuit le Times) `− k_W` (s’il poursuit le Post).
+$$
+\sigma=\begin{cases}1 & \text{si tout sort,}\\ \theta & \text{si une censure est maintenue (seuls les premiers articles sont connus),}\\ 0 & \text{si rien ne sort.}\end{cases}
+$$
+
+Indicatrice : $\mathbf{1}_{A}=1$ si l’événement $A$ se produit, $0$ sinon. Fonctions de gain, dans l’ordre fixe Times ($T$), Post ($W$), Nixon ($N$) :
+
+$$
+u_{T}=\mathbf{1}_{\{\text{Times publie}\}}\,B_{T}\,\sigma-\mathbf{1}_{\{\text{Times poursuivi}\}}\,c_{T}-\mathbf{1}_{\{\text{censure du Times maintenue}\}}\,S_{T}-\mathbf{1}_{\{\text{Times renonce, Post publie}\}}\,R_{T}\,\sigma
+$$
+
+$$
+u_{W}=\mathbf{1}_{\{\text{Post publie}\}}\,B_{W}\,\sigma-\mathbf{1}_{\{\text{Post poursuivi}\}}\,c_{W}-\mathbf{1}_{\{\text{censure du Post maintenue}\}}\,S_{W}
+$$
+
+$$
+u_{N}=-D\,\sigma-\mathbf{1}_{\{\text{Times poursuivi}\}}\,k_{T}-\mathbf{1}_{\{\text{Post poursuivi}\}}\,k_{W}
+$$
+
+| Terme | Ce qu’il mesure | Intuition | Règle |
+|---|---|---|---|
+| $B_T\sigma$, $B_W\sigma$ | Ce que le journal gagne à publier | Proportionnel à ce qui sort ; compté seulement s’il a publié | 1 |
+| $c_T$, $c_W$ | Frais totaux du procès | Payés dès qu’il est poursuivi, quel que soit le verdict | 2 |
+| $S_T$, $S_W$ | Sanction si la censure est maintenue | Poursuites, amendes ; bourse et licences pour le Post, d’où $S_W>S_T$ | 3 |
+| $R_T\sigma$ | Scoop laissé au rival | Si le Times renonce et que le Post publie | 5 |
+| $D\sigma$ | Dommage de Nixon | Proportionnel à ce qui sort | 4 |
+| $k_T$, $k_W$ | Coût d’un procès pour Nixon | Frais et image de censeur, par journal poursuivi | 2 |
+
+Exemple, censure confirmée par la Cour suprême ($\sigma=\theta$) :
+
+$$
+u_{T}=\theta B_{T}-c_{T}-S_{T}=0{,}3\times 100-10-50=-30,\quad u_{W}=\theta B_{W}-c_{W}-S_{W}=-159,\quad u_{N}=-\theta D-k_{T}-k_{W}=-90
+$$
+
+Les juges ne sont pas des joueurs : une feuille avec procès vaut l’espérance des situations qui suivent les verdicts possibles $v$ :
+
+$$
+\mathbb{E}\big[u_i(O_k)\big]=\sum_{v}\Pr(v)\,u_i\big(\text{situation après } v\big),\qquad i\in\{T,W,N\}
+$$
+
+Par exemple, pour le Times à la feuille O1 :
+
+$$
+\mathbb{E}[u_{T}(O_1)]=q\,(B_{T}-c_{T})+(1-q)\big[p\,(B_{T}-c_{T})+(1-p)\,(\theta B_{T}-c_{T}-S_{T})\big]=0{,}3\times 90+0{,}7\,\big[0{,}65\times 90+0{,}35\times(-30)\big]=60{,}6
+$$
 
 Intuition : un journal gagne en proportion de ce qu’il réussit à rendre public et perd ce que le procès lui coûte ; Nixon perd en proportion de ce qui sort et paie chaque procès. Le zéro est « rien ne se passe » (O7) ; ajouter une constante aux gains d’un joueur ne changerait aucun de ses choix.
 

@@ -195,7 +195,7 @@ const LEAF_DETAILS = {
       'Si le juge refuse de censurer le Times, le Times publie tout lui-même : le Post n’a rien à gagner ni à perdre (0). Sinon, le Post joue sa survie devant la Cour suprême.',
       'Nixon a payé le procès du Times. Si la censure tient jusqu’au bout, il limite le dommage à θD, mais il paie aussi le procès du Post.',
     ],
-    eq: ['q(B_T − c_T) + (1 − q)[p(B_T − c_T) + (1 − p)(θB_T − c_T − S_T)]', 'q × 0 + (1 − q)[p(B_W − c_W) + (1 − p)(θB_W − c_W − S_W)]', 'q(−D − k_T) + (1 − q)[p(−D − k_T − k_W) + (1 − p)(−θD − k_T − k_W)]'],
+    eq: ['\\mathbb{E}[u_T]=q\\,(B_T-c_T)+(1-q)\\big[p\\,(B_T-c_T)+(1-p)\\,(\\theta B_T-c_T-S_T)\\big]', '\\mathbb{E}[u_W]=q\\times 0+(1-q)\\big[p\\,(B_W-c_W)+(1-p)\\,(\\theta B_W-c_W-S_W)\\big]', '\\mathbb{E}[u_N]=q\\,(-D-k_T)+(1-q)\\big[p\\,(-D-k_T-k_W)+(1-p)\\,(-\\theta D-k_T-k_W)\\big]'],
     course: 'Feuille atteinte à l’équilibre : c’est le « résultat » de l’ENPS, distinct des stratégies (S6, diapositives 14–18). Gain espéré, car les verdicts sont incertains (notre ajout).',
   },
   O2: {
@@ -205,7 +205,7 @@ const LEAF_DETAILS = {
       'Le Post publie sans procès : il gagne B_W… sauf si le juge avait refusé de censurer le Times, auquel cas le Post n’a pas eu à prendre le relais (0).',
       'Le pire pour Nixon : tout sort malgré le procès du Times, qu’il a payé pour rien.',
     ],
-    eq: ['q(B_T − c_T) + (1 − q)(B_T − c_T) = B_T − c_T', 'q × 0 + (1 − q)B_W', 'q(−D − k_T) + (1 − q)(−D − k_T) = −D − k_T'],
+    eq: ['\\mathbb{E}[u_T]=q\\,(B_T-c_T)+(1-q)\\,(B_T-c_T)=B_T-c_T', '\\mathbb{E}[u_W]=q\\times 0+(1-q)\\,B_W', '\\mathbb{E}[u_N]=q\\,(-D-k_T)+(1-q)\\,(-D-k_T)=-D-k_T'],
     course: 'Feuille hors du chemin : elle compte quand même, car Nixon la compare à O1 en x3. Une menace se juge à ce qu’elle rapporterait si on l’exécutait (S6, diapositives 3–6 et 10–13).',
   },
   O3: {
@@ -215,13 +215,13 @@ const LEAF_DETAILS = {
       'Le Post ne publie pas : ni gain, ni risque. C’est sa référence quand il hésite en x2.',
       'Si la censure tient, Nixon n’a subi que θD, pour le prix d’un seul procès : c’est son meilleur cas après « rien ne sort ».',
     ],
-    eq: ['q(B_T − c_T) + (1 − q)(θB_T − c_T − S_T)', '0', 'q(−D − k_T) + (1 − q)(−θD − k_T)'],
+    eq: ['\\mathbb{E}[u_T]=q\\,(B_T-c_T)+(1-q)\\,(\\theta B_T-c_T-S_T)', 'u_W=0', '\\mathbb{E}[u_N]=q\\,(-D-k_T)+(1-q)\\,(-\\theta D-k_T)'],
     course: 'Le Post compare sa composante ici (0) à celle de O1 (8,82) : à un nœud, seul compte le gain du joueur qui décide (S6, diapositives 21–24).',
   },
   O4: {
     path: 'Le Times publie → Nixon laisse faire.',
     intuition: ['Tout le scoop, sans aucun frais : le meilleur cas du Times.', 'Le Post n’intervient pas : 0.', 'Tout sort, mais Nixon ne paie aucun procès.'],
-    eq: ['B_T', '0', '−D'],
+    eq: ['u_T=B_T', 'u_W=0', 'u_N=-D'],
     course: 'Point de comparaison de Nixon en x1 : poursuivre le Times ne vaut que si cela fait mieux que −200 (S6, diapositives 21–24).',
   },
   O5: {
@@ -231,19 +231,19 @@ const LEAF_DETAILS = {
       'Seul, le Post n’a que le juge local : 30 % de gagner tout le scoop (moins ses frais), 70 % d’être censuré et sanctionné.',
       'Sans second journal, pas de Cour suprême : si le juge censure le Post, la censure tient et Nixon limite le dommage à θD.',
     ],
-    eq: ['−[q + (1 − q)θ]R_T', 'q(B_W − c_W) + (1 − q)(θB_W − c_W − S_W)', 'q(−D − k_W) + (1 − q)(−θD − k_W)'],
+    eq: ['\\mathbb{E}[u_T]=-\\big[q+(1-q)\\,\\theta\\big]R_T', '\\mathbb{E}[u_W]=q\\,(B_W-c_W)+(1-q)\\,(\\theta B_W-c_W-S_W)', '\\mathbb{E}[u_N]=q\\,(-D-k_W)+(1-q)\\,(-\\theta D-k_W)'],
     course: 'Sous-jeu jamais atteint en 1971 (x5) : l’ENPS y fixe pourtant une action. Une stratégie dit quoi faire à chaque nœud (S6, diapositives 14–18).',
   },
   O6: {
     path: 'Le Times renonce → le Post publie seul → Nixon laisse faire.',
     intuition: ['Le Times voit son rival publier tout ce qu’il a refusé : −R_T.', 'Le Post publie tout, sans procès : B_W.', 'Tout sort, sans procès.'],
-    eq: ['−R_T', 'B_W', '−D'],
+    eq: ['u_T=-R_T', 'u_W=B_W', 'u_N=-D'],
     course: 'Avec O5, ce sous-jeu dit ce que vaut, pour le Times, le fait de se taire : c’est la branche ajoutée par l’ébauche du groupe (S6, diapositives 10–13).',
   },
   O7: {
     path: 'Le Times renonce → le Post renonce aussi.',
     intuition: ['Rien ne se passe : 0.', 'Rien ne se passe : 0.', 'Le secret est gardé sans aucun procès : 0, le meilleur cas de Nixon.'],
-    eq: ['0', '0', '0'],
+    eq: ['u_T=0', 'u_W=0', 'u_N=0'],
     course: 'Point de référence : tous les gains se lisent par rapport à « rien ne se passe ». Ajouter une constante aux gains d’un joueur ne change aucun de ses choix.',
   },
 };
@@ -254,12 +254,31 @@ const LEAF_DETAILS = {
     const d = LEAF_DETAILS[id], parts = LEAVES[id].lottery(P);
     const lines = [0, 1, 2].map(k => {
       const calc = parts.length > 1 ? parts.map(([sit, w]) => `${fr(w, 3)} × ${num(S[sit][k])}`).join(' + ') + ' = ' : '';
-      return `<div class="leaf-player" style="--c:var(${['--nyt', '--wp', '--gov'][k]})"><div class="leaf-who">${PLAYERS3[k]}</div><p>${subH(d.intuition[k])}</p><div class="leaf-eq"><span class="m">${subH(d.eq[k])}</span></div><div class="leaf-num">${calc}<b>${fr(O[id][k], 2)}</b></div></div>`;
+      return `<div class="leaf-player" style="--c:var(${['--nyt', '--wp', '--gov'][k]})"><div class="leaf-who">${PLAYERS3[k]}</div><p>${subH(d.intuition[k])}</p><div class="leaf-eq"><span class="tex">${esc(d.eq[k])}</span></div><div class="leaf-num">${calc}<b>${fr(O[id][k], 2)}</b></div></div>`;
     }).join('');
     const verdicts = parts.length > 1 ? `<p class="leaf-verdicts">Verdicts possibles : ${parts.map(([sit, w, why]) => `${why} (${pct(w)})`).join(' ; ')}.</p>` : '<p class="leaf-verdicts">Pas de procès : aucun verdict, le gain est certain.</p>';
     return `<article class="leaf-card"><div class="leaf-head"><b>${id}</b> · ${TITLE[id].join(' ')} <span class="mono">${vec(O[id])}</span></div><p class="leaf-path">${d.path}</p>${verdicts}${lines}<p class="course-ref">Cours : ${d.course}</p></article>`;
   }).join('');
 })();
+
+/* Formules LaTeX rendues en MathML par Temml (hors ligne). Le source reste lisible si le rendu échoue. */
+function renderTex(root = document) {
+  if (typeof temml === 'undefined') return;
+  root.querySelectorAll('.tex:not([data-rendered])').forEach(el => {
+    const source = el.textContent;
+    try {
+      temml.render(source, el, { displayMode: el.classList.contains('tex-display'), throwOnError: true });
+      el.dataset.rendered = '1'; el.setAttribute('title', source);
+    } catch (e) { el.textContent = source; el.classList.add('tex-error'); }
+  });
+}
+renderTex();
+$('#copy-latex').addEventListener('click', async () => {
+  const text = $('#latex-source').textContent, button = $('#copy-latex');
+  try { await navigator.clipboard.writeText(text); button.textContent = 'Code copié ✓'; }
+  catch (e) { const range = document.createRange(); range.selectNodeContents($('#latex-source')); getSelection().removeAllRanges(); getSelection().addRange(range); button.textContent = 'Sélectionné : Ctrl+C'; }
+  setTimeout(() => { button.textContent = 'Copier le code'; }, 2500);
+});
 
 // ====================== PAS À PAS ======================
 const M0 = solve(BASE);

@@ -31,6 +31,10 @@ for filename, family, weight, style in [('newsreader', 'Newsreader', '400 600', 
 fonts.append("@font-face{font-family:'IBM Plex Sans';src:local('DM Sans');font-weight:400 700}")
 
 dossier = read('dossier.css')
+# Temml renders the LaTeX equations as native MathML, offline (MIT licence, assets/temml-LICENSE.txt).
+temml_font = base64.b64encode((ROOT / 'assets' / 'Temml.woff2').read_bytes()).decode()
+temml_css = (ROOT / 'assets' / 'temml-local.css').read_text().replace("url('Temml.woff2')", f"url(data:font/woff2;base64,{temml_font})")
+temml_js = (ROOT / 'assets' / 'temml.min.js').read_text()
 styles = '\n'.join(read(name) for name in ['premium.css', 'extras.css', 'course-ui.css', 'decision-tree.css'])
 # Model first, then the tree drawing and the interface that use it.
 script = '\n'.join(read(name) for name in ['model.js', 'decision-tree.js', 'app.js'])
@@ -46,8 +50,9 @@ page = (
     f'<script>{early_theme}</script>\n'
     '<style>' + ''.join(fonts) + '</style>\n'
     '<style>\n' + dossier + '</style>\n'
-    '<style>' + styles + '</style>\n'
+    '<style>' + temml_css + '\n' + styles + '</style>\n'
     '</head><body>\n' + shell + '\n'
+    '<script>' + temml_js + '</script>\n'
     '<script>\n' + script + '\n</script>\n'
     '<script>' + read('presentation.js') + '</script>\n'
     '<script>' + read('premium.js') + '</script>\n'
