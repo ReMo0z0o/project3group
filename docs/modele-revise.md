@@ -46,6 +46,27 @@ Six nœuds de décision, sept feuilles. **Seuls les trois joueurs ont des nœuds
 
 ## 2. Les gains
 
+### 2.0 Ce que dit le cours sur les gains
+
+1. **Un jeu = des joueurs, leurs stratégies et leurs gains** (S5 ; S6, diapositives 7–9). Seuls ceux qui choisissent et ont des gains sont des joueurs : les juges n’en sont pas.
+2. **Un vecteur de gains à chaque feuille, dans un ordre fixe** (S6, diapositives 8–9 et 14) : ici (Times ; Post ; Nixon).
+3. **Une feuille résume une histoire complète** (S6, diapositives 14–18) : « tout sort » ne vaut pas la même chose avec procès (O2) ou sans (O4).
+4. **À un nœud, chacun ne compare que sa propre composante** (S6, diapositives 21–24) : les gains doivent traduire les objectifs propres de chaque joueur.
+5. **Un sous-jeu garde les gains du jeu entier** (S6, diapositives 10–13) : une même situation a le même gain partout, d’où des règles uniques.
+6. **Les gains hors du chemin comptent** (S6, diapositives 3–6, jeu de l’entrée) : une menace se juge à ce qu’elle rapporterait si on l’exécutait.
+
+**Notre ajout** : les verdicts des juges étant incertains, une feuille avec procès vaut la moyenne des gains de ses verdicts possibles (gain espéré). Cela suppose que les points d’utilité mesurent l’intensité des préférences, pas seulement leur ordre.
+
+### Les fonctions de gain
+
+Avec `σ` = part des documents qui finit par être publique (1 si tout sort, `θ` si une censure est maintenue, 0 si rien ne sort) :
+
+- **Times** : `u_T = B_T·σ` (s’il a publié) `− c_T` (s’il est poursuivi) `− S_T` (si sa censure est maintenue) `− R_T·σ` (s’il a renoncé et que le Post publie).
+- **Post** : `u_W = B_W·σ` (s’il a publié) `− c_W` (s’il est poursuivi) `− S_W` (si sa censure est maintenue).
+- **Nixon** : `u_N = −D·σ − k_T` (s’il poursuit le Times) `− k_W` (s’il poursuit le Post).
+
+Intuition : un journal gagne en proportion de ce qu’il réussit à rendre public et perd ce que le procès lui coûte ; Nixon perd en proportion de ce qui sort et paie chaque procès. Le zéro est « rien ne se passe » (O7) ; ajouter une constante aux gains d’un joueur ne changerait aucun de ses choix.
+
 ### 2.1 Cinq règles, identiques partout
 
 C’est ce que l’énoncé appelle des gains « cohérents entre les (sous-)jeux » :
@@ -104,6 +125,18 @@ Chaque feuille avec procès vaut la moyenne des situations possibles, pondérée
 | O7 Rien ne sort | pas de juge | **(0 ; 0 ; 0)** |
 
 Les 30 % de O2 et O3 correspondent au cas où le juge local refuse finalement de censurer le Times : le choix du Post ne change alors rien. Il faut le dire à l’oral.
+
+### 2.5 L’intuition, feuille par feuille
+
+| Feuille | Times | Post | Nixon | Point du cours |
+|---|---|---|---|---|
+| O1 Procès du Post + tribunaux | Paie toujours ses frais ; garde tout le scoop si le juge refuse la censure ou si la Cour suprême lui donne raison, sinon seulement ses premiers articles et la sanction. | 0 si le juge refuse de censurer le Times (pas besoin de relais) ; sinon joue sa survie devant la Cour suprême. | A payé le procès du Times ; limite le dommage à θD si la censure tient, mais paie aussi le procès du Post. | Feuille d’équilibre : le « résultat » de l’ENPS (S6, 14–18) |
+| O2 Le Post publie, pas de procès | Tout sort, mais il a payé ses frais. | Gagne B_W sauf si le juge avait déjà refusé de censurer le Times (0). | Le pire : tout sort malgré un procès payé pour rien. | Hors du chemin, mais Nixon la compare à O1 (S6, 3–6 et 10–13) |
+| O3 Times censuré, Post muet | Tout le scoop si le juge refuse, sinon premiers articles moins la sanction. | Ni gain ni risque : sa référence en x2. | Meilleur cas après « rien ne sort » : θD pour un seul procès. | Le Post compare 0 à 8,82 (S6, 21–24) |
+| O4 Tout sort, sans procès | Tout le scoop, sans frais. | Absent : 0. | Tout sort, aucun procès. | Référence de Nixon en x1 (S6, 21–24) |
+| O5 Procès du Post seul + juge local | Perd R_T (ou θR_T) : son rival a publié. | Seul face au juge local : 30 % de gagner, 70 % d’être censuré et sanctionné. | Sans Cour suprême, la censure locale tient : θD. | Sous-jeu jamais atteint, fixé quand même par l’ENPS (S6, 14–18) |
+| O6 Le Post publie seul | −R_T. | B_W. | −D. | Dit ce que vaut, pour le Times, le fait de se taire (S6, 10–13) |
+| O7 Rien ne sort | 0 | 0 | 0, son meilleur cas. | Point de référence des gains |
 
 ## 3. L’induction à rebours
 

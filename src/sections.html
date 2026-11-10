@@ -188,6 +188,29 @@
         <li><b>La fuite fait mal.</b> Nixon perd <span class="m">D</span> si tout sort, <span class="m">θD</span> si une censure est maintenue, 0 si rien ne sort.</li>
         <li><b>Être doublé coûte.</b> Si le Times renonce et que le Post publie, le Times perd <span class="m">R<sub>T</sub></span> si tout sort, <span class="m">θR<sub>T</sub></span> si le Post est censuré.</li>
       </ol>
+      <div class="course-note payoff-course">
+        <div class="eyebrow">Ce que dit le cours sur les gains</div>
+        <h3>Six points du cours que nos gains respectent</h3>
+        <ol class="course-points">
+          <li><b>Un jeu = des joueurs, leurs stratégies et leurs gains.</b> Seuls ceux qui choisissent et ont des gains sont des joueurs : le Times, le Post et Nixon. Les juges n’ont pas de gains, donc pas de ligne dans les vecteurs. <span class="course-ref-inline">S5, jeux simultanés · S6, diapositives 7–9</span></li>
+          <li><b>Un vecteur de gains à chaque feuille, dans un ordre fixe.</b> Ici toujours (Times ; Post ; Nixon), quel que soit le dernier joueur à avoir joué. <span class="course-ref-inline">S6, diapositives 8–9 et 14</span></li>
+          <li><b>Une feuille résume une histoire complète.</b> Son gain tient compte de tout ce qui précède : publier, être poursuivi, être censuré. C’est pourquoi « tout sort » ne vaut pas la même chose avec ou sans procès (O4 et O2). <span class="course-ref-inline">S6, diapositives 14–18</span></li>
+          <li><b>À un nœud, chacun ne regarde que sa propre composante.</b> Le Post compare ses gains, pas ceux de Nixon. Les gains doivent donc mesurer les objectifs de chaque joueur, pas une morale commune. <span class="course-ref-inline">S6, diapositives 21–24</span></li>
+          <li><b>Un sous-jeu garde les gains du jeu entier.</b> Pour que l’ENPS ait un sens, une même situation doit recevoir le même gain dans tous les sous-jeux : d’où cinq règles appliquées partout. <span class="course-ref-inline">S6, diapositives 10–13</span></li>
+          <li><b>Les gains servent aussi hors du chemin.</b> Les feuilles O2, O3 et O5 à O7 ne sont jamais atteintes en 1971, mais elles décident de l’équilibre : une menace se juge à ce qu’elle rapporterait si on devait l’exécuter. <span class="course-ref-inline">S6, diapositives 3–6 (jeu de l’entrée)</span></li>
+        </ol>
+        <p><b>Notre ajout.</b> Les verdicts des juges sont incertains : une feuille avec procès vaut la <b>moyenne</b> des gains de ses verdicts possibles, pondérée par leurs probabilités (gain espéré). Cela suppose que nos « points d’utilité » mesurent aussi l’intensité des préférences, et pas seulement leur ordre.</p>
+      </div>
+      <div class="course-note payoff-functions">
+        <div class="eyebrow">Les équations des gains</div>
+        <h3>Trois fonctions de gain, une par joueur</h3>
+        <p>Notons <span class="m">σ</span> la part des documents qui finit par être publique : <span class="m">σ</span> = 1 si tout sort, <span class="m">σ = θ</span> si une censure est maintenue (seuls les premiers articles sont connus), <span class="m">σ</span> = 0 si rien ne sort. Chaque situation finale se calcule avec ces trois équations :</p>
+        <div class="eq formula"><span class="who" style="color:var(--nyt)">Times</span> <span class="m">u<sub>T</sub> = B<sub>T</sub>·σ</span> <small>(s’il a publié)</small> <span class="m">− c<sub>T</sub></span> <small>(s’il est poursuivi)</small> <span class="m">− S<sub>T</sub></span> <small>(si sa censure est maintenue)</small> <span class="m">− R<sub>T</sub>·σ</span> <small>(s’il a renoncé et que le Post publie)</small></div>
+        <div class="eq formula"><span class="who" style="color:var(--wp)">Post</span> <span class="m">u<sub>W</sub> = B<sub>W</sub>·σ</span> <small>(s’il a publié)</small> <span class="m">− c<sub>W</sub></span> <small>(s’il est poursuivi)</small> <span class="m">− S<sub>W</sub></span> <small>(si sa censure est maintenue)</small></div>
+        <div class="eq formula"><span class="who" style="color:var(--gov)">Nixon</span> <span class="m">u<sub>N</sub> = − D·σ</span> <span class="m">− k<sub>T</sub></span> <small>(s’il poursuit le Times)</small> <span class="m">− k<sub>W</sub></span> <small>(s’il poursuit le Post)</small></div>
+        <p><b>L’intuition.</b> Un journal gagne en proportion de ce qu’il réussit à rendre public (le scoop, le prestige, la mission d’informer) et perd ce que le procès lui coûte. Nixon perd en proportion de ce qui sort et paie chaque procès qu’il engage. Le point zéro est « rien ne se passe » (O7) : tous les gains se lisent par rapport à cette situation. Ajouter une même constante à tous les gains d’un joueur ne changerait aucun de ses choix.</p>
+        <p class="course-ref">Cours : S6, diapositives 8–9 et 14 (gains aux feuilles). Les fonctions de gain sont notre construction ; le cours demande qu’elles reflètent les objectifs des joueurs.</p>
+      </div>
       <div class="grid3" id="ingredients"></div>
       <h3>Pourquoi ces valeurs ?</h3>
       <div class="scroll-x"><table class="pay" id="whytable"></table></div>
@@ -203,6 +226,9 @@
         <p class="ui" style="font-size:15px">Les juges ne sont pas des joueurs : on n’en fait pas des nœuds. Chaque feuille avec procès vaut la moyenne des situations possibles, pondérée par les verdicts (<span class="m">q</span> = 0,3 ; <span class="m">p</span> = 0,65).</p>
         <div class="scroll-x"><table class="pay" id="leaftable"></table></div>
       </figure>
+      <h3>Le détail, feuille par feuille</h3>
+      <p class="ui small" style="max-width:80ch">Pour chaque feuille : le chemin qui y mène, l’intuition de chaque gain, l’équation et le calcul avec le calibrage de référence. Les feuilles avec procès sont des gains espérés : <span class="m">q</span> = 0,3 (un juge local refuse la censure), <span class="m">p</span> = 0,65 (la Cour suprême donne raison aux journaux).</p>
+      <div class="leaf-details" id="leaf-details"></div>
     </section>
 
     <!-- 8. RÉSOLUTION -->

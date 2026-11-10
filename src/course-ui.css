@@ -31,3 +31,22 @@ table.pay td.issue-id{font:600 13px var(--f-ui);color:var(--muted);letter-spacin
 .not-player{background:color-mix(in srgb,var(--nat) 6%,var(--surface));border-style:dashed}
 .order-list .judges-line{list-style:none;margin-left:-4px;color:var(--muted);font-size:14px;border-left:2px dashed var(--nat);padding-left:10px}
 table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:600}
+.course-points{margin:0 0 12px;padding-left:22px;display:grid;gap:9px}
+.course-ref-inline{display:inline-block;margin-left:4px;font:11px var(--f-display);color:var(--stamp);letter-spacing:.3px}
+.eq.formula{font-size:16px;line-height:1.9;margin:8px 0}
+.eq.formula .who{font:700 13px var(--f-ui);margin-right:8px}
+.eq.formula small{font:12px var(--f-ui);color:var(--muted)}
+.leaf-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:14px}
+.leaf-card{border:1px solid var(--rule);border-radius:6px;background:var(--surface);padding:16px 18px;display:grid;gap:10px;align-content:start}
+.leaf-head{font:15px var(--f-ui);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.leaf-head .mono{margin-left:auto;font-size:13px;color:var(--ink2)}
+.leaf-path,.leaf-verdicts{font:14px/1.5 var(--f-ui);color:var(--ink2)}
+.leaf-verdicts{color:var(--muted)}
+.leaf-player{border-left:3px solid var(--c);padding-left:10px;display:grid;gap:4px}
+.leaf-who{font:600 12px var(--f-display);color:var(--c);letter-spacing:.5px}
+.leaf-player p{font:14px/1.5 var(--f-ui)}
+.leaf-eq{font-size:15px;overflow-x:auto}
+.leaf-eq .m{white-space:normal}
+.leaf-num{font:13px/1.6 var(--f-display);color:var(--ink2);overflow-wrap:anywhere}
+.leaf-card .course-ref{margin-top:2px}
+@media print{.leaf-card{break-inside:avoid}}

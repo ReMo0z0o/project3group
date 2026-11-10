@@ -186,6 +186,81 @@ function numeric(expr, P) {
     }).join('') + '</tbody>';
 })();
 
+/* Détail feuille par feuille : chemin, intuition, équation et calcul (les nombres viennent du modèle). */
+const LEAF_DETAILS = {
+  O1: {
+    path: 'Le Times publie → Nixon le poursuit → le Post publie → Nixon le poursuit aussi.',
+    intuition: [
+      'Le Times paie toujours ses frais. Il garde tout le scoop si le juge refuse la censure ou si la Cour suprême lui donne raison ; sinon, seulement les premiers articles, et il subit la sanction.',
+      'Si le juge refuse de censurer le Times, le Times publie tout lui-même : le Post n’a rien à gagner ni à perdre (0). Sinon, le Post joue sa survie devant la Cour suprême.',
+      'Nixon a payé le procès du Times. Si la censure tient jusqu’au bout, il limite le dommage à θD, mais il paie aussi le procès du Post.',
+    ],
+    eq: ['q(B_T − c_T) + (1 − q)[p(B_T − c_T) + (1 − p)(θB_T − c_T − S_T)]', 'q × 0 + (1 − q)[p(B_W − c_W) + (1 − p)(θB_W − c_W − S_W)]', 'q(−D − k_T) + (1 − q)[p(−D − k_T − k_W) + (1 − p)(−θD − k_T − k_W)]'],
+    course: 'Feuille atteinte à l’équilibre : c’est le « résultat » de l’ENPS, distinct des stratégies (S6, diapositives 14–18). Gain espéré, car les verdicts sont incertains (notre ajout).',
+  },
+  O2: {
+    path: 'Le Times publie → Nixon le poursuit → le Post publie → Nixon laisse faire.',
+    intuition: [
+      'Tout finit par sortir : le Times garde son scoop, mais il a payé ses frais de procès.',
+      'Le Post publie sans procès : il gagne B_W… sauf si le juge avait refusé de censurer le Times, auquel cas le Post n’a pas eu à prendre le relais (0).',
+      'Le pire pour Nixon : tout sort malgré le procès du Times, qu’il a payé pour rien.',
+    ],
+    eq: ['q(B_T − c_T) + (1 − q)(B_T − c_T) = B_T − c_T', 'q × 0 + (1 − q)B_W', 'q(−D − k_T) + (1 − q)(−D − k_T) = −D − k_T'],
+    course: 'Feuille hors du chemin : elle compte quand même, car Nixon la compare à O1 en x3. Une menace se juge à ce qu’elle rapporterait si on l’exécutait (S6, diapositives 3–6 et 10–13).',
+  },
+  O3: {
+    path: 'Le Times publie → Nixon le poursuit → le Post se tait.',
+    intuition: [
+      'Si le juge refuse la censure, le Times publie tout (B_T − c_T). S’il censure, le Times ne garde que ses premiers articles et subit la sanction : θB_T − c_T − S_T.',
+      'Le Post ne publie pas : ni gain, ni risque. C’est sa référence quand il hésite en x2.',
+      'Si la censure tient, Nixon n’a subi que θD, pour le prix d’un seul procès : c’est son meilleur cas après « rien ne sort ».',
+    ],
+    eq: ['q(B_T − c_T) + (1 − q)(θB_T − c_T − S_T)', '0', 'q(−D − k_T) + (1 − q)(−θD − k_T)'],
+    course: 'Le Post compare sa composante ici (0) à celle de O1 (8,82) : à un nœud, seul compte le gain du joueur qui décide (S6, diapositives 21–24).',
+  },
+  O4: {
+    path: 'Le Times publie → Nixon laisse faire.',
+    intuition: ['Tout le scoop, sans aucun frais : le meilleur cas du Times.', 'Le Post n’intervient pas : 0.', 'Tout sort, mais Nixon ne paie aucun procès.'],
+    eq: ['B_T', '0', '−D'],
+    course: 'Point de comparaison de Nixon en x1 : poursuivre le Times ne vaut que si cela fait mieux que −200 (S6, diapositives 21–24).',
+  },
+  O5: {
+    path: 'Le Times renonce → le Post publie seul → Nixon le poursuit.',
+    intuition: [
+      'Le Times a laissé le scoop à son rival : il perd R_T si tout sort, θR_T si le Post est censuré.',
+      'Seul, le Post n’a que le juge local : 30 % de gagner tout le scoop (moins ses frais), 70 % d’être censuré et sanctionné.',
+      'Sans second journal, pas de Cour suprême : si le juge censure le Post, la censure tient et Nixon limite le dommage à θD.',
+    ],
+    eq: ['−[q + (1 − q)θ]R_T', 'q(B_W − c_W) + (1 − q)(θB_W − c_W − S_W)', 'q(−D − k_W) + (1 − q)(−θD − k_W)'],
+    course: 'Sous-jeu jamais atteint en 1971 (x5) : l’ENPS y fixe pourtant une action. Une stratégie dit quoi faire à chaque nœud (S6, diapositives 14–18).',
+  },
+  O6: {
+    path: 'Le Times renonce → le Post publie seul → Nixon laisse faire.',
+    intuition: ['Le Times voit son rival publier tout ce qu’il a refusé : −R_T.', 'Le Post publie tout, sans procès : B_W.', 'Tout sort, sans procès.'],
+    eq: ['−R_T', 'B_W', '−D'],
+    course: 'Avec O5, ce sous-jeu dit ce que vaut, pour le Times, le fait de se taire : c’est la branche ajoutée par l’ébauche du groupe (S6, diapositives 10–13).',
+  },
+  O7: {
+    path: 'Le Times renonce → le Post renonce aussi.',
+    intuition: ['Rien ne se passe : 0.', 'Rien ne se passe : 0.', 'Le secret est gardé sans aucun procès : 0, le meilleur cas de Nixon.'],
+    eq: ['0', '0', '0'],
+    course: 'Point de référence : tous les gains se lisent par rapport à « rien ne se passe ». Ajouter une constante aux gains d’un joueur ne change aucun de ses choix.',
+  },
+};
+(function renderLeafDetails() {
+  const P = BASE, O = outcomes(P), S = situations(P);
+  const num = x => (x < 0 ? `(${fr(x)})` : fr(x));
+  $('#leaf-details').innerHTML = OUTCOME_ORDER.map(id => {
+    const d = LEAF_DETAILS[id], parts = LEAVES[id].lottery(P);
+    const lines = [0, 1, 2].map(k => {
+      const calc = parts.length > 1 ? parts.map(([sit, w]) => `${fr(w, 3)} × ${num(S[sit][k])}`).join(' + ') + ' = ' : '';
+      return `<div class="leaf-player" style="--c:var(${['--nyt', '--wp', '--gov'][k]})"><div class="leaf-who">${PLAYERS3[k]}</div><p>${subH(d.intuition[k])}</p><div class="leaf-eq"><span class="m">${subH(d.eq[k])}</span></div><div class="leaf-num">${calc}<b>${fr(O[id][k], 2)}</b></div></div>`;
+    }).join('');
+    const verdicts = parts.length > 1 ? `<p class="leaf-verdicts">Verdicts possibles : ${parts.map(([sit, w, why]) => `${why} (${pct(w)})`).join(' ; ')}.</p>` : '<p class="leaf-verdicts">Pas de procès : aucun verdict, le gain est certain.</p>';
+    return `<article class="leaf-card"><div class="leaf-head"><b>${id}</b> · ${TITLE[id].join(' ')} <span class="mono">${vec(O[id])}</span></div><p class="leaf-path">${d.path}</p>${verdicts}${lines}<p class="course-ref">Cours : ${d.course}</p></article>`;
+  }).join('');
+})();
+
 // ====================== PAS À PAS ======================
 const M0 = solve(BASE);
 function buildSteps(P, M) {
