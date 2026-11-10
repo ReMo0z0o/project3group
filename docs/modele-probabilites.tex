@@ -1,0 +1,436 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{icomma}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{patterns,positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\definecolor{regnone}{HTML}{C6C2B8}
+\definecolor{regnosuit}{HTML}{CBE2C3}
+\definecolor{regnyt}{HTML}{F0C5BD}
+\definecolor{regboth}{HTML}{F1D69B}
+
+\newtcolorbox{cours}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Lien avec le cours}
+\newtcolorbox{resultat}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newtcolorbox{intuition}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=Intuition}
+
+\theoremstyle{definition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newcommand{\ind}[1]{\mathbf{1}_{\{\text{#1}\}}}
+\newcommand{\E}{\mathbb{E}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\captionsetup{font=small,labelfont=bf}
+
+\title{\textbf{Pentagon Papers}\\[3pt]\large Modèle, équations et calcul des probabilités de favorabilité des juges}
+\author{Travail de théorie des jeux, groupe 5--6 · ECGEB366}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\begin{resultat}
+\textbf{En bref.} Trois joueurs (le Times, le Post, l'administration Nixon) jouent un jeu séquentiel à information parfaite. Les juges ne sont pas des joueurs : leurs verdicts sont incertains et entrent dans les gains par deux probabilités,
+\begin{align*}
+q&=\Pr(\text{un juge local refuse la censure}), & p&=\Pr(\text{la Cour suprême donne raison aux journaux}).
+\end{align*}
+Avec $q=0,3$ et $p=0,65$, l'équilibre de Nash parfait en sous-jeux (ENPS) reproduit 1971 : le Times publie, Nixon le poursuit, le Post prend le relais, Nixon le poursuit aussi. Les seuils clés sont :
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=2pt]
+\item le Post publie en relais si $p\ge\frac{53}{88}\approx60,2\,\%$ ;
+\item Nixon poursuit le Post si $p<\frac67\approx85,7\,\%$ ;
+\item Nixon poursuit le Times si $q<\frac{19}{29}\approx65,5\,\%$ (avec $p=0,65$).
+\end{itemize}
+Avant le premier article, la probabilité que tout sorte vaut $q+(1-q)p=75,5\,\%$, celle d'une censure confirmée $(1-q)(1-p)=24,5\,\%$.
+\end{resultat}
+
+\section{Le jeu}
+
+\subsection{Joueurs, actions et ordre}
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item \textbf{Le New York Times} ($T$) décide de publier ou non (nœud $x_0$).
+\item \textbf{L'administration Nixon} ($N$) poursuit ou laisse faire, à trois nœuds : face au Times ($x_1$), face au Post en relais ($x_3$), face au Post seul ($x_5$).
+\item \textbf{Le Washington Post} ($W$) publie ou non, à deux nœuds : en relais du Times ($x_2$) ou seul si le Times renonce ($x_4$).
+\end{itemize}
+Les \textbf{juges} n'ont ni gains ni choix stratégique : ce ne sont pas des joueurs, ils n'ont pas de nœud. Ellsberg remet les documents au Times, puis au Post (coup fixé).
+
+\begin{cours}
+Un jeu se décrit par ses joueurs, leurs stratégies et leurs gains (S5 ; S6, diapositives 7--9). Information parfaite : chaque ensemble d'information contient un seul nœud (S6, diapositives 7 et 36--39). Une stratégie est un plan complet : le Times en a $2$, le Post $2^2=4$, Nixon $2^3=8$, d'où $2\times4\times8=64$ profils (S6, diapositives 14--18).
+\end{cours}
+
+\subsection{L'arbre}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=2.35cm,y=1.55cm,
+  pl/.style={circle,inner sep=2.6pt,fill=#1},
+  lab/.style={font=\scriptsize,inner sep=1.2pt,fill=white},
+  eq/.style={line width=1.6pt,draw=gov},
+  br/.style={line width=0.6pt},
+  leaf/.style={font=\scriptsize,align=center,inner sep=1pt}]
+% positions : feuilles en colonnes 0..6, nœuds au milieu
+\coordinate (x0) at (3.6875,0);
+\coordinate (x1) at (2.125,-1);
+\coordinate (x2) at (1.25,-2);
+\coordinate (x3) at (0.5,-3);
+\coordinate (x4) at (5.25,-1);
+\coordinate (x5) at (4.5,-2);
+\coordinate (O1) at (0,-4); \coordinate (O2) at (1,-4); \coordinate (O3) at (2,-3);
+\coordinate (O4) at (3,-2); \coordinate (O5) at (4,-3); \coordinate (O6) at (5,-3); \coordinate (O7) at (6,-2);
+% branches (traits épais : ENPS)
+\draw[eq] (x0)--(x1) node[lab,midway,above left]{Publier};
+\draw[br,dashed] (x0)--(x4) node[lab,midway,above right]{Ne pas publier};
+\draw[eq] (x1)--(x2) node[lab,midway,left]{Poursuivre};
+\draw[br,dashed] (x1)--(O4) node[lab,midway,right]{Laisser faire};
+\draw[eq] (x2)--(x3) node[lab,midway,left]{Publier};
+\draw[br,dashed] (x2)--(O3) node[lab,midway,right]{Ne pas publier};
+\draw[eq] (x3)--(O1) node[lab,midway,left]{Poursuivre};
+\draw[br,dashed] (x3)--(O2) node[lab,midway,right]{Laisser faire};
+\draw[br,dashed] (x4)--(x5) node[lab,midway,left]{Publier};
+\draw[eq] (x4)--(O7) node[lab,midway,right]{Ne pas publier};
+\draw[eq] (x5)--(O5) node[lab,midway,left]{Poursuivre};
+\draw[br,dashed] (x5)--(O6) node[lab,midway,right]{Laisser faire};
+% nœuds des joueurs
+\node[pl=nyt,label={[font=\small\bfseries,text=nyt]above:Times $x_0$}] at (x0) {};
+\node[pl=gov,label={[font=\small\bfseries,text=gov]above left:Nixon $x_1$}] at (x1) {};
+\node[pl=wp,label={[font=\small\bfseries,text=wp]above left:Post $x_2$}] at (x2) {};
+\node[pl=gov,label={[font=\small\bfseries,text=gov]above left:Nixon $x_3$}] at (x3) {};
+\node[pl=wp,label={[font=\small\bfseries,text=wp]above right:Post $x_4$}] at (x4) {};
+\node[pl=gov,label={[font=\small\bfseries,text=gov]above left:Nixon $x_5$}] at (x5) {};
+% feuilles : gains (Times ; Post ; Nixon), espérés si procès
+\foreach \n/\t/\g in {O1/{Procès du Post\\+ tribunaux}/{60,6\\8,82\\$-$189,7},O2/{Post publie,\\pas de procès}/{90\\84\\$-$210},O3/{Times censuré,\\Post muet}/{6\\0\\$-$112},O4/{Tout sort,\\sans procès}/{100\\0\\$-$200},O5/{Procès du\\Post seul}/{$-$25,5\\$-$79,8\\$-$122},O6/{Le Post\\publie seul}/{$-$50\\120\\$-$200},O7/{Rien\\ne sort}/{0\\0\\0}}{
+  \fill (\n) circle (1.6pt);
+  \node[leaf,below=2pt] at (\n) {\textbf{\n}\\[-1pt]\t\\[1pt]\g};
+}
+\end{tikzpicture}
+\caption{Forme étendue avec les trois joueurs seulement. Gains dans l'ordre (Times ; Post ; Nixon). Les feuilles $O_1,O_2,O_3,O_5$ portent des gains \emph{espérés} qui intègrent les verdicts des juges. Traits épais : actions de l'ENPS ; pointillés : actions écartées.}
+\end{figure}
+
+\subsection{Paramètres}
+\begin{center}
+\small
+\begin{tabular}{@{}lllp{8.2cm}@{}}
+\toprule
+Symbole & Valeur & Joueur & Signification \\
+\midrule
+$q$ & $0,3$ & juges & probabilité qu'un juge local refuse la censure \\
+$p$ & $0,65$ & juges & probabilité que la Cour suprême donne raison aux journaux \\
+$\theta$ & $0,3$ & tous & part des révélations publiée avant une censure (trois articles) \\
+$B_T,\ B_W$ & $100,\ 120$ & Times, Post & valeur d'une publication complète (scoop, prestige, mission) \\
+$c_T,\ c_W$ & $10,\ 15$ & Times, Post & frais totaux d'un procès \\
+$S_T,\ S_W$ & $50,\ 180$ & Times, Post & sanction si la censure est maintenue (bourse et licences pour le Post) \\
+$R_T$ & $50$ & Times & perte si le Post publie le scoop que le Times a refusé \\
+$D$ & $200$ & Nixon & dommage si tout sort \\
+$k_T,\ k_W$ & $10,\ 20$ & Nixon & coût d'un procès contre le Times, contre le Post \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Les gains}
+
+\subsection{Les fonctions de gain}
+Soit $\sigma$ la part des documents qui finit par être publique : $\sigma=1$ si tout sort, $\sigma=\theta$ si une censure est maintenue, $\sigma=0$ si rien ne sort. Avec l'indicatrice $\mathbf{1}_A$ ($1$ si $A$ se produit, $0$ sinon) :
+\begin{align}
+u_T &= \ind{Times publie}\,B_T\,\sigma-\ind{Times poursuivi}\,c_T \notag\\
+&\quad-\ind{censure du Times maintenue}\,S_T-\ind{Times renonce, Post publie}\,R_T\,\sigma, \label{eq:uT}\\
+u_W &= \ind{Post publie}\,B_W\,\sigma-\ind{Post poursuivi}\,c_W-\ind{censure du Post maintenue}\,S_W, \label{eq:uW}\\
+u_N &= -D\,\sigma-\ind{Times poursuivi}\,k_T-\ind{Post poursuivi}\,k_W. \label{eq:uN}
+\end{align}
+
+\begin{intuition}
+Un journal gagne en proportion de ce qu'il réussit à rendre public et perd ce que le procès lui coûte ; une censure maintenue ajoute une sanction. Nixon perd en proportion de ce qui sort et paie chaque procès. Le zéro est « rien ne se passe » : ajouter une constante aux gains d'un joueur ne change aucun de ses choix.
+\end{intuition}
+
+\subsection{Les situations finales}
+Une fois les juges passés, il ne reste que dix situations possibles. Chacune s'obtient en appliquant \eqref{eq:uT}--\eqref{eq:uN}.
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xcccc@{}}
+\toprule
+Situation finale & $\sigma$ & $u_T$ & $u_W$ & $u_N$ \\
+\midrule
+Le juge local refuse de censurer le Times & $1$ & $B_T-c_T=90$ & $0$ & $-D-k_T=-210$ \\
+Cour suprême : victoire des journaux & $1$ & $B_T-c_T=90$ & $B_W-c_W=105$ & $-D-k_T-k_W=-230$ \\
+Cour suprême : censure confirmée & $\theta$ & $\theta B_T-c_T-S_T=-30$ & $\theta B_W-c_W-S_W=-159$ & $-\theta D-k_T-k_W=-90$ \\
+Times censuré, le Post publie librement & $1$ & $B_T-c_T=90$ & $B_W=120$ & $-D-k_T=-210$ \\
+Times censuré, le Post se tait & $\theta$ & $\theta B_T-c_T-S_T=-30$ & $0$ & $-\theta D-k_T=-70$ \\
+Le Times publie, aucun procès & $1$ & $B_T=100$ & $0$ & $-D=-200$ \\
+Le juge refuse de censurer le Post seul & $1$ & $-R_T=-50$ & $B_W-c_W=105$ & $-D-k_W=-220$ \\
+Le Post seul est censuré & $\theta$ & $-\theta R_T=-15$ & $\theta B_W-c_W-S_W=-159$ & $-\theta D-k_W=-80$ \\
+Le Post publie seul, aucun procès & $1$ & $-R_T=-50$ & $B_W=120$ & $-D=-200$ \\
+Personne ne publie & $0$ & $0$ & $0$ & $0$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{cours}
+Un vecteur de gains à chaque feuille, dans un ordre fixe (S6, diapositives 8--9 et 14). Une feuille résume une histoire complète : « tout sort » ne vaut pas la même chose avec ou sans procès (S6, diapositives 14--18). Un sous-jeu reprend les gains du jeu entier : les mêmes règles s'appliquent partout (S6, diapositives 10--13).
+\end{cours}
+
+\section{Les juges : des probabilités, pas des joueurs}
+
+\subsection{Les verdicts d'un procès}
+Un procès commence devant un juge local. S'il refuse la censure (probabilité $q$), tout sort. S'il censure ($1-q$) et que l'autre journal publie aussi et est poursuivi, les deux affaires sont jointes devant la Cour suprême, qui donne raison aux journaux avec la probabilité $p$. On suppose les deux verdicts indépendants et les probabilités connues de tous. Dans le procès du Post après celui du Times, les trois verdicts possibles ont pour probabilités
+\[
+\underbrace{q}_{\text{refus local}}\;+\;\underbrace{(1-q)\,p}_{\text{censure, puis Cour favorable}}\;+\;\underbrace{(1-q)(1-p)}_{\text{censure confirmée}}\;=\;q+(1-q)\big[p+(1-p)\big]\;=\;1 .
+\]
+La probabilité que la justice donne \emph{finalement} raison aux journaux vaut donc
+\begin{equation}
+\pi \;=\; q+(1-q)\,p \;=\; 1-(1-q)(1-p) \;=\; 0,3+0,7\times0,65 \;=\; 0,755. \label{eq:pi}
+\end{equation}
+Sans second journal, la Cour suprême n'est pas saisie en urgence : un journal seul n'a que le juge local, avec $\pi=q$.
+
+\subsection{Les gains espérés des feuilles}
+Chaque feuille avec procès est une loterie sur les situations finales. Son gain est l'espérance :
+\begin{equation}
+\E\big[u_i(O_k)\big]=\sum_{v}\Pr(v)\,u_i\big(\text{situation après le verdict } v\big),\qquad i\in\{T,W,N\}. \label{eq:esp}
+\end{equation}
+
+\paragraph{$O_1$ — procès du Post + tribunaux.}
+\begin{align*}
+\E[u_T(O_1)] &= q(B_T-c_T)+(1-q)\big[p(B_T-c_T)+(1-p)(\theta B_T-c_T-S_T)\big]\\
+&= 0,3\times90+0,7\,\big[0,65\times90+0,35\times(-30)\big] = 27+0,7\times48 = 60,6,\\[3pt]
+\E[u_W(O_1)] &= q\times0+(1-q)\big[p(B_W-c_W)+(1-p)(\theta B_W-c_W-S_W)\big]\\
+&= 0,7\,\big[0,65\times105+0,35\times(-159)\big] = 0,7\times12,6 = 8,82,\\[3pt]
+\E[u_N(O_1)] &= q(-D-k_T)+(1-q)\big[p(-D-k_T-k_W)+(1-p)(-\theta D-k_T-k_W)\big]\\
+&= 0,3\times(-210)+0,7\,\big[0,65\times(-230)+0,35\times(-90)\big] = -63+0,7\times(-181) = -189,7.
+\end{align*}
+\paragraph{$O_2$ — le Post publie, pas de procès contre lui.}
+$\E[u_T]=B_T-c_T=90$, \quad $\E[u_W]=(1-q)B_W=0,7\times120=84$, \quad $\E[u_N]=-D-k_T=-210$.
+\paragraph{$O_3$ — Times censuré, Post muet.}
+$\E[u_T]=q(B_T-c_T)+(1-q)(\theta B_T-c_T-S_T)=27-21=6$, \quad $\E[u_W]=0$, \quad $\E[u_N]=q(-D-k_T)+(1-q)(-\theta D-k_T)=-63-49=-112$.
+\paragraph{$O_5$ — procès du Post seul.}
+$\E[u_T]=-[q+(1-q)\theta]R_T=-25,5$, \quad $\E[u_W]=q(B_W-c_W)+(1-q)(\theta B_W-c_W-S_W)=31,5-111,3=-79,8$, \quad $\E[u_N]=q(-D-k_W)+(1-q)(-\theta D-k_W)=-66-56=-122$.
+\paragraph{Feuilles sans procès.} Aucun verdict, le gain est certain : $O_4=(B_T;\,0;\,-D)=(100;\,0;\,-200)$, $O_6=(-R_T;\,B_W;\,-D)=(-50;\,120;\,-200)$ et $O_7=(0;\,0;\,0)$.
+
+\begin{intuition}
+Dans $O_2$ et $O_3$, avec la probabilité $q$ le juge refuse de censurer le Times : celui-ci publie tout lui-même et le choix du Post ne change rien. C'est pourquoi le Post ne reçoit que $(1-q)B_W$ dans $O_2$.
+\end{intuition}
+
+\subsection{Deux lemmes de seuil}
+\begin{lemme}[seuil d'un journal]\label{lem:journal}
+Un journal qui publie et sera poursuivi gagne finalement avec une probabilité $\pi$. Son gain espéré, comparé à $0$ s'il se tait, vaut
+\[
+G(\pi)=\pi\,(B-c)+(1-\pi)\,(\theta B-c-S).
+\]
+$G$ est croissante en $\pi$ (pente $(1-\theta)B+S>0$), donc le journal publie si et seulement si
+\[
+\pi\;\ge\;\tau\;=\;\frac{c+S-\theta B}{(1-\theta)B+S}.
+\]
+Pour le Post, $\tau_W=\dfrac{15+180-36}{84+180}=\dfrac{159}{264}=\dfrac{53}{88}\approx60,2\,\%$. Pour le Times, $\tau_T=\dfrac{10+50-30}{70+50}=\dfrac14=25\,\%$.
+\end{lemme}
+\begin{proof}
+$G(\pi)\ge0 \iff \pi\big[(B-c)-(\theta B-c-S)\big]\ge-(\theta B-c-S) \iff \pi\big[(1-\theta)B+S\big]\ge c+S-\theta B$.
+\end{proof}
+
+\begin{lemme}[seuil d'un procès pour Nixon]\label{lem:nixon}
+Si la censure tient jusqu'au bout avec la probabilité $1-\pi$, un procès évite en moyenne le dommage $(1-\pi)(1-\theta)D$ (la part non encore publiée), pour un coût $k$. Nixon poursuit si et seulement si $(1-\pi)(1-\theta)D>k$. Ici $(1-\theta)D=140$.
+\end{lemme}
+
+\section{Induction à rebours en fonction de $q$ et $p$}
+On résout chaque nœud après toutes ses suites. À chaque nœud, le joueur compare \emph{sa} composante ; on fait remonter le triplet entier (S6, diapositives 21--24). Les différences ci-dessous partent des gains espérés de la section 3.
+
+\paragraph{$x_3$ — Nixon face au Post en relais.}
+\begin{align*}
+\E[u_N(O_1)]-\E[u_N(O_2)]&=(1-q)\big[(1-p)(1-\theta)D-k_W\big]>0\\
+\iff p<\bar p_N&=1-\frac{k_W}{(1-\theta)D}=1-\frac{20}{140}=\frac67\approx85,7\,\%.
+\end{align*}
+Avec $p=0,65$ : $0,35\times140=49>20$, Nixon poursuit. La menace est \textbf{crédible} (lemme \ref{lem:nixon} avec $\pi=p$, car le Times est déjà censuré).
+
+\paragraph{$x_2$ — le Post en relais.} Si Nixon le poursuivrait :
+\begin{align*}
+\E[u_W(O_1)]-\E[u_W(O_3)]&=(1-q)\big[p(B_W-c_W)+(1-p)(\theta B_W-c_W-S_W)\big]\ge0\\
+\iff p\ge\tau_W&=\frac{53}{88}\approx60,2\,\%.
+\end{align*}
+Avec $p=0,65$ : $8,82>0$, le Post publie, avec une marge de $4,8$ points seulement. Si Nixon ne le poursuivrait pas ($p\ge\frac67$), il gagne $(1-q)B_W\ge0$ et publie toujours.
+
+\paragraph{$x_1$ — Nixon face au Times.} Trois cas, selon ce qui suit :
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item le Post publierait et serait poursuivi ($\tau_W\le p<\frac67$) :
+\begin{align*}
+\E[u_N(O_1)]-\E[u_N(O_4)]&=(1-q)(1-p)(1-\theta)D-k_T-(1-q)k_W>0\\
+\iff q<\bar q_A(p)&=1-\frac{k_T}{(1-p)(1-\theta)D-k_W}\ ;
+\end{align*}
+avec $p=0,65$ : $\bar q_A=1-\frac{10}{29}=\frac{19}{29}\approx65,5\,\%$, et ici $24<34,3$, Nixon poursuit ;
+\item le Post se tairait ($p<\tau_W$) : $\E[u_N(O_3)]-\E[u_N(O_4)]=(1-q)(1-\theta)D-k_T>0\iff q<1-\frac{10}{140}=\frac{13}{14}\approx92,9\,\%$ ;
+\item le Post publierait sans être poursuivi ($p\ge\frac67$) : la différence vaut $-k_T<0$ ; poursuivre le Times ne sert à rien.
+\end{itemize}
+
+\paragraph{$x_5$ — Nixon face au Post seul.} Le Post seul n'a que le juge local ($\pi=q$) :
+$(1-q)(1-\theta)D>k_W\iff q<\frac67\approx85,7\,\%$. Avec $q=0,3$ : $98>20$, Nixon poursuivrait.
+
+\paragraph{$x_4$ — le Post seul.} Lemme \ref{lem:journal} avec $\pi=q$ : il publie si $q\ge\tau_W\approx60,2\,\%$. Avec $q=0,3$ : $\E[u_W(O_5)]=-79,8<0$, il se tairait. \emph{Sans le Times, rien ne sortirait.}
+
+\paragraph{$x_0$ — le Times.} Avec Nixon qui poursuit et le Post qui relaie, le Times gagne finalement avec $\pi=q+(1-q)p=0,755$ ; lemme \ref{lem:journal} : $0,755\ge\tau_T=0,25$, donc il publie ($60,6>0$, l'alternative étant $O_7$). Sans relais, il ne compterait que sur le juge local : $\pi=q$, et il publierait encore tant que $q\ge\frac14$.
+
+\begin{resultat}
+\textbf{ENPS} : Times $=$ publier ; Post $=$ (publier en relais ; se taire seul) ; Nixon $=$ (poursuivre le Times ; poursuivre le Post ; poursuivre le Post seul). Feuille atteinte : $O_1$, gains espérés $(60,6;\ 8,82;\ -189,7)$.
+\end{resultat}
+
+\begin{cours}
+L'ENPS fixe une action à chaque nœud, y compris $x_4$ et $x_5$, jamais atteints en 1971 (S6, diapositives 10--18). Une menace se juge à ce qu'elle rapporterait si on devait l'exécuter, comme la guerre dans le jeu de l'entrée (S6, diapositives 3--6) : ici, poursuivre le Post n'est crédible que si $p<\frac67$.
+\end{cours}
+
+\section{Pour quelles probabilités publie-t-on, attaque-t-on ?}
+
+\subsection{Synthèse des seuils}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Décision & Condition & Valeur \\
+\midrule
+Le Post publie en relais & $p\ge\tau_W=\frac{c_W+S_W-\theta B_W}{(1-\theta)B_W+S_W}$ (ou $p\ge\bar p_N$) & $60,2\,\%$ \\
+Le Post publie seul & $q\ge\tau_W$ (ou $q\ge\frac67$) & $60,2\,\%$ \\
+Le Times publie & $q+(1-q)p\ge\tau_T$ si relais ; $q\ge\tau_T$ sinon & $25\,\%$ \\
+Nixon poursuit le Post en relais & $p<1-\frac{k_W}{(1-\theta)D}$ & $85,7\,\%$ \\
+Nixon poursuit le Post seul & $q<1-\frac{k_W}{(1-\theta)D}$ & $85,7\,\%$ \\
+Nixon poursuit le Times (relais) & $q<1-\frac{k_T}{(1-p)(1-\theta)D-k_W}$ & $65,5\,\%$ en $p=0,65$ \\
+Nixon poursuit le Times (Post muet) & $q<1-\frac{k_T}{(1-\theta)D}$ & $92,9\,\%$ \\
+Deux procès possibles & $p<1-\frac{k_T+k_W}{(1-\theta)D}$ & $78,6\,\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Le coût total des procédures intervient ainsi : les deux procès ont lieu si $k_T+(1-q)k_W<(1-q)(1-p)(1-\theta)D$ (coût total espéré $24$ contre dommage espéré évité $34,3$) et si $k_W<(1-p)(1-\theta)D$ ($20<49$).
+
+\subsection{La carte des équilibres}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=10.5cm,height=10.5cm,xmin=0,xmax=1,ymin=0,ymax=1,
+  xlabel={$q$ : probabilité qu'un juge local refuse la censure},
+  ylabel={$p$ : probabilité que la Cour suprême donne raison aux journaux},
+  xtick={0,0.25,0.5,0.75,1},ytick={0,0.25,0.5,0.75,1},
+  xticklabels={0,25\,\%,50\,\%,75\,\%,100\,\%},yticklabels={0,25\,\%,50\,\%,75\,\%,100\,\%},
+  label style={font=\small},tick label style={font=\small},axis on top]
+\fill[regnone] (axis cs:0,0) rectangle (axis cs:0.25,0.6022727272727273);
+\fill[regnyt] (axis cs:0.25,0) rectangle (axis cs:0.9285714285714286,0.6022727272727273);
+\fill[regnosuit] (axis cs:0.9285714285714286,0) rectangle (axis cs:1,0.6022727272727273);
+\fill[regnosuit] (axis cs:0,0.6022727272727273) rectangle (axis cs:1,1);
+\fill[regboth] plot coordinates {(0.0000,0.6023) (0.7197,0.6023) (0.7163,0.6053) (0.7129,0.6084) (0.7093,0.6114) (0.7056,0.6145) (0.7019,0.6176) (0.6980,0.6206) (0.6941,0.6237) (0.6900,0.6267) (0.6858,0.6298) (0.6815,0.6328) (0.6771,0.6359) (0.6726,0.6390) (0.6680,0.6420) (0.6632,0.6451) (0.6583,0.6481) (0.6532,0.6512) (0.6480,0.6542) (0.6426,0.6573) (0.6370,0.6604) (0.6313,0.6634) (0.6254,0.6665) (0.6193,0.6695) (0.6130,0.6726) (0.6064,0.6756) (0.5997,0.6787) (0.5927,0.6818) (0.5855,0.6848) (0.5780,0.6879) (0.5702,0.6909) (0.5622,0.6940) (0.5538,0.6971) (0.5451,0.7001) (0.5361,0.7032) (0.5267,0.7062) (0.5169,0.7093) (0.5067,0.7123) (0.4961,0.7154) (0.4850,0.7185) (0.4734,0.7215) (0.4612,0.7246) (0.4485,0.7276) (0.4352,0.7307) (0.4212,0.7337) (0.4065,0.7368) (0.3910,0.7399) (0.3747,0.7429) (0.3575,0.7460) (0.3393,0.7490) (0.3201,0.7521) (0.2997,0.7551) (0.2781,0.7582) (0.2551,0.7613) (0.2305,0.7643) (0.2043,0.7674) (0.1763,0.7704) (0.1462,0.7735) (0.1138,0.7765) (0.0789,0.7796) (0.0410,0.7827) (0.0000,0.7857) (0.0000,0.7857)} -- cycle;
+\fill[pattern=north east lines, pattern color=green!45!black] (axis cs:0,0.8571428571428572) rectangle (axis cs:1,1);
+\draw[thick] (axis cs:0,0.6022727272727273) -- (axis cs:1,0.6022727272727273);
+\draw[thick] (axis cs:0.25,0) -- (axis cs:0.25,0.6022727272727273);
+\draw[thick] (axis cs:0.9285714285714286,0) -- (axis cs:0.9285714285714286,0.6022727272727273);
+\draw[thick] plot coordinates {(0.7197,0.6023) (0.7163,0.6053) (0.7129,0.6084) (0.7093,0.6114) (0.7056,0.6145) (0.7019,0.6176) (0.6980,0.6206) (0.6941,0.6237) (0.6900,0.6267) (0.6858,0.6298) (0.6815,0.6328) (0.6771,0.6359) (0.6726,0.6390) (0.6680,0.6420) (0.6632,0.6451) (0.6583,0.6481) (0.6532,0.6512) (0.6480,0.6542) (0.6426,0.6573) (0.6370,0.6604) (0.6313,0.6634) (0.6254,0.6665) (0.6193,0.6695) (0.6130,0.6726) (0.6064,0.6756) (0.5997,0.6787) (0.5927,0.6818) (0.5855,0.6848) (0.5780,0.6879) (0.5702,0.6909) (0.5622,0.6940) (0.5538,0.6971) (0.5451,0.7001) (0.5361,0.7032) (0.5267,0.7062) (0.5169,0.7093) (0.5067,0.7123) (0.4961,0.7154) (0.4850,0.7185) (0.4734,0.7215) (0.4612,0.7246) (0.4485,0.7276) (0.4352,0.7307) (0.4212,0.7337) (0.4065,0.7368) (0.3910,0.7399) (0.3747,0.7429) (0.3575,0.7460) (0.3393,0.7490) (0.3201,0.7521) (0.2997,0.7551) (0.2781,0.7582) (0.2551,0.7613) (0.2305,0.7643) (0.2043,0.7674) (0.1763,0.7704) (0.1462,0.7735) (0.1138,0.7765) (0.0789,0.7796) (0.0410,0.7827) (0.0000,0.7857)};
+\draw[thick, dashed] (axis cs:0,0.8571428571428572) -- (axis cs:1,0.8571428571428572);
+\node[circle,fill=gov,inner sep=2.2pt,label={[font=\small\bfseries]right:1971}] at (axis cs:0.3,0.65) {};
+\node[font=\footnotesize,align=center] at (axis cs:0.12,0.3) {Rien\\ne sort};
+\node[font=\footnotesize,align=center] at (axis cs:0.58,0.3) {Procès du Times seul\\(le Post se tait)};
+\node[font=\footnotesize,align=center] at (axis cs:0.25,0.69) {Deux procès};
+\node[font=\footnotesize,align=center] at (axis cs:0.72,0.75) {Sans procès};
+\node[font=\footnotesize,align=center,fill=white,inner sep=1pt] at (axis cs:0.5,0.93) {Sans procès, menace non crédible};
+\end{axis}
+\end{tikzpicture}
+\caption{Équilibre selon $(q,p)$, les autres paramètres restant ceux de référence. Frontières : $p=\tau_W\approx0,602$ ; $q=\frac14$ et $q=\frac{13}{14}$ sous cette ligne ; la courbe $q=1-\frac{10}{140(1-p)-20}$ entre $p=0,602$ et $p=\frac{11}{14}\approx0,786$ ; pointillés : $p=\frac67$.}
+\end{figure}
+
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item \textbf{Rien ne sort} : $q<\frac14$ et $p<\tau_W$. Le Post ne relaierait pas, le Times n'aurait que le juge local et ses chances passent sous son seuil ; seul, le Post n'oserait pas non plus.
+\item \textbf{Procès du Times seul} : $\frac14\le q<\frac{13}{14}$ et $p<\tau_W$. Le Times publie, Nixon le poursuit, le Post se tait. La censure tient avec la probabilité $1-q$.
+\item \textbf{Deux procès} (1971) : $\tau_W\le p<\frac{11}{14}$ et $q<\bar q_A(p)$.
+\item \textbf{Sans procès} : partout ailleurs. Au-dessus de $p=\frac67$, la menace contre le Post n'est plus crédible.
+\end{itemize}
+
+\section{Les probabilités des issues finales}
+À l'équilibre, la feuille atteinte est certaine ; seuls les verdicts restent aléatoires :
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Régime & $\Pr(\text{tout sort})$ & $\Pr(\text{censure maintenue})$ \\
+\midrule
+Deux procès & $q+(1-q)p$ & $(1-q)(1-p)$ \\
+Procès du Times seul & $q$ & $1-q$ \\
+Sans procès & $1$ & $0$ \\
+Rien ne sort & $0$ & $0$ (rien n'est publié) \\
+\bottomrule
+\end{tabular}
+\end{center}
+En 1971 : juge local favorable au Times $q=30\,\%$ ; censure puis victoire à la Cour suprême $(1-q)p=45,5\,\%$ ; censure confirmée $(1-q)(1-p)=24,5\,\%$. Total « tout sort » : $75,5\,\%$.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Probabilité que tout sorte à l'équilibre, selon $q$ (colonnes) et $p$ (lignes). Lettre : D deux procès, T procès du Times seul, R rien ne sort, S sans procès, S* sans procès avec menace non crédible.}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+ & $q=0,1$ & $q=0,2$ & $q=0,3$ & $q=0,5$ & $q=0,7$ & $q=0,9$ \\
+\midrule
+$p=0,9$ & $100\,\%$\,{\scriptsize S*} & $100\,\%$\,{\scriptsize S*} & $100\,\%$\,{\scriptsize S*} & $100\,\%$\,{\scriptsize S*} & $100\,\%$\,{\scriptsize S*} & $100\,\%$\,{\scriptsize S*} \\
+$p=0,8$ & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} \\
+$p=0,75$ & $77,5\,\%$\,{\scriptsize D} & $80\,\%$\,{\scriptsize D} & $82,5\,\%$\,{\scriptsize D} & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} \\
+$p=0,7$ & $73\,\%$\,{\scriptsize D} & $76\,\%$\,{\scriptsize D} & $79\,\%$\,{\scriptsize D} & $85\,\%$\,{\scriptsize D} & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} \\
+$p=0,65$ & $68,5\,\%$\,{\scriptsize D} & $72\,\%$\,{\scriptsize D} & $75,5\,\%$\,{\scriptsize D} & $82,5\,\%$\,{\scriptsize D} & $100\,\%$\,{\scriptsize S} & $100\,\%$\,{\scriptsize S} \\
+$p=0,6$ & $0\,\%$\,{\scriptsize R} & $0\,\%$\,{\scriptsize R} & $30\,\%$\,{\scriptsize T} & $50\,\%$\,{\scriptsize T} & $70\,\%$\,{\scriptsize T} & $90\,\%$\,{\scriptsize T} \\
+$p=0,5$ & $0\,\%$\,{\scriptsize R} & $0\,\%$\,{\scriptsize R} & $30\,\%$\,{\scriptsize T} & $50\,\%$\,{\scriptsize T} & $70\,\%$\,{\scriptsize T} & $90\,\%$\,{\scriptsize T} \\
+$p=0,3$ & $0\,\%$\,{\scriptsize R} & $0\,\%$\,{\scriptsize R} & $30\,\%$\,{\scriptsize T} & $50\,\%$\,{\scriptsize T} & $70\,\%$\,{\scriptsize T} & $90\,\%$\,{\scriptsize T} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{intuition}
+La ligne $p=0,6$ tombe juste sous le seuil du Post ($60,2\,\%$) : il se tait et la probabilité que tout sorte chute de $75\,\%$ environ à $q$. Une petite variation de la croyance sur la Cour suprême fait basculer l'issue : c'est ce qui rendait la décision du Post si difficile.
+\end{intuition}
+
+\section{Statique comparative : l'effet de $q$ et de $p$}
+\begin{itemize}[leftmargin=*,itemsep=3pt]
+\item \textbf{Le gain du Post en relais} croît avec $p$ : $\dfrac{\partial\,\E[u_W(O_1)]}{\partial p}=(1-q)\big[(1-\theta)B_W+S_W\big]=0,7\times264=184,8$. Un point de pourcentage de $p$ en plus vaut $1,85$ pour le Post.
+\item \textbf{L'intérêt de Nixon à poursuivre le Post} décroît avec $p$ : $\dfrac{\partial}{\partial p}\big[(1-p)(1-\theta)D-k_W\big]=-(1-\theta)D=-140$.
+\item \textbf{L'intérêt de Nixon à poursuivre le Times} décroît avec $q$ : $\dfrac{\partial}{\partial q}\big[(1-q)\big((1-p)(1-\theta)D-k_W\big)-k_T\big]=-\big[(1-p)(1-\theta)D-k_W\big]=-29<0$.
+\item \textbf{La probabilité que tout sorte} en régime « deux procès », $\pi=q+(1-q)p$, croît avec $q$ ($\partial\pi/\partial q=1-p=0,35$) et avec $p$ ($\partial\pi/\partial p=1-q=0,7$).
+\item \textbf{Marges de 1971} : $p=0,65$ dépasse le seuil du Post de $4,8$ points et reste sous le seuil de Nixon de $20,7$ points ; $q=0,3$ reste $35,5$ points sous le seuil de poursuite du Times.
+\end{itemize}
+
+\section{Cas chiffrés}
+Chaque ligne change seulement les valeurs indiquées ; les autres restent celles de référence. Les gains sont ceux du nœud initial (Times ; Post ; Nixon).
+\begin{center}
+\scriptsize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.6cm}cll@{}}
+\toprule
+Scénario & Changement & Régime & Feuille & Gains espérés & $\Pr(\text{tout sort})$ \\
+\midrule
+1971 · scénario de référence & référence & Deux procès & $O_{1}$ & $(60,6;\,8,82;\,-189,7)$ & $75,5\,\%$ \\
+Le Post prend peur & $p=0,5$ & Procès du Times seul & $O_{3}$ & $(6;\,0;\,-112)$ & $30\,\%$ \\
+Sanction du Post à 250 & $S_W=250$ & Procès du Times seul & $O_{3}$ & $(6;\,0;\,-112)$ & $30\,\%$ \\
+Le Times renonce & $c_T=80$ & Rien ne sort & $O_{7}$ & $(0;\,0;\,0)$ & $0\,\%$ \\
+Tribunaux hostiles & $q=0,2$, $p=0,5$ & Rien ne sort & $O_{7}$ & $(0;\,0;\,0)$ & $0\,\%$ \\
+Procès du Post trop cher & $k_W=40$ & Sans procès & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
+Menace non crédible & $k_W=60$ & Sans procès (menace non crédible) & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
+Cour suprême acquise & $p=0,9$ & Sans procès (menace non crédible) & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
+Juge local favorable & $q=0,8$ & Sans procès & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
+Publier pour ne pas être doublé & $q=0,65$, $p=0,5$, $c_T=30$, $S_T=150$ & Procès du Times seul & $O_{3}$ & $(-7;\,0;\,-161)$ & $65\,\%$ \\
+Menace crue à tort & $p=0,5$, $k_W=80$ & Sans procès (menace non crédible) & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\paragraph{Équilibre de Nash non parfait ($p=0,5$, $k_W=80$).} Poursuivre le Post rapporterait à Nixon $-10-80-200(0,5+0,5\times0,3)=-220<-210$ : la menace n'est pas crédible. Pourtant, le profil où Nixon « menace » de poursuivre le Post et où le Post se tait est un équilibre de Nash : la menace ne coûte rien tant qu'elle n'est pas mise à l'épreuve, et le secret tient avec la probabilité $1-q=70\,\%$. L'ENPS l'élimine : le Post publierait, Nixon ne poursuivrait personne, et tout sort ($O_4$). Le recensement des 64 profils donne 4 équilibres de Nash dans le jeu de référence (un seul ENPS) et 12 dans ce scénario.
+
+\section{Conventions et limites}
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item À égalité de gains, un journal publie et Nixon ne poursuit pas.
+\item Les verdicts sont supposés indépendants et leurs probabilités connues de tous (croyances communes).
+\item La Cour suprême n'est saisie en urgence que si deux journaux sont poursuivis ; sinon la censure locale tient.
+\item Les valeurs sont un calibrage illustratif en points d'utilité, pas des estimations historiques. L'usage d'espérances suppose que ces points mesurent l'intensité des préférences.
+\end{itemize}
+
+\end{document}

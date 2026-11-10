@@ -19,6 +19,8 @@ Les probabilités et gains sont un **calibrage illustratif**. Aux frontières d�
 
 Le raisonnement complet (choix de l’arbre, construction des gains, calculs, réponses à l’énoncé, liens avec le cours) est détaillé dans [`docs/modele-revise.md`](docs/modele-revise.md).
 
+Le document mathématique [`docs/modele-probabilites.pdf`](docs/modele-probabilites.pdf) reprend le modèle, les équations des gains et tous les calculs en fonction des probabilités des juges `q` et `p` (seuils, carte des équilibres, probabilités des issues, cas chiffrés). Sa source est `docs/modele-probabilites.tex` : compiler deux fois avec `pdflatex` (TeX Live avec les paquets `pgfplots`, `tcolorbox` et `babel-french`).
+
 ## Modifier et reconstruire
 
 ```sh
