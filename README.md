@@ -55,4 +55,4 @@ La configuration `vercel.json` désactive l’installation et la compilation : V
 
 ## Ressources
 
-Les illustrations SVG sont originales. Les polices Newsreader, DM Sans et IBM Plex Mono viennent du dépôt officiel `google/fonts`, sous licence SIL Open Font License ; leurs licences sont dans `assets/`.
+Les illustrations SVG sont originales. Les équations LaTeX sont rendues hors ligne par [Temml](https://temml.org) 0.13.5 (licence MIT, `assets/temml-LICENSE.txt`). Les polices Newsreader, DM Sans et IBM Plex Mono viennent du dépôt officiel `google/fonts`, sous licence SIL Open Font License ; leurs licences sont dans `assets/`.

@@ -98,6 +98,11 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(await page.locator('#tree-main [data-node="x4"]').count(),1,'the unreached subgame can be isolated too');
     assert.equal(await page.locator('#tree-main [data-outcome="O7"]').count(),1);
     await page.evaluate(()=>window.Papers.navigate('gains'));
+    const tex=await page.evaluate(()=>({all:document.querySelectorAll('.tex').length,rendered:document.querySelectorAll('.tex[data-rendered] math').length,failed:document.querySelectorAll('.tex-error').length}));
+    assert.ok(tex.all>40,'the payoff equations are written in LaTeX');
+    assert.equal(tex.rendered,tex.all,'every LaTeX formula is rendered as MathML, offline');
+    assert.equal(tex.failed,0,'no LaTeX formula fails to render');
+    assert.match(await page.locator('#latex-source').textContent(),/\\begin\{cases\}/,'the LaTeX source can be copied into the report');
     await page.locator('#p-sym').click();
     assert.ok(await page.locator('#paytable sub').count()>0,'symbolic gains retain readable subscripts');
     await page.locator('#p-num').click();
