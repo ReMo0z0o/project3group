@@ -231,7 +231,7 @@ const LEAF_DETAILS = {
       'Nixon paie le procès du Times dans tous les cas, et celui du Post si la 1re cour a censuré le Times. Il ne limite le dommage à θD que si la 2e cour lui donne raison.',
     ],
     eq: ['\\mathbb{E}[u_T]=q\\,(B_T-c_T)+(1-q)\\big[p\\,(B_T-c_T)+(1-p)\\,(\\theta B_T-c_T-S_T)\\big]', '\\mathbb{E}[u_W]=q\\times 0+(1-q)\\big[p\\,(B_W-c_W)+(1-p)\\,(\\theta B_W-c_W-S_W)\\big]', '\\mathbb{E}[u_N]=q\\,(-D-k_T)+(1-q)\\big[p\\,(-D-k_T-k_W)+(1-p)\\,(-\\theta D-k_T-k_W)\\big]'],
-    course: 'Feuille atteinte à l’équilibre : c’est le « résultat » de l’ENPS, distinct des stratégies (S6, diapositives 14–18). Gain espéré, car les verdicts sont incertains (notre ajout).',
+    course: 'Feuille atteinte à l’équilibre : c’est le « résultat » de l’ENPS, distinct des stratégies (S6, diapositives 14–18). Gain espéré, car les verdicts sont incertains (même calcul que dans les jeux bayésiens, diapositive 11).',
   },
   O2: {
     path: 'Le Times publie → Nixon le poursuit → le Post publie → Nixon laisse faire.',
@@ -703,6 +703,9 @@ const GL = [
   ['Jeu séquentiel', 'Jeu où les joueurs décident à tour de rôle, en connaissant les coups précédents.'],
   ['Information parfaite', 'Chaque joueur sait exactement où il se trouve dans l’arbre quand il décide : chaque ensemble d’information contient un seul nœud.'],
   ['Gain espéré', 'Moyenne des gains pondérée par les probabilités : p × a + (1 − p) × b. Ici, il intègre les verdicts des juges dans les gains des feuilles.'],
+  ['Nature', 'Tirage au hasard placé dans un arbre ; ce n’est pas un joueur (ni gains ni choix). Ici, les verdicts des juges : on les remplace par des gains espérés dans les feuilles.'],
+  ['Information complète', 'Chaque joueur connaît les gains de tous les joueurs. C’est notre cas. Si un joueur ignorait le « type » (la fonction de gains) d’un autre, l’information serait incomplète et le jeu bayésien.'],
+  ['Jeu répété', 'Un même jeu de période rejoué plusieurs fois, avec des gains actualisés par δ. Notre modèle décrit une seule affaire : ce n’est pas un jeu répété.'],
   ['Action', 'Choix possible à un nœud donné.'],
   ['Stratégie', 'Plan complet qui précise une action à chaque nœud où le joueur pourrait jouer.'],
   ['Profil de stratégies', 'Une stratégie pour chaque joueur. Ici 2 × 4 × 8 = 64 profils.'],

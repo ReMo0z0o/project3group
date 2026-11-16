@@ -268,10 +268,10 @@ Les gains viennent d’une seule équation par joueur (section 2), donc ils sont
 
 ## 6. Liens avec le cours
 
-Références tirées des diapositives citées dans l’application (Decerf, ECGEB366). Je n’ai pas pu ouvrir le site du cours depuis mon environnement : vérifie les numéros de diapositives.
+Références tirées des diapositives du cours (Decerf, ECGEB366). Les numéros des chapitres « B3. Jeux répétés » et « Jeux bayésiens » ont été vérifiés sur les PDF fournis ; ceux de S5 et S6 viennent des notes de l’application.
 
 - **Forme étendue** (S6, 8–9 et 14) : nœud initial en haut, un joueur par nœud, une action par branche, gains dans un ordre fixe sous chaque feuille.
-- **Joueurs** (S5 ; S6, 7–9) : seuls ceux qui choisissent et ont des gains. Les juges n’en sont pas ; leur incertitude est traitée par des gains espérés (notre ajout).
+- **Joueurs** (S5 ; S6, 7–9) : seuls ceux qui choisissent et ont des gains. Les juges n’en sont pas ; leur incertitude est traitée par des gains espérés. C’est le calcul du chapitre sur les jeux bayésiens (diapositive 11 : 2 × 0,5 + 0 × 0,5) ; les juges y correspondent à la **Nature**, que le cours dessine comme un nœud sans gains (diapositives 14 et 33). Réduire ce nœud donne le gain espéré que nous écrivons directement dans la feuille.
 - **Une feuille résume une histoire complète** (S6, 14–18) : « tout sort » ne vaut pas la même chose avec procès (O2) ou sans (O4).
 - **À un nœud, chacun compare sa propre composante** (S6, 21–24).
 - **Un sous-jeu garde les gains du jeu entier** (S6, 10–13) : d’où une seule équation par joueur.
@@ -279,13 +279,15 @@ Références tirées des diapositives citées dans l’application (Decerf, ECGE
 - **Action et stratégie** (S6, 14–18) : 2, 4 et 8 stratégies, 64 profils. L’ENPS précise ce que le Post ferait en x4, jamais atteint en 1971.
 - **Induction à rebours et réduction de l’arbre** (S6, 21–24) : section 3.
 - **Nash et ENPS, menace non crédible, jeu de l’entrée** (S6, 3–6) : le Post joue l’entrant (publier = entrer), Nixon la firme en place (poursuivre = guerre). Sur les 64 profils, 4 équilibres de Nash dans le jeu de référence (même issue, différents hors du chemin, en x4 et x5) et un seul ENPS ; avec `p` = 50 % et `k_W` = 80, 12 équilibres de Nash, dont certains gardent le secret grâce à une menace non crédible.
-- **Jeux simultanés** (S5) et **jeux répétés** (S8) : extensions possibles, non modélisées.
+- **Information complète, pas un jeu bayésien** (Jeux bayésiens, 2, 16 et 22) : l’information est incomplète quand un joueur ignore le type (la fonction de gains) d’un autre. Ici chacun connaît les gains des trois joueurs et les mêmes `q` et `p` ; le verdict est un risque commun, pas un type caché. Le tableau de la diapositive 22 range notre jeu dans « séquentiel, sans incertitude sur les types » : le concept de solution est bien l’ENPS.
+- **Jeux simultanés** (S5) : extension possible si les journaux décidaient sans s’observer.
+- **Jeux répétés** (S8, B3) : non modélisés, car il y a une seule affaire et les gains ne tombent qu’une fois. Deux repères du cours pour la discussion : (i) horizon fini et connu, un seul équilibre par période, donc le même équilibre à chaque période (théorème, diapositive 8) : répéter l’affaire ne changerait rien ; (ii) horizon infini, une menace non crédible dans une affaire peut le devenir si Nixon est assez patient : avec `p` = 50 % et `k_W` = 80, il perd 10 en poursuivant le Post (−220 contre −210) et le ferait quand même si `10 ≤ δG/(1−δ)`, où `G` est ce que sa fermeté lui rapporte à chaque affaire future (diapositives 10–15).
 
 ## 7. Limites
 
 - La 2e cour n’est saisie que si deux journaux sont poursuivis. Si elle tranchait aussi l’affaire d’un journal seul, le Post oserait publier seul (40,3 > 0) ; le chemin d’équilibre de 1971 ne changerait pas.
 - Un journal qui ne publie pas a 0 : on ne compte pas le regret du Times si le Post publie à sa place.
-- Croyances communes : tous les joueurs partagent `q` et `p`.
+- Croyances communes et gains connus de tous : tous les joueurs partagent `q` et `p`. Si Nixon ignorait le type du Post (« audacieux » avec la probabilité `λ`, « prudent » sinon), le jeu deviendrait bayésien ; avec nos valeurs, poursuivre le Times lui rapporterait `−112 − 77,7λ > −200` pour tout `λ`, donc sa décision ne changerait pas.
 - Les verdicts sont résumés en un tirage par tribunal ; les allers-retours réels (suspension, refus d’injonction, appel) sont simplifiés.
 - Une même part `θ` pour les deux journaux, une même valeur `B_W` pour le Post seul ou en relais.
 - Les gains sont des hypothèses : le laboratoire de l’application montre quelles conclusions résistent quand on les change.
