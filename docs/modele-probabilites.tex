@@ -60,7 +60,7 @@ Avec $q=0,3$ et $p=0,65$, l'équilibre de Nash parfait en sous-jeux (ENPS) repro
 \item Nixon poursuit le Post si $p<\frac67\approx85,7\,\%$ ;
 \item Nixon poursuit le Times si $q<\frac{19}{29}\approx65,5\,\%$ (avec $p=0,65$).
 \end{itemize}
-Avant le premier article, la probabilité que tout sorte vaut $q+(1-q)p=75,5\,\%$, celle d'une censure confirmée $(1-q)(1-p)=24,5\,\%$.
+Avant le premier article, la probabilité que tout sorte vaut $q+(1-q)p=75,5\,\%$, celle d'une censure confirmée $(1-q)(1-p)=24,5\,\%$. Un journal qui ne publie pas a un gain de $0$ : c'est le cas du Times s'il renonce, quoi que fasse ensuite le Post.
 \end{resultat}
 
 \section{Le jeu}
@@ -116,7 +116,7 @@ Un jeu se décrit par ses joueurs, leurs stratégies et leurs gains (S5 ; S6, di
 \node[pl=wp,label={[font=\small\bfseries,text=wp]above right:Post $x_4$}] at (x4) {};
 \node[pl=gov,label={[font=\small\bfseries,text=gov]above left:Nixon $x_5$}] at (x5) {};
 % feuilles : gains (Times ; Post ; Nixon), espérés si procès
-\foreach \n/\t/\g in {O1/{Procès du Post\\+ tribunaux}/{60,6\\8,82\\$-$189,7},O2/{Post publie,\\pas de procès}/{90\\84\\$-$210},O3/{Times censuré,\\Post muet}/{6\\0\\$-$112},O4/{Tout sort,\\sans procès}/{100\\0\\$-$200},O5/{Procès du\\Post seul}/{$-$25,5\\$-$79,8\\$-$122},O6/{Le Post\\publie seul}/{$-$50\\120\\$-$200},O7/{Rien\\ne sort}/{0\\0\\0}}{
+\foreach \n/\t/\g in {O1/{Procès du Post\\+ tribunaux}/{60,6\\8,82\\$-$189,7},O2/{Post publie,\\pas de procès}/{90\\84\\$-$210},O3/{Times censuré,\\Post muet}/{6\\0\\$-$112},O4/{Tout sort,\\sans procès}/{100\\0\\$-$200},O5/{Procès du\\Post seul}/{0\\$-$79,8\\$-$122},O6/{Le Post\\publie seul}/{0\\120\\$-$200},O7/{Rien\\ne sort}/{0\\0\\0}}{
   \fill (\n) circle (1.6pt);
   \node[leaf,below=2pt] at (\n) {\textbf{\n}\\[-1pt]\t\\[1pt]\g};
 }
@@ -131,64 +131,119 @@ Un jeu se décrit par ses joueurs, leurs stratégies et leurs gains (S5 ; S6, di
 \toprule
 Symbole & Valeur & Joueur & Signification \\
 \midrule
-$q$ & $0,3$ & juges & probabilité qu'un juge local refuse la censure \\
-$p$ & $0,65$ & juges & probabilité que la Cour suprême donne raison aux journaux \\
+$q$ & $0,3$ & juges & probabilité que la 1\textsuperscript{re} cour (le juge local) refuse la censure \\
+$p$ & $0,65$ & juges & probabilité que la 2\textsuperscript{e} cour (la Cour suprême) donne raison aux journaux \\
 $\theta$ & $0,3$ & tous & part des révélations publiée avant une censure (trois articles) \\
 $B_T,\ B_W$ & $100,\ 120$ & Times, Post & valeur d'une publication complète (scoop, prestige, mission) \\
 $c_T,\ c_W$ & $10,\ 15$ & Times, Post & frais totaux d'un procès \\
 $S_T,\ S_W$ & $50,\ 180$ & Times, Post & sanction si la censure est maintenue (bourse et licences pour le Post) \\
-$R_T$ & $50$ & Times & perte si le Post publie le scoop que le Times a refusé \\
 $D$ & $200$ & Nixon & dommage si tout sort \\
 $k_T,\ k_W$ & $10,\ 20$ & Nixon & coût d'un procès contre le Times, contre le Post \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\section{Les gains}
+\section{Les gains : une équation par joueur}
 
-\subsection{Les fonctions de gain}
-Soit $\sigma$ la part des documents qui finit par être publique : $\sigma=1$ si tout sort, $\sigma=\theta$ si une censure est maintenue, $\sigma=0$ si rien ne sort. Avec l'indicatrice $\mathbf{1}_A$ ($1$ si $A$ se produit, $0$ sinon) :
-\begin{align}
-u_T &= \ind{Times publie}\,B_T\,\sigma-\ind{Times poursuivi}\,c_T \notag\\
-&\quad-\ind{censure du Times maintenue}\,S_T-\ind{Times renonce, Post publie}\,R_T\,\sigma, \label{eq:uT}\\
-u_W &= \ind{Post publie}\,B_W\,\sigma-\ind{Post poursuivi}\,c_W-\ind{censure du Post maintenue}\,S_W, \label{eq:uW}\\
-u_N &= -D\,\sigma-\ind{Times poursuivi}\,k_T-\ind{Post poursuivi}\,k_W. \label{eq:uN}
-\end{align}
+Un gain est un nombre qui dit ce qu'une issue vaut pour un joueur : plus il est grand, plus le joueur préfère cette issue. Chaque joueur a \emph{une seule équation}, appliquée à toutes les issues. C'est ce qui rend les gains cohérents d'un sous-jeu à l'autre.
 
-\begin{intuition}
-Un journal gagne en proportion de ce qu'il réussit à rendre public et perd ce que le procès lui coûte ; une censure maintenue ajoute une sanction. Nixon perd en proportion de ce qui sort et paie chaque procès. Le zéro est « rien ne se passe » : ajouter une constante aux gains d'un joueur ne change aucun de ses choix.
-\end{intuition}
+\subsection{Ce qui sort}
+Les gains dépendent de la part des documents qui finit par être publique, notée $\sigma$ :
+\[
+\sigma=\begin{cases}1 & \text{si tout sort,}\\ \theta=0,3 & \text{si une censure est maintenue : seuls les trois premiers articles sont parus,}\\ 0 & \text{si rien ne sort.}\end{cases}
+\]
+
+\subsection{L'équation d'un journal}
+En mots : \emph{gain $=$ valeur de ce qu'il a réussi à publier $-$ ses frais s'il est poursuivi $-$ sa sanction si sa censure est maintenue}. Pour le journal $j$, avec $j=T$ pour le Times et $j=W$ pour le Post :
+\begin{equation}
+u_j=\begin{cases}
+0 & \text{s'il ne publie pas,}\\[3pt]
+B_j\,\sigma-c_j\,\ind{poursuivi}-S_j\,\ind{censure maintenue} & \text{s'il publie.}
+\end{cases}\label{eq:uj}
+\end{equation}
+Le symbole $\mathbf{1}_{\{\cdot\}}$ est une case à cocher : il vaut $1$ si la phrase entre accolades est vraie, $0$ sinon. Un journal qui n'est pas poursuivi ne paie donc pas $c_j$.
+
+\begin{resultat}
+\textbf{Pas de publication, pas de gain ni de perte.} Un journal qui ne publie pas n'a pas de scoop, pas de procès et pas de sanction : $u_j=0$. Si le Times renonce, il a donc $0$, que le Post publie ensuite ou non, et que Nixon poursuive le Post ou non. C'est son gain dans les feuilles $O_5$, $O_6$ et $O_7$.
+\end{resultat}
+
+\subsection{L'équation de Nixon}
+En mots : \emph{gain $=-$ dommage de ce qui sort $-$ coût de chaque procès engagé}.
+\begin{equation}
+u_N=-D\,\sigma-k_T\,\ind{Times poursuivi}-k_W\,\ind{Post poursuivi}. \label{eq:uN}
+\end{equation}
+Ses gains sont toujours négatifs ou nuls : le mieux pour Nixon est que rien ne sorte et qu'aucun procès n'ait lieu ($0$).
+
+\subsection{Tous les cas possibles}
+Pour un journal, l'équation \eqref{eq:uj} ne donne que quatre cas. Pour Nixon, l'équation \eqref{eq:uN} en donne huit. Tous les nombres de l'arbre sont construits à partir de ces lignes.
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xclll@{}}
+\toprule
+Cas du journal & $\sigma$ & Équation & Times & Post \\
+\midrule
+Il ne publie pas & --- & $0$ & $0$ & $0$ \\
+Il publie, personne ne le poursuit & $1$ & $B$ & $100$ & $120$ \\
+Il publie, il est poursuivi, tout sort quand même & $1$ & $B-c$ & $100-10=90$ & $120-15=105$ \\
+Il publie, il est poursuivi, sa censure est maintenue & $\theta$ & $\theta B-c-S$ & $0,3\times100-10-50=-30$ & $0,3\times120-15-180=-159$ \\
+\bottomrule
+\end{tabularx}
+
+\medskip
+\begin{tabular}{@{}lll@{}}
+\toprule
+Ce qui sort & Procès engagés par Nixon & Équation et calcul \\
+\midrule
+Rien & aucun & $0$ \\
+Tout & aucun & $-D=-200$ \\
+Tout & contre le Times & $-D-k_T=-200-10=-210$ \\
+Tout & contre le Post seul & $-D-k_W=-200-20=-220$ \\
+Tout & contre le Times et le Post & $-D-k_T-k_W=-200-10-20=-230$ \\
+Les premiers articles seulement & contre le Times & $-\theta D-k_T=-0,3\times200-10=-70$ \\
+Les premiers articles seulement & contre le Post seul & $-\theta D-k_W=-0,3\times200-20=-80$ \\
+Les premiers articles seulement & contre le Times et le Post & $-\theta D-k_T-k_W=-0,3\times200-10-20=-90$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Vérification : des gains cohérents avec les objectifs}
+On classe les cas du meilleur au pire pour chaque joueur. L'ordre doit correspondre à ce que le joueur veut vraiment.
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item \textbf{Times} : publier librement ($100$) $>$ gagner son procès ($90$) $>$ ne pas publier ($0$) $>$ être censuré ($-30$).
+\item \textbf{Post} : publier librement ($120$) $>$ gagner son procès ($105$) $>$ ne pas publier ($0$) $>$ être censuré ($-159$). L'écart entre se taire et être censuré est bien plus grand que pour le Times : c'est le Post qui a le plus à perdre.
+\item \textbf{Nixon} : rien ne sort ($0$) $>$ censure maintenue ($-70$ à $-90$) $>$ tout sort ($-200$ à $-230$) ; à résultat égal, moins de procès vaut mieux.
+\end{itemize}
 
 \subsection{Les situations finales}
-Une fois les juges passés, il ne reste que dix situations possibles. Chacune s'obtient en appliquant \eqref{eq:uT}--\eqref{eq:uN}.
+Une fois les juges passés, il ne reste que dix situations possibles. Chacune s'obtient en appliquant \eqref{eq:uj} et \eqref{eq:uN}.
 \begin{center}
 \footnotesize
 \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xcccc@{}}
 \toprule
 Situation finale & $\sigma$ & $u_T$ & $u_W$ & $u_N$ \\
 \midrule
-Le juge local refuse de censurer le Times & $1$ & $B_T-c_T=90$ & $0$ & $-D-k_T=-210$ \\
-Cour suprême : victoire des journaux & $1$ & $B_T-c_T=90$ & $B_W-c_W=105$ & $-D-k_T-k_W=-230$ \\
-Cour suprême : censure confirmée & $\theta$ & $\theta B_T-c_T-S_T=-30$ & $\theta B_W-c_W-S_W=-159$ & $-\theta D-k_T-k_W=-90$ \\
+La 1\textsuperscript{re} cour refuse de censurer le Times & $1$ & $B_T-c_T=90$ & $0$ & $-D-k_T=-210$ \\
+2\textsuperscript{e} cour : victoire des journaux & $1$ & $B_T-c_T=90$ & $B_W-c_W=105$ & $-D-k_T-k_W=-230$ \\
+2\textsuperscript{e} cour : censure confirmée & $\theta$ & $\theta B_T-c_T-S_T=-30$ & $\theta B_W-c_W-S_W=-159$ & $-\theta D-k_T-k_W=-90$ \\
 Times censuré, le Post publie librement & $1$ & $B_T-c_T=90$ & $B_W=120$ & $-D-k_T=-210$ \\
 Times censuré, le Post se tait & $\theta$ & $\theta B_T-c_T-S_T=-30$ & $0$ & $-\theta D-k_T=-70$ \\
 Le Times publie, aucun procès & $1$ & $B_T=100$ & $0$ & $-D=-200$ \\
-Le juge refuse de censurer le Post seul & $1$ & $-R_T=-50$ & $B_W-c_W=105$ & $-D-k_W=-220$ \\
-Le Post seul est censuré & $\theta$ & $-\theta R_T=-15$ & $\theta B_W-c_W-S_W=-159$ & $-\theta D-k_W=-80$ \\
-Le Post publie seul, aucun procès & $1$ & $-R_T=-50$ & $B_W=120$ & $-D=-200$ \\
+La 1\textsuperscript{re} cour refuse de censurer le Post seul & $1$ & $0$ & $B_W-c_W=105$ & $-D-k_W=-220$ \\
+Le Post seul est censuré & $\theta$ & $0$ & $\theta B_W-c_W-S_W=-159$ & $-\theta D-k_W=-80$ \\
+Le Post publie seul, aucun procès & $1$ & $0$ & $B_W=120$ & $-D=-200$ \\
 Personne ne publie & $0$ & $0$ & $0$ & $0$ \\
 \bottomrule
 \end{tabularx}
 \end{center}
 
 \begin{cours}
-Un vecteur de gains à chaque feuille, dans un ordre fixe (S6, diapositives 8--9 et 14). Une feuille résume une histoire complète : « tout sort » ne vaut pas la même chose avec ou sans procès (S6, diapositives 14--18). Un sous-jeu reprend les gains du jeu entier : les mêmes règles s'appliquent partout (S6, diapositives 10--13).
+Un vecteur de gains à chaque feuille, dans un ordre fixe (S6, diapositives 8--9 et 14). Une feuille résume une histoire complète : « tout sort » ne vaut pas la même chose avec ou sans procès (S6, diapositives 14--18). Un sous-jeu reprend les gains du jeu entier : la même équation s'applique partout (S6, diapositives 10--13).
 \end{cours}
 
 \section{Les juges : des probabilités, pas des joueurs}
 
 \subsection{Les verdicts d'un procès}
-Un procès commence devant un juge local. S'il refuse la censure (probabilité $q$), tout sort. S'il censure ($1-q$) et que l'autre journal publie aussi et est poursuivi, les deux affaires sont jointes devant la Cour suprême, qui donne raison aux journaux avec la probabilité $p$. On suppose les deux verdicts indépendants et les probabilités connues de tous. Dans le procès du Post après celui du Times, les trois verdicts possibles ont pour probabilités
+Seuls les verdicts des juges ont une probabilité ; les trois joueurs, eux, choisissent. Un procès commence devant la 1\textsuperscript{re} cour, le juge local. Si elle refuse la censure (probabilité $q$), tout sort. Si elle censure ($1-q$) et que l'autre journal publie aussi et est poursuivi, les deux affaires sont jointes devant la 2\textsuperscript{e} cour, la Cour suprême, qui donne raison aux journaux avec la probabilité $p$. On suppose les deux verdicts indépendants et les probabilités connues de tous. Dans le procès du Post après celui du Times, les trois verdicts possibles ont pour probabilités
 \[
 \underbrace{q}_{\text{refus local}}\;+\;\underbrace{(1-q)\,p}_{\text{censure, puis Cour favorable}}\;+\;\underbrace{(1-q)(1-p)}_{\text{censure confirmée}}\;=\;q+(1-q)\big[p+(1-p)\big]\;=\;1 .
 \]
@@ -199,31 +254,122 @@ La probabilité que la justice donne \emph{finalement} raison aux journaux vaut 
 Sans second journal, la Cour suprême n'est pas saisie en urgence : un journal seul n'a que le juge local, avec $\pi=q$.
 
 \subsection{Les gains espérés des feuilles}
-Chaque feuille avec procès est une loterie sur les situations finales. Son gain est l'espérance :
+Chaque feuille avec procès regroupe les verdicts possibles. Comme on ne sait pas lequel tombera, chaque joueur y reçoit la \emph{moyenne} de ses gains, pondérée par la probabilité de chaque verdict :
 \begin{equation}
-\E\big[u_i(O_k)\big]=\sum_{v}\Pr(v)\,u_i\big(\text{situation après le verdict } v\big),\qquad i\in\{T,W,N\}. \label{eq:esp}
+\E[u_i]=\sum_{v}\Pr(v)\,u_i(v),\qquad i\in\{T,W,N\}. \label{eq:esp}
 \end{equation}
+Un exemple simple : un billet qui rapporte $100$ avec $30\,\%$ de chances et $0$ sinon vaut en moyenne $0,3\times100+0,7\times0=30$. La méthode tient en trois gestes :
+\begin{enumerate}[leftmargin=*,itemsep=0pt,topsep=2pt]
+\item lister les verdicts possibles et leurs probabilités, dont le total doit faire $1$ ;
+\item calculer le gain après chaque verdict avec les équations \eqref{eq:uj} et \eqref{eq:uN} ;
+\item multiplier chaque gain par la probabilité de son verdict, puis additionner.
+\end{enumerate}
+Seuls les verdicts ont une probabilité : le Times, le Post et Nixon, eux, choisissent.
 
-\paragraph{$O_1$ — procès du Post + tribunaux.}
+\paragraph{$O_1$ — procès du Post + tribunaux.} Le Times publie, Nixon le poursuit, le Post publie, Nixon le poursuit aussi.
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xlrrr@{}}
+\toprule
+Verdict & Probabilité & $u_T$ & $u_W$ & $u_N$ \\
+\midrule
+La 1\textsuperscript{re} cour refuse de censurer le Times & $q=0,30$ & $90$ & $0$ & $-210$ \\
+La 1\textsuperscript{re} cour censure le Times, puis la 2\textsuperscript{e} cour donne raison aux journaux & $(1-q)\,p=0,455$ & $90$ & $105$ & $-230$ \\
+La 1\textsuperscript{re} cour censure le Times, puis la 2\textsuperscript{e} cour donne raison au gouvernement & $(1-q)(1-p)=0,245$ & $-30$ & $-159$ & $-90$ \\
+\midrule
+\textbf{Gain espéré de la feuille} & $1$ & $\mathbf{60,6}$ & $\mathbf{8,82}$ & $\mathbf{-189,7}$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
 \begin{align*}
-\E[u_T(O_1)] &= q(B_T-c_T)+(1-q)\big[p(B_T-c_T)+(1-p)(\theta B_T-c_T-S_T)\big]\\
-&= 0,3\times90+0,7\,\big[0,65\times90+0,35\times(-30)\big] = 27+0,7\times48 = 60,6,\\[3pt]
-\E[u_W(O_1)] &= q\times0+(1-q)\big[p(B_W-c_W)+(1-p)(\theta B_W-c_W-S_W)\big]\\
-&= 0,7\,\big[0,65\times105+0,35\times(-159)\big] = 0,7\times12,6 = 8,82,\\[3pt]
-\E[u_N(O_1)] &= q(-D-k_T)+(1-q)\big[p(-D-k_T-k_W)+(1-p)(-\theta D-k_T-k_W)\big]\\
-&= 0,3\times(-210)+0,7\,\big[0,65\times(-230)+0,35\times(-90)\big] = -63+0,7\times(-181) = -189,7.
+\E[u_T] &= q(B_T-c_T)+(1-q)\big[p(B_T-c_T)+(1-p)(\theta B_T-c_T-S_T)\big]\\
+&= 0,3\times90+0,455\times90+0,245\times(-30) = 27+40,95-7,35 = 60,6,\\[3pt]
+\E[u_W] &= q\times0+(1-q)\big[p(B_W-c_W)+(1-p)(\theta B_W-c_W-S_W)\big]\\
+&= 0,3\times0+0,455\times105+0,245\times(-159) = 0+47,775-38,955 = 8,82,\\[3pt]
+\E[u_N] &= q(-D-k_T)+(1-q)\big[p(-D-k_T-k_W)+(1-p)(-\theta D-k_T-k_W)\big]\\
+&= 0,3\times(-210)+0,455\times(-230)+0,245\times(-90) = -63-104,65-22,05 = -189,7.
 \end{align*}
-\paragraph{$O_2$ — le Post publie, pas de procès contre lui.}
-$\E[u_T]=B_T-c_T=90$, \quad $\E[u_W]=(1-q)B_W=0,7\times120=84$, \quad $\E[u_N]=-D-k_T=-210$.
-\paragraph{$O_3$ — Times censuré, Post muet.}
-$\E[u_T]=q(B_T-c_T)+(1-q)(\theta B_T-c_T-S_T)=27-21=6$, \quad $\E[u_W]=0$, \quad $\E[u_N]=q(-D-k_T)+(1-q)(-\theta D-k_T)=-63-49=-112$.
-\paragraph{$O_5$ — procès du Post seul.}
-$\E[u_T]=-[q+(1-q)\theta]R_T=-25,5$, \quad $\E[u_W]=q(B_W-c_W)+(1-q)(\theta B_W-c_W-S_W)=31,5-111,3=-79,8$, \quad $\E[u_N]=q(-D-k_W)+(1-q)(-\theta D-k_W)=-66-56=-122$.
-\paragraph{Feuilles sans procès.} Aucun verdict, le gain est certain : $O_4=(B_T;\,0;\,-D)=(100;\,0;\,-200)$, $O_6=(-R_T;\,B_W;\,-D)=(-50;\,120;\,-200)$ et $O_7=(0;\,0;\,0)$.
+Si la 1\textsuperscript{re} cour refuse de censurer le Times, celui-ci publie tout lui-même : le Post n'a pas à prendre le relais et reçoit $0$.
 
-\begin{intuition}
-Dans $O_2$ et $O_3$, avec la probabilité $q$ le juge refuse de censurer le Times : celui-ci publie tout lui-même et le choix du Post ne change rien. C'est pourquoi le Post ne reçoit que $(1-q)B_W$ dans $O_2$.
-\end{intuition}
+\paragraph{$O_2$ — le Post publie, Nixon ne le poursuit pas.}
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xlrrr@{}}
+\toprule
+Verdict & Probabilité & $u_T$ & $u_W$ & $u_N$ \\
+\midrule
+La 1\textsuperscript{re} cour refuse de censurer le Times & $q=0,30$ & $90$ & $0$ & $-210$ \\
+La 1\textsuperscript{re} cour censure le Times, le Post publie tout & $1-q=0,70$ & $90$ & $120$ & $-210$ \\
+\midrule
+\textbf{Gain espéré de la feuille} & $1$ & $\mathbf{90}$ & $\mathbf{84}$ & $\mathbf{-210}$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\begin{align*}
+\E[u_T] &= q(B_T-c_T)+(1-q)(B_T-c_T) = 0,3\times90+0,7\times90 = 90,\\
+\E[u_W] &= q\times0+(1-q)\,B_W = 0,3\times0+0,7\times120 = 84,\\
+\E[u_N] &= q(-D-k_T)+(1-q)(-D-k_T) = 0,3\times(-210)+0,7\times(-210) = -210.
+\end{align*}
+
+\paragraph{$O_3$ — Times censuré, Post muet.} Le Post ne publie pas : il a $0$, quel que soit le verdict.
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xlrrr@{}}
+\toprule
+Verdict & Probabilité & $u_T$ & $u_W$ & $u_N$ \\
+\midrule
+La 1\textsuperscript{re} cour refuse de censurer le Times & $q=0,30$ & $90$ & $0$ & $-210$ \\
+La 1\textsuperscript{re} cour censure le Times et la censure tient & $1-q=0,70$ & $-30$ & $0$ & $-70$ \\
+\midrule
+\textbf{Gain espéré de la feuille} & $1$ & $\mathbf{6}$ & $\mathbf{0}$ & $\mathbf{-112}$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\begin{align*}
+\E[u_T] &= q(B_T-c_T)+(1-q)(\theta B_T-c_T-S_T) = 0,3\times90+0,7\times(-30) = 27-21 = 6,\\
+\E[u_W] &= 0,\\
+\E[u_N] &= q(-D-k_T)+(1-q)(-\theta D-k_T) = 0,3\times(-210)+0,7\times(-70) = -63-49 = -112.
+\end{align*}
+
+\paragraph{$O_5$ — procès du Post seul.} Le Times n'a pas publié : il a $0$, quel que soit le verdict. Sans second journal, la 2\textsuperscript{e} cour n'est pas saisie.
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xlrrr@{}}
+\toprule
+Verdict & Probabilité & $u_T$ & $u_W$ & $u_N$ \\
+\midrule
+La 1\textsuperscript{re} cour refuse de censurer le Post & $q=0,30$ & $0$ & $105$ & $-220$ \\
+La 1\textsuperscript{re} cour censure le Post et la censure tient & $1-q=0,70$ & $0$ & $-159$ & $-80$ \\
+\midrule
+\textbf{Gain espéré de la feuille} & $1$ & $\mathbf{0}$ & $\mathbf{-79,8}$ & $\mathbf{-122}$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\begin{align*}
+\E[u_T] &= 0,\\
+\E[u_W] &= q(B_W-c_W)+(1-q)(\theta B_W-c_W-S_W)\\
+&= 0,3\times105+0,7\times(-159) = 31,5-111,3 = -79,8,\\[3pt]
+\E[u_N] &= q(-D-k_W)+(1-q)(-\theta D-k_W) = 0,3\times(-220)+0,7\times(-80) = -66-56 = -122.
+\end{align*}
+
+\paragraph{Feuilles sans procès.} Aucun verdict, le gain est certain : $O_4=(B_T;\,0;\,-D)=(100;\,0;\,-200)$, $O_6=(0;\,B_W;\,-D)=(0;\,120;\,-200)$ et $O_7=(0;\,0;\,0)$. Dans $O_6$, le Times a $0$ : il n'a pas publié, même si le Post publie à sa place.
+
+\begin{center}
+\small
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Feuille & Juges & Times & Post & Nixon \\
+\midrule
+$O_1$ Procès du Post + tribunaux & 1\textsuperscript{re} et 2\textsuperscript{e} cours & $60,6$ & $8,82$ & $-189,7$ \\
+$O_2$ Le Post publie, pas de procès & 1\textsuperscript{re} cour & $90$ & $84$ & $-210$ \\
+$O_3$ Times censuré, Post muet & 1\textsuperscript{re} cour & $6$ & $0$ & $-112$ \\
+$O_4$ Tout sort, sans procès & aucun & $100$ & $0$ & $-200$ \\
+$O_5$ Procès du Post seul & 1\textsuperscript{re} cour & $0$ & $-79,8$ & $-122$ \\
+$O_6$ Le Post publie seul & aucun & $0$ & $120$ & $-200$ \\
+$O_7$ Rien ne sort & aucun & $0$ & $0$ & $0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \subsection{Deux lemmes de seuil}
 \begin{lemme}[seuil d'un journal]\label{lem:journal}
@@ -279,7 +425,7 @@ $(1-q)(1-\theta)D>k_W\iff q<\frac67\approx85,7\,\%$. Avec $q=0,3$ : $98>20$, Nix
 
 \paragraph{$x_4$ — le Post seul.} Lemme \ref{lem:journal} avec $\pi=q$ : il publie si $q\ge\tau_W\approx60,2\,\%$. Avec $q=0,3$ : $\E[u_W(O_5)]=-79,8<0$, il se tairait. \emph{Sans le Times, rien ne sortirait.}
 
-\paragraph{$x_0$ — le Times.} Avec Nixon qui poursuit et le Post qui relaie, le Times gagne finalement avec $\pi=q+(1-q)p=0,755$ ; lemme \ref{lem:journal} : $0,755\ge\tau_T=0,25$, donc il publie ($60,6>0$, l'alternative étant $O_7$). Sans relais, il ne compterait que sur le juge local : $\pi=q$, et il publierait encore tant que $q\ge\frac14$.
+\paragraph{$x_0$ — le Times.} Avec Nixon qui poursuit et le Post qui relaie, le Times gagne finalement avec $\pi=q+(1-q)p=0,755$ ; lemme \ref{lem:journal} : $0,755\ge\tau_T=0,25$, donc il publie : $60,6>0$. S'il ne publiait pas, il aurait $0$, quoi que fasse ensuite le Post. Sans relais, il ne compterait que sur le juge local : $\pi=q$, et il publierait encore tant que $q\ge\frac14$.
 
 \begin{resultat}
 \textbf{ENPS} : Times $=$ publier ; Post $=$ (publier en relais ; se taire seul) ; Nixon $=$ (poursuivre le Times ; poursuivre le Post ; poursuivre le Post seul). Feuille atteinte : $O_1$, gains espérés $(60,6;\ 8,82;\ -189,7)$.
@@ -417,7 +563,7 @@ Procès du Post trop cher & $k_W=40$ & Sans procès & $O_{4}$ & $(100;\,0;\,-200
 Menace non crédible & $k_W=60$ & Sans procès (menace non crédible) & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
 Cour suprême acquise & $p=0,9$ & Sans procès (menace non crédible) & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
 Juge local favorable & $q=0,8$ & Sans procès & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
-Publier pour ne pas être doublé & $q=0,65$, $p=0,5$, $c_T=30$, $S_T=150$ & Procès du Times seul & $O_{3}$ & $(-7;\,0;\,-161)$ & $65\,\%$ \\
+Le Post publie seul & $q=0,65$, $p=0,5$, $c_T=30$, $S_T=150$ & Le Post publie seul & $O_{5}$ & $(0;\,12,6;\,-171)$ & $65\,\%$ \\
 Menace crue à tort & $p=0,5$, $k_W=80$ & Sans procès (menace non crédible) & $O_{4}$ & $(100;\,0;\,-200)$ & $100\,\%$ \\
 \bottomrule
 \end{tabularx}

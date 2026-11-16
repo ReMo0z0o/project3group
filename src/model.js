@@ -5,55 +5,72 @@
    Les juges ne sont pas des joueurs : ils n'ont ni gains ni choix stratégique. Ils n'apparaissent
    donc pas comme nœuds de l'arbre ; leurs verdicts (probabilités q et p) sont intégrés dans les
    gains des feuilles, sous forme de gains espérés.
-   Six nœuds de décision (x0 … x5) et sept feuilles (O1 … O7, de gauche à droite sous l'arbre). */
-const BASE = { q: 0.30, p: 0.65, th: 0.30, B_T: 100, c_T: 10, S_T: 50, R_T: 50, B_W: 120, c_W: 15, S_W: 180, D: 200, k_T: 10, k_W: 20 };
+   Six nœuds de décision (x0 … x5) et sept feuilles (O1 … O7, de gauche à droite sous l'arbre).
+   Un journal qui ne publie pas a toujours un gain de 0 : c'est le cas du Times s'il renonce. */
+const BASE = { q: 0.30, p: 0.65, th: 0.30, B_T: 100, c_T: 10, S_T: 50, B_W: 120, c_W: 15, S_W: 180, D: 200, k_T: 10, k_W: 20 };
 const PLAYERS3 = ['Times', 'Post', 'Nixon'];
 
-/* Situations finales possibles, une fois les juges passés.
-   Cinq règles, appliquées de la même façon partout :
-   1. un journal qui a publié reçoit B si tout finit par sortir, θB si une censure est maintenue ;
-   2. un journal poursuivi paie ses frais de procédure c ;
-   3. une censure maintenue coûte en plus la sanction S au journal censuré ;
-   4. Nixon perd D si tout sort, θD si une censure est maintenue, et paie k par procès ;
-   5. si le Times renonce et que le Post publie, le Times perd R (scoop laissé au rival), au prorata de ce qui sort. */
-function situations(P) {
-  const { th, B_T, c_T, S_T, R_T, B_W, c_W, S_W, D, k_T, k_W } = P;
-  return {
-    judgeTimes: [B_T - c_T, 0, -D - k_T],
-    press: [B_T - c_T, B_W - c_W, -D - k_T - k_W],
-    gov: [th * B_T - c_T - S_T, th * B_W - c_W - S_W, -th * D - k_T - k_W],
-    postFree: [B_T - c_T, B_W, -D - k_T],
-    timesCensored: [th * B_T - c_T - S_T, 0, -th * D - k_T],
-    noSuit: [B_T, 0, -D],
-    judgePost: [-R_T, B_W - c_W, -D - k_W],
-    postCensored: [-th * R_T, th * B_W - c_W - S_W, -th * D - k_W],
-    postAlone: [-R_T, B_W, -D],
-    nothing: [0, 0, 0],
-  };
-}
+/* Situations finales possibles, une fois les juges passés. Chacune est décrite par des faits :
+   pubT / pubW : le journal a publié ; suedT / suedW : il est poursuivi ;
+   censT / censW : sa censure est maintenue ;
+   docs : ce qui est public à la fin ('all' : tout, 'part' : la part θ déjà parue, 'none' : rien). */
 const SITUATION_ORDER = ['judgeTimes', 'press', 'gov', 'postFree', 'timesCensored', 'noSuit', 'judgePost', 'postCensored', 'postAlone', 'nothing'];
 const SITUATION = {
-  judgeTimes: { label: 'Le juge local refuse de censurer le Times', short: 'juge favorable au Times', docs: 'all', sym: ['B_T − c_T', '0', '−D − k_T'] },
-  press: { label: 'Cour suprême : victoire des journaux (1971)', short: 'victoire des journaux', docs: 'all', sym: ['B_T − c_T', 'B_W − c_W', '−D − k_T − k_W'] },
-  gov: { label: 'Cour suprême : censure confirmée + sanctions', short: 'censure confirmée', docs: 'part', sym: ['θB_T − c_T − S_T', 'θB_W − c_W − S_W', '−θD − k_T − k_W'] },
-  postFree: { label: 'Times censuré, le Post publie sans procès', short: 'le Post publie librement', docs: 'all', sym: ['B_T − c_T', 'B_W', '−D − k_T'] },
-  timesCensored: { label: 'Times censuré, le Post se tait', short: 'Times censuré', docs: 'part', sym: ['θB_T − c_T − S_T', '0', '−θD − k_T'] },
-  noSuit: { label: 'Le Times publie, aucun procès', short: 'tout sort sans procès', docs: 'all', sym: ['B_T', '0', '−D'] },
-  judgePost: { label: 'Le juge local refuse de censurer le Post seul', short: 'juge favorable au Post', docs: 'all', sym: ['−R_T', 'B_W − c_W', '−D − k_W'] },
-  postCensored: { label: 'Le Post seul est censuré + sanctions', short: 'Post censuré', docs: 'part', sym: ['−θR_T', 'θB_W − c_W − S_W', '−θD − k_W'] },
-  postAlone: { label: 'Le Post publie seul, aucun procès', short: 'le Post publie seul', docs: 'all', sym: ['−R_T', 'B_W', '−D'] },
-  nothing: { label: 'Personne ne publie', short: 'rien ne sort', docs: 'none', sym: ['0', '0', '0'] },
+  judgeTimes: { label: 'La 1re cour refuse de censurer le Times', short: '1re cour favorable au Times', docs: 'all', pubT: 1, suedT: 1 },
+  press: { label: '2e cour : victoire des journaux (1971)', short: 'victoire des journaux', docs: 'all', pubT: 1, suedT: 1, pubW: 1, suedW: 1 },
+  gov: { label: '2e cour : censure confirmée + sanctions', short: 'censure confirmée', docs: 'part', pubT: 1, suedT: 1, censT: 1, pubW: 1, suedW: 1, censW: 1 },
+  postFree: { label: 'Times censuré, le Post publie sans procès', short: 'le Post publie librement', docs: 'all', pubT: 1, suedT: 1, pubW: 1 },
+  timesCensored: { label: 'Times censuré, le Post se tait', short: 'Times censuré', docs: 'part', pubT: 1, suedT: 1, censT: 1 },
+  noSuit: { label: 'Le Times publie, aucun procès', short: 'tout sort sans procès', docs: 'all', pubT: 1 },
+  judgePost: { label: 'La 1re cour refuse de censurer le Post seul', short: '1re cour favorable au Post', docs: 'all', pubW: 1, suedW: 1 },
+  postCensored: { label: 'Le Post seul est censuré + sanctions', short: 'Post censuré', docs: 'part', pubW: 1, suedW: 1, censW: 1 },
+  postAlone: { label: 'Le Post publie seul, aucun procès', short: 'le Post publie seul', docs: 'all', pubW: 1 },
+  nothing: { label: 'Personne ne publie', short: 'rien ne sort', docs: 'none' },
 };
-/* Chaque feuille est une loterie sur les situations finales : les probabilités viennent des juges.
-   [situation, probabilité, explication du verdict]. */
+/* Une équation par joueur, appliquée de la même façon à toutes les situations (σ = part publique) :
+   journal : 0 s'il n'a pas publié ; sinon B·σ − c (s'il est poursuivi) − S (si sa censure est maintenue) ;
+   Nixon   : −D·σ − k_T (s'il poursuit le Times) − k_W (s'il poursuit le Post). */
+const shareOf = (f, P) => (f.docs === 'all' ? 1 : f.docs === 'part' ? P.th : 0);
+function gains(f, P) {
+  const sigma = shareOf(f, P);
+  const paper = (pub, sued, cens, B, c, S) => (pub ? B * sigma - (sued ? c : 0) - (cens ? S : 0) : 0);
+  return [
+    paper(f.pubT, f.suedT, f.censT, P.B_T, P.c_T, P.S_T),
+    paper(f.pubW, f.suedW, f.censW, P.B_W, P.c_W, P.S_W),
+    -P.D * sigma - (f.suedT ? P.k_T : 0) - (f.suedW ? P.k_W : 0) + 0,
+  ];
+}
+/* La même équation, écrite en symboles (pour l'affichage). */
+function symbols(f) {
+  const t = f.docs === 'part' ? 'θ' : '';
+  const paper = (pub, sued, cens, j) => (pub ? `${t}B_${j}${sued ? ` − c_${j}` : ''}${cens ? ` − S_${j}` : ''}` : '0');
+  const nixon = [f.docs === 'none' ? '' : `−${t}D`, f.suedT ? '− k_T' : '', f.suedW ? '− k_W' : ''].filter(Boolean).join(' ') || '0';
+  return [paper(f.pubT, f.suedT, f.censT, 'T'), paper(f.pubW, f.suedW, f.censW, 'W'), nixon];
+}
+for (const f of Object.values(SITUATION)) f.sym = symbols(f);
+function situations(P) { return Object.fromEntries(SITUATION_ORDER.map(k => [k, gains(SITUATION[k], P)])); }
+
+/* Chaque feuille est une loterie sur les situations finales : seuls les juges ont une probabilité.
+   1re cour (juge local) : refuse la censure avec la probabilité q.
+   2e cour (Cour suprême), saisie quand les deux journaux sont poursuivis : donne raison aux journaux avec la probabilité p.
+   [situation, probabilité, verdict en mots, probabilité en symboles]. */
 const LEAVES = {
-  O1: { title: ['Procès du Post', '+ tribunaux'], lottery: P => [['judgeTimes', P.q, 'le juge local refuse de censurer le Times'], ['press', (1 - P.q) * P.p, 'censure du Times, puis Cour suprême favorable aux journaux'], ['gov', (1 - P.q) * (1 - P.p), 'censure du Times, puis Cour suprême favorable au gouvernement']] },
-  O2: { title: ['Le Post publie,', 'pas de procès'], lottery: P => [['judgeTimes', P.q, 'le juge local refuse de censurer le Times'], ['postFree', 1 - P.q, 'censure du Times, le Post publie tout']] },
-  O3: { title: ['Times censuré,', 'Post muet'], lottery: P => [['judgeTimes', P.q, 'le juge local refuse finalement de censurer le Times'], ['timesCensored', 1 - P.q, 'la censure du Times tient']] },
-  O4: { title: ['Tout sort,', 'sans procès'], lottery: () => [['noSuit', 1, 'aucun juge n’intervient']] },
-  O5: { title: ['Procès du Post', '+ juge local'], lottery: P => [['judgePost', P.q, 'le juge local refuse de censurer le Post'], ['postCensored', 1 - P.q, 'le Post est censuré']] },
-  O6: { title: ['Le Post', 'publie seul'], lottery: () => [['postAlone', 1, 'aucun juge n’intervient']] },
-  O7: { title: ['Rien', 'ne sort'], lottery: () => [['nothing', 1, 'aucun juge n’intervient']] },
+  O1: { title: ['Procès du Post', '+ tribunaux'], lottery: P => [
+    ['judgeTimes', P.q, 'la 1re cour refuse de censurer le Times', 'q'],
+    ['press', (1 - P.q) * P.p, 'la 1re cour censure le Times, puis la 2e cour donne raison aux journaux', '(1 − q) × p'],
+    ['gov', (1 - P.q) * (1 - P.p), 'la 1re cour censure le Times, puis la 2e cour donne raison au gouvernement', '(1 − q) × (1 − p)']] },
+  O2: { title: ['Le Post publie,', 'pas de procès'], lottery: P => [
+    ['judgeTimes', P.q, 'la 1re cour refuse de censurer le Times', 'q'],
+    ['postFree', 1 - P.q, 'la 1re cour censure le Times, le Post publie tout', '1 − q']] },
+  O3: { title: ['Times censuré,', 'Post muet'], lottery: P => [
+    ['judgeTimes', P.q, 'la 1re cour refuse de censurer le Times', 'q'],
+    ['timesCensored', 1 - P.q, 'la 1re cour censure le Times et la censure tient', '1 − q']] },
+  O4: { title: ['Tout sort,', 'sans procès'], lottery: () => [['noSuit', 1, 'aucun juge n’intervient', '1']] },
+  O5: { title: ['Procès du Post', '+ juge local'], lottery: P => [
+    ['judgePost', P.q, 'la 1re cour refuse de censurer le Post', 'q'],
+    ['postCensored', 1 - P.q, 'la 1re cour censure le Post et la censure tient', '1 − q']] },
+  O6: { title: ['Le Post', 'publie seul'], lottery: () => [['postAlone', 1, 'aucun juge n’intervient', '1']] },
+  O7: { title: ['Rien', 'ne sort'], lottery: () => [['nothing', 1, 'aucun juge n’intervient', '1']] },
 };
 const TITLE = Object.fromEntries(Object.entries(LEAVES).map(([k, v]) => [k, v.title]));
 const COURT_LEAVES = ['O1', 'O2', 'O3', 'O5'];

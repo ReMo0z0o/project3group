@@ -16,7 +16,7 @@ const context = vm.createContext({});
 vm.runInContext(
   '"use strict";' + html.slice(modelStart, modelEnd)
     + '\nconst PRESETS = ' + presetsSource[1] + ';'
-    + '\nglobalThis.model = { BASE, solve, outcomes, situations, NODES, LEAVES, SITUATION, PRESETS, regKey };',
+    + '\nglobalThis.model = { BASE, solve, outcomes, situations, gains, symbols, NODES, LEAVES, SITUATION, PRESETS, regKey };',
   context,
   { timeout: 1000 },
 );
@@ -111,10 +111,10 @@ test('the illustrative 1971 calibration reproduces the worked solution', () => {
 
 test('the leaf and situation payoffs match the worked tables', () => {
   const O = context.model.outcomes(BASE);
-  const leaves = { O1: [60.6, 8.82, -189.7], O2: [90, 84, -210], O3: [6, 0, -112], O4: [100, 0, -200], O5: [-25.5, -79.8, -122], O6: [-50, 120, -200], O7: [0, 0, 0] };
+  const leaves = { O1: [60.6, 8.82, -189.7], O2: [90, 84, -210], O3: [6, 0, -112], O4: [100, 0, -200], O5: [0, -79.8, -122], O6: [0, 120, -200], O7: [0, 0, 0] };
   for (const [id, values] of Object.entries(leaves)) values.forEach((v, k) => near(O[id][k], v, `${id} payoff ${k}`));
   const S = context.model.situations(BASE);
-  const table = { judgeTimes: [90, 0, -210], press: [90, 105, -230], gov: [-30, -159, -90], postFree: [90, 120, -210], timesCensored: [-30, 0, -70], noSuit: [100, 0, -200], judgePost: [-50, 105, -220], postCensored: [-15, -159, -80], postAlone: [-50, 120, -200], nothing: [0, 0, 0] };
+  const table = { judgeTimes: [90, 0, -210], press: [90, 105, -230], gov: [-30, -159, -90], postFree: [90, 120, -210], timesCensored: [-30, 0, -70], noSuit: [100, 0, -200], judgePost: [0, 105, -220], postCensored: [0, -159, -80], postAlone: [0, 120, -200], nothing: [0, 0, 0] };
   for (const [id, values] of Object.entries(table)) values.forEach((v, k) => near(S[id][k], v, `${id} payoff ${k}`));
 });
 
@@ -129,7 +129,7 @@ test('every named laboratory scenario has the advertised result', () => {
     noncred: { regime: 'NC', full: 1, root: [100, 0, -200], g2Sue: false },
     cour: { regime: 'NC', full: 1, root: [100, 0, -200], g2Sue: false },
     juge: { regime: 'NOSUIT', full: 1, root: [100, 0, -200], wAlone: true },
-    preempt: { regime: 'NYT_ONLY', full: .65, root: [-7, 0, -161], wAlone: true },
+    seul: { regime: 'ALONE', full: .65, root: [0, 12.6, -171], wAlone: true },
     nash: { regime: 'NC', full: 1, root: [100, 0, -200], g2Sue: false },
   };
   assert.deepEqual(Object.keys(PRESETS).sort(), Object.keys(expected).sort(), 'Every available scenario has an explicit expected result');
@@ -141,10 +141,48 @@ test('every named laboratory scenario has the advertised result', () => {
     fixture.root.forEach((value, index) => near(result.root[index], value, `${id}: expected utility ${index}`));
     for (const key of ['g2Sue', 'wPub', 'wAlone']) if (key in fixture) assert.equal(result[key], fixture[key], `${id}: ${key}`);
   }
-  // Without the scoop loss, the Times would leave the story to the Post: the new branch matters.
-  const noRivalry = checkSolution({ ...BASE, ...PRESETS.preempt[1], R_T: 0 }, 'preempt without R_T');
-  assert.equal(noRivalry.regime, 'ALONE');
-  near(noRivalry.situ.judgePost, .65, 'the Post alone wins before the local judge');
+  // In that last scenario the Times gives up and the Post, alone, faces only the local judge.
+  const alone = solve({ ...BASE, ...PRESETS.seul[1] });
+  assert.equal(alone.tPub, false);
+  near(alone.situ.judgePost, .65, 'the Post alone wins before the local judge');
+  near(alone.situ.postCensored, .35, 'the Post alone is censored');
+});
+
+test('a newspaper that does not publish always gets zero', () => {
+  let seed = 7;
+  const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+  for (let index = 0; index < 300; index++) {
+    const P = { q: random(), p: random(), th: random() * .95, B_T: random() * 300, c_T: random() * 120, S_T: random() * 400, B_W: random() * 300, c_W: random() * 120, S_W: random() * 400, D: random() * 500, k_T: random() * 120, k_W: random() * 120 };
+    const O = context.model.outcomes(P), S = context.model.situations(P);
+    // The Times does not publish in O5, O6 and O7, whatever the Post and the administration do next.
+    for (const id of ['O5', 'O6', 'O7']) assert.equal(O[id][0], 0, `Times payoff in ${id}`);
+    // The Post does not publish in O3, O4 and O7.
+    for (const id of ['O3', 'O4', 'O7']) assert.equal(O[id][1], 0, `Post payoff in ${id}`);
+    for (const [id, facts] of Object.entries(SITUATION)) {
+      if (!facts.pubT) assert.equal(S[id][0], 0, `Times payoff when it has not published (${id})`);
+      if (!facts.pubW) assert.equal(S[id][1], 0, `Post payoff when it has not published (${id})`);
+      assert.ok(S[id][2] <= 0, `the administration never gains from a leak (${id})`);
+    }
+  }
+});
+
+test('the displayed equations compute the same payoffs as the model', () => {
+  // Evaluate each symbolic expression shown in the app and compare it with the computed payoff.
+  const evaluate = (expression, P) => Function('P', 'return ' + expression
+    .replace(/−/g, '-').replace(/θ/g, 'P.th*')
+    .replace(/([BcSk])_([TW])/g, 'P.$1_$2').replace(/(?<![.\w])D/g, 'P.D'))(P);
+  for (const P of [BASE, { ...BASE, th: .5, B_T: 70, c_W: 33, S_T: 12, D: 310, k_T: 4, k_W: 51 }]) {
+    const S = context.model.situations(P);
+    for (const [id, facts] of Object.entries(SITUATION)) {
+      facts.sym.forEach((expression, k) => near(evaluate(expression, P), S[id][k], `${id}, player ${k}: ${expression}`));
+    }
+  }
+  // Preference orders that make the payoffs consistent with each player's objective.
+  const S = context.model.situations(BASE);
+  for (const [free, won, censored] of [[S.noSuit[0], S.judgeTimes[0], S.timesCensored[0]], [S.postAlone[1], S.judgePost[1], S.postCensored[1]]]) {
+    assert.ok(free > won && won > 0 && 0 > censored, 'publish freely > win the trial > stay silent > be censored');
+  }
+  assert.ok(S.nothing[2] > S.timesCensored[2] && S.timesCensored[2] > S.noSuit[2] && S.noSuit[2] > S.press[2], 'secret kept > censorship upheld > everything out');
 });
 
 test('Nash equilibria: the subgame-perfect profile is one of them, non-credible threats add others', () => {
@@ -206,7 +244,7 @@ test('zero-damage and zero-benefit cases retain meaningful thresholds', () => {
 test('probability endpoints and parameter sweeps preserve equilibrium consistency', () => {
   for (const q of [0, .3, 1]) for (const p of [0, .5, .65, 1]) checkSolution({ ...BASE, q, p }, `probability endpoints q=${q}, p=${p}`);
   const values = {
-    B_T: [0, 1, 100, 300], c_T: [0, 10, 70.6, 120], S_T: [0, 50, 297, 400], R_T: [0, 50, 200],
+    B_T: [0, 1, 100, 300], c_T: [0, 10, 70.6, 120], S_T: [0, 50, 297, 400],
     th: [0, .3, .95], B_W: [0, 1, 120, 300], c_W: [0, 15, 27.6, 120],
     S_W: [0, 180, 216, 400], D: [0, 1, 200, 500], k_T: [0, 10, 20.3, 120], k_W: [0, 20, 34.7, 49, 120],
   };
