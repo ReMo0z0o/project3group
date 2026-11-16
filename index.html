@@ -757,6 +757,76 @@ table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:60
 .course-note,.payoff-functions,.latex-code,.tex-wrap,.leaf-card,.leaf-player{min-width:0;max-width:100%}
 .tex-wrap math.tml-display{width:max-content;min-width:100%}
 .tex-list{margin:4px 0 10px;padding-left:22px;display:grid;gap:4px;font:15px/1.6 var(--f-ui)}
+/* Consignes de l'énoncé : rappel en tête de chapitre, plan des réponses. */
+.consigne{border:1px solid var(--rule);border-left:3px solid var(--stamp);border-radius:0 6px 6px 0;background:var(--surface);padding:14px 18px;display:grid;gap:10px;min-width:0}
+.consigne-item{display:grid;gap:4px}
+.consigne-tag{font:600 9px var(--f-display);letter-spacing:1.2px;text-transform:uppercase;color:var(--stamp)}
+.consigne p{font:italic 15px/1.55 var(--f-body);color:var(--ink2)}
+.consigne-link{font:600 12px var(--f-ui);color:var(--stamp);justify-self:start}
+.consigne-map{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.consigne-map li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;padding:16px 18px;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+.cm-n{font:600 22px var(--f-display);color:var(--stamp)}
+.consigne-map h3{font-size:18px;margin-bottom:4px}
+.consigne-map p{font:italic 14.5px/1.55 var(--f-body);color:var(--ink2)}
+.consigne-map .cm-links{font:600 12.5px/1.8 var(--f-ui);margin-top:6px;display:flex;flex-wrap:wrap;gap:2px 16px}
+.cm-links a,.answer-links a,.home-consignes-more a{color:var(--stamp)}
+.consignes-home{padding:35px 0 0}
+.home-consignes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,195px),1fr));gap:10px}
+.home-consignes a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;height:100%;padding:14px 16px;border:1px solid var(--rule);border-radius:7px;background:var(--surface);text-decoration:none;transition:border-color .2s}
+.home-consignes a:hover{border-color:var(--stamp)}
+.hc-n{font:600 18px var(--f-display);color:var(--stamp)}
+.hc-t{display:grid;gap:2px}.hc-t b{font:500 14px/1.35 var(--f-ui)}.hc-t small{font:10px/1.5 var(--f-display);color:var(--muted)}
+.hc-arrow{color:var(--stamp)}
+.home-consignes-more{margin-top:12px;font:600 12px var(--f-ui)}
+.answer-quote{margin:0 0 10px;padding:8px 12px;border-left:2px solid var(--rule);font:italic 14.5px/1.55 var(--f-body);color:var(--muted)}
+.answer-links{margin-top:10px;font:600 12.5px var(--f-ui)}
+/* Leçon sur les gains : cinq étapes. */
+.lesson-nav{display:flex;flex-wrap:wrap;gap:8px}
+.lesson-step{display:grid;gap:14px;padding-top:22px;border-top:2px solid var(--ink);min-width:0;scroll-margin-top:110px}
+.lesson-step>*{min-width:0}
+.step-head{display:grid;gap:6px}
+.step-n{font:600 10px var(--f-display);letter-spacing:1.6px;text-transform:uppercase;color:var(--stamp)}
+.step-head h3{font-size:26px}
+.step-text{font:14.5px/1.75 var(--f-ui);max-width:82ch;color:var(--ink2)}
+.step-sub{font:600 16px var(--f-ui);margin:8px 0 0}
+.ing-card{gap:12px}.ing-card h3{font-size:17px}
+.ing-row{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start}
+.ing-sym{font-size:26px;line-height:1.1}
+.ing-val{font-size:14px;color:var(--ink);margin-top:2px;white-space:normal}
+.eq-card{border:1px solid var(--rule);border-left:4px solid var(--c);border-radius:0 7px 7px 0;background:var(--surface);padding:16px 18px;display:grid;gap:10px;min-width:0}
+.eq-card>*{min-width:0}
+.eq-who{font:600 11px var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--c)}
+.words-eq{font:500 15px/1.6 var(--f-ui);padding:10px 14px;border:1px dashed var(--rule);border-radius:5px;background:var(--bg);max-width:82ch}
+.zero-rule{font:14.5px/1.6 var(--f-ui);padding:8px 12px;border-radius:5px;background:color-mix(in srgb,var(--stamp) 8%,var(--surface))}
+.cases-table caption{caption-side:top;text-align:left;font:600 13px var(--f-ui);padding:0 0 8px}
+.cases-table td{vertical-align:top}
+.cases-table td.m{white-space:nowrap}
+.calc-cell{font:13.5px/1.6 var(--f-ui);color:var(--ink2);border-left:2px solid var(--c);min-width:150px}
+.calc-cell b{color:var(--c)}
+.calc-cell .m{white-space:normal}
+.pref{display:grid;gap:10px}
+.pref-row{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--rule);border-left:4px solid var(--c);border-radius:0 6px 6px 0;background:var(--surface)}
+.pref-title{font:600 13.5px var(--f-ui)}
+.pref-chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pref-item{display:grid;gap:1px;padding:6px 10px;border:1px solid var(--rule);border-radius:5px;background:var(--bg);text-align:center}
+.pref-item b{font:600 15px var(--f-display);color:var(--c)}
+.pref-item small{font:11px var(--f-ui);color:var(--muted)}
+.pref-gt{font:600 16px var(--f-display);color:var(--muted)}
+.gain-lab{gap:14px}
+.gain-sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px 24px;align-items:end}
+.gain-sliders .btn{justify-self:start}
+.leaf-details.court-leaves{grid-template-columns:minmax(0,1fr)}
+.geste{display:flex;gap:10px;align-items:center;font:600 13.5px var(--f-ui);margin-top:6px}
+.geste-n{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--bg);font:600 11px var(--f-display)}
+.verdict-bar{height:30px}
+.verdict-list{list-style:none;margin:0;padding:0;display:grid;gap:5px;font:13.5px/1.55 var(--f-ui)}
+.verdict-list li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:8px;align-items:baseline}
+.verdict-total{font:13px var(--f-ui);color:var(--muted)}
+.verdict-table td small{display:block;font-size:11px;font-weight:400;color:var(--muted);white-space:nowrap}
+.verdict-table td:first-child{min-width:200px}
+@media(max-width:650px){.step-head h3{font-size:22px}.consigne-map li{grid-template-columns:minmax(0,1fr);gap:4px}}
+@media print{.lesson-nav,.gain-sliders,.consigne-link{display:none!important}.lesson-step,.eq-card,.pref-row,.consigne{break-inside:avoid}}
+@media(max-width:650px){.verdict-table td small{display:none}.verdict-table td:first-child{min-width:112px}.verdict-table td,.verdict-table th{padding:8px 5px}.verdict-table th{letter-spacing:.3px}}
 
 .tree-wrap svg.course-tree{min-width:var(--tree-min-width,1000px);height:auto;max-height:none;overflow:visible}
 .course-tree text{font-family:var(--f-ui);font-size:16px;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
@@ -932,6 +1002,11 @@ table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:60
           <a class="journey-card" href="#labo"><span class="journey-number">03</span><svg viewBox="0 0 100 90" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M18 24h65M18 44h65M18 64h65"/><rect x="32" y="18" width="7" height="12" rx="2" fill="var(--bg)"/><rect x="62" y="38" width="7" height="12" rx="2" fill="var(--stamp)"/><rect x="43" y="58" width="7" height="12" rx="2" fill="var(--bg)"/><path d="M18 16v60M83 16v60M23 80h20m6 0h14M55 11h18" opacity=".3"/><circle cx="83" cy="8" r="3" opacity=".4"/></svg><h3>Changer le cours des choses</h3><p>Modifiez les probabilités et les coûts. Observez l’équilibre changer.</p><span class="card-link">Ouvrir le laboratoire<b>↗</b></span></a>
         </div>
       </section>
+      <section class="consignes-home" aria-labelledby="consignes-title">
+        <div class="section-eyebrow-row"><h2 id="consignes-title">Répondre à l’énoncé.</h2><span>Cinq consignes, cinq réponses</span></div>
+        <ol class="home-consignes" id="home-consignes"></ol>
+        <p class="home-consignes-more"><a href="#enonce">Lire les cinq réponses rédigées →</a></p>
+      </section>
       <div class="quote-strip"><span class="quote-symbol" aria-hidden="true">“</span><p class="quote-text">Let’s go. Let’s publish.</p><span class="quote-source">KATHARINE GRAHAM<br>WASHINGTON POST · 17 JUIN 1971</span></div>
       <p class="home-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="6"/><path d="M8 7v4m0-7v1"/></svg>Une histoire réelle, un modèle pédagogique. Les gains et probabilités sont un calibrage illustratif, pas des estimations historiques.</p>
     </div>
@@ -1064,8 +1139,12 @@ table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:60
         <div class="card" style="border-top:4px solid var(--gov)"><div class="tag" style="color:var(--gov)">Question 2</div><h3>Pourquoi l'administration Nixon porte-t-elle l'affaire devant les tribunaux ?</h3></div>
       </div>
       <div class="prose">
-        <p><strong>Pourquoi un jeu séquentiel ?</strong> Parce que les décisions se prennent <em>à tour de rôle</em> : le Times publie d'abord, Nixon réagit, un juge tranche, puis le Post décide en connaissant tout ce qui précède. Chaque joueur peut donc anticiper la réaction de ceux qui jouent après lui.</p>
-        <p><strong>Et si le Times avait refusé ?</strong> Ellsberg aurait cherché un autre journal. Notre arbre le prévoit : le Post peut aussi publier <em>seul</em>. Cette branche permet de répondre à une question que l'histoire ne montre pas : le secret aurait-il tenu sans le Times ? La page <a href="#enonce">Réponses à l'énoncé</a> reprend chaque consigne point par point.</p>
+        <p><strong>Cinq consignes guident le travail.</strong> Ce dossier est construit pour y répondre : chaque consigne a son chapitre, où elle est rappelée en tête de page, et une réponse rédigée dans la <a href="#enonce">pièce 13</a>.</p>
+      </div>
+      <ol class="consigne-map" id="consigne-map"></ol>
+      <div class="prose">
+        <p><strong>Pourquoi un jeu séquentiel ?</strong> Parce que les décisions se prennent <em>à tour de rôle</em> : le Times publie d'abord, Nixon réagit, puis le Post décide en connaissant tout ce qui précède. Chaque joueur peut donc anticiper la réaction de ceux qui jouent après lui.</p>
+        <p><strong>Et si le Times avait refusé ?</strong> Ellsberg aurait cherché un autre journal. Notre arbre le prévoit : le Post peut aussi publier <em>seul</em>. Cette branche permet de répondre à une question que l'histoire ne montre pas : le secret aurait-il tenu sans le Times ?</p>
       </div>
     </section>
 
@@ -1187,19 +1266,14 @@ table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:60
         <p>Point de départ : un arbre « en chaîne » (Times → Nixon → juge → Post → Nixon → Cour suprême) où le jeu s’arrête dès que le Times renonce. Il explique 1971, mais il ne dit rien de ce qui se serait passé sans le Times.</p>
       </div>
       <div class="grid2 choices">
-        <div class="card"><div class="tag" style="color:var(--wp)">Choix 1 · une nouvelle branche</div><h3>Le Times n’est pas le seul à pouvoir publier</h3><div class="k">Ellsberg avait déjà proposé l’étude à des sénateurs, dont J. William Fulbright, avant de la confier au Times. Si le Times refuse, il se tourne vers le Post. Sans cette branche, « ne pas publier » donnerait toujours 0 au Times et l’arbre s’arrêterait : impossible de savoir si le secret aurait tenu.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> le Post décide à deux nœuds, Nixon à trois. Les stratégies s’enrichissent (4 pour le Post, 8 pour Nixon).</div></div>
+        <div class="card"><div class="tag" style="color:var(--wp)">Choix 1 · une nouvelle branche</div><h3>Le Times n’est pas le seul à pouvoir publier</h3><div class="k">Ellsberg avait déjà proposé l’étude à des sénateurs, dont J. William Fulbright, avant de la confier au Times. Si le Times refuse, il se tourne vers le Post. Sans cette branche, l’arbre s’arrêterait dès que le Times renonce : impossible de savoir si le secret aurait tenu.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> le Post décide à deux nœuds, Nixon à trois. Les stratégies s’enrichissent (4 pour le Post, 8 pour Nixon).</div></div>
         <div class="card"><div class="tag" style="color:var(--nat)">Choix 2 · les juges</div><h3>Les juges ne sont pas des joueurs</h3><div class="k">Ils n’ont ni gains ni choix stratégique : ils n’ont donc pas de nœud dans l’arbre. Leurs verdicts sont incertains (un juge local refuse la censure avec la probabilité <span class="m">q</span>, la Cour suprême donne raison aux journaux avec <span class="m">p</span>) et n’agissent que sur les gains des trois joueurs. Une poursuite ne censure pas à coup sûr : le juge Gurfein a suspendu le Times le 15 juin, mais le 19 juin il a refusé l’injonction demandée par le gouvernement.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> les feuilles avec procès portent des gains espérés.</div></div>
         <div class="card"><div class="tag" style="color:var(--nat)">Choix 3 · la Cour suprême</div><h3>Saisie en urgence quand deux journaux sont poursuivis</h3><div class="k">En 1971, la Cour a joint les deux affaires et tranché 17 jours après le premier article. Sans second journal, la procédure suit son cours ordinaire : la censure provisoire reste en place assez longtemps pour que les révélations perdent l’essentiel de leur portée.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> la Cour suprême n’intervient que dans la feuille « Procès du Post + tribunaux » (O1). Si le Post se tait, la censure du Times tient dès que le juge local l’ordonne.</div></div>
         <div class="card"><div class="tag" style="color:var(--stamp)">Choix 4 · le prix d’une censure</div><h3>Une censure maintenue coûte au journal</h3><div class="k">Un journal censuré garde la valeur de ce qu’il a déjà publié (<span class="m">θB</span>), paie ses frais (<span class="m">c</span>) et subit la sanction <span class="m">S</span> : poursuites, amendes et, pour le Post, son entrée en bourse et ses licences de télévision.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> la même règle vaut pour le Times et pour le Post, quelle que soit la branche.</div></div>
-        <div class="card"><div class="tag" style="color:var(--nyt)">Choix 5 · la rivalité</div><h3>Le Times n’aime pas être doublé</h3><div class="k">Le Times détenait les documents depuis mars et y travaillait en secret depuis près de trois mois. S’il renonce et que le Post publie, il perd le scoop au profit de son rival : une perte <span class="m">R<sub>T</sub></span>, proportionnelle à ce qui sort.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> sans ce terme, la nouvelle branche ne changerait jamais la décision du Times.</div></div>
-        <div class="card"><div class="tag" style="color:var(--ok)">Choix 6 · la cohérence</div><h3>Les mêmes ingrédients dans tous les sous-jeux</h3><div class="k">Chaque gain est construit avec cinq règles fixes (pièce 7). « Tout sort » coûte toujours <span class="m">D</span> à Nixon, une censure maintenue toujours <span class="m">θD</span>. Une même situation reçoit donc le même gain, quel que soit le chemin qui y mène.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> c’est ce que l’énoncé appelle des gains « cohérents entre les (sous-)jeux ».</div></div>
+        <div class="card"><div class="tag" style="color:var(--nyt)">Choix 5 · la règle du zéro</div><h3>Qui ne publie pas n’a ni gain ni perte</h3><div class="k">Un journal qui ne publie pas n’a pas de scoop, pas de procès et pas de sanction : son gain est 0. Si le Times renonce, il a donc 0, que le Post publie ensuite ou non, et que Nixon poursuive le Post ou non.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> le Times compare seulement « publier » à 0. La branche de droite ne change pas son choix ; elle dit si les documents seraient sortis sans lui.</div></div>
+        <div class="card"><div class="tag" style="color:var(--ok)">Choix 6 · la cohérence</div><h3>Les mêmes ingrédients dans tous les sous-jeux</h3><div class="k">Chaque gain vient d’une seule équation par joueur (pièce 7). « Tout sort » coûte toujours <span class="m">D</span> à Nixon, une censure maintenue toujours <span class="m">θD</span>. Une même situation reçoit donc le même gain, quel que soit le chemin qui y mène.</div><div class="k" style="color:var(--muted)"><b>Effet :</b> c’est ce que l’énoncé appelle des gains « cohérents entre les (sous-)jeux ».</div></div>
       </div>
-      <figure>
-        <div class="eyebrow">Où sont passés les juges ? Dans les gains des feuilles</div>
-        <p class="ui" style="font-size:15.5px">Chaque feuille avec procès regroupe les verdicts possibles des juges. Ses gains sont la moyenne des situations finales, pondérée par la probabilité de chaque verdict :</p>
-        <div class="scroll-x"><table class="pay" id="folded-table"></table></div>
-        <p class="ui small" id="folded-note"></p>
-      </figure>
+      <div class="note"><strong>Où sont passés les juges ? Dans les gains des feuilles.</strong> Chaque feuille avec procès regroupe les verdicts possibles. Chaque joueur y reçoit la moyenne de ses gains, pondérée par la probabilité de chaque verdict. Exemple : « Times censuré, Post muet » (O3) vaut 0,3 × (90 ; 0 ; −210) + 0,7 × (−30 ; 0 ; −70) = (6 ; 0 ; −112). Le calcul complet, feuille par feuille, est à l’<a href="#gains">étape 4 de la pièce 7</a>.</div>
       <figure>
         <div class="eyebrow">Deux arbres comparés</div>
         <div class="scroll-x"><table class="pay compare-table">
@@ -1218,15 +1292,103 @@ table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:60
 
     <!-- 7. GAINS -->
     <section class="piece" id="gains" data-toc="Les gains">
-      <div class="piece-head"><div class="eyebrow">Pièce 7</div><h2>Des gains cohérents avec les objectifs</h2></div>
-      <div class="prose"><p>Chaque gain se calcule avec les <strong>mêmes règles</strong>, dans tous les sous-jeux. Elles traduisent les objectifs des joueurs : les journaux veulent publier sans y laisser leur avenir, Nixon veut garder le secret sans multiplier les procès coûteux.</p></div>
-      <ol class="rules ui">
-        <li><b>Publier rapporte.</b> Un journal qui a publié reçoit <span class="m">B</span> si tout finit par sortir, <span class="m">θB</span> si sa censure est maintenue (il garde la part déjà publiée).</li>
-        <li><b>Un procès coûte.</b> Un journal poursuivi paie ses frais <span class="m">c</span> ; Nixon paie <span class="m">k</span> par procès engagé.</li>
-        <li><b>Une censure maintenue punit.</b> Le journal censuré subit en plus la sanction <span class="m">S</span>.</li>
-        <li><b>La fuite fait mal.</b> Nixon perd <span class="m">D</span> si tout sort, <span class="m">θD</span> si une censure est maintenue, 0 si rien ne sort.</li>
-        <li><b>Être doublé coûte.</b> Si le Times renonce et que le Post publie, le Times perd <span class="m">R<sub>T</sub></span> si tout sort, <span class="m">θR<sub>T</sub></span> si le Post est censuré.</li>
-      </ol>
+      <div class="piece-head"><div class="eyebrow">Pièce 7</div><h2>Les gains : la méthode de calcul, pas à pas</h2></div>
+      <div class="prose">
+        <p class="lead">Un gain est un nombre qui dit ce qu’une issue vaut pour un joueur. Plus il est grand, plus le joueur préfère cette issue.</p>
+        <p>Ce chapitre montre d’où vient chacun des nombres écrits sous l’arbre. La méthode tient en cinq étapes. Les trois premières ne demandent que des additions et des soustractions. La quatrième ajoute les juges : comme leur verdict est incertain, on fait une moyenne pondérée.</p>
+      </div>
+      <div class="lesson-nav" role="group" aria-label="Aller à une étape du calcul des gains">
+        <button type="button" class="btn sm ghost" data-step-target="gain-step-1">1 · Les ingrédients</button>
+        <button type="button" class="btn sm ghost" data-step-target="gain-step-2">2 · Une équation par joueur</button>
+        <button type="button" class="btn sm ghost" data-step-target="gain-step-3">3 · Les feuilles sans juge</button>
+        <button type="button" class="btn sm ghost" data-step-target="gain-step-4">4 · Les feuilles avec juges</button>
+        <button type="button" class="btn sm ghost" data-step-target="gain-step-5">5 · Le tableau final</button>
+      </div>
+
+      <div class="lesson-step" id="gain-step-1">
+        <div class="step-head"><span class="step-n">Étape 1</span><h3>Les ingrédients : ce que chacun peut gagner ou perdre</h3></div>
+        <p class="step-text">Avant d’écrire une équation, on fait la liste de ce qui compte pour chaque joueur. Chaque élément reçoit une lettre et une valeur en <b>points d’utilité</b>. Ces points n’ont pas d’unité, ce ne sont pas des dollars : seul compte le rapport entre les valeurs. On fixe le plus gros enjeu, le dommage de Nixon si tout sort, à 200, et on situe le reste par rapport à lui.</p>
+        <div class="grid3" id="ingredients"></div>
+        <details class="calc-details" open><summary>Pourquoi ces valeurs ? La justification de chaque nombre</summary><div class="scroll-x"><table class="pay" id="whytable"></table></div></details>
+      </div>
+
+      <div class="lesson-step" id="gain-step-2">
+        <div class="step-head"><span class="step-n">Étape 2</span><h3>Une équation par joueur</h3></div>
+        <p class="step-text">On assemble maintenant les ingrédients. Chaque joueur a <b>une seule équation</b>, la même pour toutes les issues. C’est ce qui garantit des gains cohérents d’un sous-jeu à l’autre.</p>
+        <p class="step-text"><b>D’abord, ce qui sort.</b> Les gains dépendent de la part des documents qui finit par être publique. On la note <span class="tex">\sigma</span> :</p>
+        <ul class="tex-list">
+          <li><span class="tex">\sigma=1</span> si tout sort ;</li>
+          <li><span class="tex">\sigma=\theta=0{,}3</span> si une censure est maintenue : seuls les trois premiers articles sont parus ;</li>
+          <li><span class="tex">\sigma=0</span> si rien ne sort.</li>
+        </ul>
+        <div class="eq-card" style="--c:var(--nyt)">
+          <div class="eq-who">Un journal : le Times ou le Post</div>
+          <p class="words-eq">gain = valeur de ce qu’il a réussi à publier − ses frais s’il est poursuivi − sa sanction si sa censure est maintenue</p>
+          <div class="tex-wrap"><div class="tex tex-display">u_{j}=B_{j}\,\sigma\;-\;c_{j}\,\mathbf{1}_{\{\text{poursuivi}\}}\;-\;S_{j}\,\mathbf{1}_{\{\text{censure maintenue}\}}</div></div>
+          <p class="step-text">La lettre <span class="tex">j</span> désigne le journal : <span class="tex">j=T</span> pour le Times, <span class="tex">j=W</span> pour le Post. Le symbole <span class="tex">\mathbf{1}_{\{\dots\}}</span> est une case à cocher : il vaut 1 si la phrase entre accolades est vraie, 0 sinon. Un journal qui n’est pas poursuivi ne paie donc pas <span class="tex">c_j</span>.</p>
+          <p class="zero-rule"><b>Et s’il ne publie pas : <span class="tex">u_j=0</span>.</b> Pas de scoop, pas de procès, pas de sanction.</p>
+        </div>
+        <div class="eq-card" style="--c:var(--gov)">
+          <div class="eq-who">L’administration Nixon</div>
+          <p class="words-eq">gain = − dommage de ce qui sort − coût de chaque procès qu’elle engage</p>
+          <div class="tex-wrap"><div class="tex tex-display">u_{N}=-\,D\,\sigma\;-\;k_{T}\,\mathbf{1}_{\{\text{Times poursuivi}\}}\;-\;k_{W}\,\mathbf{1}_{\{\text{Post poursuivi}\}}</div></div>
+          <p class="step-text">Ses gains sont toujours négatifs ou nuls. Pour Nixon, le mieux possible est que rien ne sorte et qu’aucun procès n’ait lieu : 0.</p>
+        </div>
+        <h4 class="step-sub">On applique l’équation : tous les cas possibles</h4>
+        <p class="step-text">Pour un journal, il n’existe que quatre cas. Pour Nixon, huit. Chaque nombre de l’arbre est construit à partir de ces lignes.</p>
+        <div class="scroll-x"><table class="pay cases-table" id="journal-cases"></table></div>
+        <div class="scroll-x"><table class="pay cases-table" id="nixon-cases"></table></div>
+        <div class="note red"><strong>Pas de publication, pas de gain ni de perte.</strong> Si le Times renonce, il n’a rien publié : pas de scoop, pas de procès, pas de sanction. Son gain est <b>0</b>, que le Post publie ensuite ou non, et que Nixon poursuive le Post ou non. C’est pourquoi le Times a 0 dans les trois feuilles de droite de l’arbre (O5, O6 et O7). La même règle vaut pour le Post chaque fois qu’il se tait.</div>
+        <h4 class="step-sub">Vérification : ces gains respectent-ils les objectifs des joueurs ?</h4>
+        <p class="step-text">On classe les cas du meilleur au pire pour chaque joueur. L’ordre doit correspondre à ce que le joueur veut vraiment.</p>
+        <div class="pref" id="pref-check"></div>
+      </div>
+
+      <div class="lesson-step" id="gain-step-3">
+        <div class="step-head"><span class="step-n">Étape 3</span><h3>Les feuilles sans juge : le gain est certain</h3></div>
+        <p class="step-text">Trois feuilles de l’arbre ne passent devant aucun tribunal, parce que personne n’y est poursuivi. On applique directement les équations de l’étape 2.</p>
+        <div class="leaf-details" id="certain-leaves"></div>
+      </div>
+
+      <div class="lesson-step" id="gain-step-4">
+        <div class="step-head"><span class="step-n">Étape 4</span><h3>Les feuilles avec procès : les juges entrent dans les gains</h3></div>
+        <p class="step-text"><b>Les juges ne sont pas des joueurs.</b> Ils n’ont pas de gains et pas de nœud dans l’arbre. Mais leur verdict change les gains du Times, du Post et de Nixon. Comme ce verdict n’est pas connu d’avance, on lui donne une probabilité. Il y en a deux, et seulement deux :</p>
+        <div class="grid2 courts">
+          <div class="card"><div class="tag" style="color:var(--nat)">1re cour · le juge local</div><h3><span class="m">q</span> = 30 %</h3><div class="k">Probabilité qu’elle <b>refuse la censure</b>. Avec la probabilité <span class="m">1 − q</span> = 70 %, elle censure le journal.</div></div>
+          <div class="card"><div class="tag" style="color:var(--nat)">2e cour · la Cour suprême</div><h3><span class="m">p</span> = 65 %</h3><div class="k">Probabilité qu’elle <b>donne raison aux journaux</b>. Elle n’intervient que si la 1re cour a censuré et si les deux journaux sont poursuivis : les deux affaires sont alors jugées ensemble.</div></div>
+        </div>
+        <p class="step-text">Le Times, le Post et Nixon, eux, ne tirent rien au sort : ils <em>choisissent</em>. Seuls les verdicts sont aléatoires, et ils n’agissent que sur les gains.</p>
+        <h4 class="step-sub">L’idée : le gain espéré</h4>
+        <p class="step-text">Quand on ne sait pas quel verdict tombera, on calcule ce que le joueur obtient <b>en moyenne</b>. Exemple : un billet qui rapporte 100 avec 30 % de chances, et 0 sinon, vaut en moyenne 0,3 × 100 + 0,7 × 0 = 30.</p>
+        <p class="words-eq">gain espéré = somme, sur tous les verdicts possibles, de (probabilité du verdict × gain après ce verdict)</p>
+        <div class="tex-wrap"><div class="tex tex-display">\mathbb{E}[u_i]=\sum_{v}\Pr(v)\times u_i(v)</div></div>
+        <p class="step-text">Ici <span class="tex">v</span> parcourt les verdicts possibles et <span class="tex">i</span> désigne le joueur. La méthode tient en trois gestes :</p>
+        <ol class="rules ui">
+          <li><b>Lister les verdicts possibles</b> et leurs probabilités. Leur total doit faire 100 %.</li>
+          <li><b>Calculer le gain après chaque verdict</b>, avec les équations de l’étape 2.</li>
+          <li><b>Multiplier</b> chaque gain par la probabilité de son verdict, puis <b>additionner</b>.</li>
+        </ol>
+        <figure class="gain-lab">
+          <div class="eyebrow">À vous de jouer · changez les probabilités des juges</div>
+          <p class="ui" style="font-size:15px">Déplacez les curseurs : les gains des quatre feuilles avec procès se recalculent sous vos yeux. Ceux des trois feuilles sans juge ne bougent pas.</p>
+          <div class="gain-sliders">
+            <div class="sl"><label for="g-q">1re cour : elle refuse la censure (<span class="m">q</span>)</label><output id="g-qv" for="g-q">30 %</output><input type="range" id="g-q" min="0" max="1" step="0.01" value="0.3"></div>
+            <div class="sl"><label for="g-p">2e cour : elle donne raison aux journaux (<span class="m">p</span>)</label><output id="g-pv" for="g-p">65 %</output><input type="range" id="g-p" min="0" max="1" step="0.01" value="0.65"></div>
+            <button type="button" class="btn sm ghost" id="g-reset">Revenir à 30 % et 65 %</button>
+          </div>
+          <p class="small ui" id="gain-lab-status" aria-live="polite"></p>
+        </figure>
+        <div class="leaf-details court-leaves" id="court-leaves"></div>
+      </div>
+
+      <div class="lesson-step" id="gain-step-5">
+        <div class="step-head"><span class="step-n">Étape 5</span><h3>Le tableau final : les sept feuilles de l’arbre</h3></div>
+        <p class="step-text">On rassemble les résultats des étapes 3 et 4. Ce sont exactement les nombres écrits sous l’arbre : la résolution du jeu (pièce 8) part de ce tableau.</p>
+        <div class="scroll-x"><table class="pay" id="leaftable"></table></div>
+        <p class="small ui" id="leaftable-note"></p>
+        <div class="cta"><a class="btn sm ghost" href="#arbre">Revoir l’arbre</a><a class="btn sm" href="#resolution">Résoudre le jeu avec ces gains →</a></div>
+      </div>
+
       <div class="course-note payoff-course">
         <div class="eyebrow">Ce que dit le cours sur les gains</div>
         <h3>Six points du cours que nos gains respectent</h3>
@@ -1235,75 +1397,24 @@ table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:60
           <li><b>Un vecteur de gains à chaque feuille, dans un ordre fixe.</b> Ici toujours (Times ; Post ; Nixon), quel que soit le dernier joueur à avoir joué. <span class="course-ref-inline">S6, diapositives 8–9 et 14</span></li>
           <li><b>Une feuille résume une histoire complète.</b> Son gain tient compte de tout ce qui précède : publier, être poursuivi, être censuré. C’est pourquoi « tout sort » ne vaut pas la même chose avec ou sans procès (O4 et O2). <span class="course-ref-inline">S6, diapositives 14–18</span></li>
           <li><b>À un nœud, chacun ne regarde que sa propre composante.</b> Le Post compare ses gains, pas ceux de Nixon. Les gains doivent donc mesurer les objectifs de chaque joueur, pas une morale commune. <span class="course-ref-inline">S6, diapositives 21–24</span></li>
-          <li><b>Un sous-jeu garde les gains du jeu entier.</b> Pour que l’ENPS ait un sens, une même situation doit recevoir le même gain dans tous les sous-jeux : d’où cinq règles appliquées partout. <span class="course-ref-inline">S6, diapositives 10–13</span></li>
+          <li><b>Un sous-jeu garde les gains du jeu entier.</b> Pour que l’ENPS ait un sens, une même situation doit recevoir le même gain dans tous les sous-jeux : d’où une seule équation par joueur, appliquée partout. <span class="course-ref-inline">S6, diapositives 10–13</span></li>
           <li><b>Les gains servent aussi hors du chemin.</b> Les feuilles O2, O3 et O5 à O7 ne sont jamais atteintes en 1971, mais elles décident de l’équilibre : une menace se juge à ce qu’elle rapporterait si on devait l’exécuter. <span class="course-ref-inline">S6, diapositives 3–6 (jeu de l’entrée)</span></li>
         </ol>
-        <p><b>Notre ajout.</b> Les verdicts des juges sont incertains : une feuille avec procès vaut la <b>moyenne</b> des gains de ses verdicts possibles, pondérée par leurs probabilités (gain espéré). Cela suppose que nos « points d’utilité » mesurent aussi l’intensité des préférences, et pas seulement leur ordre.</p>
+        <p><b>Notre ajout.</b> Les verdicts des juges sont incertains : une feuille avec procès vaut la <b>moyenne</b> des gains de ses verdicts possibles, pondérée par leurs probabilités (gain espéré). Cela suppose que nos points d’utilité mesurent aussi l’intensité des préférences, et pas seulement leur ordre.</p>
       </div>
-      <div class="course-note payoff-functions">
-        <div class="eyebrow">Les équations des gains</div>
-        <h3>Trois fonctions de gain, une par joueur</h3>
-        <p><b>1. Ce qui sort.</b> Tout dépend de la part des documents qui finit par être publique, notée <span class="tex">\sigma</span> :</p>
-        <ul class="tex-list">
-          <li><span class="tex">\sigma=1</span> si tout sort ;</li>
-          <li><span class="tex">\sigma=\theta</span> si une censure est maintenue : seuls les premiers articles sont connus (<span class="tex">\theta=0{,}3</span>) ;</li>
-          <li><span class="tex">\sigma=0</span> si rien ne sort.</li>
-        </ul>
-        <p><b>2. Une notation.</b> Pour dire « ce terme ne compte que si tel événement se produit », on utilise une indicatrice : <span class="tex">\mathbf{1}_{A}=1</span> si l’événement <span class="tex">A</span> se produit, <span class="tex">\mathbf{1}_{A}=0</span> sinon.</p>
-        <p><b>3. Les trois fonctions de gain</b>, dans l’ordre fixe des joueurs (Times <span class="tex">T</span>, Post <span class="tex">W</span>, Nixon <span class="tex">N</span>) :</p>
-        <div class="tex-wrap"><div class="tex tex-display">u_{T}=\mathbf{1}_{\{\text{Times publie}\}}\,B_{T}\,\sigma\;-\;\mathbf{1}_{\{\text{Times poursuivi}\}}\,c_{T}\;-\;\mathbf{1}_{\{\text{censure du Times maintenue}\}}\,S_{T}\;-\;\mathbf{1}_{\{\text{Times renonce, Post publie}\}}\,R_{T}\,\sigma</div></div>
-        <div class="tex-wrap"><div class="tex tex-display">u_{W}=\mathbf{1}_{\{\text{Post publie}\}}\,B_{W}\,\sigma\;-\;\mathbf{1}_{\{\text{Post poursuivi}\}}\,c_{W}\;-\;\mathbf{1}_{\{\text{censure du Post maintenue}\}}\,S_{W}</div></div>
-        <div class="tex-wrap"><div class="tex tex-display">u_{N}=-\,D\,\sigma\;-\;\mathbf{1}_{\{\text{Times poursuivi}\}}\,k_{T}\;-\;\mathbf{1}_{\{\text{Post poursuivi}\}}\,k_{W}</div></div>
-        <div class="scroll-x"><table class="pay term-table">
-          <thead><tr><th>Terme</th><th>Ce qu’il mesure</th><th>Intuition</th><th>Règle</th></tr></thead>
-          <tbody>
-            <tr><td><span class="tex">B_{T}\,\sigma,\; B_{W}\,\sigma</span></td><td>Ce que le journal gagne à publier : le scoop, le prestige, la mission d’informer.</td><td>Proportionnel à ce qui sort : un scoop censuré après trois articles ne vaut que <span class="tex">\theta B</span>. Compté seulement si le journal a publié.</td><td>1</td></tr>
-            <tr><td><span class="tex">c_{T},\; c_{W}</span></td><td>Les frais totaux du procès pour le journal.</td><td>Payés dès qu’il est poursuivi, quel que soit le verdict : gagner un procès coûte aussi.</td><td>2</td></tr>
-            <tr><td><span class="tex">S_{T},\; S_{W}</span></td><td>La sanction si la censure est maintenue.</td><td>Poursuites, amendes ; pour le Post, son entrée en bourse et ses licences de télévision : d’où <span class="tex">S_{W}&gt;S_{T}</span>.</td><td>3</td></tr>
-            <tr><td><span class="tex">R_{T}\,\sigma</span></td><td>Le scoop laissé au rival.</td><td>Si le Times renonce et que le Post publie, il perd en proportion de ce qui sort chez son rival.</td><td>5</td></tr>
-            <tr><td><span class="tex">D\,\sigma</span></td><td>Le dommage de Nixon.</td><td>Proportionnel à ce qui sort : tout (<span class="tex">D</span>), les premiers articles (<span class="tex">\theta D</span>) ou rien.</td><td>4</td></tr>
-            <tr><td><span class="tex">k_{T},\; k_{W}</span></td><td>Le coût d’un procès pour Nixon.</td><td>Frais et surtout image de censeur, payés pour chaque journal poursuivi.</td><td>2</td></tr>
-          </tbody>
-        </table></div>
-        <p><b>4. Un exemple, la censure confirmée par la Cour suprême.</b> Les deux journaux ont publié et ont été poursuivis, et la censure est maintenue : <span class="tex">\sigma=\theta</span>, et toutes les indicatrices valent 1, sauf celle de <span class="tex">R_{T}</span> (le Times n’a pas renoncé).</p>
-        <div class="tex-wrap"><div class="tex tex-display">u_{T}=\theta B_{T}-c_{T}-S_{T}=0{,}3\times 100-10-50=-30</div></div>
-        <div class="tex-wrap"><div class="tex tex-display">u_{W}=\theta B_{W}-c_{W}-S_{W}=0{,}3\times 120-15-180=-159</div></div>
-        <div class="tex-wrap"><div class="tex tex-display">u_{N}=-\theta D-k_{T}-k_{W}=-0{,}3\times 200-10-20=-90</div></div>
-        <p><b>5. Les juges dans les gains.</b> Les juges ne sont pas des joueurs : ils n’ont pas de fonction de gain. Une feuille avec procès vaut l’espérance des situations qui suivent les verdicts possibles :</p>
-        <div class="tex-wrap"><div class="tex tex-display">\mathbb{E}\big[u_i(O_k)\big]=\sum_{v\,\in\,\text{verdicts}}\Pr(v)\;u_i\big(\text{situation après } v\big),\qquad i\in\{T,\,W,\,N\}</div></div>
-        <p>Par exemple, pour le Times à la feuille O1 (procès du Post + tribunaux), avec <span class="tex">q=0{,}3</span> et <span class="tex">p=0{,}65</span> :</p>
-        <div class="tex-wrap"><div class="tex tex-display">\mathbb{E}[u_{T}(O_1)]=q\,(B_{T}-c_{T})+(1-q)\big[p\,(B_{T}-c_{T})+(1-p)\,(\theta B_{T}-c_{T}-S_{T})\big]=0{,}3\times 90+0{,}7\,\big[0{,}65\times 90+0{,}35\times(-30)\big]=60{,}6</div></div>
-        <p><b>Pourquoi un zéro pour « rien ne sort » ?</b> C’est le point de référence (O7). Ajouter une même constante à tous les gains d’un joueur ne change aucune de ses comparaisons, donc aucun de ses choix.</p>
-        <details class="latex-code"><summary>Le code LaTeX, à copier dans votre rapport</summary><div class="latex-tools"><button type="button" class="btn sm ghost" id="copy-latex">Copier le code</button></div><pre><code id="latex-source">% Part des documents qui finit par être publique
-\[ \sigma=\begin{cases}1 &amp; \text{si tout sort,}\\ \theta &amp; \text{si une censure est maintenue (seuls les premiers articles sont connus),}\\ 0 &amp; \text{si rien ne sort.}\end{cases} \]
-% Fonctions de gain (ordre des gains : Times, Post, Nixon)
-\[ u_{T}=\mathbf{1}_{\{\text{Times publie}\}}\,B_{T}\,\sigma\;-\;\mathbf{1}_{\{\text{Times poursuivi}\}}\,c_{T}\;-\;\mathbf{1}_{\{\text{censure du Times maintenue}\}}\,S_{T}\;-\;\mathbf{1}_{\{\text{Times renonce, Post publie}\}}\,R_{T}\,\sigma \]
-\[ u_{W}=\mathbf{1}_{\{\text{Post publie}\}}\,B_{W}\,\sigma\;-\;\mathbf{1}_{\{\text{Post poursuivi}\}}\,c_{W}\;-\;\mathbf{1}_{\{\text{censure du Post maintenue}\}}\,S_{W} \]
-\[ u_{N}=-\,D\,\sigma\;-\;\mathbf{1}_{\{\text{Times poursuivi}\}}\,k_{T}\;-\;\mathbf{1}_{\{\text{Post poursuivi}\}}\,k_{W} \]
-% Gain d'une feuille avec procès : espérance sur les verdicts des juges
-\[ \mathbb{E}\big[u_i(O_k)\big]=\sum_{v\,\in\,\text{verdicts}}\Pr(v)\;u_i\big(\text{situation après } v\big),\qquad i\in\{T,\,W,\,N\} \]
-% Exemple : feuille O1, gain du Times
-\[ \mathbb{E}[u_{T}(O_1)]=q\,(B_{T}-c_{T})+(1-q)\big[p\,(B_{T}-c_{T})+(1-p)\,(\theta B_{T}-c_{T}-S_{T})\big]=0{,}3\times 90+0{,}7\,\big[0{,}65\times 90+0{,}35\times(-30)\big]=60{,}6 \]</code></pre></details>
-        <p class="course-ref">Cours : un vecteur de gains à chaque feuille, dans l’ordre fixe des joueurs (S6, diapositives 8–9 et 14) ; à chaque nœud, le joueur compare sa propre composante (S6, diapositives 21–24). Les fonctions de gain et l’espérance sur les verdicts sont notre construction.</p>
-      </div>
-      <div class="grid3" id="ingredients"></div>
-      <h3>Pourquoi ces valeurs ?</h3>
-      <div class="scroll-x"><table class="pay" id="whytable"></table></div>
-      <figure>
-        <div class="eyebrow">1 · Les situations finales (après le verdict des juges)</div>
-        <div class="toolbar"><span class="eyebrow">Tableau des gains :</span><div class="seg" role="group" aria-label="Affichage du tableau"><button type="button" id="p-sym" aria-pressed="false">en symboles</button><button type="button" id="p-num" aria-pressed="true">en valeurs</button></div></div>
-        <div class="scroll-x"><table class="pay" id="paytable"></table></div>
-        <figcaption>Valeurs en points d’utilité, avec le calibrage illustratif ci-dessus. Aucun montant monétaire réel n’est estimé.</figcaption>
-      </figure>
-      <details class="calc-details"><summary>Le calcul de chaque situation, joueur par joueur</summary><div class="calc" id="calc"></div></details>
-      <figure>
-        <div class="eyebrow">2 · Les gains des feuilles de l’arbre</div>
-        <p class="ui" style="font-size:15px">Les juges ne sont pas des joueurs : on n’en fait pas des nœuds. Chaque feuille avec procès vaut la moyenne des situations possibles, pondérée par les verdicts (<span class="m">q</span> = 0,3 ; <span class="m">p</span> = 0,65).</p>
-        <div class="scroll-x"><table class="pay" id="leaftable"></table></div>
-      </figure>
-      <h3>Le détail, feuille par feuille</h3>
-      <p class="ui small" style="max-width:80ch">Pour chaque feuille : le chemin qui y mène, l’intuition de chaque gain, l’équation et le calcul avec le calibrage de référence. Les feuilles avec procès sont des gains espérés : <span class="m">q</span> = 0,3 (un juge local refuse la censure), <span class="m">p</span> = 0,65 (la Cour suprême donne raison aux journaux).</p>
-      <div class="leaf-details" id="leaf-details"></div>
+      <details class="latex-code"><summary>Le code LaTeX des équations, à copier dans votre rapport</summary><div class="latex-tools"><button type="button" class="btn sm ghost" id="copy-latex">Copier le code</button></div><pre><code id="latex-source">% Part des documents qui finit par être publique
+\[ \sigma=\begin{cases}1 &amp; \text{si tout sort,}\\ \theta &amp; \text{si une censure est maintenue,}\\ 0 &amp; \text{si rien ne sort.}\end{cases} \]
+% Gain d'un journal j (j = T pour le Times, W pour le Post)
+\[ u_{j}=\begin{cases}0 &amp; \text{s'il ne publie pas,}\\ B_{j}\,\sigma-c_{j}\,\mathbf{1}_{\{\text{poursuivi}\}}-S_{j}\,\mathbf{1}_{\{\text{censure maintenue}\}} &amp; \text{s'il publie.}\end{cases} \]
+% Gain de Nixon
+\[ u_{N}=-\,D\,\sigma\;-\;k_{T}\,\mathbf{1}_{\{\text{Times poursuivi}\}}\;-\;k_{W}\,\mathbf{1}_{\{\text{Post poursuivi}\}} \]
+% Gain espéré d'une feuille avec procès : seuls les verdicts des juges ont une probabilité
+\[ \mathbb{E}[u_i]=\sum_{v}\Pr(v)\,u_i(v),\qquad i\in\{T,W,N\} \]
+% Feuille O1 (procès du Post + tribunaux), avec q = 0,3 et p = 0,65
+\[ \mathbb{E}[u_{T}]=q\,(B_{T}-c_{T})+(1-q)\big[p\,(B_{T}-c_{T})+(1-p)\,(\theta B_{T}-c_{T}-S_{T})\big]=60{,}6 \]
+\[ \mathbb{E}[u_{W}]=(1-q)\big[p\,(B_{W}-c_{W})+(1-p)\,(\theta B_{W}-c_{W}-S_{W})\big]=8{,}82 \]
+\[ \mathbb{E}[u_{N}]=q\,(-D-k_{T})+(1-q)\big[p\,(-D-k_{T}-k_{W})+(1-p)\,(-\theta D-k_{T}-k_{W})\big]=-189{,}7 \]</code></pre></details>
+      <div class="note pdf-note"><strong>Toutes les équations et tous les calculs en PDF.</strong> Le PDF reprend ces équations et dérive les seuils en fonction de <span class="m">q</span> et <span class="m">p</span>. <a href="docs/modele-probabilites.pdf" target="_blank" rel="noopener">Ouvrir le PDF des calculs ↗</a></div>
     </section>
 
     <!-- 8. RÉSOLUTION -->
@@ -1426,7 +1537,13 @@ table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:60
     <!-- ÉNONCÉ -->
     <section class="piece" id="enonce" data-toc="Réponses à l'énoncé">
       <div class="piece-head"><div class="eyebrow">Pièce 13</div><h2>Réponses à l'énoncé, point par point</h2></div>
+      <div class="prose"><p class="lead">L’énoncé pose une question et donne cinq consignes. Voici la réponse à chacune, avec le chapitre où tout est détaillé.</p></div>
+      <div class="grid2">
+        <div class="card" style="border-top:4px solid var(--wp)"><div class="tag" style="color:var(--wp)">Pourquoi les journaux publient</div><div class="k">Leurs chances devant les tribunaux dépassent leur seuil de risque : 75,5 % pour le Times (seuil 25 %), 65 % pour le Post (seuil 60,2 %). Le Post publie de justesse, et seulement parce que le Times a ouvert la voie.</div></div>
+        <div class="card" style="border-top:4px solid var(--gov)"><div class="tag" style="color:var(--gov)">Pourquoi Nixon va en justice</div><div class="k">Les deux procès coûtent, en moyenne, moins que le dommage qu’ils peuvent éviter (24 contre 34,3), et sa menace contre le Post est crédible : le Post le sait quand il décide.</div></div>
+      </div>
       <div class="answers" id="answers"></div>
+      <div class="note pdf-note"><strong>Toutes les équations et tous les calculs en PDF.</strong> Le modèle, les équations des gains, les probabilités des juges (<span class="m">q</span>, <span class="m">p</span>), l’induction à rebours, les seuils, la carte des équilibres et les cas chiffrés. <a href="docs/modele-probabilites.pdf" target="_blank" rel="noopener">Ouvrir le PDF des calculs ↗</a> · <a href="docs/modele-probabilites.tex" target="_blank" rel="noopener">source LaTeX</a></div>
     </section>
 
     <!-- LIMITES -->
@@ -1485,55 +1602,72 @@ table.pay tr.lottery-total td{border-bottom:2px solid var(--ink2);font-weight:60
    Les juges ne sont pas des joueurs : ils n'ont ni gains ni choix stratégique. Ils n'apparaissent
    donc pas comme nœuds de l'arbre ; leurs verdicts (probabilités q et p) sont intégrés dans les
    gains des feuilles, sous forme de gains espérés.
-   Six nœuds de décision (x0 … x5) et sept feuilles (O1 … O7, de gauche à droite sous l'arbre). */
-const BASE = { q: 0.30, p: 0.65, th: 0.30, B_T: 100, c_T: 10, S_T: 50, R_T: 50, B_W: 120, c_W: 15, S_W: 180, D: 200, k_T: 10, k_W: 20 };
+   Six nœuds de décision (x0 … x5) et sept feuilles (O1 … O7, de gauche à droite sous l'arbre).
+   Un journal qui ne publie pas a toujours un gain de 0 : c'est le cas du Times s'il renonce. */
+const BASE = { q: 0.30, p: 0.65, th: 0.30, B_T: 100, c_T: 10, S_T: 50, B_W: 120, c_W: 15, S_W: 180, D: 200, k_T: 10, k_W: 20 };
 const PLAYERS3 = ['Times', 'Post', 'Nixon'];
 
-/* Situations finales possibles, une fois les juges passés.
-   Cinq règles, appliquées de la même façon partout :
-   1. un journal qui a publié reçoit B si tout finit par sortir, θB si une censure est maintenue ;
-   2. un journal poursuivi paie ses frais de procédure c ;
-   3. une censure maintenue coûte en plus la sanction S au journal censuré ;
-   4. Nixon perd D si tout sort, θD si une censure est maintenue, et paie k par procès ;
-   5. si le Times renonce et que le Post publie, le Times perd R (scoop laissé au rival), au prorata de ce qui sort. */
-function situations(P) {
-  const { th, B_T, c_T, S_T, R_T, B_W, c_W, S_W, D, k_T, k_W } = P;
-  return {
-    judgeTimes: [B_T - c_T, 0, -D - k_T],
-    press: [B_T - c_T, B_W - c_W, -D - k_T - k_W],
-    gov: [th * B_T - c_T - S_T, th * B_W - c_W - S_W, -th * D - k_T - k_W],
-    postFree: [B_T - c_T, B_W, -D - k_T],
-    timesCensored: [th * B_T - c_T - S_T, 0, -th * D - k_T],
-    noSuit: [B_T, 0, -D],
-    judgePost: [-R_T, B_W - c_W, -D - k_W],
-    postCensored: [-th * R_T, th * B_W - c_W - S_W, -th * D - k_W],
-    postAlone: [-R_T, B_W, -D],
-    nothing: [0, 0, 0],
-  };
-}
+/* Situations finales possibles, une fois les juges passés. Chacune est décrite par des faits :
+   pubT / pubW : le journal a publié ; suedT / suedW : il est poursuivi ;
+   censT / censW : sa censure est maintenue ;
+   docs : ce qui est public à la fin ('all' : tout, 'part' : la part θ déjà parue, 'none' : rien). */
 const SITUATION_ORDER = ['judgeTimes', 'press', 'gov', 'postFree', 'timesCensored', 'noSuit', 'judgePost', 'postCensored', 'postAlone', 'nothing'];
 const SITUATION = {
-  judgeTimes: { label: 'Le juge local refuse de censurer le Times', short: 'juge favorable au Times', docs: 'all', sym: ['B_T − c_T', '0', '−D − k_T'] },
-  press: { label: 'Cour suprême : victoire des journaux (1971)', short: 'victoire des journaux', docs: 'all', sym: ['B_T − c_T', 'B_W − c_W', '−D − k_T − k_W'] },
-  gov: { label: 'Cour suprême : censure confirmée + sanctions', short: 'censure confirmée', docs: 'part', sym: ['θB_T − c_T − S_T', 'θB_W − c_W − S_W', '−θD − k_T − k_W'] },
-  postFree: { label: 'Times censuré, le Post publie sans procès', short: 'le Post publie librement', docs: 'all', sym: ['B_T − c_T', 'B_W', '−D − k_T'] },
-  timesCensored: { label: 'Times censuré, le Post se tait', short: 'Times censuré', docs: 'part', sym: ['θB_T − c_T − S_T', '0', '−θD − k_T'] },
-  noSuit: { label: 'Le Times publie, aucun procès', short: 'tout sort sans procès', docs: 'all', sym: ['B_T', '0', '−D'] },
-  judgePost: { label: 'Le juge local refuse de censurer le Post seul', short: 'juge favorable au Post', docs: 'all', sym: ['−R_T', 'B_W − c_W', '−D − k_W'] },
-  postCensored: { label: 'Le Post seul est censuré + sanctions', short: 'Post censuré', docs: 'part', sym: ['−θR_T', 'θB_W − c_W − S_W', '−θD − k_W'] },
-  postAlone: { label: 'Le Post publie seul, aucun procès', short: 'le Post publie seul', docs: 'all', sym: ['−R_T', 'B_W', '−D'] },
-  nothing: { label: 'Personne ne publie', short: 'rien ne sort', docs: 'none', sym: ['0', '0', '0'] },
+  judgeTimes: { label: 'La 1re cour refuse de censurer le Times', short: '1re cour favorable au Times', docs: 'all', pubT: 1, suedT: 1 },
+  press: { label: '2e cour : victoire des journaux (1971)', short: 'victoire des journaux', docs: 'all', pubT: 1, suedT: 1, pubW: 1, suedW: 1 },
+  gov: { label: '2e cour : censure confirmée + sanctions', short: 'censure confirmée', docs: 'part', pubT: 1, suedT: 1, censT: 1, pubW: 1, suedW: 1, censW: 1 },
+  postFree: { label: 'Times censuré, le Post publie sans procès', short: 'le Post publie librement', docs: 'all', pubT: 1, suedT: 1, pubW: 1 },
+  timesCensored: { label: 'Times censuré, le Post se tait', short: 'Times censuré', docs: 'part', pubT: 1, suedT: 1, censT: 1 },
+  noSuit: { label: 'Le Times publie, aucun procès', short: 'tout sort sans procès', docs: 'all', pubT: 1 },
+  judgePost: { label: 'La 1re cour refuse de censurer le Post seul', short: '1re cour favorable au Post', docs: 'all', pubW: 1, suedW: 1 },
+  postCensored: { label: 'Le Post seul est censuré + sanctions', short: 'Post censuré', docs: 'part', pubW: 1, suedW: 1, censW: 1 },
+  postAlone: { label: 'Le Post publie seul, aucun procès', short: 'le Post publie seul', docs: 'all', pubW: 1 },
+  nothing: { label: 'Personne ne publie', short: 'rien ne sort', docs: 'none' },
 };
-/* Chaque feuille est une loterie sur les situations finales : les probabilités viennent des juges.
-   [situation, probabilité, explication du verdict]. */
+/* Une équation par joueur, appliquée de la même façon à toutes les situations (σ = part publique) :
+   journal : 0 s'il n'a pas publié ; sinon B·σ − c (s'il est poursuivi) − S (si sa censure est maintenue) ;
+   Nixon   : −D·σ − k_T (s'il poursuit le Times) − k_W (s'il poursuit le Post). */
+const shareOf = (f, P) => (f.docs === 'all' ? 1 : f.docs === 'part' ? P.th : 0);
+function gains(f, P) {
+  const sigma = shareOf(f, P);
+  const paper = (pub, sued, cens, B, c, S) => (pub ? B * sigma - (sued ? c : 0) - (cens ? S : 0) : 0);
+  return [
+    paper(f.pubT, f.suedT, f.censT, P.B_T, P.c_T, P.S_T),
+    paper(f.pubW, f.suedW, f.censW, P.B_W, P.c_W, P.S_W),
+    -P.D * sigma - (f.suedT ? P.k_T : 0) - (f.suedW ? P.k_W : 0) + 0,
+  ];
+}
+/* La même équation, écrite en symboles (pour l'affichage). */
+function symbols(f) {
+  const t = f.docs === 'part' ? 'θ' : '';
+  const paper = (pub, sued, cens, j) => (pub ? `${t}B_${j}${sued ? ` − c_${j}` : ''}${cens ? ` − S_${j}` : ''}` : '0');
+  const nixon = [f.docs === 'none' ? '' : `−${t}D`, f.suedT ? '− k_T' : '', f.suedW ? '− k_W' : ''].filter(Boolean).join(' ') || '0';
+  return [paper(f.pubT, f.suedT, f.censT, 'T'), paper(f.pubW, f.suedW, f.censW, 'W'), nixon];
+}
+for (const f of Object.values(SITUATION)) f.sym = symbols(f);
+function situations(P) { return Object.fromEntries(SITUATION_ORDER.map(k => [k, gains(SITUATION[k], P)])); }
+
+/* Chaque feuille est une loterie sur les situations finales : seuls les juges ont une probabilité.
+   1re cour (juge local) : refuse la censure avec la probabilité q.
+   2e cour (Cour suprême), saisie quand les deux journaux sont poursuivis : donne raison aux journaux avec la probabilité p.
+   [situation, probabilité, verdict en mots, probabilité en symboles]. */
 const LEAVES = {
-  O1: { title: ['Procès du Post', '+ tribunaux'], lottery: P => [['judgeTimes', P.q, 'le juge local refuse de censurer le Times'], ['press', (1 - P.q) * P.p, 'censure du Times, puis Cour suprême favorable aux journaux'], ['gov', (1 - P.q) * (1 - P.p), 'censure du Times, puis Cour suprême favorable au gouvernement']] },
-  O2: { title: ['Le Post publie,', 'pas de procès'], lottery: P => [['judgeTimes', P.q, 'le juge local refuse de censurer le Times'], ['postFree', 1 - P.q, 'censure du Times, le Post publie tout']] },
-  O3: { title: ['Times censuré,', 'Post muet'], lottery: P => [['judgeTimes', P.q, 'le juge local refuse finalement de censurer le Times'], ['timesCensored', 1 - P.q, 'la censure du Times tient']] },
-  O4: { title: ['Tout sort,', 'sans procès'], lottery: () => [['noSuit', 1, 'aucun juge n’intervient']] },
-  O5: { title: ['Procès du Post', '+ juge local'], lottery: P => [['judgePost', P.q, 'le juge local refuse de censurer le Post'], ['postCensored', 1 - P.q, 'le Post est censuré']] },
-  O6: { title: ['Le Post', 'publie seul'], lottery: () => [['postAlone', 1, 'aucun juge n’intervient']] },
-  O7: { title: ['Rien', 'ne sort'], lottery: () => [['nothing', 1, 'aucun juge n’intervient']] },
+  O1: { title: ['Procès du Post', '+ tribunaux'], lottery: P => [
+    ['judgeTimes', P.q, 'la 1re cour refuse de censurer le Times', 'q'],
+    ['press', (1 - P.q) * P.p, 'la 1re cour censure le Times, puis la 2e cour donne raison aux journaux', '(1 − q) × p'],
+    ['gov', (1 - P.q) * (1 - P.p), 'la 1re cour censure le Times, puis la 2e cour donne raison au gouvernement', '(1 − q) × (1 − p)']] },
+  O2: { title: ['Le Post publie,', 'pas de procès'], lottery: P => [
+    ['judgeTimes', P.q, 'la 1re cour refuse de censurer le Times', 'q'],
+    ['postFree', 1 - P.q, 'la 1re cour censure le Times, le Post publie tout', '1 − q']] },
+  O3: { title: ['Times censuré,', 'Post muet'], lottery: P => [
+    ['judgeTimes', P.q, 'la 1re cour refuse de censurer le Times', 'q'],
+    ['timesCensored', 1 - P.q, 'la 1re cour censure le Times et la censure tient', '1 − q']] },
+  O4: { title: ['Tout sort,', 'sans procès'], lottery: () => [['noSuit', 1, 'aucun juge n’intervient', '1']] },
+  O5: { title: ['Procès du Post', '+ juge local'], lottery: P => [
+    ['judgePost', P.q, 'la 1re cour refuse de censurer le Post', 'q'],
+    ['postCensored', 1 - P.q, 'la 1re cour censure le Post et la censure tient', '1 − q']] },
+  O6: { title: ['Le Post', 'publie seul'], lottery: () => [['postAlone', 1, 'aucun juge n’intervient', '1']] },
+  O7: { title: ['Rien', 'ne sort'], lottery: () => [['nothing', 1, 'aucun juge n’intervient', '1']] },
 };
 const TITLE = Object.fromEntries(Object.entries(LEAVES).map(([k, v]) => [k, v.title]));
 const COURT_LEAVES = ['O1', 'O2', 'O3', 'O5'];
@@ -1787,8 +1921,8 @@ const subH = s => s.replace(/([A-Za-zθ])_([A-Z])/g, '$1<sub>$2</sub>');
 const clamp01 = x => Math.max(0, Math.min(1, x));
 const vec = v => '(' + v.map(x => fr(x, 2)).join(' ; ') + ')';
 const dec = x => fr(x, 2);
-const BOUNDS = { q: [0, 1], p: [0, 1], th: [0, 0.95], B_T: [0, 300], c_T: [0, 120], S_T: [0, 400], R_T: [0, 200], B_W: [0, 300], c_W: [0, 120], S_W: [0, 400], D: [0, 500], k_T: [0, 120], k_W: [0, 120] };
-let saved = null; try { saved = JSON.parse(localStorage.getItem('pp-lab-v2') || 'null'); } catch (e) { saved = null; }
+const BOUNDS = { q: [0, 1], p: [0, 1], th: [0, 0.95], B_T: [0, 300], c_T: [0, 120], S_T: [0, 400], B_W: [0, 300], c_W: [0, 120], S_W: [0, 400], D: [0, 500], k_T: [0, 120], k_W: [0, 120] };
+let saved = null; try { saved = JSON.parse(localStorage.getItem('pp-lab-v3') || 'null'); } catch (e) { saved = null; }
 if (saved && typeof saved === 'object') saved = Object.fromEntries(Object.entries(saved).filter(([k, v]) => BOUNDS[k] && Number.isFinite(v) && v >= BOUNDS[k][0] && v <= BOUNDS[k][1]));
 else saved = null;
 
@@ -1804,6 +1938,24 @@ function thresholdText(who, M) {
   if (!Number.isFinite(t.gPost) || t.gPost <= 0) return 'Avec ces paramètres, poursuivre le Post n’est strictement rentable pour aucune probabilité de victoire des journaux.';
   return `Nixon poursuit le Post en relais si ${p} &lt; ${pct(t.gPost)}, et le Post seul si ${q} &lt; ${pct(t.gPost)}.`;
 }
+
+// ====================== CONSIGNES DE L'ÉNONCÉ ======================
+/* Les cinq consignes, citées telles quelles, et les chapitres qui y répondent. */
+const CONSIGNES = [
+  { n: 1, short: 'Les joueurs et leur ordre', text: 'Identifier les joueurs prenant part à cette histoire et l’ordre dans lequel ils interviennent', pages: ['joueurs'] },
+  { n: 2, short: 'Les résultats possibles', text: 'Identifier les différents résultats potentiels : pas de publication, pas d’action en justice, une action en justice contre le New York Times uniquement, une action contre le Washington Post également…', pages: ['arbre'] },
+  { n: 3, short: 'L’effet des coûts et des probabilités', text: 'Montrer l’impact du coût total des procédures judiciaires et des probabilités que le juge local puis la Cour Suprême soient favorables aux journaux. Pour quelles probabilités les journaux vont-ils publier les documents ? Pour quelles probabilités l’administration va-t-elle attaquer en justice ?', pages: ['carte', 'couts'] },
+  { n: 4, short: 'Quand les documents ne sortent pas', text: 'Identifier des valeurs de payoffs/de probabilités pour lesquels les documents ne seront pas publiés et expliquez dans chaque cas pourquoi ils ne le seront pas. Discutez de l’importance des valeurs des coûts associés aux différentes actions en justice.', pages: ['secret', 'couts'] },
+  { n: 5, short: 'Des gains cohérents et les ENPS', text: 'Identifier des payoffs, cohérents avec les objectifs des différents joueurs et cohérents entre les (sous)-jeux, permettant de rationaliser l’issue de la situation (trouver les ENPS de ces jeux et leur résultat associé)', pages: ['gains', 'resolution'] },
+];
+const pieceLabel = id => { const section = document.getElementById(id); return `${section.querySelector('.piece-head .eyebrow').textContent.trim()} · ${section.dataset.toc}`; };
+document.querySelectorAll('section.piece').forEach(section => {
+  const list = CONSIGNES.filter(c => c.pages.includes(section.id));
+  if (!list.length) return;
+  section.querySelector('.piece-head').insertAdjacentHTML('afterend', `<aside class="consigne" aria-label="Consigne de l’énoncé traitée dans ce chapitre">${list.map(c => `<div class="consigne-item"><span class="consigne-tag">Consigne ${c.n} de l’énoncé</span><p>« ${c.text} »</p></div>`).join('')}<a class="consigne-link" href="#enonce">Lire la réponse rédigée →</a></aside>`);
+});
+$('#consigne-map').innerHTML = CONSIGNES.map(c => `<li><span class="cm-n">${c.n}</span><div><h3>${c.short}</h3><p>« ${c.text} »</p><p class="cm-links">Réponse : ${c.pages.map(id => `<a href="#${id}">${pieceLabel(id)} →</a>`).join(' ')}</p></div></li>`).join('');
+$('#home-consignes').innerHTML = CONSIGNES.map(c => `<li><a href="#${c.pages[0]}"><span class="hc-n">${c.n}</span><span class="hc-t"><b>${c.short}</b><small>${c.pages.map(pieceLabel).join(' · ')}</small></span><span class="hc-arrow" aria-hidden="true">→</span></a></li>`).join('');
 
 // ====================== FRISE ======================
 const TL = [
@@ -1852,15 +2004,15 @@ $('#concepts').innerHTML = CONCEPTS.map(([t, d, ex]) => `<div class="card"><h3>$
 
 // ====================== JOUEURS ======================
 const PLAYERS = [
-  ['NYT', '--nyt', 'New York Times', 'Publier ou non (x0).', "Informer, décrocher le scoop et le prestige ; ne pas se faire doubler par le Post.", "Frais de procès, censure, sanctions si la censure est maintenue."],
+  ['NYT', '--nyt', 'New York Times', 'Publier ou non (x0).', "Informer, décrocher le scoop et le prestige.", "Frais de procès, censure, sanctions si la censure est maintenue."],
   ['RN', '--gov', 'Administration Nixon', 'Poursuivre en justice ou laisser faire (x1, x3, x5).', "Protéger ses secrets et sa crédibilité ; éviter un précédent.", "Le coût des procès, surtout son image de censeur."],
   ['WP', '--wp', 'Washington Post', 'Publier ou non : en relais du Times (x2) ou seul (x4).', "Devenir un grand journal national, informer.", "Amendes, prison, entrée en bourse ratée, licences de télévision."],
 ];
 $('#players').innerHTML = PLAYERS.map(([l, c, n, a, obj, risk]) => `<div class="card"><div class="player"><div class="disc" style="background:var(${c})">${l}</div><h3>${n}</h3></div><div class="k"><b>Action :</b> ${a}</div><div class="k"><b>Objectif :</b> ${obj}</div><div class="k"><b>Risque :</b> ${risk}</div></div>`).join('');
 /* Ni choix stratégique ni gains : ces acteurs n'ont pas de nœud dans l'arbre. */
 const NON_PLAYERS = [
-  ['', '--nat', 'diam', 'Les juges locaux', 'Refusent la censure avec la probabilité q.', 'Pas de nœud dans l’arbre : leur verdict est intégré aux gains des feuilles, q × (gains si refus) + (1 − q) × (gains si censure).'],
-  ['', '--nat', 'diam', 'La Cour suprême', 'Donne raison aux journaux avec la probabilité p, pour les deux affaires jointes.', 'Pas de nœud non plus : p pondère les gains de la feuille « Procès du Post + tribunaux ».'],
+  ['', '--nat', 'diam', 'La 1re cour : le juge local', 'Refuse la censure avec la probabilité q.', 'Pas de nœud : son verdict est intégré aux gains des feuilles, q × (gains si refus) + (1 − q) × (gains si censure).'],
+  ['', '--nat', 'diam', 'La 2e cour : la Cour suprême', 'Donne raison aux journaux avec la probabilité p, pour les deux affaires jointes.', 'Pas de nœud non plus : p pondère les gains de la feuille « Procès du Post + tribunaux ».'],
   ['DE', '--ell', 'disc', 'Daniel Ellsberg', 'Remet les documents au Times, puis au Post si le Times est poursuivi ou refuse.', 'Son choix est fixé d’avance : il ouvre le jeu sans y faire de choix stratégique.'],
 ];
 $('#non-players').innerHTML = NON_PLAYERS.map(([l, c, sh, n, role, effect]) => `<div class="card not-player"><div class="player">${sh === 'disc' ? `<div class="disc" style="background:var(${c})">${l}</div>` : `<div class="diam" style="background:var(${c})"></div>`}<h3>${n}</h3></div><div class="k"><b>Rôle :</b> ${role}</div><div class="k"><b>Gains :</b> aucun.</div><div class="k"><b>Dans l’arbre :</b> ${effect}</div></div>`).join('');
@@ -1884,89 +2036,106 @@ const CATS = [
 ];
 $('#outcome-cards').innerHTML = CATS.map(([t, c, ids]) => `<div class="card"><div class="tag" style="color:var(${c})">${t}</div>${ids.map(id => `<div class="k"><b>${id}</b> · ${OUT_DESC[id]}</div>`).join('')}</div>`).join('');
 
-// ====================== OÙ SONT LES JUGES ? ======================
-/* Chaque feuille « + tribunaux » est une loterie sur les verdicts : ses gains sont une espérance. */
-function lotteryRows(P) {
-  const M = solve(P), S = M.S;
-  return COURT_LEAVES.map(id => ({ id, parts: LEAVES[id].lottery(P).map(([s, w, why]) => ({ s, w, why, v: S[s] })), total: M.O[id] }));
+// ====================== GAINS : LA LEÇON PAS À PAS ======================
+const COLORS3 = ['--nyt', '--wp', '--gov'];
+const VERDICT_COLOR = { judgeTimes: '#4E8F72', press: '#17695B', gov: '#8F1C13', postFree: '#3E7D8C', timesCensored: '#B42318', noSuit: '#2C7A4B', judgePost: '#3F6F9E', postCensored: '#6E2B62', postAlone: '#2F5F8A', nothing: '#7D776B' };
+const par = x => (x < 0 ? `(${fr(x, 2)})` : fr(x, 2));
+const signedSum = terms => terms.map((x, i) => (i === 0 ? fr(x, 2) : x < 0 ? ` − ${fr(-x, 2)}` : ` + ${fr(x, 2)}`)).join('');
+const capital = s => s.charAt(0).toUpperCase() + s.slice(1);
+/* Remplace chaque symbole par sa valeur : « θB_T − c_T » devient « 0,3 × 100 − 10 ». */
+function numeric(expr, P) {
+  const value = { B_T: P.B_T, B_W: P.B_W, c_T: P.c_T, c_W: P.c_W, S_T: P.S_T, S_W: P.S_W, k_T: P.k_T, k_W: P.k_W, D: P.D };
+  return expr.replace(/(θ?)(B_T|B_W|c_T|c_W|S_T|S_W|k_T|k_W|D)/g, (_, t, s) => (t ? fr(P.th, 2) + ' × ' : '') + fr(value[s], 2));
 }
-(function foldedTree() {
-  const rows = lotteryRows(BASE);
-  $('#folded-table').innerHTML = `<thead><tr><th>Feuille</th><th>Verdict des juges</th><th>Probabilité</th><th style="text-align:right;color:var(--nyt)">Times</th><th style="text-align:right;color:var(--wp)">Post</th><th style="text-align:right;color:var(--gov)">Nixon</th></tr></thead><tbody>` +
-    rows.map(r => r.parts.map((x, i) => `<tr>${i === 0 ? `<td rowspan="${r.parts.length + 1}"><b>${r.id}</b> · ${TITLE[r.id].join(' ')}</td>` : ''}<td>${x.why}</td><td class="v">${pct(x.w)}</td>${x.v.map((y, k) => `<td class="v" style="color:${['var(--nyt)', 'var(--wp)', 'var(--gov)'][k]};font-weight:400">${fr(y, 2)}</td>`).join('')}</tr>`).join('') +
-      `<tr class="lottery-total"><td colspan="2"><b>Gains espérés de la feuille</b></td>${r.total.map((y, k) => `<td class="v" style="color:${['var(--nyt)', 'var(--wp)', 'var(--gov)'][k]}">${fr(y, 2)}</td>`).join('')}</tr>`).join('') + '</tbody>';
-  $('#folded-note').innerHTML = 'Les juges n’ont ni gains ni choix : ce ne sont pas des joueurs, ils n’ont donc pas de nœud. Leurs verdicts possibles sont regroupés dans la feuille, et chaque joueur y reçoit la moyenne de ses gains, pondérée par la probabilité de chaque verdict. Exemple : la feuille O3 « Times censuré, Post muet » vaut 0,3 × (90 ; 0 ; −210) + 0,7 × (−30 ; 0 ; −70) = (6 ; 0 ; −112), car dans 30 % des cas le juge refuse finalement de censurer le Times.';
-})();
+/* Une ligne de calcul : symboles = nombres = résultat. */
+function calcLine(expr, value, P) {
+  if (!/[A-Za-zθ]/.test(expr)) return `<b>${fr(value, 2)}</b>`;
+  const numbers = numeric(expr, P), single = !/[−+×]/.test(numbers.replace(/^−/, ''));
+  return `<span class="m">${subH(expr)}</span>${single ? '' : ' = ' + numbers} = <b>${fr(value, 2)}</b>`;
+}
 
-// ====================== GAINS ======================
-const ING = [
-  ['B', 'Valeur de la publication', 'Le scoop, le prestige, la mission d’informer : <span class="m">B<sub>T</sub></span> = 100 pour le Times, <span class="m">B<sub>W</sub></span> = 120 pour le Post.'],
-  ['θ', 'Part publiée avant une censure', '<span class="m">θ</span> = 0,3. Un journal censuré garde <span class="m">θB</span> ; Nixon ne subit alors que <span class="m">θD</span>.'],
-  ['c', 'Frais totaux d’un procès', 'Avocats et procédures d’urgence, jusqu’au dernier tribunal : <span class="m">c<sub>T</sub></span> = 10, <span class="m">c<sub>W</sub></span> = 15.'],
-  ['S', 'Sanction d’une censure maintenue', 'Poursuites, amendes ; pour le Post, bourse et licences : <span class="m">S<sub>T</sub></span> = 50, <span class="m">S<sub>W</sub></span> = 180.'],
-  ['R', 'Scoop laissé au rival', 'Si le Times renonce et que le Post publie : <span class="m">R<sub>T</sub></span> = 50.'],
-  ['D', 'Dommage de Nixon si tout sort', '<span class="m">D</span> = 200 : crédibilité de l’exécutif et précédent pour toutes les fuites futures.'],
-  ['k', 'Coût total d’un procès pour Nixon', 'Frais et surtout image de censeur : <span class="m">k<sub>T</sub></span> = 10 contre le Times, <span class="m">k<sub>W</sub></span> = 20 contre le Post.'],
-  ['q · p', 'Probabilités des verdicts', '<span class="m">q</span> = 0,3 : un juge local refuse la censure. <span class="m">p</span> = 0,65 : la Cour suprême donne raison aux journaux. Les juges ne sont pas des joueurs : ces probabilités pondèrent les gains des feuilles.'],
-];
-$('#ingredients').innerHTML = ING.map(([s, t, d]) => `<div class="card"><div style="display:flex;gap:12px;align-items:baseline"><span class="m" style="font-size:30px">${s}</span><h3 style="font-size:16.5px">${t}</h3></div><div class="k">${d}</div></div>`).join('');
+/* Étape 1 · les ingrédients. */
+(function ingredients() {
+  const P = BASE;
+  const groups = [
+    ['--nyt', 'Un journal : le Times ou le Post', [
+      ['B', 'Ce que lui rapporte une publication complète : le scoop, le prestige, la mission d’informer.', `B<sub>T</sub> = ${fr(P.B_T)} · B<sub>W</sub> = ${fr(P.B_W)}`],
+      ['c', 'Ses frais de procès, s’il est poursuivi.', `c<sub>T</sub> = ${fr(P.c_T)} · c<sub>W</sub> = ${fr(P.c_W)}`],
+      ['S', 'La sanction, si sa censure est maintenue.', `S<sub>T</sub> = ${fr(P.S_T)} · S<sub>W</sub> = ${fr(P.S_W)}`],
+    ]],
+    ['--gov', 'L’administration Nixon', [
+      ['D', 'Le dommage si tout sort : crédibilité de l’exécutif, précédent pour les fuites futures.', `D = ${fr(P.D)}`],
+      ['k', 'Le coût d’un procès : frais et image de censeur.', `k<sub>T</sub> = ${fr(P.k_T)} · k<sub>W</sub> = ${fr(P.k_W)}`],
+    ]],
+    ['--nat', 'Ce qu’aucun joueur ne choisit', [
+      ['θ', 'La part des documents déjà parue quand une censure tombe.', `θ = ${fr(P.th, 2)}`],
+      ['q', 'La probabilité que la 1re cour (le juge local) refuse la censure.', `q = ${fr(P.q, 2)}`],
+      ['p', 'La probabilité que la 2e cour (la Cour suprême) donne raison aux journaux.', `p = ${fr(P.p, 2)}`],
+    ]],
+  ];
+  $('#ingredients').innerHTML = groups.map(([c, title, rows]) => `<div class="card ing-card" style="border-top:3px solid var(${c})"><h3>${title}</h3>${rows.map(([sym, what, val]) => `<div class="ing-row"><span class="m ing-sym">${sym}</span><div><div class="k">${what}</div><div class="ing-val m">${val}</div></div></div>`).join('')}</div>`).join('');
+})();
 const WHY = [
   ['D = 200', 'Nixon', 'Le plus gros enjeu : quatre administrations prises en défaut, et un précédent qui exposerait tous les secrets futurs. Il sert d’étalon : les autres valeurs se lisent par rapport à lui.'],
-  ['B<sub>T</sub> = 100', 'Times', 'Le scoop de la décennie (prix Pulitzer 1972), la mission d’informer.'],
+  ['B<sub>T</sub> = 100', 'Times', 'Le scoop de la décennie (prix Pulitzer 1972), la mission d’informer. La moitié de l’enjeu de Nixon.'],
   ['B<sub>W</sub> = 120', 'Post', 'Pour le Post, publier c’est entrer dans la cour des grands : le gain relatif est plus fort que pour le Times.'],
   ['θ = 0,3', 'Tous', 'Trois articles étaient parus avant la suspension du Times : une partie seulement des révélations. Même part retenue pour le Post, par simplicité.'],
   ['c<sub>T</sub> = 10 · c<sub>W</sub> = 15', 'Journaux', 'Frais d’avocats et procédures d’urgence ; un peu plus pour le Post, en pleine entrée en bourse.'],
   ['S<sub>T</sub> = 50', 'Times', 'Poursuites possibles contre ses journalistes et sa direction ; le Times est une institution solide.'],
   ['S<sub>W</sub> = 180', 'Post', 'La sanction la plus lourde : poursuites pénales, entrée en bourse du 15 juin menacée, licences de télévision (environ 100 millions de dollars). Fixée à 1,5 fois B<sub>W</sub>.'],
-  ['R<sub>T</sub> = 50', 'Times', 'Laisser son grand rival publier l’enquête qu’on a refusée : la moitié du scoop perdue, en prestige et en lecteurs.'],
   ['k<sub>T</sub> = 10 · k<sub>W</sub> = 20', 'Nixon', 'Chaque procès coûte, surtout en image de censeur ; poursuivre un second journal ressemble à une campagne contre la presse et mène jusqu’à la Cour suprême.'],
   ['q = 0,3', 'Juges', 'Le juge Gurfein, en fonction depuis quelques jours, a suspendu le Times : en matière de sécurité nationale, une suspension provisoire s’obtient facilement.'],
   ['p = 0,65', 'Juges', 'La jurisprudence (Near v. Minnesota, 1931) est très hostile à la censure préalable, mais la Cour est divisée : 6 voix contre 3 au final.'],
 ];
-$('#whytable').innerHTML = `<thead><tr><th>Valeur</th><th>Joueur</th><th>Justification</th></tr></thead><tbody>` + WHY.map(([v, j, t]) => `<tr><td class="v" style="text-align:left"><span class="m">${v}</span></td><td>${j}</td><td>${t}</td></tr>`).join('') + '</tbody>';
-let payMode = 'num';
-/* Tableau 1 : les situations finales, construites avec les cinq règles. */
-function renderPay() {
-  const S = situations(BASE);
-  let h = `<thead><tr><th>Situation finale</th><th style="text-align:right;color:var(--nyt)">Times</th><th style="text-align:right;color:var(--wp)">Post</th><th style="text-align:right;color:var(--gov)">Nixon</th></tr></thead><tbody>`;
-  for (const k of SITUATION_ORDER) h += `<tr><td>${SITUATION[k].label}</td>` + [0, 1, 2].map(j => `<td class="v" style="color:${['var(--nyt)', 'var(--wp)', 'var(--gov)'][j]}">${payMode === 'sym' ? `<span class="m" style="color:var(--ink)">${subH(SITUATION[k].sym[j])}</span>` : fr(S[k][j])}</td>`).join('') + '</tr>';
-  $('#paytable').innerHTML = h + '</tbody>';
-  $('#p-sym').setAttribute('aria-pressed', payMode === 'sym'); $('#p-num').setAttribute('aria-pressed', payMode === 'num');
-}
-$('#p-sym').onclick = () => { payMode = 'sym'; renderPay(); };
-$('#p-num').onclick = () => { payMode = 'num'; renderPay(); };
-/* Calcul détaillé : chaque symbole est remplacé par sa valeur de référence. */
-function numeric(expr, P) {
-  const value = { B_T: P.B_T, B_W: P.B_W, c_T: P.c_T, c_W: P.c_W, S_T: P.S_T, S_W: P.S_W, R_T: P.R_T, k_T: P.k_T, k_W: P.k_W, D: P.D };
-  return expr.replace(/(θ?)(B_T|B_W|c_T|c_W|S_T|S_W|R_T|k_T|k_W|D)/g, (_, t, s) => (t ? fr(P.th, 2) + ' × ' : '') + fr(value[s], 2));
-}
-(function renderCalc() {
-  const S = situations(BASE);
-  $('#calc').innerHTML = SITUATION_ORDER.map(k => `<div class="calc-row"><div class="calc-head">${SITUATION[k].label}</div>` + [0, 1, 2].map(j => {
-    const expr = SITUATION[k].sym[j], constant = !/[A-Za-zθ]/.test(expr), simple = !/[−+×]/.test(numeric(expr, BASE).replace(/^−/, ''));
-    const body = constant ? `<b>${fr(S[k][j])}</b>` : `<span class="m">${subH(expr)}</span>${simple ? '' : ' = ' + numeric(expr, BASE)} = <b>${fr(S[k][j])}</b>`;
-    return `<div class="calc-line" style="--c:var(${['--nyt', '--wp', '--gov'][j]})"><span class="calc-who">${PLAYERS3[j]}</span><span>${body}</span></div>`;
-  }).join('') + '</div>').join('');
-})();
-/* Tableau 2 : les sept feuilles de l'arbre, espérances des situations selon les verdicts des juges. */
-(function renderLeaves() {
-  const P = BASE, O = outcomes(P), S = situations(P);
-  $('#leaftable').innerHTML = `<thead><tr><th>Feuille</th><th>Calcul (verdicts des juges)</th><th style="text-align:right;color:var(--nyt)">Times</th><th style="text-align:right;color:var(--wp)">Post</th><th style="text-align:right;color:var(--gov)">Nixon</th></tr></thead><tbody>` +
-    OUTCOME_ORDER.map(k => {
-      const parts = LEAVES[k].lottery(P);
-      const calc = parts.length === 1 ? 'pas de juge : ' + SITUATION[parts[0][0]].short : parts.map(([s, w]) => `${fr(w, 3)} × ${vec(S[s])}`).join(' + ');
-      return `<tr><td class="issue-id">${k} · ${TITLE[k].join(' ')}</td><td class="mono" style="font-size:12.5px">${calc}</td>${O[k].map((x, j) => `<td class="v" style="color:${['var(--nyt)', 'var(--wp)', 'var(--gov)'][j]}">${fr(x, 2)}</td>`).join('')}</tr>`;
+$('#whytable').innerHTML = `<thead><tr><th>Valeur</th><th>Qui</th><th>Justification</th></tr></thead><tbody>` + WHY.map(([v, j, t]) => `<tr><td class="v" style="text-align:left"><span class="m">${v}</span></td><td>${j}</td><td>${t}</td></tr>`).join('') + '</tbody>';
+
+/* Étape 2 · tous les cas possibles, calculés avec l'équation du modèle (gains). */
+(function casesTables() {
+  const P = BASE, both = { pubT: 1, pubW: 1 }, sued = { suedT: 1, suedW: 1 }, cens = { censT: 1, censW: 1 };
+  const paperCases = [
+    ['Il ne publie pas', '—', '0', { docs: 'none' }],
+    ['Il publie, personne ne le poursuit', 'σ = 1', 'B', { docs: 'all', ...both }],
+    ['Il publie, il est poursuivi, tout sort quand même', 'σ = 1', 'B − c', { docs: 'all', ...both, ...sued }],
+    ['Il publie, il est poursuivi, sa censure est maintenue', 'σ = θ', 'θB − c − S', { docs: 'part', ...both, ...sued, ...cens }],
+  ];
+  $('#journal-cases').innerHTML = `<caption>Les quatre cas d’un journal</caption><thead><tr><th>Cas</th><th>Ce qui sort</th><th>Équation</th><th style="color:var(--nyt)">Times</th><th style="color:var(--wp)">Post</th></tr></thead><tbody>` +
+    paperCases.map(([label, share, generic, f]) => {
+      const g = gains(f, P), sym = symbols(f);
+      return `<tr><td>${label}</td><td class="m">${share}</td><td class="m">${generic}</td><td class="calc-cell" style="--c:var(--nyt)">${calcLine(sym[0], g[0], P)}</td><td class="calc-cell" style="--c:var(--wp)">${calcLine(sym[1], g[1], P)}</td></tr>`;
     }).join('') + '</tbody>';
+  const nixonCases = [
+    ['Rien ne sort', 'aucun', { docs: 'none' }],
+    ['Tout sort', 'aucun', { docs: 'all' }],
+    ['Tout sort', 'contre le Times', { docs: 'all', suedT: 1 }],
+    ['Tout sort', 'contre le Post seul', { docs: 'all', suedW: 1 }],
+    ['Tout sort', 'contre le Times et le Post', { docs: 'all', suedT: 1, suedW: 1 }],
+    ['Seuls les premiers articles sortent', 'contre le Times', { docs: 'part', suedT: 1 }],
+    ['Seuls les premiers articles sortent', 'contre le Post seul', { docs: 'part', suedW: 1 }],
+    ['Seuls les premiers articles sortent', 'contre le Times et le Post', { docs: 'part', suedT: 1, suedW: 1 }],
+  ];
+  $('#nixon-cases').innerHTML = `<caption>Les huit cas de Nixon</caption><thead><tr><th>Ce qui sort</th><th>Procès engagés</th><th style="color:var(--gov)">Équation et calcul</th></tr></thead><tbody>` +
+    nixonCases.map(([share, suits, f]) => `<tr><td>${share}</td><td>${suits}</td><td class="calc-cell" style="--c:var(--gov)">${calcLine(symbols(f)[2], gains(f, P)[2], P)}</td></tr>`).join('') + '</tbody>';
+  /* Vérification : l'ordre des gains correspond aux objectifs. */
+  const free = gains({ docs: 'all', ...both }, P), won = gains({ docs: 'all', ...both, ...sued }, P), lost = gains({ docs: 'part', ...both, ...sued, ...cens }, P);
+  const nx = f => gains(f, P)[2];
+  const chain = items => items.map(([label, value]) => `<span class="pref-item"><b>${value}</b><small>${label}</small></span>`).join('<span class="pref-gt" aria-label="préféré à">&gt;</span>');
+  const blocks = [
+    ['--nyt', 'Le Times : publier, sans y laisser sa réputation', [['publier librement', fr(free[0])], ['gagner son procès', fr(won[0])], ['ne pas publier', '0'], ['être censuré', fr(lost[0])]]],
+    ['--wp', 'Le Post : publier aussi, mais il risque bien plus gros', [['publier librement', fr(free[1])], ['gagner son procès', fr(won[1])], ['ne pas publier', '0'], ['être censuré', fr(lost[1])]]],
+    ['--gov', 'Nixon : garder le secret, avec le moins de procès possible', [['rien ne sort', '0'], ['censure maintenue', `${fr(nx({ docs: 'part', suedT: 1 }))} à ${fr(nx({ docs: 'part', suedT: 1, suedW: 1 }))}`], ['tout sort', `${fr(nx({ docs: 'all' }))} à ${fr(nx({ docs: 'all', suedT: 1, suedW: 1 }))}`]]],
+  ];
+  $('#pref-check').innerHTML = blocks.map(([c, title, items]) => `<div class="pref-row" style="--c:var(${c})"><div class="pref-title">${title}</div><div class="pref-chain">${chain(items)}</div></div>`).join('') +
+    `<p class="step-text">L’ordre est le bon. Un journal préfère publier librement, puis gagner son procès, puis se taire ; ce qu’il craint le plus, c’est la censure. Pour le Post, l’écart entre se taire (0) et être censuré (${fr(lost[1])}) est bien plus grand que pour le Times (${fr(lost[0])}) : c’est lui qui a le plus à perdre. Nixon préfère que rien ne sorte ; sinon, il préfère une censure maintenue à une publication complète et, à résultat égal, moins de procès.</p>`;
 })();
 
-/* Détail feuille par feuille : chemin, intuition, équation et calcul (les nombres viennent du modèle). */
+/* Étapes 3 et 4 · chaque feuille : chemin, intuition, équation générale, point du cours. */
 const LEAF_DETAILS = {
   O1: {
     path: 'Le Times publie → Nixon le poursuit → le Post publie → Nixon le poursuit aussi.',
     intuition: [
-      'Le Times paie toujours ses frais. Il garde tout le scoop si le juge refuse la censure ou si la Cour suprême lui donne raison ; sinon, seulement les premiers articles, et il subit la sanction.',
-      'Si le juge refuse de censurer le Times, le Times publie tout lui-même : le Post n’a rien à gagner ni à perdre (0). Sinon, le Post joue sa survie devant la Cour suprême.',
-      'Nixon a payé le procès du Times. Si la censure tient jusqu’au bout, il limite le dommage à θD, mais il paie aussi le procès du Post.',
+      'Le Times paie ses frais dans tous les cas. Il garde tout le scoop si la 1re cour refuse la censure ou si la 2e cour lui donne raison ; sinon il ne garde que ses premiers articles et subit la sanction.',
+      'Si la 1re cour refuse de censurer le Times, le Times publie tout lui-même et le Post n’a pas à prendre le relais : 0. Sinon, le Post publie, il est poursuivi, et tout se joue devant la 2e cour.',
+      'Nixon paie le procès du Times dans tous les cas, et celui du Post si la 1re cour a censuré le Times. Il ne limite le dommage à θD que si la 2e cour lui donne raison.',
     ],
     eq: ['\\mathbb{E}[u_T]=q\\,(B_T-c_T)+(1-q)\\big[p\\,(B_T-c_T)+(1-p)\\,(\\theta B_T-c_T-S_T)\\big]', '\\mathbb{E}[u_W]=q\\times 0+(1-q)\\big[p\\,(B_W-c_W)+(1-p)\\,(\\theta B_W-c_W-S_W)\\big]', '\\mathbb{E}[u_N]=q\\,(-D-k_T)+(1-q)\\big[p\\,(-D-k_T-k_W)+(1-p)\\,(-\\theta D-k_T-k_W)\\big]'],
     course: 'Feuille atteinte à l’équilibre : c’est le « résultat » de l’ENPS, distinct des stratégies (S6, diapositives 14–18). Gain espéré, car les verdicts sont incertains (notre ajout).',
@@ -1974,65 +2143,118 @@ const LEAF_DETAILS = {
   O2: {
     path: 'Le Times publie → Nixon le poursuit → le Post publie → Nixon laisse faire.',
     intuition: [
-      'Tout finit par sortir : le Times garde son scoop, mais il a payé ses frais de procès.',
-      'Le Post publie sans procès : il gagne B_W… sauf si le juge avait refusé de censurer le Times, auquel cas le Post n’a pas eu à prendre le relais (0).',
-      'Le pire pour Nixon : tout sort malgré le procès du Times, qu’il a payé pour rien.',
+      'Dans les deux cas, tout finit par sortir : le Times garde son scoop, mais il a payé ses frais de procès.',
+      'Le Post ne prend le relais que si le Times est censuré (probabilité 1 − q). Il gagne alors B_W, sans procès. Sinon, il n’a pas publié : 0.',
+      'Le pire pour Nixon : tout sort, et il a payé le procès du Times pour rien.',
     ],
     eq: ['\\mathbb{E}[u_T]=q\\,(B_T-c_T)+(1-q)\\,(B_T-c_T)=B_T-c_T', '\\mathbb{E}[u_W]=q\\times 0+(1-q)\\,B_W', '\\mathbb{E}[u_N]=q\\,(-D-k_T)+(1-q)\\,(-D-k_T)=-D-k_T'],
     course: 'Feuille hors du chemin : elle compte quand même, car Nixon la compare à O1 en x3. Une menace se juge à ce qu’elle rapporterait si on l’exécutait (S6, diapositives 3–6 et 10–13).',
   },
   O3: {
-    path: 'Le Times publie → Nixon le poursuit → le Post se tait.',
+    path: 'Le Times publie → Nixon le poursuit → le Post ne publie pas.',
     intuition: [
-      'Si le juge refuse la censure, le Times publie tout (B_T − c_T). S’il censure, le Times ne garde que ses premiers articles et subit la sanction : θB_T − c_T − S_T.',
-      'Le Post ne publie pas : ni gain, ni risque. C’est sa référence quand il hésite en x2.',
-      'Si la censure tient, Nixon n’a subi que θD, pour le prix d’un seul procès : c’est son meilleur cas après « rien ne sort ».',
+      'Tout dépend de la 1re cour. Si elle refuse la censure, le Times publie tout. Sinon, il ne garde que ses premiers articles et subit la sanction.',
+      'Le Post ne publie pas : 0, quel que soit le verdict.',
+      'Si la censure tient, Nixon ne subit que θD, pour le prix d’un seul procès.',
     ],
     eq: ['\\mathbb{E}[u_T]=q\\,(B_T-c_T)+(1-q)\\,(\\theta B_T-c_T-S_T)', 'u_W=0', '\\mathbb{E}[u_N]=q\\,(-D-k_T)+(1-q)\\,(-\\theta D-k_T)'],
-    course: 'Le Post compare sa composante ici (0) à celle de O1 (8,82) : à un nœud, seul compte le gain du joueur qui décide (S6, diapositives 21–24).',
+    course: 'Le Post compare sa composante ici (0) à celle de O1 : à un nœud, seul compte le gain du joueur qui décide (S6, diapositives 21–24).',
   },
   O4: {
     path: 'Le Times publie → Nixon laisse faire.',
-    intuition: ['Tout le scoop, sans aucun frais : le meilleur cas du Times.', 'Le Post n’intervient pas : 0.', 'Tout sort, mais Nixon ne paie aucun procès.'],
+    facts: 'Le Times a publié, personne n’est poursuivi et tout sort : σ = 1.',
+    intuition: ['Tout le scoop, sans procès : le meilleur cas du Times.', 'Le Post n’a pas publié : 0.', 'Tout sort, mais Nixon ne paie aucun procès.'],
     eq: ['u_T=B_T', 'u_W=0', 'u_N=-D'],
-    course: 'Point de comparaison de Nixon en x1 : poursuivre le Times ne vaut que si cela fait mieux que −200 (S6, diapositives 21–24).',
+    course: 'Point de comparaison de Nixon en x1 : poursuivre le Times ne vaut la peine que si cela fait mieux que −200 (S6, diapositives 21–24).',
   },
   O5: {
-    path: 'Le Times renonce → le Post publie seul → Nixon le poursuit.',
+    path: 'Le Times ne publie pas → le Post publie seul → Nixon le poursuit.',
     intuition: [
-      'Le Times a laissé le scoop à son rival : il perd R_T si tout sort, θR_T si le Post est censuré.',
-      'Seul, le Post n’a que le juge local : 30 % de gagner tout le scoop (moins ses frais), 70 % d’être censuré et sanctionné.',
-      'Sans second journal, pas de Cour suprême : si le juge censure le Post, la censure tient et Nixon limite le dommage à θD.',
+      'Le Times n’a pas publié : 0, quel que soit le verdict.',
+      'Seul, le Post n’a que la 1re cour. Si elle refuse la censure, il gagne tout le scoop, moins ses frais. Sinon, il est censuré et sanctionné.',
+      'Sans second journal, la 2e cour n’est pas saisie : si la 1re cour censure le Post, la censure tient et Nixon limite le dommage à θD.',
     ],
-    eq: ['\\mathbb{E}[u_T]=-\\big[q+(1-q)\\,\\theta\\big]R_T', '\\mathbb{E}[u_W]=q\\,(B_W-c_W)+(1-q)\\,(\\theta B_W-c_W-S_W)', '\\mathbb{E}[u_N]=q\\,(-D-k_W)+(1-q)\\,(-\\theta D-k_W)'],
+    eq: ['u_T=0', '\\mathbb{E}[u_W]=q\\,(B_W-c_W)+(1-q)\\,(\\theta B_W-c_W-S_W)', '\\mathbb{E}[u_N]=q\\,(-D-k_W)+(1-q)\\,(-\\theta D-k_W)'],
     course: 'Sous-jeu jamais atteint en 1971 (x5) : l’ENPS y fixe pourtant une action. Une stratégie dit quoi faire à chaque nœud (S6, diapositives 14–18).',
   },
   O6: {
-    path: 'Le Times renonce → le Post publie seul → Nixon laisse faire.',
-    intuition: ['Le Times voit son rival publier tout ce qu’il a refusé : −R_T.', 'Le Post publie tout, sans procès : B_W.', 'Tout sort, sans procès.'],
-    eq: ['u_T=-R_T', 'u_W=B_W', 'u_N=-D'],
-    course: 'Avec O5, ce sous-jeu dit ce que vaut, pour le Times, le fait de se taire : c’est la branche ajoutée par l’ébauche du groupe (S6, diapositives 10–13).',
+    path: 'Le Times ne publie pas → le Post publie seul → Nixon laisse faire.',
+    facts: 'Le Times n’a pas publié. Le Post a publié, il n’est pas poursuivi et tout sort : σ = 1.',
+    intuition: ['Le Times n’a pas publié : 0, même si le Post publie à sa place.', 'Le Post publie tout, sans procès : son meilleur cas.', 'Tout sort, sans procès.'],
+    eq: ['u_T=0', 'u_W=B_W', 'u_N=-D'],
+    course: 'Avec O5, ce sous-jeu dit si les documents seraient sortis sans le Times : c’est la branche ajoutée par l’ébauche du groupe (S6, diapositives 10–13).',
   },
   O7: {
-    path: 'Le Times renonce → le Post renonce aussi.',
-    intuition: ['Rien ne se passe : 0.', 'Rien ne se passe : 0.', 'Le secret est gardé sans aucun procès : 0, le meilleur cas de Nixon.'],
+    path: 'Le Times ne publie pas → le Post ne publie pas non plus.',
+    facts: 'Personne n’a publié, personne n’est poursuivi et rien ne sort : σ = 0.',
+    intuition: ['Le Times n’a pas publié : 0.', 'Le Post n’a pas publié : 0.', 'Rien ne sort et aucun procès : 0, le meilleur cas de Nixon.'],
     eq: ['u_T=0', 'u_W=0', 'u_N=0'],
     course: 'Point de référence : tous les gains se lisent par rapport à « rien ne se passe ». Ajouter une constante aux gains d’un joueur ne change aucun de ses choix.',
   },
 };
-(function renderLeafDetails() {
-  const P = BASE, O = outcomes(P), S = situations(P);
-  const num = x => (x < 0 ? `(${fr(x)})` : fr(x));
-  $('#leaf-details').innerHTML = OUTCOME_ORDER.map(id => {
-    const d = LEAF_DETAILS[id], parts = LEAVES[id].lottery(P);
-    const lines = [0, 1, 2].map(k => {
-      const calc = parts.length > 1 ? parts.map(([sit, w]) => `${fr(w, 3)} × ${num(S[sit][k])}`).join(' + ') + ' = ' : '';
-      return `<div class="leaf-player" style="--c:var(${['--nyt', '--wp', '--gov'][k]})"><div class="leaf-who">${PLAYERS3[k]}</div><p>${subH(d.intuition[k])}</p><div class="leaf-eq"><span class="tex">${esc(d.eq[k])}</span></div><div class="leaf-num">${calc}<b>${fr(O[id][k], 2)}</b></div></div>`;
-    }).join('');
-    const verdicts = parts.length > 1 ? `<p class="leaf-verdicts">Verdicts possibles : ${parts.map(([sit, w, why]) => `${why} (${pct(w)})`).join(' ; ')}.</p>` : '<p class="leaf-verdicts">Pas de procès : aucun verdict, le gain est certain.</p>';
-    return `<article class="leaf-card"><div class="leaf-head"><b>${id}</b> · ${TITLE[id].join(' ')} <span class="mono">${vec(O[id])}</span></div><p class="leaf-path">${d.path}</p>${verdicts}${lines}<p class="course-ref">Cours : ${d.course}</p></article>`;
+/* Étape 3 · feuilles sans juge : on applique directement l'équation. */
+(function certainLeaves() {
+  const P = BASE, O = outcomes(P);
+  $('#certain-leaves').innerHTML = OUTCOME_ORDER.filter(id => !COURT_LEAVES.includes(id)).map(id => {
+    const d = LEAF_DETAILS[id], situation = SITUATION[LEAVES[id].lottery(P)[0][0]];
+    const lines = [0, 1, 2].map(k => `<div class="leaf-player" style="--c:var(${COLORS3[k]})"><div class="leaf-who">${PLAYERS3[k]}</div><p>${subH(d.intuition[k])}</p><div class="leaf-num">${calcLine(situation.sym[k], O[id][k], P)}</div></div>`).join('');
+    return `<article class="leaf-card"><div class="leaf-head"><b>${id}</b> · ${TITLE[id].join(' ')} <span class="mono">${vec(O[id])}</span></div><p class="leaf-path">${d.path}</p><p class="leaf-verdicts">${d.facts} Aucun juge n’intervient : le gain est certain.</p>${lines}<p class="course-ref">Cours : ${d.course}</p></article>`;
   }).join('');
 })();
+
+/* Étape 4 · feuilles avec procès : verdicts, gains après chaque verdict, moyenne pondérée.
+   Étape 5 · tableau final. Les deux suivent les curseurs q et p de la leçon. */
+let GP = { ...BASE };
+function probabilityCalc(symbol, P) {
+  if (symbol === 'q') return '';
+  if (symbol === '1 − q') return ` = 1 − ${fr(P.q, 2)}`;
+  if (symbol === '(1 − q) × p') return ` = ${fr(1 - P.q, 2)} × ${fr(P.p, 2)}`;
+  return ` = ${fr(1 - P.q, 2)} × ${fr(1 - P.p, 2)}`;
+}
+function renderCourtLeaves() {
+  const P = GP, O = outcomes(P), S = situations(P);
+  $('#court-leaves').innerHTML = COURT_LEAVES.map(id => {
+    const d = LEAF_DETAILS[id], parts = LEAVES[id].lottery(P);
+    const bar = `<div class="probbar verdict-bar" role="img" aria-label="Probabilités des verdicts : ${parts.map(([, w, why]) => `${why}, ${pct(w)}`).join(' ; ')}">${parts.filter(([, w]) => w > 1e-9).map(([sit, w]) => `<div style="width:${w * 100}%;background:${VERDICT_COLOR[sit]}">${w > 0.09 ? pct(w) : ''}</div>`).join('')}</div>`;
+    const verdicts = `<ul class="verdict-list">${parts.map(([sit, w, why, symbol]) => `<li><span class="dot" style="background:${VERDICT_COLOR[sit]}"></span><span>${capital(why)} : <span class="m">${symbol}</span>${probabilityCalc(symbol, P)} = <b>${pct(w)}</b></span></li>`).join('')}</ul><p class="verdict-total">Total : ${parts.map(([, w]) => pct(w)).join(' + ')} = <b>100 %</b>.</p>`;
+    const table = `<div class="scroll-x"><table class="pay verdict-table"><thead><tr><th>Après le verdict</th><th>Probabilité</th><th style="color:var(--nyt)">Times</th><th style="color:var(--wp)">Post</th><th style="color:var(--gov)">Nixon</th></tr></thead><tbody>` +
+      parts.map(([sit, w, why]) => `<tr><td><span class="dot" style="background:${VERDICT_COLOR[sit]}"></span> ${capital(why)}</td><td class="v">${pct(w)}</td>${S[sit].map((x, k) => `<td class="v" style="color:var(${COLORS3[k]})">${fr(x, 2)}<small class="m">${subH(SITUATION[sit].sym[k])}</small></td>`).join('')}</tr>`).join('') +
+      `<tr class="lottery-total"><td>Gain espéré de la feuille</td><td class="v">100 %</td>${O[id].map((x, k) => `<td class="v" style="color:var(${COLORS3[k]})">${fr(x, 2)}</td>`).join('')}</tr></tbody></table></div>`;
+    const lines = [0, 1, 2].map(k => {
+      const values = parts.map(([sit]) => S[sit][k]), products = parts.map(([sit, w]) => w * S[sit][k]);
+      const weighted = parts.map(([sit, w]) => `${fr(w, 3)} × ${par(S[sit][k])}`).join(' + ');
+      const detail = values.every(v => Math.abs(v) < 1e-9) ? `${weighted} = ` : `${weighted} = ${signedSum(products)} = `;
+      return `<div class="leaf-player" style="--c:var(${COLORS3[k]})"><div class="leaf-who">${PLAYERS3[k]}</div><p>${subH(d.intuition[k])}</p><div class="leaf-eq"><span class="tex">${esc(d.eq[k])}</span></div><div class="leaf-num">${detail}<b>${fr(O[id][k], 2)}</b></div></div>`;
+    }).join('');
+    return `<article class="leaf-card court-card" data-leaf="${id}"><div class="leaf-head"><b>${id}</b> · ${TITLE[id].join(' ')} <span class="mono">${vec(O[id])}</span></div><p class="leaf-path">${d.path}</p>` +
+      `<div class="geste"><span class="geste-n">1</span>Les verdicts possibles et leurs probabilités</div>${bar}${verdicts}` +
+      `<div class="geste"><span class="geste-n">2</span>Les gains après chaque verdict, avec les équations de l’étape 2</div>${table}` +
+      `<div class="geste"><span class="geste-n">3</span>On multiplie par les probabilités, puis on additionne</div>${lines}<p class="course-ref">Cours : ${d.course}</p></article>`;
+  }).join('');
+}
+function renderLeafTable() {
+  const P = GP, O = outcomes(P);
+  const judges = id => { const parts = LEAVES[id].lottery(P); return parts.length === 1 ? 'aucun' : parts.some(([sit]) => sit === 'press') ? '1re et 2e cours' : '1re cour'; };
+  $('#leaftable').innerHTML = `<thead><tr><th>Feuille</th><th>Juges</th><th style="text-align:right;color:var(--nyt)">Times</th><th style="text-align:right;color:var(--wp)">Post</th><th style="text-align:right;color:var(--gov)">Nixon</th></tr></thead><tbody>` +
+    OUTCOME_ORDER.map(id => `<tr><td class="issue-id">${id} · ${TITLE[id].join(' ')}</td><td>${judges(id)}</td>${O[id].map((x, k) => `<td class="v" style="color:var(${COLORS3[k]})">${fr(x, 2)}</td>`).join('')}</tr>`).join('') + '</tbody>';
+  const changed = Math.abs(P.q - BASE.q) > 1e-9 || Math.abs(P.p - BASE.p) > 1e-9;
+  $('#leaftable-note').innerHTML = changed
+    ? `Tableau calculé avec vos valeurs : <span class="m">q</span> = ${pct(P.q, 0)} et <span class="m">p</span> = ${pct(P.p, 0)}. Le reste du dossier garde les valeurs de référence (${pct(BASE.q, 0)} et ${pct(BASE.p, 0)}).`
+    : `Valeurs de référence : <span class="m">q</span> = ${pct(BASE.q, 0)} et <span class="m">p</span> = ${pct(BASE.p, 0)}. Le Times a 0 dans O5, O6 et O7 : il n’y a pas publié.`;
+  $('#gain-lab-status').innerHTML = `Quand les deux journaux sont poursuivis, ils gagnent au bout du compte avec la probabilité <span class="m">q + (1 − q) × p</span> = ${fr(P.q, 2)} + ${fr(1 - P.q, 2)} × ${fr(P.p, 2)} = <b>${pct(P.q + (1 - P.q) * P.p)}</b>.`;
+}
+function syncGainLab() {
+  $('#g-q').value = GP.q; $('#g-p').value = GP.p;
+  $('#g-qv').textContent = pct(GP.q, 0); $('#g-pv').textContent = pct(GP.p, 0);
+  renderCourtLeaves(); renderLeafTable(); renderTex($('#court-leaves'));
+}
+let gainFrame = 0;
+for (const [id, key] of [['g-q', 'q'], ['g-p', 'p']]) $('#' + id).addEventListener('input', event => { GP[key] = +event.target.value; cancelAnimationFrame(gainFrame); gainFrame = requestAnimationFrame(syncGainLab); });
+$('#g-reset').addEventListener('click', () => { GP = { ...BASE }; syncGainLab(); });
+syncGainLab();
+document.querySelectorAll('[data-step-target]').forEach(button => button.addEventListener('click', () => {
+  document.getElementById(button.dataset.stepTarget).scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+}));
 
 /* Formules LaTeX rendues en MathML par Temml (hors ligne). Le source reste lisible si le rendu échoue. */
 function renderTex(root = document) {
@@ -2061,12 +2283,12 @@ function buildSteps(P, M) {
   const ui = s => `<p class="ui" style="font-size:15px">${s}</p>`;
   return [
     ['Le principe', `<p>On part de la <b>fin</b> du jeu. À chaque nœud, on garde le <b>meilleur choix</b> du joueur qui décide, en comparant <b>sa</b> composante, et on reporte le triplet de gains. Les juges ne sont pas des joueurs : ils n’ont pas de nœud, leurs verdicts sont déjà dans les gains des feuilles (gains espérés). On traite la branche « le Times publie » (x3 → x1), puis la branche « le Times se tait » (x5 → x4), et on finit par le Times (x0).</p>`],
-    ['Étape 1 · x3, Nixon face au Post', cmp(O.O1[2], 'Poursuivre (O1)', O.O2[2], 'Laisser faire (O2)', M.g2Sue ? 'il poursuit' : 'il laisse faire') + `<div class="eq"><span class="m">(1 − p)(1 − θ)D &gt; k<sub>W</sub></span> ⟺ <span class="m">p &lt; 1 − <span class="frac"><span>k<sub>W</sub></span><span>(1 − θ)D</span></span></span> ≈ ${pct(t.gPost)} &nbsp;·&nbsp; ici ${dec(1 - P.p)} × ${dec(1 - P.th)} × ${fr(P.D)} = <b>${fr(t.kWcred)}</b> ${t.kWcred > P.k_W ? '&gt;' : '≤'} ${fr(P.k_W)}</div>` + ui(`O1 contient les verdicts : ${dec(P.q)} × (juge favorable au Times) + ${dec((1 - P.q) * P.p)} × (victoire des journaux) + ${dec((1 - P.q) * (1 - P.p))} × (censure confirmée). Le dommage encore évitable en espérance (${fr(t.kWcred)}) dépasse le coût du procès (${fr(P.k_W)}) : la menace contre le Post est <b>crédible</b>.`)],
+    ['Étape 1 · x3, Nixon face au Post', cmp(O.O1[2], 'Poursuivre (O1)', O.O2[2], 'Laisser faire (O2)', M.g2Sue ? 'il poursuit' : 'il laisse faire') + `<div class="eq"><span class="m">(1 − p)(1 − θ)D &gt; k<sub>W</sub></span> ⟺ <span class="m">p &lt; 1 − <span class="frac"><span>k<sub>W</sub></span><span>(1 − θ)D</span></span></span> ≈ ${pct(t.gPost)} &nbsp;·&nbsp; ici ${dec(1 - P.p)} × ${dec(1 - P.th)} × ${fr(P.D)} = <b>${fr(t.kWcred)}</b> ${t.kWcred > P.k_W ? '&gt;' : '≤'} ${fr(P.k_W)}</div>` + ui(`O1 contient les verdicts : ${dec(P.q)} × (1re cour favorable au Times) + ${dec((1 - P.q) * P.p)} × (victoire des journaux) + ${dec((1 - P.q) * (1 - P.p))} × (censure confirmée). Le dommage encore évitable en espérance (${fr(t.kWcred)}) dépasse le coût du procès (${fr(P.k_W)}) : la menace contre le Post est <b>crédible</b>.`)],
     ['Étape 2 · x2, le Post en relais', cmp(V.x3[1], 'Publier', O.O3[1], 'Ne pas publier (O3)', M.wPub ? 'il publie, de justesse' : 'il se tait') + `<div class="eq"><span class="m">p(B<sub>W</sub> − c<sub>W</sub>) + (1 − p)(θB<sub>W</sub> − c<sub>W</sub> − S<sub>W</sub>) ≥ 0</span> ⟺ <span class="m">p ≥ <span class="frac"><span>c<sub>W</sub> + S<sub>W</sub> − θB<sub>W</sub></span><span>(1 − θ)B<sub>W</sub> + S<sub>W</sub></span></span></span> = <span class="frac"><span>${fr(P.c_W + P.S_W - P.th * P.B_W)}</span><span>${fr((1 - P.th) * P.B_W + P.S_W)}</span></span> ≈ <b>${pct(t.tauW)}</b></div>` + ui(`Publier rapporte ${fr(V.x3[1], 2)} = ${dec(1 - P.q)} × ${fr(V.x3[1] / (1 - P.q), 2)} : dans ${pct(P.q, 0)} des cas, le juge refuse de censurer le Times et le choix du Post ne change rien pour lui. Avec ${pct(P.p, 0)} de chances à la Cour suprême, le Post est juste au-dessus de son seuil : une décision risquée.`)],
     ['Étape 3 · x1, Nixon face au Times', cmp(V.x2[2], 'Poursuivre', O.O4[2], 'Laisser faire (O4)', M.g1Sue ? 'il poursuit' : 'il laisse faire') + `<div class="eq"><span class="m">k<sub>T</sub> + (1 − q)k<sub>W</sub> &lt; (1 − q)(1 − p)(1 − θ)D</span> &nbsp;·&nbsp; ici ${fr(P.k_T)} + ${dec(1 - P.q)} × ${fr(P.k_W)} = <b>${fr(t.totalCost)}</b> &lt; <b>${fr(t.avoided)}</b></div>` + ui('Ce premier procès n’a de sens que parce que Nixon est prêt à aller jusqu’au bout contre le Post. Sinon, le Post publierait sans risque et poursuivre le Times ne servirait à rien.')],
     ['Étape 4 · x5, Nixon face au Post seul', cmp(O.O5[2], 'Poursuivre (O5)', O.O6[2], 'Laisser faire (O6)', M.g3Sue ? 'il poursuivrait' : 'il laisserait faire') + `<div class="eq"><span class="m">(1 − q)(1 − θ)D &gt; k<sub>W</sub></span> &nbsp;·&nbsp; ici ${dec(1 - P.q)} × ${fr(t.free)} = <b>${fr((1 - P.q) * t.free)}</b> &gt; ${fr(P.k_W)}</div>` + ui('On passe à la branche que l’histoire n’a pas suivie : le Times a renoncé. O5 contient le verdict du juge local : 30 % de refus, 70 % de censure du Post.')],
     ['Étape 5 · x4, le Post seul', cmp(V.x5[1], 'Publier', O.O7[1], 'Ne pas publier (O7)', M.wAlone ? 'il publierait' : 'il se tairait') + `<div class="eq"><span class="m">q(B<sub>W</sub> − c<sub>W</sub>) + (1 − q)(θB<sub>W</sub> − c<sub>W</sub> − S<sub>W</sub>) ≥ 0</span> ⟺ <span class="m">q ≥ ${pct(t.tauW)}</span> &nbsp;·&nbsp; ici <span class="m">q</span> = ${pct(P.q, 0)}</div>` + ui('Seul, le Post affronterait un juge local qui censure 7 fois sur 10, sans espoir rapide de Cour suprême. Il ne publierait pas : <b>sans le Times, rien ne sortirait</b>.')],
-    ['Étape 6 · x0, le Times', cmp(V.x1[0], 'Publier', V.x4[0], 'Ne pas publier', M.tPub ? 'il publie' : 'il renonce') + ui(`Ne pas publier mènerait en O7 : le Times n’a pas à craindre d’être doublé ici. Il publie parce que ses chances de gagner au bout du compte (30 % devant le juge, puis 65 % à la Cour suprême grâce au relais du Post : ${pct(P.q + (1 - P.q) * P.p)}) dépassent largement son seuil de ${pct(t.tauT, 0)}.`)],
+    ['Étape 6 · x0, le Times', cmp(V.x1[0], 'Publier', V.x4[0], 'Ne pas publier', M.tPub ? 'il publie' : 'il renonce') + ui(`Ne pas publier lui rapporte 0, quoi que fasse ensuite le Post : un journal qui ne publie pas n’a ni gain ni perte. Il publie parce que ses chances de gagner au bout du compte (30 % devant le juge, puis 65 % à la Cour suprême grâce au relais du Post : ${pct(P.q + (1 - P.q) * P.p)}) dépassent largement son seuil de ${pct(t.tauT, 0)}.`)],
     ['L’ENPS', `<div class="chips"><span class="chip" style="--c:var(--nyt)">Times : publier</span><span class="chip" style="--c:var(--wp)">Post : (publier en relais ; se taire seul)</span><span class="chip" style="--c:var(--gov)">Nixon : (poursuivre le Times ; poursuivre le Post ; poursuivre le Post seul)</span></div>` + ui(`Une stratégie dit quoi faire à <b>chaque</b> nœud, même non atteint (x4, x5). Gains espérés à l'équilibre : Times <b>${fr(M.root[0], 2)}</b> · Post <b>${fr(M.root[1], 2)}</b> · Nixon <b>${fr(M.root[2], 2)}</b>. L’ENPS est unique ; on compte pourtant 4 équilibres de Nash, qui ne diffèrent que par des actions hors du chemin (x4, x5).`)],
     ['1971 : le chemin suivi', ui('Le chemin d’équilibre mène à la feuille <b>O1</b> : le Times publie, Nixon le poursuit, le Post prend le relais, Nixon le poursuit aussi. Ensuite, les juges : le 15 juin, le juge local suspend le Times (70 % dans le modèle) ; le 30 juin, la Cour suprême donne raison aux journaux (65 % dans le modèle).') + ui(`Dans la feuille O1, trois verdicts étaient possibles : juge favorable au Times <b>${pct(M.situ.judgeTimes)}</b>, victoire des journaux à la Cour suprême <b>${pct(M.situ.press)}</b>, censure confirmée et sanctions <b>${pct(M.situ.gov)}</b> (près d'une chance sur quatre).`)],
   ];
@@ -2226,7 +2448,7 @@ function hookMap(box, getP, onPick) {
   const cards = [
     ['--wp', 'Le Post publie en relais', `${m('p ≥ <span class="frac"><span>c<sub>W</sub> + S<sub>W</sub> − θB<sub>W</sub></span><span>(1 − θ)B<sub>W</sub> + S<sub>W</sub></span></span>')} = <span class="frac"><span>${fr(P.c_W + P.S_W - P.th * P.B_W)}</span><span>${fr((1 - P.th) * P.B_W + P.S_W)}</span></span> ≈ <b>${pct(t.tauW)}</b>`, 'si Nixon le poursuivrait ; sinon il publie toujours.'],
     ['--wp', 'Le Post publie seul', `${m('q')} ≥ <b>${pct(t.tauW)}</b>`, 'même seuil, mais face au juge local : sans second journal, pas de Cour suprême en urgence.'],
-    ['--nyt', 'Le Times publie', `${m('π ≥ <span class="frac"><span>c<sub>T</sub> + S<sub>T</sub> − θB<sub>T</sub></span><span>(1 − θ)B<sub>T</sub> + S<sub>T</sub></span></span>')} = <span class="frac"><span>${fr(P.c_T + P.S_T - P.th * P.B_T)}</span><span>${fr((1 - P.th) * P.B_T + P.S_T)}</span></span> = <b>${pct(t.tauT)}</b>`, `π = q + (1 − q)p = ${pct(P.q + (1 - P.q) * P.p)} si le Post prend le relais ; π = q = ${pct(P.q, 0)} sinon. Si le Post publiait seul, se taire coûterait en plus R<sub>T</sub> au Times.`],
+    ['--nyt', 'Le Times publie', `${m('π ≥ <span class="frac"><span>c<sub>T</sub> + S<sub>T</sub> − θB<sub>T</sub></span><span>(1 − θ)B<sub>T</sub> + S<sub>T</sub></span></span>')} = <span class="frac"><span>${fr(P.c_T + P.S_T - P.th * P.B_T)}</span><span>${fr((1 - P.th) * P.B_T + P.S_T)}</span></span> = <b>${pct(t.tauT)}</b>`, `π = q + (1 − q)p = ${pct(P.q + (1 - P.q) * P.p)} si le Post prend le relais ; π = q = ${pct(P.q, 0)} sinon. S’il ne publie pas, il a 0 : il publie donc dès que son gain espéré est positif.`],
     ['--gov', 'Nixon attaque le Post', `${m('(1 − p)(1 − θ)D &gt; k<sub>W</sub>')} ⟺ ${m('p &lt; 1 − <span class="frac"><span>k<sub>W</sub></span><span>(1 − θ)D</span></span>')} ≈ <b>${pct(t.gPost)}</b>`, `en relais ; face au Post seul, il suffit que ${m('q')} &lt; ${pct(t.gPost)}.`],
     ['--gov', 'Nixon attaque le Times', `${m('q &lt; 1 − <span class="frac"><span>k<sub>T</sub></span><span>(1 − p)(1 − θ)D − k<sub>W</sub></span></span>')} ≈ <b>${pct(t.gTimesRelay)}</b> (avec ${m('p')} = ${pct(P.p, 0)})`, `si le Post prendrait le relais et serait poursuivi ; ${m('q')} &lt; ${pct(t.gTimesSilent)} si le Post se tairait ; jamais si le Post publierait sans être poursuivi.`],
     ['--ok', 'Le coût total des procès', `${m('k<sub>T</sub> + (1 − q)k<sub>W</sub> &lt; (1 − q)(1 − p)(1 − θ)D')}`, `${fr(t.totalCost)} &lt; ${fr(t.avoided)} : les deux procès coûtent, en espérance, moins que le dommage qu’ils évitent.`],
@@ -2266,8 +2488,8 @@ function drawStrips(fig, P, interactive) {
 
 // ====================== LABORATOIRE ======================
 const SL = [
-  ['Juges · pas des joueurs', '--nat', [['q', 'Un juge local refuse la censure (q)', 0, 1, 0.01, 'pct'], ['p', 'La Cour suprême donne raison aux journaux (p)', 0, 1, 0.01, 'pct'], ['th', 'Part publiée avant une censure (θ)', 0, 0.95, 0.01, 'dec']]],
-  ['New York Times', '--nyt', [['B_T', 'Gain si tout est publié (B<sub>T</sub>)', 0, 300, 1], ['c_T', 'Frais de procès (c<sub>T</sub>)', 0, 120, 1], ['S_T', 'Sanction si censure maintenue (S<sub>T</sub>)', 0, 400, 1], ['R_T', 'Perte si le Post publie à sa place (R<sub>T</sub>)', 0, 200, 1]]],
+  ['Juges · pas des joueurs', '--nat', [['q', '1re cour : le juge local refuse la censure (q)', 0, 1, 0.01, 'pct'], ['p', '2e cour : la Cour suprême donne raison aux journaux (p)', 0, 1, 0.01, 'pct'], ['th', 'Part publiée avant une censure (θ)', 0, 0.95, 0.01, 'dec']]],
+  ['New York Times', '--nyt', [['B_T', 'Gain si tout est publié (B<sub>T</sub>)', 0, 300, 1], ['c_T', 'Frais de procès (c<sub>T</sub>)', 0, 120, 1], ['S_T', 'Sanction si censure maintenue (S<sub>T</sub>)', 0, 400, 1]]],
   ['Washington Post', '--wp', [['B_W', 'Gain si tout est publié (B<sub>W</sub>)', 0, 300, 1], ['c_W', 'Frais de procès (c<sub>W</sub>)', 0, 120, 1], ['S_W', 'Sanction si censure maintenue (S<sub>W</sub>)', 0, 400, 1]]],
   ['Administration Nixon', '--gov', [['D', 'Dommage si tout sort (D)', 0, 500, 1], ['k_T', 'Coût du procès contre le Times (k<sub>T</sub>)', 0, 120, 1], ['k_W', 'Coût du procès contre le Post (k<sub>W</sub>)', 0, 120, 1]]],
 ];
@@ -2281,7 +2503,7 @@ const PRESETS = {
   noncred: ['Menace non crédible', { k_W: 60 }],
   cour: ['Cour suprême acquise', { p: 0.9 }],
   juge: ['Juge local favorable', { q: 0.8 }],
-  preempt: ['Publier pour ne pas être doublé', { q: 0.65, p: 0.5, c_T: 30, S_T: 150 }],
+  seul: ['Le Post publie seul', { q: 0.65, p: 0.5, c_T: 30, S_T: 150 }],
   nash: ['Menace crue à tort', { p: 0.5, k_W: 80 }],
 };
 let LP = { ...BASE, ...(saved || {}) };
@@ -2305,11 +2527,11 @@ function explain(P, M) {
   L.push(`Le Post en relais (x2) ${M.wPub ? '<b>publierait</b>' : '<b>se tairait</b>'} : publier lui rapporterait ${fr(V.x3[1], 2)} ${sign(V.x3[1], O.O3[1])} ${fr(O.O3[1], 2)}. ${thresholdText('post', M)}`);
   L.push(`Face au Times (x1), Nixon ${M.g1Sue ? '<b>poursuit</b>' : '<b>laisse faire</b>'} : ${fr(V.x2[2], 2)} en poursuivant ${sign(V.x2[2], O.O4[2])} ${fr(O.O4[2], 2)} sans procès.${!M.g1Sue && M.wPub && !M.g2Sue ? ' Poursuivre le Times ne servirait à rien : le Post publierait sans risque.' : ''}`);
   L.push(`Si le Times se taisait : Nixon ${M.g3Sue ? 'poursuivrait' : 'laisserait faire'} le Post seul (x5) et le Post ${M.wAlone ? '<b>publierait seul</b>' : '<b>se tairait</b>'} (x4), d’où ${vec(V.x4)}.`);
-  L.push(`Le Times (x0) ${M.tPub ? '<b>publie</b>' : '<b>ne publie pas</b>'} : ${fr(V.x1[0], 2)} en publiant ${sign(V.x1[0], V.x4[0])} ${fr(V.x4[0], 2)} en se taisant.${M.tPub && V.x1[0] < 0 ? ' Il publie à perte, pour ne pas laisser le scoop au Post.' : ''}`);
+  L.push(`Le Times (x0) ${M.tPub ? '<b>publie</b>' : '<b>ne publie pas</b>'} : ${fr(V.x1[0], 2)} en publiant ${sign(V.x1[0], V.x4[0])} ${fr(V.x4[0], 2)} en se taisant.${!M.tPub ? ' Un journal qui ne publie pas a 0 : le Times renonce dès que publier lui rapporterait moins.' : ''}`);
   return L.map((t, i) => `<div class="ln"><b class="n">${i + 1}</b><span>${t}</span></div>`).join('') +
     `<div class="note ${M.full > 0.5 ? 'green' : 'red'}" style="margin-top:6px">Une fois les juges passés, probabilité que tout sorte : <b>${pct(M.full)}</b>. Probabilité que l'essentiel reste secret : <b>${pct(1 - M.full)}</b>.</div>`;
 }
-const PC = { judgeTimes: '#4E8F72', press: '#17695B', gov: '#8F1C13', postFree: '#3E7D8C', timesCensored: '#B42318', noSuit: '#2C7A4B', judgePost: '#3F6F9E', postCensored: '#6E2B62', postAlone: '#2F5F8A', nothing: '#7D776B' };
+const PC = VERDICT_COLOR;
 function renderLab() {
   const M = drawTree($('#tree-lab'), LP, { mode: 'num', eq: true, probs: true, values: true });
   const reg = $('#lab-regime'), key = regKey(M); reg.textContent = REG[key].label; reg.style.background = `var(${REG[key].css})`;
@@ -2322,46 +2544,48 @@ function renderLab() {
   $('#lab-explain').innerHTML = explain(LP, M);
   drawMap($('#map2'), LP, 'vous'); legend($('#legend2'), LP);
   drawStrips($('#strips2'), LP, true);
-  try { localStorage.setItem('pp-lab-v2', JSON.stringify(LP)); } catch (e) {}
+  try { localStorage.setItem('pp-lab-v3', JSON.stringify(LP)); } catch (e) {}
 }
 hookMap($('#map2'), () => LP, (q, p) => { LP.q = q; LP.p = p; syncSliders(); renderLab(); });
 
 // ====================== ÉNONCÉ ======================
-const ANS = [
-  ['Identifier les joueurs et l’ordre dans lequel ils interviennent',
-    `<p>Trois joueurs : le <b>New York Times</b>, le <b>Washington Post</b> et l’<b>administration Nixon</b>. Ordre : Times (x0) → Nixon (x1) → Post (x2) → Nixon (x3). Si le Times renonce : Post (x4) → Nixon (x5). Chaque joueur observe tout ce qui précède : le jeu est à information parfaite.</p>
-     <p><b>Les juges ne sont pas des joueurs</b> : ils n’ont ni gains ni choix stratégique. Ils n’ont donc pas de nœud dans l’arbre. Leurs verdicts (un juge local refuse la censure avec la probabilité <span class="m">q</span>, la Cour suprême donne raison aux journaux avec la probabilité <span class="m">p</span>) modifient seulement les gains des trois joueurs, intégrés dans les feuilles sous forme de gains espérés. Ellsberg déclenche le jeu par un coup fixé (<a href="#joueurs">pièce 4</a>).</p>`],
-  ['Identifier les différents résultats potentiels',
-    `<p>Sept feuilles, classées comme dans l’énoncé :</p>
+/* Une réponse rédigée par consigne. Les nombres sont ceux du scénario de référence. */
+const ANSWERS = {
+  1: `<p>Trois joueurs : le <b>New York Times</b>, le <b>Washington Post</b> et l’<b>administration Nixon</b>. Ordre : Times (x0) → Nixon (x1) → Post (x2) → Nixon (x3). Si le Times renonce : Post (x4) → Nixon (x5). Chaque joueur observe tout ce qui précède : le jeu est à information parfaite.</p>
+     <p><b>Les juges ne sont pas des joueurs</b> : ils n’ont ni gains ni choix stratégique, donc pas de nœud dans l’arbre. Seuls leurs verdicts ont une probabilité : la 1re cour (le juge local) refuse la censure avec la probabilité <span class="m">q</span>, la 2e cour (la Cour suprême) donne raison aux journaux avec la probabilité <span class="m">p</span>. Ces probabilités agissent seulement sur les gains des trois joueurs. Ellsberg déclenche le jeu par un coup fixé.</p>`,
+  2: `<p>Sept feuilles, classées comme dans l’énoncé :</p>
      <ul><li><b>Pas de publication</b> : O7.</li><li><b>Pas d’action en justice</b> : O4 (le Times publie), O6 (le Post publie seul).</li><li><b>Action contre le New York Times uniquement</b> : O3 (Times censuré, Post muet), O2 (le Post publie sans être poursuivi).</li><li><b>Action contre le Washington Post également</b> : O1 (procès du Post + tribunaux, 1971).</li><li><b>Action contre le Post seul</b>, si le Times renonce : O5.</li></ul>
-     <p>Dans les feuilles avec procès, les juges tranchent ensuite : par exemple dans O1, juge favorable au Times (30 %), victoire des journaux à la Cour suprême (45,5 %) ou censure confirmée (24,5 %). Voir <a href="#arbre">pièce 5</a>.</p>`],
-  ['Impact du coût total des procédures et des probabilités : quand publie-t-on, quand attaque-t-on ?',
-    `<p><b>Les journaux.</b> Face à un procès, un journal publie si la probabilité que la justice lui donne finalement raison atteint son seuil <span class="m">τ = (c + S − θB) / ((1 − θ)B + S)</span>.</p>
-     <ul><li>Post en relais : <span class="m">p</span> ≥ 159/264 ≈ <b>60,2 %</b> (son sort dépend de la Cour suprême).</li><li>Post seul : <span class="m">q</span> ≥ <b>60,2 %</b> (il n’a que le juge local).</li><li>Times : <span class="m">q + (1 − q)p</span> ≥ <b>25 %</b> s’il anticipe le relais du Post, <span class="m">q</span> ≥ 25 % sinon.</li><li>Si la menace de procès n’est pas crédible, le journal publie sans condition.</li></ul>
+     <p>Dans les feuilles avec procès, les juges tranchent ensuite. Dans O1 par exemple : la 1re cour donne raison au Times (30 %), la 2e cour donne raison aux journaux (45,5 %), ou la censure est confirmée (24,5 %).</p>`,
+  3: `<p><b>Les journaux.</b> Face à un procès, un journal publie si la probabilité que la justice lui donne finalement raison atteint son seuil <span class="m">τ = (c + S − θB) / ((1 − θ)B + S)</span>.</p>
+     <ul><li>Post en relais : <span class="m">p</span> ≥ 159/264 ≈ <b>60,2 %</b> (son sort dépend de la 2e cour).</li><li>Post seul : <span class="m">q</span> ≥ <b>60,2 %</b> (il n’a que la 1re cour).</li><li>Times : <span class="m">q + (1 − q)p</span> ≥ <b>25 %</b> s’il anticipe le relais du Post, <span class="m">q</span> ≥ 25 % sinon.</li><li>Si la menace de procès n’est pas crédible, le journal publie sans condition.</li></ul>
      <p><b>L’administration.</b> Elle poursuit le Post en relais si <span class="m">p</span> &lt; <b>85,7 %</b>, le Post seul si <span class="m">q</span> &lt; 85,7 %, et le Times si <span class="m">q</span> &lt; <b>65,5 %</b> (avec <span class="m">p</span> = 65 %, quand le Post prendrait le relais), <span class="m">q</span> &lt; 92,9 % si le Post se tairait, jamais si le Post publierait sans être poursuivi.</p>
-     <p><b>Le coût total.</b> Nixon engage les deux procès si <span class="m">k<sub>T</sub> + (1 − q)k<sub>W</sub> &lt; (1 − q)(1 − p)(1 − θ)D</span> (ici 24 &lt; 34,3) et si <span class="m">k<sub>W</sub> &lt; (1 − p)(1 − θ)D</span> (20 &lt; 49). Plus les procès coûtent, plus ces conditions se resserrent (<a href="#resolution">pièces 8</a>, <a href="#carte">9</a> et <a href="#couts">11</a>).</p>`],
-  ['Valeurs pour lesquelles les documents ne sont pas publiés, et pourquoi',
-    `<ul><li><b>Le Post prend peur</b> (<span class="m">p</span> = 50 %, ou <span class="m">S<sub>W</sub></span> = 250, ou <span class="m">c<sub>W</sub></span> &gt; 27,6) : en relais, il perdrait en moyenne (−27 ou −11,9), donc il se tait. Nixon poursuit le Times : feuille O3, et la censure tient 70 % du temps.</li>
-     <li><b>Le Times renonce</b> (<span class="m">c<sub>T</sub></span> = 80, ou <span class="m">S<sub>T</sub></span> &gt; 297) : publier lui rapporterait −9,4. Seul, le Post perdrait 79,8 : personne ne publie (O7).</li>
+     <p><b>Le coût total.</b> Nixon engage les deux procès si <span class="m">k<sub>T</sub> + (1 − q)k<sub>W</sub> &lt; (1 − q)(1 − p)(1 − θ)D</span> (ici 24 &lt; 34,3) et si <span class="m">k<sub>W</sub> &lt; (1 − p)(1 − θ)D</span> (20 &lt; 49). Plus les procès coûtent, plus ces conditions se resserrent.</p>`,
+  4: `<p><b>Quand les documents ne sortent pas.</b></p>
+     <ul><li><b>Le Post prend peur</b> (<span class="m">p</span> = 50 %, ou <span class="m">S<sub>W</sub></span> = 250, ou <span class="m">c<sub>W</sub></span> &gt; 27,6) : en relais, il perdrait en moyenne (−27 ou −11,9), donc il se tait. Nixon poursuit le Times : feuille O3, et la censure tient 70 % du temps.</li>
+     <li><b>Le Times renonce</b> (<span class="m">c<sub>T</sub></span> = 80, ou <span class="m">S<sub>T</sub></span> &gt; 297) : publier lui rapporterait −9,4, moins que le 0 de celui qui ne publie pas. Seul, le Post perdrait 79,8 : personne ne publie (O7).</li>
      <li><b>Des tribunaux hostiles</b> (<span class="m">q</span> = 20 %, <span class="m">p</span> = 50 %) : le Post ne prendrait pas le relais ; le Times n’a alors que 20 % de chances, sous son seuil de 25 % : O7.</li>
      <li>Dans le scénario de référence, même dans la feuille O1, le secret garde <b>24,5 %</b> de chances de tenir : ce n’est pas un choix, c’est le verdict défavorable des juges.</li>
-     <li>Un équilibre de Nash peut garder le secret grâce à une menace non crédible (<span class="m">p</span> = 50 %, <span class="m">k<sub>W</sub></span> = 80) ; l’ENPS l’écarte (<a href="#secret">pièce 10</a>).</li></ul>`],
-  ['Importance des coûts associés aux différentes actions en justice',
-    `<ul><li><b>Côté Nixon, le coût du second procès commande le premier.</b> <span class="m">k<sub>W</sub></span> &lt; 34,7 : deux procès. Entre 34,7 et 49 : aucun procès (la menace contre le Post resterait crédible, mais le premier procès ne rapporte plus assez). Au-delà de 49 : aucun procès, la menace n’est plus crédible. <span class="m">k<sub>T</sub></span> ≥ 20,3 : aucun procès.</li>
+     <li>Un équilibre de Nash peut garder le secret grâce à une menace non crédible (<span class="m">p</span> = 50 %, <span class="m">k<sub>W</sub></span> = 80) ; l’ENPS l’écarte.</li></ul>
+     <p><b>L’importance des coûts.</b></p>
+     <ul><li><b>Côté Nixon, le coût du second procès commande le premier.</b> <span class="m">k<sub>W</sub></span> &lt; 34,7 : deux procès. Entre 34,7 et 49 : aucun procès (la menace contre le Post resterait crédible, mais le premier procès ne rapporte plus assez). Au-delà de 49 : aucun procès, la menace n’est plus crédible. <span class="m">k<sub>T</sub></span> ≥ 20,3 : aucun procès.</li>
      <li><b>Côté journaux, le Post est le maillon faible</b> (seuil de 60,2 % pour 65 % de chances) : des frais au-delà de 27,6 ou une sanction au-delà de 216 le font taire, et la censure du Times devient efficace. Le Times résiste jusqu’à 70,6 de frais ; au-delà, rien ne sort.</li>
-     <li>Des procès chers pour le pouvoir rendent la presse plus libre ; des procès chers pour les journaux mènent à l’autocensure (<a href="#couts">pièce 11</a>).</li></ul>`],
-  ['Des gains cohérents et les ENPS qui rationalisent l’issue',
-    `<p>Les gains suivent cinq règles identiques dans tous les sous-jeux (<a href="#gains">pièce 7</a>). L’ENPS, unique, est :</p>
+     <li>Des procès chers pour le pouvoir rendent la presse plus libre ; des procès chers pour les journaux mènent à l’autocensure.</li></ul>`,
+  5: `<p><b>Les gains.</b> Chaque joueur a une seule équation, appliquée à toutes les issues (pièce 7) :</p>
+     <ul><li>un journal qui ne publie pas a <b>0</b> ; s’il publie, il a <span class="m">B·σ − c</span> (s’il est poursuivi) <span class="m">− S</span> (si sa censure est maintenue), où <span class="m">σ</span> est la part des documents qui sort (1 ou <span class="m">θ</span>) ;</li>
+     <li>Nixon a <span class="m">−D·σ − k</span> par procès engagé ;</li>
+     <li>les juges ne jouent pas : une feuille avec procès vaut la moyenne des gains, pondérée par <span class="m">q</span> et <span class="m">p</span>.</li></ul>
+     <p><b>Cohérents avec les objectifs</b> : un journal préfère publier librement (100 ou 120), puis gagner son procès (90 ou 105), puis se taire (0), et craint la censure (−30 ou −159). Nixon préfère que rien ne sorte (0), puis une censure maintenue, puis une publication complète (−200 à −230). <b>Cohérents entre les sous-jeux</b> : la même équation sert partout, donc une même situation a toujours le même gain. Le Times a ainsi 0 dans O5, O6 et O7, où il n’a pas publié.</p>
+     <p><b>L’ENPS</b>, unique :</p>
      <ul><li><b>Times</b> : publier.</li><li><b>Post</b> : (publier en relais ; se taire si le Times renonce).</li><li><b>Nixon</b> : (poursuivre le Times ; poursuivre le Post ; poursuivre le Post seul).</li></ul>
      <p>Sous-jeu du Post en relais (x2) : le Post publie, Nixon le poursuit. Sous-jeu « le Times se tait » (x4) : le Post se tairait, donc O7. Jeu complet : gains espérés (60,6 ; 8,82 ; −189,7).</p>
-     <p><b>Résultat.</b> Le Times publie → Nixon poursuit → le Post publie → Nixon poursuit → <b>O1</b>. Les juges tranchent ensuite : censure du Times par le juge local (70 %), puis Cour suprême favorable aux journaux (65 %) : c’est l’issue de 1971 (probabilité de 45,5 % avant le premier article).</p>
-     <p><b>Ce que le modèle explique.</b> Le Times publie car ses chances (75,5 % grâce au relais) dépassent son seuil (25 %). Nixon attaque car la censure peut tenir jusqu’au bout (24,5 %) et les procès coûtent moins que le dommage évité. Le Post publie car ses chances à la Cour suprême (65 %) dépassent de peu son seuil (60,2 %). Seul, il ne l’aurait pas fait (<a href="#resolution">pièce 8</a>).</p>`],
-];
-$('#answers').innerHTML = ANS.map(([t, a], i) => `<article class="answer"><div class="answer-n">${String(i + 1).padStart(2, '0')}</div><div><h3>${t}</h3><div class="answer-body">${a}</div></div></article>`).join('');
+     <p><b>Résultat.</b> Le Times publie → Nixon poursuit → le Post publie → Nixon poursuit → <b>O1</b>. Les juges tranchent ensuite : la 1re cour censure le Times (70 %), puis la 2e cour donne raison aux journaux (65 %) : c’est l’issue de 1971, probable à 45,5 % avant le premier article.</p>
+     <p><b>Ce que le modèle explique.</b> Le Times publie car ses chances (75,5 % grâce au relais) dépassent son seuil (25 %). Nixon attaque car la censure peut tenir jusqu’au bout (24,5 %) et les procès coûtent moins que le dommage évité. Le Post publie car ses chances devant la 2e cour (65 %) dépassent de peu son seuil (60,2 %). Seul, il ne l’aurait pas fait.</p>`,
+};
+$('#answers').innerHTML = CONSIGNES.map(c => `<article class="answer"><div class="answer-n">${String(c.n).padStart(2, '0')}</div><div><h3>${c.short}</h3><blockquote class="answer-quote">« ${c.text} »</blockquote><div class="answer-body">${ANSWERS[c.n]}</div><p class="answer-links">Le détail : ${c.pages.map(id => `<a href="#${id}">${pieceLabel(id)}</a>`).join(' · ')}</p></div></article>`).join('');
 
 // ====================== QUIZ ======================
 const QUIZ = [
-  ['Pourquoi les juges ne sont-ils pas des joueurs ?', ['Parce qu’ils jouent toujours en dernier', 'Parce qu’ils n’ont pas de gains : leur verdict modifie seulement les gains des trois joueurs', 'Parce qu’ils sont neutres politiquement'], 1, 'Sans gains, ils n’ont rien à maximiser. Ils n’ont donc pas de nœud : leurs verdicts (q, p) sont intégrés dans les gains espérés des feuilles.'],
+  ['Pourquoi les juges ne sont-ils pas des joueurs ?', ['Parce qu’ils jouent toujours en dernier', 'Parce qu’ils n’ont pas de gains : leur verdict modifie seulement les gains des trois joueurs', 'Parce qu’ils sont neutres politiquement'], 1, 'Sans gains, ils n’ont rien à maximiser. Ils n’ont donc pas de nœud : les probabilités de leurs verdicts (q pour la 1re cour, p pour la 2e) sont intégrées dans les gains espérés des feuilles.'],
   ['Combien de stratégies le Post a-t-il dans notre arbre ?', ['2', '4', '8'], 1, 'Il décide à deux nœuds (x2 et x4), avec deux actions chacun : 2 × 2 = 4 stratégies.'],
   ['Par quel nœud commence l’induction à rebours ?', ['Par le Times', 'Par Nixon face au Post (x3), dont les deux branches mènent à des feuilles', 'Par Nixon face au Times'], 1, 'On part des nœuds dont toutes les suites sont des feuilles (x3, puis x5), et on remonte jusqu’au Times.'],
   ['Avec nos valeurs, à partir de quelle probabilité de victoire à la Cour suprême le Post publie-t-il en relais ?', ['50 %', 'Environ 60 %', '86 %'], 1, '(c_W + S_W − θB_W)/((1 − θ)B_W + S_W) = 159/264 ≈ 60,2 %. 85,7 % est le seuil de Nixon.'],
@@ -2369,6 +2593,7 @@ const QUIZ = [
   ['Si poursuivre le Post coûtait 40 à Nixon (au lieu de 20), que se passerait-il ?', ['Toujours deux procès', 'Aucun procès : le Times publie librement', 'Le Times renoncerait à publier'], 1, 'Le gain net du 2e procès tombe à 9 : 0,7 × 9 = 6,3 &lt; 10, poursuivre le Times ne vaut plus la peine.'],
   ['Qu’est-ce qu’une menace non crédible ?', ['Une menace qu’on n’aurait pas intérêt à exécuter le moment venu', 'Une menace annoncée en secret', 'Une menace qui coûte cher à celui qui la subit'], 0, 'L’ENPS impose d’agir au mieux dans chaque sous-jeu : une telle menace ne dissuade personne.'],
   ['Dans la feuille O1 (1971), quelle était la probabilité d’une censure confirmée avec sanctions ?', ['7 %', '24,5 %', '65 %'], 1, '(1 − q)(1 − p) = 0,7 × 0,35 = 0,245.'],
+  ['Le Times renonce et le Post publie seul, sans procès (O6). Quel est le gain du Times ?', ['−50', '0', '100'], 1, 'Un journal qui ne publie pas n’a ni gain ni perte : 0, quoi que fasse ensuite le Post.'],
 ];
 let good = 0, done = 0;
 $('#quizbox').innerHTML = QUIZ.map(([q, opts], i) => `<div class="q" data-i="${i}"><div class="tag" style="color:var(--muted)">Question ${i + 1}</div><h3 style="font-size:17px">${q}</h3><div class="opts">${opts.map((o, j) => `<button type="button" data-j="${j}">${o}</button>`).join('')}</div><div class="fb" hidden></div></div>`).join('');
@@ -2402,7 +2627,7 @@ $('#gloss').innerHTML = GL.map(([t, d]) => `<dt>${t}</dt><dd>${d}</dd>`).join(''
 
 // ====================== INITIALISATION ======================
 function renderAll() {
-  renderMain(); renderPay(); renderStep();
+  renderMain(); renderStep();
   drawMap($('#map1'), BASE, '1971'); legend($('#legend1'), BASE);
   drawStrips($('#strips1'), BASE, false);
   syncSliders(); renderLab();

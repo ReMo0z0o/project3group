@@ -51,7 +51,7 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(await page.locator('#labo').isVisible(),true);
     assert.equal(await page.locator('#menu-toggle').getAttribute('aria-expanded'),'false');
     await page.setViewportSize({width:1440,height:1000});
-    const scenarios={1971:'Deux procès',peur:'Times seulement',sanction:'Times seulement',renonce:'Rien ne sort',hostile:'Rien ne sort',cher:'Publication sans procès',noncred:'menace non crédible',cour:'menace non crédible',juge:'Publication sans procès',preempt:'Times seulement',nash:'menace non crédible'};
+    const scenarios={1971:'Deux procès',peur:'Times seulement',sanction:'Times seulement',renonce:'Rien ne sort',hostile:'Rien ne sort',cher:'Publication sans procès',noncred:'menace non crédible',cour:'menace non crédible',juge:'Publication sans procès',seul:'Le Post publie seul',nash:'menace non crédible'};
     for(const [key,label]of Object.entries(scenarios)){
       await page.locator(`#presets [data-p="${key}"]`).click();
       assert.ok((await page.locator('#lab-regime').textContent()).includes(label),key);
@@ -99,14 +99,41 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(await page.locator('#tree-main [data-outcome="O7"]').count(),1);
     await page.evaluate(()=>window.Papers.navigate('gains'));
     const tex=await page.evaluate(()=>({all:document.querySelectorAll('.tex').length,rendered:document.querySelectorAll('.tex[data-rendered] math').length,failed:document.querySelectorAll('.tex-error').length}));
-    assert.ok(tex.all>40,'the payoff equations are written in LaTeX');
+    assert.ok(tex.all>20,'the payoff equations are written in LaTeX');
     assert.equal(tex.rendered,tex.all,'every LaTeX formula is rendered as MathML, offline');
     assert.equal(tex.failed,0,'no LaTeX formula fails to render');
     assert.match(await page.locator('#latex-source').textContent(),/\\begin\{cases\}/,'the LaTeX source can be copied into the report');
-    await page.locator('#p-sym').click();
-    assert.ok(await page.locator('#paytable sub').count()>0,'symbolic gains retain readable subscripts');
-    await page.locator('#p-num').click();
-    console.log('PASS guided construction, seven leaves, path exploration, subgames and payoff notation');
+    // The payoff lesson: five steps, certain leaves, court leaves and the zero rule.
+    assert.equal(await page.locator('#gains .lesson-step').count(),5,'the payoff lesson has five steps');
+    assert.equal(await page.locator('#journal-cases tbody tr').count(),4,'four cases for a newspaper');
+    assert.equal(await page.locator('#nixon-cases tbody tr').count(),8,'eight cases for the administration');
+    assert.equal(await page.locator('#certain-leaves .leaf-card').count(),3,'three leaves without judges');
+    assert.equal(await page.locator('#court-leaves .court-card').count(),4,'four leaves with a trial');
+    const leafRow=async id=>(await page.locator('#leaftable tbody tr',{hasText:id+' ·'}).locator('td.v').allTextContents()).join(' | ');
+    assert.equal(await leafRow('O5'),'0 | −79,8 | −122','the Times gets zero when it does not publish (O5)');
+    assert.equal(await leafRow('O6'),'0 | 120 | −200','the Times gets zero when it does not publish (O6)');
+    assert.equal(await leafRow('O1'),'60,6 | 8,82 | −189,7');
+    await page.locator('#g-p').evaluate(input=>{input.value=0.5;input.dispatchEvent(new Event('input',{bubbles:true}));});
+    await page.waitForFunction(()=>document.querySelector('#g-pv').textContent.trim()==='50 %');
+    assert.equal(await leafRow('O1'),'48 | −18,9 | −175','the judges\' probabilities change the payoffs of the three players');
+    assert.equal(await leafRow('O6'),'0 | 120 | −200','leaves without judges do not move');
+    assert.match(await page.locator('#leaftable-note').textContent(),/vos valeurs/);
+    assert.equal(await page.evaluate(()=>document.querySelectorAll('#court-leaves .tex:not([data-rendered])').length),0,'recomputed cards keep rendered equations');
+    await page.locator('#g-reset').click();
+    assert.equal(await leafRow('O1'),'60,6 | 8,82 | −189,7','the reference probabilities can be restored');
+    await page.locator('[data-step-target="gain-step-4"]').click();
+    console.log('PASS guided construction, seven leaves, path exploration, subgames and the payoff lesson');
+    // Every instruction of the assignment is quoted where it is answered.
+    assert.equal(await page.locator('.consigne').count(),7,'seven chapters recall the instruction they answer');
+    assert.equal(await page.locator('#consigne-map li').count(),5);
+    assert.equal(await page.locator('#home-consignes li').count(),5);
+    assert.equal(await page.locator('#answers .answer').count(),5,'one written answer per instruction');
+    await page.evaluate(()=>window.Papers.navigate('accueil'));
+    await page.locator('#home-consignes a').nth(4).click();
+    assert.equal(await page.locator('#gains').isVisible(),true,'the home page leads to the chapter that answers each instruction');
+    await page.locator('#gains .consigne-link').click();
+    assert.equal(await page.locator('#enonce').isVisible(),true);
+    console.log('PASS instructions mapped to chapters and answers');
 
     await page.evaluate(()=>window.Papers.navigate('rappels'));
     await page.locator('#thr-k').focus();await page.keyboard.press('End');
@@ -142,9 +169,9 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(await page.locator('[data-story-goto="1"]').getAttribute('aria-current'),'step','the narrative actually advances');
     await page.evaluate(()=>window.Papers.navigate('quiz'));await page.waitForTimeout(150);
     assert.equal(await page.locator('[data-story-play]').getAttribute('aria-pressed'),'false','hidden narratives stop running');
-    const answers=[1,1,1,1,1,1,0,1];
+    const answers=[1,1,1,1,1,1,0,1,1];
     for(let i=0;i<answers.length;i++)await page.locator(`.q[data-i="${i}"] button[data-j="${answers[i]}"]`).click();
-    assert.match(await page.locator('#score').textContent(),/^8 \/ 8 bonnes/);
+    assert.match(await page.locator('#score').textContent(),/^9 \/ 9 bonnes/);
     await page.locator('#reset-quiz').click();assert.equal(await page.locator('#quizbox button:disabled').count(),0);
     await page.locator('.q[data-i="0"] button[data-j="0"]').click();
     assert.equal(await page.locator('.q[data-i="0"] .bad').count(),1);

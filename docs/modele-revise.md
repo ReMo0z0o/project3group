@@ -1,12 +1,12 @@
-# Pentagon Papers — le modèle révisé, pas à pas
+# Pentagon Papers — le modèle, pas à pas
 
-Ce document explique comment l’arbre a été refait à partir de ton ébauche, comment chaque gain a été construit, tous les calculs de l’induction à rebours, et les réponses à chaque consigne de l’énoncé. Tous les nombres sont ceux de l’application (`src/model.js`) et sont vérifiés par `tests/model.test.cjs`.
+Ce document explique l’arbre, la façon de calculer chaque gain, l’induction à rebours et les réponses aux cinq consignes de l’énoncé. Tous les nombres sont ceux de l’application (`src/model.js`) et sont vérifiés par `tests/model.test.cjs`.
 
 Convention : les gains sont toujours écrits dans l’ordre **(Times ; Post ; Nixon)**. « Nixon » désigne l’administration.
 
 ---
 
-## 1. L’arbre : celui de ton ébauche
+## 1. L’arbre
 
 ```
 x0 Times
@@ -14,7 +14,7 @@ x0 Times
 │   ├─ Poursuivre → x2 Post
 │   │   ├─ Publier → x3 Nixon
 │   │   │   ├─ Poursuivre    → O1  Procès du Post + tribunaux
-│   │   │   └─ Laisser faire → O2  Le Post publie, pas de procès (tout sort)
+│   │   │   └─ Laisser faire → O2  Le Post publie, pas de procès
 │   │   └─ Ne pas publier → O3  Times censuré, Post muet
 │   └─ Laisser faire → O4  Tout sort, sans procès
 └─ Ne pas publier → x4 Post
@@ -26,169 +26,185 @@ x0 Times
 
 Six nœuds de décision, sept feuilles. **Seuls les trois joueurs ont des nœuds.**
 
-**Ce qui vient de ton ébauche et qui est juste :**
+- **Les juges ne sont pas des joueurs** : ils n’ont ni gains ni choix stratégique. Seuls leurs verdicts ont une probabilité, et cette probabilité agit sur les gains des trois joueurs.
+  - 1re cour (le juge local) : elle refuse la censure avec la probabilité `q` = 0,3.
+  - 2e cour (la Cour suprême) : elle donne raison aux journaux avec la probabilité `p` = 0,65. Elle n’intervient que si la 1re cour a censuré et si les deux journaux sont poursuivis (affaires jointes, comme en 1971).
+- **Stratégies** : le Times a 2 stratégies, le Post 2 × 2 = 4, Nixon 2 × 2 × 2 = 8, soit 64 profils.
 
-1. **L’ordre Times → Nixon → Post → Nixon**, la chronologie de juin 1971.
-2. **La branche « le Times ne publie pas → le Post peut publier ».** Ellsberg avait déjà proposé l’étude à des sénateurs (dont J. William Fulbright) avant de la confier au Times : si le Times refusait, il aurait cherché un autre journal. Sans cette branche, « ne pas publier » terminait le jeu avec (0 ; 0 ; 0), comme si le secret tenait forcément sans le Times.
-3. **Le Post décide à deux nœuds et Nixon à trois** : le Post a 2 × 2 = 4 stratégies, Nixon 2 × 2 × 2 = 8, le Times 2, soit 64 profils de stratégies (distinction action / stratégie du cours).
-4. **Les juges ne sont pas des joueurs.** Un joueur choisit une action pour maximiser son propre gain. Les juges n’ont ni gains ni choix stratégique : ils n’ont donc **pas de nœud**. Leurs verdicts modifient seulement les gains du Times, du Post et de Nixon. C’est le sens de ton annotation « + tribunaux ».
+## 2. Les gains : la méthode en cinq étapes
 
-**Ce que j’ai précisé :**
+Un gain est un nombre qui dit ce qu’une issue vaut pour un joueur. Plus il est grand, plus le joueur préfère cette issue.
 
-| Point | Précision | Raison |
-|---|---|---|
-| « + tribunaux » | Les feuilles avec procès portent des **gains espérés** qui intègrent les verdicts : un juge local refuse la censure avec la probabilité `q`, la Cour suprême donne raison aux journaux avec la probabilité `p` | L’énoncé demande l’effet de ces probabilités. Sans elles, impossible de calculer un gain ou un seuil. |
-| Poursuivre le Times ≠ le censurer à coup sûr | Le juge local peut refuser la censure (`q` = 30 %) : ce verdict est intégré aux feuilles O1, O2, O3 | Le juge Gurfein a suspendu le Times le 15 juin, mais le 19 juin il a refusé l’injonction demandée par le gouvernement. |
-| Les deux « Tout sort » | Le second devient « Le Post publie, pas de procès » (O2) | Le Times y a été poursuivi et paie ses frais : (90 ; 84 ; −210) contre (100 ; 0 ; −200). |
-| Que vaut pour le Times la branche où il se tait ? | S’il renonce et que le Post publie, le Times perd `R_T` (scoop laissé au rival) | Sinon la nouvelle branche ne pourrait jamais changer sa décision. |
+### Étape 1 — Les ingrédients
 
-**Hypothèse sur les tribunaux** : la Cour suprême n’est saisie en urgence que si **deux journaux** sont poursuivis (affaires jointes, comme en 1971 : arrêt 17 jours après le premier article). Sans second journal, la censure ordonnée par le juge local tient. La Cour suprême n’intervient donc que dans O1.
+Les valeurs sont en points d’utilité, sans unité : seul compte le rapport entre elles. On fixe le plus gros enjeu, le dommage de Nixon si tout sort, à 200.
 
-## 2. Les gains
-
-### 2.0 Ce que dit le cours sur les gains
-
-1. **Un jeu = des joueurs, leurs stratégies et leurs gains** (S5 ; S6, diapositives 7–9). Seuls ceux qui choisissent et ont des gains sont des joueurs : les juges n’en sont pas.
-2. **Un vecteur de gains à chaque feuille, dans un ordre fixe** (S6, diapositives 8–9 et 14) : ici (Times ; Post ; Nixon).
-3. **Une feuille résume une histoire complète** (S6, diapositives 14–18) : « tout sort » ne vaut pas la même chose avec procès (O2) ou sans (O4).
-4. **À un nœud, chacun ne compare que sa propre composante** (S6, diapositives 21–24) : les gains doivent traduire les objectifs propres de chaque joueur.
-5. **Un sous-jeu garde les gains du jeu entier** (S6, diapositives 10–13) : une même situation a le même gain partout, d’où des règles uniques.
-6. **Les gains hors du chemin comptent** (S6, diapositives 3–6, jeu de l’entrée) : une menace se juge à ce qu’elle rapporterait si on l’exécutait.
-
-**Notre ajout** : les verdicts des juges étant incertains, une feuille avec procès vaut la moyenne des gains de ses verdicts possibles (gain espéré). Cela suppose que les points d’utilité mesurent l’intensité des préférences, pas seulement leur ordre.
-
-### Les fonctions de gain (en LaTeX)
-
-Part des documents qui finit par être publique :
-
-$$
-\sigma=\begin{cases}1 & \text{si tout sort,}\\ \theta & \text{si une censure est maintenue (seuls les premiers articles sont connus),}\\ 0 & \text{si rien ne sort.}\end{cases}
-$$
-
-Indicatrice : $\mathbf{1}_{A}=1$ si l’événement $A$ se produit, $0$ sinon. Fonctions de gain, dans l’ordre fixe Times ($T$), Post ($W$), Nixon ($N$) :
-
-$$
-u_{T}=\mathbf{1}_{\{\text{Times publie}\}}\,B_{T}\,\sigma-\mathbf{1}_{\{\text{Times poursuivi}\}}\,c_{T}-\mathbf{1}_{\{\text{censure du Times maintenue}\}}\,S_{T}-\mathbf{1}_{\{\text{Times renonce, Post publie}\}}\,R_{T}\,\sigma
-$$
-
-$$
-u_{W}=\mathbf{1}_{\{\text{Post publie}\}}\,B_{W}\,\sigma-\mathbf{1}_{\{\text{Post poursuivi}\}}\,c_{W}-\mathbf{1}_{\{\text{censure du Post maintenue}\}}\,S_{W}
-$$
-
-$$
-u_{N}=-D\,\sigma-\mathbf{1}_{\{\text{Times poursuivi}\}}\,k_{T}-\mathbf{1}_{\{\text{Post poursuivi}\}}\,k_{W}
-$$
-
-| Terme | Ce qu’il mesure | Intuition | Règle |
+| Symbole | Valeur | Qui | Signification et justification |
 |---|---|---|---|
-| $B_T\sigma$, $B_W\sigma$ | Ce que le journal gagne à publier | Proportionnel à ce qui sort ; compté seulement s’il a publié | 1 |
-| $c_T$, $c_W$ | Frais totaux du procès | Payés dès qu’il est poursuivi, quel que soit le verdict | 2 |
-| $S_T$, $S_W$ | Sanction si la censure est maintenue | Poursuites, amendes ; bourse et licences pour le Post, d’où $S_W>S_T$ | 3 |
-| $R_T\sigma$ | Scoop laissé au rival | Si le Times renonce et que le Post publie | 5 |
-| $D\sigma$ | Dommage de Nixon | Proportionnel à ce qui sort | 4 |
-| $k_T$, $k_W$ | Coût d’un procès pour Nixon | Frais et image de censeur, par journal poursuivi | 2 |
+| `B_T`, `B_W` | 100, 120 | Times, Post | Ce que rapporte une publication complète : scoop, prestige, mission d’informer. Plus fort pour le Post, qui entre dans la cour des grands. |
+| `c_T`, `c_W` | 10, 15 | Times, Post | Frais de procès s’il est poursuivi ; un peu plus pour le Post, en pleine entrée en bourse. |
+| `S_T`, `S_W` | 50, 180 | Times, Post | Sanction si la censure est maintenue. Pour le Post : poursuites pénales, entrée en bourse du 15 juin, licences de télévision (1,5 × `B_W`). |
+| `D` | 200 | Nixon | Dommage si tout sort : crédibilité de l’exécutif, précédent pour les fuites futures. Sert d’étalon. |
+| `k_T`, `k_W` | 10, 20 | Nixon | Coût d’un procès : frais et image de censeur ; plus lourd contre un second journal. |
+| `θ` | 0,3 | tous | Part des documents déjà parue quand une censure tombe (trois articles). |
+| `q` | 0,3 | juges | La 1re cour refuse la censure. Gurfein a suspendu le Times : une suspension provisoire s’obtient facilement. |
+| `p` | 0,65 | juges | La 2e cour donne raison aux journaux. Jurisprudence hostile à la censure préalable, mais Cour divisée (6 voix contre 3). |
 
-Exemple, censure confirmée par la Cour suprême ($\sigma=\theta$) :
+### Étape 2 — Une équation par joueur
 
-$$
-u_{T}=\theta B_{T}-c_{T}-S_{T}=0{,}3\times 100-10-50=-30,\quad u_{W}=\theta B_{W}-c_{W}-S_{W}=-159,\quad u_{N}=-\theta D-k_{T}-k_{W}=-90
-$$
+La même équation sert pour toutes les issues : c’est ce qui rend les gains cohérents d’un sous-jeu à l’autre.
 
-Les juges ne sont pas des joueurs : une feuille avec procès vaut l’espérance des situations qui suivent les verdicts possibles $v$ :
-
-$$
-\mathbb{E}\big[u_i(O_k)\big]=\sum_{v}\Pr(v)\,u_i\big(\text{situation après } v\big),\qquad i\in\{T,W,N\}
-$$
-
-Par exemple, pour le Times à la feuille O1 :
+**Ce qui sort.** On note $\sigma$ la part des documents qui finit par être publique :
 
 $$
-\mathbb{E}[u_{T}(O_1)]=q\,(B_{T}-c_{T})+(1-q)\big[p\,(B_{T}-c_{T})+(1-p)\,(\theta B_{T}-c_{T}-S_{T})\big]=0{,}3\times 90+0{,}7\,\big[0{,}65\times 90+0{,}35\times(-30)\big]=60{,}6
+\sigma=\begin{cases}1 & \text{si tout sort,}\\ \theta=0{,}3 & \text{si une censure est maintenue,}\\ 0 & \text{si rien ne sort.}\end{cases}
 $$
 
-Intuition : un journal gagne en proportion de ce qu’il réussit à rendre public et perd ce que le procès lui coûte ; Nixon perd en proportion de ce qui sort et paie chaque procès. Le zéro est « rien ne se passe » (O7) ; ajouter une constante aux gains d’un joueur ne changerait aucun de ses choix.
+**Un journal** (j = T pour le Times, j = W pour le Post). En mots : gain = valeur de ce qu’il a réussi à publier − ses frais s’il est poursuivi − sa sanction si sa censure est maintenue.
 
-### 2.1 Cinq règles, identiques partout
+$$
+u_{j}=\begin{cases}0 & \text{s'il ne publie pas,}\\ B_{j}\,\sigma-c_{j}\,\mathbf{1}_{\{\text{poursuivi}\}}-S_{j}\,\mathbf{1}_{\{\text{censure maintenue}\}} & \text{s'il publie.}\end{cases}
+$$
 
-C’est ce que l’énoncé appelle des gains « cohérents entre les (sous-)jeux » :
+Le symbole $\mathbf{1}_{\{\dots\}}$ est une case à cocher : il vaut 1 si la phrase est vraie, 0 sinon.
 
-1. **Publier rapporte.** Un journal qui a publié reçoit `B` si tout finit par sortir, `θB` si sa censure est maintenue.
-2. **Un procès coûte.** Un journal poursuivi paie ses frais totaux `c` ; Nixon paie `k` par procès.
-3. **Une censure maintenue punit.** Le journal censuré subit en plus la sanction `S`.
-4. **La fuite fait mal.** Nixon perd `D` si tout sort, `θD` si une censure est maintenue, 0 si rien ne sort.
-5. **Être doublé coûte.** Si le Times renonce et que le Post publie, le Times perd `R_T` si tout sort, `θR_T` si le Post est censuré.
+> **Pas de publication, pas de gain ni de perte.** Un journal qui ne publie pas n’a pas de scoop, pas de procès et pas de sanction : son gain est 0. Si le Times renonce, il a donc 0, que le Post publie ensuite ou non, et que Nixon poursuive le Post ou non. C’est son gain dans O5, O6 et O7.
 
-### 2.2 Les valeurs et leur justification
+**Nixon.** En mots : gain = − dommage de ce qui sort − coût de chaque procès engagé.
 
-On fixe l’enjeu le plus lourd, le dommage de Nixon si tout sort, à 200 points d’utilité, et on situe les autres valeurs par rapport à lui.
+$$
+u_{N}=-D\,\sigma-k_{T}\,\mathbf{1}_{\{\text{Times poursuivi}\}}-k_{W}\,\mathbf{1}_{\{\text{Post poursuivi}\}}
+$$
 
-| Paramètre | Valeur | Justification |
-|---|---|---|
-| `D` (Nixon) | 200 | Quatre administrations prises en défaut et un précédent qui exposerait tous les secrets futurs. Sert d’étalon. |
-| `B_T` (Times) | 100 | Le scoop de la décennie (prix Pulitzer 1972) et la mission d’informer. |
-| `B_W` (Post) | 120 | Pour le Post, publier c’est entrer dans la cour des grands : le gain relatif est plus fort. |
-| `θ` | 0,3 | Trois articles du Times étaient parus avant la suspension. Même part retenue pour le Post. |
-| `c_T`, `c_W` | 10, 15 | Frais d’avocats et procédures d’urgence ; un peu plus pour le Post, en pleine entrée en bourse. |
-| `S_T` | 50 | Poursuites possibles contre les journalistes et la direction ; le Times est une institution solide. |
-| `S_W` | 180 | La sanction la plus lourde : poursuites pénales, entrée en bourse du 15 juin menacée, licences de télévision (environ 100 millions de dollars). 1,5 × `B_W`. |
-| `R_T` | 50 | Laisser son grand rival publier l’enquête qu’on a refusée : la moitié du scoop perdue. |
-| `k_T`, `k_W` | 10, 20 | Coût total d’un procès pour Nixon, surtout en image de censeur ; poursuivre un second journal ressemble à une campagne contre la presse. |
-| `q` | 0,3 | Probabilité qu’un juge local refuse la censure. Gurfein a suspendu le Times : une suspension provisoire s’obtient facilement en matière de sécurité nationale. |
-| `p` | 0,65 | Probabilité que la Cour suprême donne raison aux journaux : jurisprudence hostile à la censure préalable (Near v. Minnesota, 1931), mais Cour divisée (6 voix contre 3). |
+**Tous les cas possibles pour un journal :**
 
-### 2.3 Étape 1 : les situations finales (après le verdict des juges)
-
-| Situation finale | Times | Post | Nixon |
-|---|---|---|---|
-| Le juge local refuse de censurer le Times | B_T − c_T = **90** | **0** | −D − k_T = **−210** |
-| Cour suprême : victoire des journaux | B_T − c_T = **90** | B_W − c_W = **105** | −D − k_T − k_W = **−230** |
-| Cour suprême : censure confirmée + sanctions | θB_T − c_T − S_T = 30 − 10 − 50 = **−30** | θB_W − c_W − S_W = 36 − 15 − 180 = **−159** | −θD − k_T − k_W = **−90** |
-| Times censuré, le Post publie sans procès | **90** | B_W = **120** | −D − k_T = **−210** |
-| Times censuré, le Post se tait | θB_T − c_T − S_T = **−30** | **0** | −θD − k_T = **−70** |
-| Le Times publie, aucun procès | B_T = **100** | **0** | −D = **−200** |
-| Le juge refuse de censurer le Post seul | −R_T = **−50** | B_W − c_W = **105** | −D − k_W = **−220** |
-| Le Post seul est censuré + sanctions | −θR_T = **−15** | θB_W − c_W − S_W = **−159** | −θD − k_W = **−80** |
-| Le Post publie seul, aucun procès | −R_T = **−50** | B_W = **120** | −D = **−200** |
-| Personne ne publie | **0** | **0** | **0** |
-
-### 2.4 Étape 2 : les gains des sept feuilles (les juges intégrés)
-
-Chaque feuille avec procès vaut la moyenne des situations possibles, pondérée par la probabilité de chaque verdict.
-
-| Feuille | Calcul | Gains (Times ; Post ; Nixon) |
-|---|---|---|
-| O1 Procès du Post + tribunaux | 0,3 × (90 ; 0 ; −210) + 0,7 × 0,65 × (90 ; 105 ; −230) + 0,7 × 0,35 × (−30 ; −159 ; −90) | **(60,6 ; 8,82 ; −189,7)** |
-| O2 Le Post publie, pas de procès | 0,3 × (90 ; 0 ; −210) + 0,7 × (90 ; 120 ; −210) | **(90 ; 84 ; −210)** |
-| O3 Times censuré, Post muet | 0,3 × (90 ; 0 ; −210) + 0,7 × (−30 ; 0 ; −70) | **(6 ; 0 ; −112)** |
-| O4 Tout sort, sans procès | pas de juge | **(100 ; 0 ; −200)** |
-| O5 Procès du Post seul + juge local | 0,3 × (−50 ; 105 ; −220) + 0,7 × (−15 ; −159 ; −80) | **(−25,5 ; −79,8 ; −122)** |
-| O6 Le Post publie seul | pas de juge | **(−50 ; 120 ; −200)** |
-| O7 Rien ne sort | pas de juge | **(0 ; 0 ; 0)** |
-
-Les 30 % de O2 et O3 correspondent au cas où le juge local refuse finalement de censurer le Times : le choix du Post ne change alors rien. Il faut le dire à l’oral.
-
-### 2.5 L’intuition, feuille par feuille
-
-| Feuille | Times | Post | Nixon | Point du cours |
+| Cas | σ | Équation | Times | Post |
 |---|---|---|---|---|
-| O1 Procès du Post + tribunaux | Paie toujours ses frais ; garde tout le scoop si le juge refuse la censure ou si la Cour suprême lui donne raison, sinon seulement ses premiers articles et la sanction. | 0 si le juge refuse de censurer le Times (pas besoin de relais) ; sinon joue sa survie devant la Cour suprême. | A payé le procès du Times ; limite le dommage à θD si la censure tient, mais paie aussi le procès du Post. | Feuille d’équilibre : le « résultat » de l’ENPS (S6, 14–18) |
-| O2 Le Post publie, pas de procès | Tout sort, mais il a payé ses frais. | Gagne B_W sauf si le juge avait déjà refusé de censurer le Times (0). | Le pire : tout sort malgré un procès payé pour rien. | Hors du chemin, mais Nixon la compare à O1 (S6, 3–6 et 10–13) |
-| O3 Times censuré, Post muet | Tout le scoop si le juge refuse, sinon premiers articles moins la sanction. | Ni gain ni risque : sa référence en x2. | Meilleur cas après « rien ne sort » : θD pour un seul procès. | Le Post compare 0 à 8,82 (S6, 21–24) |
-| O4 Tout sort, sans procès | Tout le scoop, sans frais. | Absent : 0. | Tout sort, aucun procès. | Référence de Nixon en x1 (S6, 21–24) |
-| O5 Procès du Post seul + juge local | Perd R_T (ou θR_T) : son rival a publié. | Seul face au juge local : 30 % de gagner, 70 % d’être censuré et sanctionné. | Sans Cour suprême, la censure locale tient : θD. | Sous-jeu jamais atteint, fixé quand même par l’ENPS (S6, 14–18) |
-| O6 Le Post publie seul | −R_T. | B_W. | −D. | Dit ce que vaut, pour le Times, le fait de se taire (S6, 10–13) |
-| O7 Rien ne sort | 0 | 0 | 0, son meilleur cas. | Point de référence des gains |
+| Il ne publie pas | — | 0 | 0 | 0 |
+| Il publie, personne ne le poursuit | 1 | B | 100 | 120 |
+| Il publie, il est poursuivi, tout sort quand même | 1 | B − c | 100 − 10 = 90 | 120 − 15 = 105 |
+| Il publie, il est poursuivi, sa censure est maintenue | θ | θB − c − S | 0,3 × 100 − 10 − 50 = −30 | 0,3 × 120 − 15 − 180 = −159 |
+
+**Tous les cas possibles pour Nixon :**
+
+| Ce qui sort | Procès engagés | Équation et calcul |
+|---|---|---|
+| Rien | aucun | 0 |
+| Tout | aucun | −D = −200 |
+| Tout | contre le Times | −D − k_T = −210 |
+| Tout | contre le Post seul | −D − k_W = −220 |
+| Tout | contre le Times et le Post | −D − k_T − k_W = −230 |
+| Les premiers articles seulement | contre le Times | −θD − k_T = −0,3 × 200 − 10 = −70 |
+| Les premiers articles seulement | contre le Post seul | −θD − k_W = −80 |
+| Les premiers articles seulement | contre le Times et le Post | −θD − k_T − k_W = −90 |
+
+**Vérification : ces gains respectent les objectifs.**
+
+- Times : publier librement (100) > gagner son procès (90) > ne pas publier (0) > être censuré (−30).
+- Post : publier librement (120) > gagner son procès (105) > ne pas publier (0) > être censuré (−159). C’est lui qui a le plus à perdre.
+- Nixon : rien ne sort (0) > censure maintenue (−70 à −90) > tout sort (−200 à −230) ; à résultat égal, moins de procès vaut mieux.
+
+### Étape 3 — Les feuilles sans juge : le gain est certain
+
+| Feuille | Ce qui se passe | Times | Post | Nixon |
+|---|---|---|---|---|
+| O4 Tout sort, sans procès | Le Times a publié, personne n’est poursuivi, σ = 1 | B_T = **100** | n’a pas publié : **0** | −D = **−200** |
+| O6 Le Post publie seul | Le Post a publié, personne n’est poursuivi, σ = 1 | n’a pas publié : **0** | B_W = **120** | −D = **−200** |
+| O7 Rien ne sort | Personne n’a publié, σ = 0 | **0** | **0** | **0** |
+
+### Étape 4 — Les feuilles avec procès : le gain espéré
+
+Les juges ne jouent pas, mais leur verdict change les gains. Comme on ne sait pas quel verdict tombera, chaque joueur reçoit la **moyenne** de ses gains, pondérée par la probabilité de chaque verdict :
+
+$$
+\mathbb{E}[u_i]=\sum_{v}\Pr(v)\times u_i(v),\qquad i\in\{T,W,N\}
+$$
+
+Exemple simple : un billet qui rapporte 100 avec 30 % de chances et 0 sinon vaut en moyenne 0,3 × 100 + 0,7 × 0 = 30.
+
+Trois gestes : (1) lister les verdicts et leurs probabilités, dont le total fait 100 % ; (2) calculer le gain après chaque verdict avec les équations de l’étape 2 ; (3) multiplier par les probabilités et additionner.
+
+**O1 — Procès du Post + tribunaux** (le Times publie, Nixon le poursuit, le Post publie, Nixon le poursuit aussi)
+
+| Verdict | Probabilité | Times | Post | Nixon |
+|---|---|---|---|---|
+| La 1re cour refuse de censurer le Times | q = 0,30 | 90 | 0 | −210 |
+| La 1re cour censure, la 2e cour donne raison aux journaux | (1 − q) × p = 0,7 × 0,65 = 0,455 | 90 | 105 | −230 |
+| La 1re cour censure, la 2e cour donne raison au gouvernement | (1 − q) × (1 − p) = 0,7 × 0,35 = 0,245 | −30 | −159 | −90 |
+| **Gain espéré** | 1 | **60,6** | **8,82** | **−189,7** |
+
+- Times : 0,3 × 90 + 0,455 × 90 + 0,245 × (−30) = 27 + 40,95 − 7,35 = **60,6**
+- Post : 0,3 × 0 + 0,455 × 105 + 0,245 × (−159) = 0 + 47,775 − 38,955 = **8,82**
+- Nixon : 0,3 × (−210) + 0,455 × (−230) + 0,245 × (−90) = −63 − 104,65 − 22,05 = **−189,7**
+
+Formules générales :
+
+$$
+\mathbb{E}[u_T]=q\,(B_T-c_T)+(1-q)\big[p\,(B_T-c_T)+(1-p)\,(\theta B_T-c_T-S_T)\big]
+$$
+
+$$
+\mathbb{E}[u_W]=(1-q)\big[p\,(B_W-c_W)+(1-p)\,(\theta B_W-c_W-S_W)\big]
+$$
+
+$$
+\mathbb{E}[u_N]=q\,(-D-k_T)+(1-q)\big[p\,(-D-k_T-k_W)+(1-p)\,(-\theta D-k_T-k_W)\big]
+$$
+
+Si la 1re cour refuse de censurer le Times, le Times publie tout lui-même : le Post n’a pas à prendre le relais et reçoit 0.
+
+**O2 — Le Post publie, Nixon ne le poursuit pas**
+
+| Verdict | Probabilité | Times | Post | Nixon |
+|---|---|---|---|---|
+| La 1re cour refuse de censurer le Times | q = 0,30 | 90 | 0 | −210 |
+| La 1re cour censure le Times, le Post publie tout | 1 − q = 0,70 | 90 | 120 | −210 |
+| **Gain espéré** | 1 | **90** | **84** | **−210** |
+
+Post : 0,3 × 0 + 0,7 × 120 = 84.
+
+**O3 — Times censuré, Post muet**
+
+| Verdict | Probabilité | Times | Post | Nixon |
+|---|---|---|---|---|
+| La 1re cour refuse de censurer le Times | q = 0,30 | 90 | 0 | −210 |
+| La 1re cour censure le Times et la censure tient | 1 − q = 0,70 | −30 | 0 | −70 |
+| **Gain espéré** | 1 | **6** | **0** | **−112** |
+
+Times : 0,3 × 90 + 0,7 × (−30) = 27 − 21 = 6. Nixon : 0,3 × (−210) + 0,7 × (−70) = −63 − 49 = −112.
+
+**O5 — Procès du Post seul** (le Times n’a pas publié : il a 0 quel que soit le verdict)
+
+| Verdict | Probabilité | Times | Post | Nixon |
+|---|---|---|---|---|
+| La 1re cour refuse de censurer le Post | q = 0,30 | 0 | 105 | −220 |
+| La 1re cour censure le Post et la censure tient | 1 − q = 0,70 | 0 | −159 | −80 |
+| **Gain espéré** | 1 | **0** | **−79,8** | **−122** |
+
+Post : 0,3 × 105 + 0,7 × (−159) = 31,5 − 111,3 = −79,8. Nixon : 0,3 × (−220) + 0,7 × (−80) = −66 − 56 = −122.
+
+### Étape 5 — Le tableau final
+
+| Feuille | Juges | Times | Post | Nixon |
+|---|---|---|---|---|
+| O1 Procès du Post + tribunaux | 1re et 2e cours | 60,6 | 8,82 | −189,7 |
+| O2 Le Post publie, pas de procès | 1re cour | 90 | 84 | −210 |
+| O3 Times censuré, Post muet | 1re cour | 6 | 0 | −112 |
+| O4 Tout sort, sans procès | aucun | 100 | 0 | −200 |
+| O5 Procès du Post seul | 1re cour | 0 | −79,8 | −122 |
+| O6 Le Post publie seul | aucun | 0 | 120 | −200 |
+| O7 Rien ne sort | aucun | 0 | 0 | 0 |
 
 ## 3. L’induction à rebours
 
 On traite chaque nœud après toutes ses suites. À chaque nœud, le joueur compare **sa** composante et on fait remonter le triplet entier.
 
 1. **x3, Nixon face au Post.** Poursuivre (O1) −189,7 > laisser faire (O2) −210 ⇒ **il poursuit**. Condition générale : `(1 − p)(1 − θ)D > k_W` ⟺ `p < 1 − k_W / ((1 − θ)D)` ≈ **85,7 %**. Ici 0,35 × 0,7 × 200 = 49 > 20 : la menace est **crédible**.
-2. **x2, le Post en relais.** Publier 8,82 > ne pas publier 0 ⇒ **il publie**, de justesse. Condition : `p(B_W − c_W) + (1 − p)(θB_W − c_W − S_W) ≥ 0` ⟺ `p ≥ (c_W + S_W − θB_W) / ((1 − θ)B_W + S_W)` = 159/264 ≈ **60,2 %**. (8,82 = 0,7 × 12,6 : dans 30 % des cas, le juge a refusé de censurer le Times et le choix du Post ne compte pas.)
+2. **x2, le Post en relais.** Publier 8,82 > ne pas publier 0 ⇒ **il publie**, de justesse. Condition : `p(B_W − c_W) + (1 − p)(θB_W − c_W − S_W) ≥ 0` ⟺ `p ≥ (c_W + S_W − θB_W) / ((1 − θ)B_W + S_W)` = 159/264 ≈ **60,2 %**.
 3. **x1, Nixon face au Times.** Poursuivre −189,7 > laisser faire −200 ⇒ **il poursuit**. Condition : `k_T + (1 − q)k_W < (1 − q)(1 − p)(1 − θ)D` ⟺ 10 + 0,7 × 20 = **24 < 34,3**. Le premier procès ne vaut que parce que Nixon est prêt à poursuivre aussi le Post.
 4. **x5, Nixon face au Post seul.** Poursuivre (O5) −122 > laisser faire (O6) −200 ⇒ **il poursuivrait**. Condition : `(1 − q)(1 − θ)D > k_W` ⟺ 98 > 20.
-5. **x4, le Post seul.** Publier −79,8 < ne pas publier 0 ⇒ **il se tairait**. Il publierait seul seulement si `q ≥ 60,2 %` : sans second journal, pas de Cour suprême, il n’a que le juge local (30 % de chances).
-6. **x0, le Times.** Publier 60,6 > ne pas publier 0 (la suite serait O7) ⇒ **il publie**.
+5. **x4, le Post seul.** Publier −79,8 < ne pas publier 0 ⇒ **il se tairait**. Il publierait seul seulement si `q ≥ 60,2 %` : sans second journal, il n’a que la 1re cour (30 % de chances).
+6. **x0, le Times.** Publier 60,6 > ne pas publier 0 ⇒ **il publie**. Ne pas publier lui rapporte 0 quoi que fasse ensuite le Post.
 
 ## 4. L’ENPS et le résultat
 
@@ -200,17 +216,17 @@ On traite chaque nœud après toutes ses suites. À chaque nœud, le joueur comp
 
 Gains espérés : **(60,6 ; 8,82 ; −189,7)**.
 
-**Chemin d’équilibre :** le Times publie → Nixon poursuit → le Post publie → Nixon poursuit → **O1, procès du Post + tribunaux**. Les juges tranchent ensuite : juge local favorable au Times **30 %**, victoire des journaux à la Cour suprême **45,5 %** (l’issue de 1971), censure confirmée et sanctions **24,5 %**.
+**Chemin d’équilibre :** le Times publie → Nixon poursuit → le Post publie → Nixon poursuit → **O1**. Les juges tranchent ensuite : la 1re cour donne raison au Times **30 %**, la 2e cour donne raison aux journaux **45,5 %** (l’issue de 1971), censure confirmée et sanctions **24,5 %**.
 
-**Ce que la branche « le Times se tait » apporte :** seul, le Post n’aurait pas publié (−79,8). Sans le Times, rien ne serait sorti.
+**Ce que la branche « le Times ne publie pas » apporte.** Elle ne change pas le choix du Times, qui compare seulement « publier » à 0. Elle répond à une autre question : seul, le Post n’aurait pas publié (−79,8). Sans le Times, rien ne serait sorti.
 
-## 5. Réponses à l’énoncé
+## 5. Réponses aux cinq consignes
 
-### 5.1 Joueurs et ordre
+### Consigne 1 — Les joueurs et leur ordre
 
-Trois joueurs : Times, Post, Nixon. Ordre : x0 Times → x1 Nixon → x2 Post → x3 Nixon ; si le Times renonce : x4 Post → x5 Nixon. Information parfaite. Les juges ne sont pas des joueurs (ni gains ni choix) : leurs verdicts (`q`, `p`) entrent dans les gains des feuilles. Ellsberg déclenche le jeu par un coup fixé.
+Trois joueurs : Times, Post, Nixon. Ordre : x0 Times → x1 Nixon → x2 Post → x3 Nixon ; si le Times renonce : x4 Post → x5 Nixon. Information parfaite. Les juges ne sont pas des joueurs : seuls leurs verdicts ont une probabilité (`q` pour la 1re cour, `p` pour la 2e), qui agit sur les gains. Ellsberg déclenche le jeu par un coup fixé.
 
-### 5.2 Résultats potentiels
+### Consigne 2 — Les résultats possibles
 
 - Pas de publication : O7.
 - Pas d’action en justice : O4, O6.
@@ -218,7 +234,7 @@ Trois joueurs : Times, Post, Nixon. Ordre : x0 Times → x1 Nixon → x2 Post �
 - Action contre le Washington Post également : O1.
 - Action contre le Post seul (si le Times renonce) : O5.
 
-### 5.3 Impact du coût total des procédures et des probabilités
+### Consigne 3 — L’effet des coûts et des probabilités
 
 **Les journaux publient** si la probabilité que la justice leur donne finalement raison atteint leur seuil `τ = (c + S − θB) / ((1 − θ)B + S)` :
 
@@ -232,40 +248,43 @@ Trois joueurs : Times, Post, Nixon. Ordre : x0 Times → x1 Nixon → x2 Post �
 
 **Carte (q, p)** : rien ne sort si `q < 25 %` et `p < 60,2 %` ; procès du Times seulement si `25 % ≤ q < 92,9 %` et `p < 60,2 %` ; deux procès si `60,2 % ≤ p < 78,6 %` et `q < 1 − 10 / (140(1 − p) − 20)` ; aucun procès ailleurs (menace non crédible dès que `p ≥ 85,7 %`).
 
-### 5.4 Valeurs pour lesquelles les documents ne sont pas publiés
+### Consigne 4 — Quand les documents ne sortent pas, et le rôle des coûts
 
 1. **Le Post prend peur** (`p` = 50 %, `S_W` = 250 ou `c_W` > 27,6) : en relais, il perdrait en moyenne −27 (ou −11,9). Il se tait, Nixon poursuit le Times : feuille **O3**, la censure tient 70 % du temps.
-2. **Le Times renonce** (`c_T` = 80, ou `S_T` > 297) : publier lui rapporterait −9,4. Seul, le Post perdrait 79,8 : **O7, rien ne sort**. Le Post aurait pourtant pris le relais (12,6 > 0) : c’est l’absence du Times qui garde le secret.
+2. **Le Times renonce** (`c_T` = 80, ou `S_T` > 297) : publier lui rapporterait −9,4, moins que le 0 de celui qui ne publie pas. Seul, le Post perdrait 79,8 : **O7, rien ne sort**.
 3. **Des tribunaux hostiles** (`q` = 20 %, `p` = 50 %) : pas de relais ; le Times n’a que 20 % de chances, sous son seuil de 25 % : **O7**.
 4. **Même en 1971**, dans la feuille O1, le secret avait 24,5 % de chances de tenir : c’est le verdict défavorable des juges, pas un choix.
 5. **Menace non crédible** (`p` = 50 %, `k_W` = 80) : poursuivre le Post rapporterait −220 à Nixon contre −210 en laissant faire. Si le Post y croyait, il se tairait et la censure tiendrait 7 fois sur 10 : c’est un équilibre de Nash, mais pas un ENPS. L’ENPS prédit que tout sort sans procès (O4).
 
-### 5.5 Importance des coûts
+**L’importance des coûts :**
 
 - **Le coût du second procès commande le premier** : `k_W` < 34,7 : deux procès ; entre 34,7 et 49 : aucun (0,7 × (49 − `k_W`) < 10) ; au-delà de 49 : aucun, menace non crédible. `k_T` ≥ 20,3 : aucun procès.
 - **Le Post est le maillon faible** : frais > 27,6 ou sanction > 216 ⇒ il se tait. Le Times résiste jusqu’à 70,6 de frais ou 297 de sanction ; au-delà, rien ne sort.
-- **Le rôle de `R_T`** (`q` = 65 %, `p` = 50 %, `c_T` = 30, `S_T` = 150) : publier rapporte −7 au Times, se taire −37,75 car le Post publierait seul. Le Times publie à perte. Avec `R_T` = 0, il laisserait le Post publier seul.
+- **Un cas où le Post publie seul** (`q` = 65 %, `p` = 50 %, `c_T` = 30, `S_T` = 150) : publier rapporterait −7 au Times, qui renonce (0). Le Post, lui, publie seul car la 1re cour lui est plutôt favorable : 0,65 × 105 + 0,35 × (−159) = 12,6 > 0.
 
-### 5.6 Gains cohérents et ENPS
+### Consigne 5 — Des gains cohérents et les ENPS
 
-Voir les sections 2 et 4. Sous-jeu du Post en relais (x2) : le Post publie, Nixon le poursuit. Sous-jeu « le Times se tait » (x4) : le Post se tait, O7. Le jeu complet rationalise 1971 : le Times publie car ses chances (75,5 %) dépassent son seuil (25 %) ; Nixon attaque car la censure peut tenir jusqu’au bout (24,5 %) et les procès coûtent moins que le dommage évité ; le Post publie car ses chances à la Cour suprême (65 %) dépassent de peu son seuil (60,2 %).
+Les gains viennent d’une seule équation par joueur (section 2), donc ils sont cohérents entre les sous-jeux, et l’ordre des préférences respecte les objectifs de chacun. L’ENPS est donné en section 4. Sous-jeu du Post en relais (x2) : le Post publie, Nixon le poursuit. Sous-jeu « le Times ne publie pas » (x4) : le Post se tait, O7. Le jeu complet rationalise 1971 : le Times publie car ses chances (75,5 %) dépassent son seuil (25 %) ; Nixon attaque car la censure peut tenir jusqu’au bout (24,5 %) et les procès coûtent moins que le dommage évité ; le Post publie car ses chances devant la 2e cour (65 %) dépassent de peu son seuil (60,2 %).
 
 ## 6. Liens avec le cours
 
 Références tirées des diapositives citées dans l’application (Decerf, ECGEB366). Je n’ai pas pu ouvrir le site du cours depuis mon environnement : vérifie les numéros de diapositives.
 
 - **Forme étendue** (S6, 8–9 et 14) : nœud initial en haut, un joueur par nœud, une action par branche, gains dans un ordre fixe sous chaque feuille.
-- **Joueurs** : seuls ceux qui choisissent et ont des gains. Les juges n’en sont pas ; leur incertitude est traitée par des gains espérés.
+- **Joueurs** (S5 ; S6, 7–9) : seuls ceux qui choisissent et ont des gains. Les juges n’en sont pas ; leur incertitude est traitée par des gains espérés (notre ajout).
+- **Une feuille résume une histoire complète** (S6, 14–18) : « tout sort » ne vaut pas la même chose avec procès (O2) ou sans (O4).
+- **À un nœud, chacun compare sa propre composante** (S6, 21–24).
+- **Un sous-jeu garde les gains du jeu entier** (S6, 10–13) : d’où une seule équation par joueur.
 - **Information parfaite** (S6, 7 et 36–39) : chaque ensemble d’information contient un seul nœud.
 - **Action et stratégie** (S6, 14–18) : 2, 4 et 8 stratégies, 64 profils. L’ENPS précise ce que le Post ferait en x4, jamais atteint en 1971.
-- **Sous-jeux** (S6, 10–13) : un par nœud de décision, 6 au total dont le jeu entier.
 - **Induction à rebours et réduction de l’arbre** (S6, 21–24) : section 3.
 - **Nash et ENPS, menace non crédible, jeu de l’entrée** (S6, 3–6) : le Post joue l’entrant (publier = entrer), Nixon la firme en place (poursuivre = guerre). Sur les 64 profils, 4 équilibres de Nash dans le jeu de référence (même issue, différents hors du chemin, en x4 et x5) et un seul ENPS ; avec `p` = 50 % et `k_W` = 80, 12 équilibres de Nash, dont certains gardent le secret grâce à une menace non crédible.
 - **Jeux simultanés** (S5) et **jeux répétés** (S8) : extensions possibles, non modélisées.
 
 ## 7. Limites
 
-- La Cour suprême n’est saisie que si deux journaux sont poursuivis. Si elle tranchait aussi l’affaire d’un journal seul, le Post oserait publier seul (40,3 > 0) ; le chemin d’équilibre de 1971 ne changerait pas.
+- La 2e cour n’est saisie que si deux journaux sont poursuivis. Si elle tranchait aussi l’affaire d’un journal seul, le Post oserait publier seul (40,3 > 0) ; le chemin d’équilibre de 1971 ne changerait pas.
+- Un journal qui ne publie pas a 0 : on ne compte pas le regret du Times si le Post publie à sa place.
 - Croyances communes : tous les joueurs partagent `q` et `p`.
 - Les verdicts sont résumés en un tirage par tribunal ; les allers-retours réels (suspension, refus d’injonction, appel) sont simplifiés.
 - Une même part `θ` pour les deux journaux, une même valeur `B_W` pour le Post seul ou en relais.
