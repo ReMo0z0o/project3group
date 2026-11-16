@@ -1,0 +1,563 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{icomma}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{patterns,positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\definecolor{regnone}{HTML}{C6C2B8}
+\definecolor{regnosuit}{HTML}{CBE2C3}
+\definecolor{regnyt}{HTML}{F0C5BD}
+\definecolor{regboth}{HTML}{F1D69B}
+
+\newtcolorbox{cours}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Lien avec le cours}
+\newtcolorbox{resultat}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newtcolorbox{intuition}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=Intuition}
+
+\newtcolorbox{reponse}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Réponse à rédiger}
+\newtcolorbox{simple}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=En mots simples}
+\theoremstyle{definition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newcommand{\ind}[1]{\mathbf{1}_{\{\text{#1}\}}}
+\newcommand{\E}{\mathbb{E}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\captionsetup{font=small,labelfont=bf}
+
+\title{\textbf{Pentagon Papers}\\[3pt]\large Le rapport expliqué de A à Z, question par question}
+\author{Travail de théorie des jeux, groupe 5--6 · ECGEB366 « Stratégies économiques »}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\begin{resultat}
+\textbf{Comment lire ce document.} Il ne suppose aucune connaissance. Chaque mot technique est expliqué la première fois qu'il apparaît, et un lexique se trouve à la fin. On avance dans cet ordre :
+\begin{enumerate}[leftmargin=*,itemsep=0pt,topsep=2pt]
+\item l'histoire, puis cinq idées de base (sections 1 et 2) ;
+\item les questions 1 et 2 de l'énoncé : qui joue, et comment cela peut finir (sections 3 et 4) ;
+\item la fabrication des nombres et la résolution du jeu (sections 5 et 6) ;
+\item les questions 3, 4 et 5, qui utilisent ces nombres (sections 7 à 9) ;
+\item un résumé d'une page, les limites et le lexique (sections 10 à 12).
+\end{enumerate}
+Les encadrés verts « Réponse à rédiger » donnent le texte court à reprendre dans le rapport.
+\end{resultat}
+
+\section{L'histoire en quelques lignes}
+
+En 1971, les États-Unis sont en guerre au Vietnam. Un analyste, Daniel Ellsberg, copie un rapport secret de 7\,000 pages, les \emph{Pentagon Papers}. Ce rapport montre que plusieurs gouvernements ont menti au public sur la guerre. Ellsberg le donne à des journaux.
+
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Date (1971) & Ce qui se passe \\
+\midrule
+13 juin & Le \emph{New York Times} publie un premier article. \\
+15 juin & Le gouvernement Nixon va au tribunal ; un juge suspend la publication du Times. \\
+18 juin & Le \emph{Washington Post}, qui a reçu les documents à son tour, publie quand même. \\
+18--25 juin & Le gouvernement poursuit aussi le Post. Les deux affaires montent à la Cour suprême. \\
+30 juin & La Cour suprême donne raison aux journaux (6 voix contre 3). Tout peut être publié. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+La question de l'énoncé : \textbf{pourquoi les journaux ont-ils publié, et pourquoi Nixon est-il allé au tribunal ?} Pour répondre, on construit un \emph{modèle} : une version simplifiée de l'histoire, avec des nombres, que l'on peut résoudre.
+
+\section{Cinq idées de base}
+
+\paragraph{Idée 1 : un jeu.} En économie, un « jeu » est une situation où plusieurs personnes décident, et où le résultat de chacun dépend aussi des décisions des autres. Le Post ne peut pas choisir sans se demander ce que fera Nixon.
+
+\paragraph{Idée 2 : joueur, action, gain.} Un \emph{joueur} est quelqu'un qui choisit et qui a quelque chose à gagner ou à perdre. Une \emph{action} est un choix possible (publier, ne pas publier). Un \emph{gain} est une note que l'on donne à un résultat, du point de vue d'un joueur : plus la note est haute, plus il préfère ce résultat. Les gains sont en « points », pas en dollars. Seule la comparaison compte : $90$ est mieux que $0$, qui est mieux que $-30$.
+
+\paragraph{Idée 3 : un jeu séquentiel et son arbre.} Le jeu est \emph{séquentiel} quand les joueurs décident l'un après l'autre et voient ce qui a été fait avant eux. On le dessine comme un arbre : chaque point (un \emph{nœud}) est une décision d'un joueur, chaque trait (une \emph{branche}) est une action, et chaque extrémité (une \emph{feuille}) est une fin possible de l'histoire, avec les gains de chacun.
+
+\paragraph{Idée 4 : une probabilité et une moyenne.} Une probabilité est une chance sur 100. Si un billet de loterie rapporte $100$ avec $30\,\%$ de chances et $0$ sinon, il vaut \emph{en moyenne}
+\[
+0,3\times100+0,7\times0=30 .
+\]
+Cette moyenne s'appelle le \emph{gain espéré}. On s'en servira pour les procès, dont on ne connaît pas le verdict à l'avance.
+
+\paragraph{Idée 5 : raisonner en partant de la fin.} Pour savoir quoi faire aujourd'hui, il faut deviner ce que les autres feront demain. On commence donc par la \emph{dernière} décision de l'arbre, puis on remonte. Cette méthode s'appelle l'\emph{induction à rebours}. Le résultat s'appelle un \emph{équilibre de Nash parfait en sous-jeux} (ENPS) : un plan pour chaque joueur, tel que personne n'a intérêt à changer d'avis, à aucun moment du jeu.
+
+\begin{cours}
+Jeu, joueurs, stratégies, gains : S5 et S6, diapositives 7--9. Arbre (forme étendue) : S6, diapositives 8--9 et 14. Induction à rebours et ENPS : S6, diapositives 10--13 et 21--24.
+\end{cours}
+
+\section{Question 1 : qui sont les joueurs, et dans quel ordre jouent-ils ?}
+
+\subsection{Les trois joueurs}
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Le New York Times} (noté $T$). Il veut publier un scoop historique, mais il risque un procès.
+\item \textbf{Le Washington Post} (noté $W$). Il veut aussi publier, mais il a beaucoup plus à perdre : il entre en bourse le 15 juin 1971 et possède des licences de télévision que le gouvernement pourrait lui retirer.
+\item \textbf{L'administration Nixon} (notée $N$). Elle veut que le moins de documents possible sortent, et un procès lui coûte (argent, image).
+\end{itemize}
+
+\subsection{Pourquoi les juges ne sont pas des joueurs}
+Un joueur doit remplir deux conditions : \emph{choisir} une action pour servir son intérêt, et \emph{avoir un gain}. Les juges n'ont pas de gain dans notre histoire : ils ne « gagnent » rien si les documents sortent ou non. On ne les met donc pas dans l'arbre. Ils comptent autrement : leur verdict est incertain, et cette incertitude change les gains des trois joueurs. On la résume par deux probabilités :
+\begin{align*}
+q&=30\,\%\ :\ \text{chance que le premier juge (le juge local) refuse la censure ;}\\
+p&=65\,\%\ :\ \text{chance que la Cour suprême donne raison aux journaux.}
+\end{align*}
+De même, Ellsberg n'est pas un joueur : il a déjà donné les documents quand le jeu commence.
+
+\subsection{L'ordre}
+\begin{enumerate}[leftmargin=*,itemsep=1pt]
+\item Le \textbf{Times} décide le premier : publier ou non.
+\item S'il publie, \textbf{Nixon} décide : le poursuivre en justice ou laisser faire.
+\item Si Nixon poursuit, le \textbf{Post} décide : publier à son tour (prendre le relais) ou se taire.
+\item Si le Post publie, \textbf{Nixon} décide encore : poursuivre aussi le Post ou non.
+\end{enumerate}
+Et si le Times ne publie pas au départ, le Post peut publier seul, puis Nixon décide de le poursuivre ou non. Chacun voit ce qui a été fait avant lui : on dit que l'information est \emph{parfaite}.
+
+\begin{reponse}
+Trois joueurs : le Times, le Post et l'administration Nixon. Les juges et Ellsberg ne sont pas des joueurs, car ils n'ont pas de gains ; les verdicts des juges entrent dans le modèle par deux probabilités, $q$ (juge local) et $p$ (Cour suprême). Ordre : Times, puis Nixon, puis Post, puis Nixon. Le jeu est séquentiel, à information complète et parfaite : chacun connaît les gains de tous et observe les coups précédents.
+\end{reponse}
+
+\section{Question 2 : quelles sont les issues possibles ?}
+
+Une \emph{issue} est une fin possible de l'histoire. En suivant toutes les combinaisons de choix, on en trouve sept, notées $O_1$ à $O_7$. L'arbre ci-dessous les montre. Sous chaque feuille, les trois nombres sont les gains dans l'ordre Times, Post, Nixon. On expliquera à la section 5 d'où ils viennent.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=2.35cm,y=1.55cm,
+  pl/.style={circle,inner sep=2.6pt,fill=#1},
+  lab/.style={font=\scriptsize,inner sep=1.2pt,fill=white},
+  eq/.style={line width=1.6pt,draw=gov},
+  br/.style={line width=0.6pt},
+  leaf/.style={font=\scriptsize,align=center,inner sep=1pt}]
+% positions : feuilles en colonnes 0..6, nœuds au milieu
+\coordinate (x0) at (3.6875,0);
+\coordinate (x1) at (2.125,-1);
+\coordinate (x2) at (1.25,-2);
+\coordinate (x3) at (0.5,-3);
+\coordinate (x4) at (5.25,-1);
+\coordinate (x5) at (4.5,-2);
+\coordinate (O1) at (0,-4); \coordinate (O2) at (1,-4); \coordinate (O3) at (2,-3);
+\coordinate (O4) at (3,-2); \coordinate (O5) at (4,-3); \coordinate (O6) at (5,-3); \coordinate (O7) at (6,-2);
+% branches (traits épais : ENPS)
+\draw[eq] (x0)--(x1) node[lab,midway,above left]{Publier};
+\draw[br,dashed] (x0)--(x4) node[lab,midway,above right]{Ne pas publier};
+\draw[eq] (x1)--(x2) node[lab,midway,left]{Poursuivre};
+\draw[br,dashed] (x1)--(O4) node[lab,midway,right]{Laisser faire};
+\draw[eq] (x2)--(x3) node[lab,midway,left]{Publier};
+\draw[br,dashed] (x2)--(O3) node[lab,midway,right]{Ne pas publier};
+\draw[eq] (x3)--(O1) node[lab,midway,left]{Poursuivre};
+\draw[br,dashed] (x3)--(O2) node[lab,midway,right]{Laisser faire};
+\draw[br,dashed] (x4)--(x5) node[lab,midway,left]{Publier};
+\draw[eq] (x4)--(O7) node[lab,midway,right]{Ne pas publier};
+\draw[eq] (x5)--(O5) node[lab,midway,left]{Poursuivre};
+\draw[br,dashed] (x5)--(O6) node[lab,midway,right]{Laisser faire};
+% nœuds des joueurs
+\node[pl=nyt,label={[font=\small\bfseries,text=nyt]above:Times $x_0$}] at (x0) {};
+\node[pl=gov,label={[font=\small\bfseries,text=gov]above left:Nixon $x_1$}] at (x1) {};
+\node[pl=wp,label={[font=\small\bfseries,text=wp]above left:Post $x_2$}] at (x2) {};
+\node[pl=gov,label={[font=\small\bfseries,text=gov]above left:Nixon $x_3$}] at (x3) {};
+\node[pl=wp,label={[font=\small\bfseries,text=wp]above right:Post $x_4$}] at (x4) {};
+\node[pl=gov,label={[font=\small\bfseries,text=gov]above left:Nixon $x_5$}] at (x5) {};
+% feuilles : gains (Times ; Post ; Nixon), espérés si procès
+\foreach \n/\t/\g in {O1/{Procès du Post\\+ tribunaux}/{60,6\\8,82\\$-$189,7},O2/{Post publie,\\pas de procès}/{90\\84\\$-$210},O3/{Times censuré,\\Post muet}/{6\\0\\$-$112},O4/{Tout sort,\\sans procès}/{100\\0\\$-$200},O5/{Procès du\\Post seul}/{0\\$-$79,8\\$-$122},O6/{Le Post\\publie seul}/{0\\120\\$-$200},O7/{Rien\\ne sort}/{0\\0\\0}}{
+  \fill (\n) circle (1.6pt);
+  \node[leaf,below=2pt] at (\n) {\textbf{\n}\\[-1pt]\t\\[1pt]\g};
+}
+\end{tikzpicture}
+\caption{L'arbre du jeu. Points colorés : décisions des joueurs. Sous chaque feuille : gains du Times, du Post, de Nixon. Traits épais rouges : les choix à l'équilibre (section 6).}
+\end{figure}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lX>{\raggedright\arraybackslash}p{4.6cm}@{}}
+\toprule
+Issue & L'histoire, en mots & Dans l'énoncé \\
+\midrule
+$O_1$ & Le Times publie, Nixon le poursuit, le Post publie aussi, Nixon poursuit aussi le Post. & Poursuite contre le Times \emph{et} le Post (c'est 1971) \\
+$O_2$ & Le Times publie, Nixon le poursuit, le Post publie, Nixon laisse faire le Post. & Poursuite contre le Times seulement, le Post publie \\
+$O_3$ & Le Times publie, Nixon le poursuit, le Post se tait. & Poursuite contre le Times seulement, le Post ne publie pas \\
+$O_4$ & Le Times publie, Nixon laisse faire. & Publication sans poursuite \\
+$O_5$ & Le Times ne publie pas, le Post publie seul, Nixon le poursuit. & Poursuite contre le Post seulement \\
+$O_6$ & Le Times ne publie pas, le Post publie seul, Nixon laisse faire. & Publication (Post) sans poursuite \\
+$O_7$ & Personne ne publie. & Pas de publication \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Dans les issues avec procès ($O_1$, $O_2$, $O_3$, $O_5$), on ne sait pas encore ce que diront les juges. Chaque procès peut finir de plusieurs façons :
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item le juge local refuse la censure (chance $q$) : tout sort ;
+\item le juge local censure (chance $1-q$). Si un seul journal est poursuivi, l'histoire s'arrête là et la censure tient. Si les deux journaux sont poursuivis, les deux affaires vont ensemble devant la Cour suprême, qui donne raison aux journaux (chance $p$) ou au gouvernement (chance $1-p$).
+\end{itemize}
+
+\begin{reponse}
+Sept issues : $O_1$ procès contre le Times et le Post ; $O_2$ procès contre le Times, le Post publie librement ; $O_3$ procès contre le Times, le Post se tait ; $O_4$ le Times publie sans procès ; $O_5$ le Post publie seul et est poursuivi ; $O_6$ le Post publie seul sans procès ; $O_7$ rien ne sort. Dans les issues avec procès, le verdict des juges est tiré au sort avec les probabilités $q$ et $p$.
+\end{reponse}
+
+\section{Préparation : d'où viennent les nombres ?}
+
+\subsection{Les ingrédients}
+On choisit des valeurs raisonnables, que l'on pourra faire varier ensuite. Ce sont des hypothèses, pas des mesures historiques.
+\begin{center}
+\small
+\begin{tabular}{@{}llp{10cm}@{}}
+\toprule
+Symbole & Valeur & Ce que cela veut dire \\
+\midrule
+$B_T$, $B_W$ & $100$, $120$ & \textbf{B}énéfice du Times, du Post, s'il publie tout (scoop, prestige). \\
+$c_T$, $c_W$ & $10$, $15$ & \textbf{c}oût total d'un procès pour le Times, pour le Post (avocats, temps). \\
+$S_T$, $S_W$ & $50$, $180$ & \textbf{S}anction si le journal perd : la censure est maintenue. Elle est très forte pour le Post (bourse, licences). \\
+$D$ & $200$ & \textbf{D}ommage pour Nixon si tout sort. \\
+$k_T$, $k_W$ & $10$, $20$ & Coût, pour Nixon, d'un procès contre le Times, contre le Post. \\
+$\theta$ & $0,3$ & Part des révélations déjà parue quand une censure tombe (les premiers articles). \\
+$q$, $p$ & $0,3$ ; $0,65$ & Probabilités des juges (section 3). \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{La règle de calcul d'un journal}
+\begin{simple}
+Un journal qui ne publie pas a $0$ : ni scoop, ni procès, ni sanction.\\
+Un journal qui publie a : \textbf{ce que vaut ce qu'il a réussi à publier}, \textbf{moins} ses frais de procès s'il est poursuivi, \textbf{moins} sa sanction si la censure est maintenue.
+\end{simple}
+Il n'y a donc que quatre cas possibles pour un journal :
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Cas & Formule & Times & Post \\
+\midrule
+Il ne publie pas & $0$ & $0$ & $0$ \\
+Il publie, pas de procès & $B$ & $100$ & $120$ \\
+Il publie, procès, il gagne (tout sort) & $B-c$ & $100-10=90$ & $120-15=105$ \\
+Il publie, procès, il perd (censure) & $\theta B-c-S$ & $30-10-50=-30$ & $36-15-180=-159$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Dans la dernière ligne, le journal n'a pu publier que la part $\theta=0,3$ : il ne touche que $0,3\times B$.
+
+\subsection{La règle de calcul de Nixon}
+\begin{simple}
+Nixon a : \textbf{moins} le dommage de ce qui sort, \textbf{moins} le coût de chaque procès qu'il lance.
+\end{simple}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Ce qui sort & Procès lancés & Calcul \\
+\midrule
+Rien & aucun & $0$ \\
+Tout & aucun & $-200$ \\
+Tout & contre le Times & $-200-10=-210$ \\
+Tout & contre le Post seul & $-200-20=-220$ \\
+Tout & contre les deux & $-200-10-20=-230$ \\
+Les premiers articles seulement & contre le Times & $-0,3\times200-10=-70$ \\
+Les premiers articles seulement & contre le Post seul & $-0,3\times200-20=-80$ \\
+Les premiers articles seulement & contre les deux & $-0,3\times200-10-20=-90$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Les feuilles sans hasard}
+Trois feuilles ne contiennent aucun procès : on lit directement les tableaux.
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item $O_4$ (le Times publie, pas de procès) : Times $100$ ; Post $0$ (il n'a pas publié) ; Nixon $-200$.
+\item $O_6$ (le Post publie seul, pas de procès) : Times $0$ ; Post $120$ ; Nixon $-200$.
+\item $O_7$ (rien ne sort) : $0$ ; $0$ ; $0$.
+\end{itemize}
+
+\subsection{Les feuilles avec procès : la moyenne}
+Quand il y a un procès, on ne connaît pas le verdict. On fait alors comme pour le billet de loterie : on calcule le gain après chaque verdict, on le multiplie par la chance de ce verdict, et on additionne.
+
+\paragraph{Exemple complet : la feuille $O_1$.} Les deux journaux ont publié et sont poursuivis. Trois verdicts sont possibles.
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xlrrr@{}}
+\toprule
+Verdict & Chance & Times & Post & Nixon \\
+\midrule
+Le juge local refuse de censurer le Times : tout sort par le Times & $q=0,30$ & $90$ & $0$ & $-210$ \\
+Le juge local censure, puis la Cour suprême donne raison aux journaux & $0,7\times0,65=0,455$ & $90$ & $105$ & $-230$ \\
+Le juge local censure, puis la Cour suprême confirme la censure & $0,7\times0,35=0,245$ & $-30$ & $-159$ & $-90$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+Les trois chances font bien $0,30+0,455+0,245=1$. Dans la première ligne, le Post a $0$ : le Times a pu tout publier lui-même, le Post n'a pas eu à prendre le relais.
+\begin{align*}
+\text{Times :}\quad & 0,30\times90+0,455\times90+0,245\times(-30)=27+40,95-7,35=60,6\\
+\text{Post :}\quad & 0,30\times0+0,455\times105+0,245\times(-159)=0+47,78-38,96=8,82\\
+\text{Nixon :}\quad & 0,30\times(-210)+0,455\times(-230)+0,245\times(-90)=-63-104,65-22,05=-189,7
+\end{align*}
+
+\paragraph{Les trois autres feuilles avec procès}, calculées de la même façon :
+\begin{itemize}[leftmargin=*,itemsep=3pt]
+\item $O_2$ (Times poursuivi, Post libre). Le Times finit toujours par voir tout publié : $90$. Le Post a $0$ si le juge laisse le Times publier ($30\,\%$) et $120$ sinon : $0,7\times120=84$. Nixon a un procès et tout sort : $-210$.
+\item $O_3$ (Times poursuivi, Post muet). Times : $0,3\times90+0,7\times(-30)=6$. Post : $0$. Nixon : $0,3\times(-210)+0,7\times(-70)=-112$.
+\item $O_5$ (Post seul, poursuivi). Times : $0$. Post : $0,3\times105+0,7\times(-159)=-79,8$. Nixon : $0,3\times(-220)+0,7\times(-80)=-122$.
+\end{itemize}
+
+\begin{cours}
+La moyenne pondérée par les probabilités est le calcul du chapitre sur les jeux bayésiens (diapositive 11). Les juges y correspondent à la « Nature » : un tirage au sort sans gains ni choix (diapositives 14 et 33).
+\end{cours}
+
+\section{Préparation : résoudre le jeu en partant de la fin}
+
+À chaque nœud, le joueur qui décide regarde \emph{son propre} nombre dans chaque option et prend le plus grand. On commence par les nœuds du bas.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}clX>{\raggedright\arraybackslash}p{3.3cm}@{}}
+\toprule
+Étape & Qui décide & Ce qu'il compare (son gain) & Son choix \\
+\midrule
+1 & Nixon en $x_3$ & Poursuivre le Post ($O_1$) : $-189,7$. Laisser faire ($O_2$) : $-210$. & Poursuivre, car $-189,7>-210$ \\
+2 & Post en $x_2$ & Publier : il sait que Nixon poursuivra, donc $O_1$ : $8,82$. Se taire ($O_3$) : $0$. & Publier, car $8,82>0$ \\
+3 & Nixon en $x_1$ & Poursuivre le Times : la suite mène à $O_1$ : $-189,7$. Laisser faire ($O_4$) : $-200$. & Poursuivre, car $-189,7>-200$ \\
+4 & Nixon en $x_5$ & Poursuivre le Post seul ($O_5$) : $-122$. Laisser faire ($O_6$) : $-200$. & Poursuivre \\
+5 & Post en $x_4$ & Publier seul : Nixon poursuivra, donc $O_5$ : $-79,8$. Se taire ($O_7$) : $0$. & Se taire \\
+6 & Times en $x_0$ & Publier : la suite mène à $O_1$ : $60,6$. Ne pas publier : la suite mène à $O_7$ : $0$. & Publier, car $60,6>0$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{resultat}
+\textbf{Résultat.} Le Times publie, Nixon le poursuit, le Post prend le relais, Nixon le poursuit aussi : c'est la feuille $O_1$, exactement ce qui s'est passé en 1971. Gains espérés : Times $60,6$ ; Post $8,82$ ; Nixon $-189,7$.
+\end{resultat}
+
+Remarquez l'étape 5 : le Post n'ose pas publier \emph{seul} ($-79,8$), mais il ose publier \emph{après} le Times ($8,82$). La raison : quand deux journaux sont poursuivis, l'affaire monte à la Cour suprême, plus favorable à la presse. Le Times « ouvre la voie ».
+
+\section{Question 3 : l'effet des coûts des procès et des probabilités des juges}
+
+L'énoncé demande : pour quelles probabilités les journaux publient-ils, et pour quelles probabilités l'administration poursuit-elle ? On cherche des \emph{seuils} : la valeur à partir de laquelle un joueur change d'avis. La méthode est toujours la même : écrire « gain si j'agis $\ge$ gain si je n'agis pas », puis isoler la probabilité.
+
+\subsection{Le Post publie-t-il en relais ? Un seuil sur $p$}
+Le Post compare publier (il sera poursuivi) et se taire ($0$). S'il publie, il a $0$ si le juge local libère le Times, $105$ si la Cour suprême lui donne raison, $-159$ sinon :
+\[
+\underbrace{(1-q)}_{\text{le Times est censuré}}\times\big[\,p\times105+(1-p)\times(-159)\,\big]\ \ge\ 0 .
+\]
+Le facteur $(1-q)$ est positif : on peut le retirer. Il reste $105p-159+159p\ge0$, donc $264p\ge159$ :
+\[
+p\ \ge\ \frac{159}{264}\approx 60,2\,\% .
+\]
+\begin{simple}
+Le Post publie si la Cour suprême a au moins $60,2\,\%$ de chances de lui donner raison. Avec $p=65\,\%$, il publie. Avec $p=50\,\%$, il se tairait.
+\end{simple}
+Pourquoi un seuil si haut ? Parce que le Post perd beaucoup s'il perd ($-159$) et gagne moins s'il gagne ($105$) : il lui faut de bonnes chances.
+
+\subsection{Le Times publie-t-il ? Un seuil de $25\,\%$}
+Appelons $\pi$ la chance que la justice finisse par donner raison au Times. Il a $90$ s'il gagne et $-30$ s'il perd :
+\[
+\pi\times90+(1-\pi)\times(-30)\ge0\iff 120\,\pi\ge30\iff \pi\ge25\,\% .
+\]
+Ici, le Times peut gagner de deux façons : devant le juge local, ou sinon devant la Cour suprême. Donc
+\[
+\pi=q+(1-q)\,p=0,3+0,7\times0,65=75,5\,\% .
+\]
+C'est bien au-dessus de $25\,\%$ : le Times publie sans hésiter. Il risque peu ($-30$) pour gagner beaucoup ($90$).
+
+\subsection{Nixon poursuit-il le Post ? Un seuil sur $p$}
+En $x_3$, Nixon compare poursuivre le Post et laisser faire ($-210$). Si le juge local a libéré le Times, les deux options donnent le même résultat ($-210$) ; ce qui compte est le cas où le Times est censuré. Dans ce cas, poursuivre donne $-230$ si la Cour suprême donne raison aux journaux et $-90$ sinon ; laisser faire donne $-210$ :
+\[
+p\times(-230)+(1-p)\times(-90)>-210\iff -90-140p>-210\iff p<\frac{120}{140}=\frac67\approx85,7\,\% .
+\]
+\begin{simple}
+Nixon poursuit le Post tant que la Cour suprême a moins de $85,7\,\%$ de chances de donner raison aux journaux. Même avec peu de chances de gagner, le procès vaut la peine pour lui : s'il gagne, il évite un dommage énorme.
+\end{simple}
+
+\subsection{Nixon poursuit-il le Times ? Un seuil sur $q$}
+En $x_1$, Nixon sait que s'il poursuit, le Post publiera et sera poursuivi aussi. Poursuivre lui rapporte $-210$ si le juge local refuse la censure (chance $q$), et sinon $0,65\times(-230)+0,35\times(-90)=-181$. Laisser faire donne $-200$ :
+\[
+q\times(-210)+(1-q)\times(-181)>-200\iff -181-29q>-200\iff q<\frac{19}{29}\approx65,5\,\% .
+\]
+Avec $q=30\,\%$, Nixon poursuit. Si le juge local était très favorable à la presse (plus de $65,5\,\%$), il renoncerait.
+
+\subsection{Résumé des probabilités}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Décision & Condition & Avec nos valeurs \\
+\midrule
+Le Times publie & $q+(1-q)p\ge25\,\%$ & $75,5\,\%$ : oui \\
+Le Post publie en relais & $p\ge60,2\,\%$ & $65\,\%$ : oui \\
+Le Post publie seul & $q\ge60,2\,\%$ & $30\,\%$ : non \\
+Nixon poursuit le Post & $p<85,7\,\%$ & $65\,\%$ : oui \\
+Nixon poursuit le Times & $q<65,5\,\%$ & $30\,\%$ : oui \\
+\bottomrule
+\end{tabular}
+\end{center}
+L'histoire de 1971 se produit donc quand $p$ est \emph{entre} $60,2\,\%$ et $85,7\,\%$ : assez haut pour que le Post ose, pas assez pour que Nixon abandonne.
+
+\subsection{L'effet du coût total des procès}
+\paragraph{Pour Nixon.} Poursuivre le Times lui coûte $k_T=10$ à coup sûr, plus $k_W=20$ si le Times est censuré et que le Post publie (chance $0,7$). Coût moyen total :
+\[
+10+0,7\times20=24 .
+\]
+En échange, il réduit le dommage attendu. Sans procès, le dommage est $200$. Avec les procès, tout sort avec $75,5\,\%$ de chances, et seulement $30\,\%$ des documents sinon : $200\times(0,755+0,245\times0,3)=165,7$. Le procès lui fait donc économiser $200-165,7=34,3$.
+\begin{simple}
+Nixon poursuit parce que le procès lui coûte $24$ et lui rapporte $34,3$. Si le coût total dépassait $34,3$, il ne poursuivrait plus.
+\end{simple}
+Vérifications avec le modèle :
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item si le procès contre le Times coûtait plus de $20,3$ (par exemple $k_T=25$), Nixon ne poursuivrait personne : le Times publierait tranquillement ($O_4$) ;
+\item si le procès contre le Post coûtait plus de $49$ (par exemple $k_W=60$), sa menace contre le Post ne serait plus crédible : le Post publierait sans crainte, et Nixon n'aurait même plus intérêt à poursuivre le Times ($O_4$).
+\end{itemize}
+
+\paragraph{Pour les journaux.} Les frais comptent aussi, mais moins que la sanction.
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item Le Post publie en relais tant que ses frais restent sous $27,6$ (ils valent $15$). Avec $c_W=40$, il se tairait, et le Times resterait seul face au juge ($O_3$).
+\item Le Times publie tant que ses frais restent sous $70,6$ (ils valent $10$) : il a une grande marge.
+\end{itemize}
+
+\begin{reponse}
+Les journaux publient si leurs chances de gagner sont assez hautes par rapport à ce qu'ils risquent : le Times dès $25\,\%$ de chances de victoire finale (il en a $75,5\,\%$), le Post seulement si $p\ge60,2\,\%$ car sa sanction est lourde. L'administration poursuit si ses chances de censure valent le coût : elle poursuit le Post si $p<85,7\,\%$ et le Times si $q<65,5\,\%$. Les procès lui coûtent en moyenne $24$ et réduisent le dommage attendu de $34,3$ : elle poursuit. Un coût de procès plus élevé pour Nixon ($k_T>20,3$ ou $k_W>49$) rend sa menace non crédible et tout est publié sans procès ; des frais plus élevés pour le Post ($c_W>27,6$) le font taire.
+\end{reponse}
+
+\section{Question 4 : quand les documents ne sont-ils pas publiés ?}
+
+Dans notre arbre, « rien ne sort » correspond à la feuille $O_7$. Pour y arriver, il faut deux choses à la fois : le Times renonce, \emph{et} le Post n'ose pas publier seul.
+
+\subsection{Par les probabilités}
+Il faut que les juges soient peu favorables à la presse. Exemple : $q=10\,\%$ et $p=10\,\%$.
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item Le Post ne prendrait pas le relais ($p=10\,\%<60,2\,\%$).
+\item Le Times serait donc seul face au juge local : $0,1\times90+0,9\times(-30)=-18<0$. Il ne publie pas.
+\item Le Post seul : $0,1\times105+0,9\times(-159)=-132,6<0$. Il ne publie pas non plus.
+\end{itemize}
+Résultat : $O_7$, rien ne sort. Règle générale : le Times, s'il est seul, renonce dès que $q<25\,\%$.
+
+\subsection{Par les gains des journaux}
+Sans toucher aux probabilités, on peut aussi rendre la publication trop risquée :
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item une sanction très lourde pour le Times : avec $S_T=300$, son gain espéré devient $-0,65<0$. Il renonce (le seuil est $S_T\approx297$) ;
+\item des frais de procès très élevés pour le Times : avec $c_T=75$, son gain devient $-4,4<0$ (le seuil est $70,6$) ;
+\item un scoop qui vaut peu ($B_T$ petit) aurait le même effet.
+\end{itemize}
+Dans ces trois cas, le Post ne publie pas seul non plus ($-79,8$), et rien ne sort.
+
+\subsection{Un cas intermédiaire : la censure réussit souvent}
+Avec $p=50\,\%$, le Post n'ose plus prendre le relais. Le Times publie quand même (son gain vaut $6>0$) et Nixon le poursuit : c'est $O_3$. Les premiers articles sortent, mais la censure tient dans $70\,\%$ des cas. Les documents sont alors en grande partie gardés secrets, grâce à la peur du Post.
+
+\subsection{L'importance des coûts}
+\begin{simple}
+Les coûts jouent dans les deux sens.\\
+\textbf{Coûts des journaux élevés} (frais $c$, sanction $S$) : les journaux se taisent, le secret est gardé.\\
+\textbf{Coûts de Nixon élevés} ($k_T$, $k_W$) : il ne poursuit plus, et tout sort sans procès.
+\end{simple}
+Il y a un point plus subtil. Nixon pourrait \emph{dire} « je poursuivrai tout le monde » même quand cela lui coûterait trop cher. Mais les journaux ne le croiraient pas : une menace que l'on n'a pas intérêt à exécuter n'est \emph{pas crédible}. C'est pour cela que le coût des procès de Nixon protège la presse.
+
+\begin{reponse}
+Les documents ne sont pas publiés ($O_7$) quand le Times renonce et que le Post n'ose pas publier seul. Cela arrive si les juges sont peu favorables (par exemple $q=p=10\,\%$ ; le Times seul renonce dès $q<25\,\%$) ou si la publication est trop risquée pour le Times (sanction $S_T>297$ ou frais $c_T>70,6$). Les coûts sont décisifs dans les deux sens : des coûts élevés pour les journaux les font taire ; des coûts élevés pour Nixon rendent sa menace non crédible et favorisent la publication.
+\end{reponse}
+
+\section{Question 5 : des gains cohérents, et l'équilibre du jeu}
+
+\subsection{Les gains sont-ils cohérents avec les objectifs ?}
+On classe les situations de la meilleure à la pire pour chaque joueur, et on vérifie que cela correspond à ce qu'il veut vraiment.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Times} : publier librement ($100$) $>$ gagner son procès ($90$) $>$ ne pas publier ($0$) $>$ être censuré ($-30$).
+\item \textbf{Post} : publier librement ($120$) $>$ gagner son procès ($105$) $>$ ne pas publier ($0$) $>$ être censuré ($-159$). Il a beaucoup plus à perdre que le Times.
+\item \textbf{Nixon} : rien ne sort ($0$) $>$ une partie sort ($-70$ à $-90$) $>$ tout sort ($-200$ à $-230$). À résultat égal, il préfère moins de procès.
+\end{itemize}
+
+\subsection{Les gains sont-ils cohérents d'un sous-jeu à l'autre ?}
+Un \emph{sous-jeu} est un morceau de l'arbre qui commence à un nœud et contient toute la suite. Les gains sont cohérents parce que chaque joueur n'a qu'\textbf{une seule règle de calcul}, appliquée partout (section 5). Par exemple, « le Post gagne son procès » vaut toujours $105$, qu'il ait publié seul ou en relais ; « le Times ne publie pas » vaut toujours $0$, dans $O_5$, $O_6$ et $O_7$.
+
+\subsection{L'équilibre (ENPS)}
+Une \emph{stratégie} est un plan complet : elle dit ce que le joueur ferait à \emph{chacun} de ses nœuds, même ceux qui ne seront jamais atteints. L'induction à rebours de la section 6 donne :
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Joueur & Sa stratégie d'équilibre \\
+\midrule
+Times & Publier. \\
+Post & Publier si le Times a été poursuivi ($x_2$) ; ne pas publier si le Times s'est tu ($x_4$). \\
+Nixon & Poursuivre à ses trois nœuds ($x_1$, $x_3$, $x_5$). \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Résultat de l'équilibre} : la feuille $O_1$, avec les gains espérés $(60,6\ ;\ 8,82\ ;\ -189,7)$. Ensuite, les juges tranchent :
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Verdict & Chance & Ce qui sort \\
+\midrule
+Le juge local laisse le Times publier & $30\,\%$ & Tout \\
+La Cour suprême donne raison aux journaux (c'est 1971) & $45,5\,\%$ & Tout \\
+La Cour suprême confirme la censure & $24,5\,\%$ & Les premiers articles \\
+\bottomrule
+\end{tabular}
+\end{center}
+Avant le premier article, tout sort donc avec $30+45,5=75,5\,\%$ de chances.
+
+\subsection{Pourquoi « parfait en sous-jeux » ?}
+Il existe d'autres équilibres de Nash, mais ils reposent sur des menaces que personne n'exécuterait. L'ENPS les élimine : il demande que chaque joueur fasse le bon choix à \emph{chaque} nœud. Ici, les menaces de Nixon sont crédibles, car poursuivre est vraiment son meilleur choix aux trois nœuds. C'est le même raisonnement que le « jeu de l'entrée » du cours : le Post est l'entrant, Nixon la firme en place.
+
+\begin{cours}
+Jeu de l'entrée et menace non crédible : S6, diapositives 3--6. Sous-jeux et ENPS : S6, diapositives 10--13. Stratégie et résultat : S6, diapositives 14--18. Le jeu est à information complète (pas de « type » caché), donc l'ENPS est le bon concept (jeux bayésiens, diapositive 22). Une seule affaire : ce n'est pas un jeu répété (S8, B3, diapositives 4--5).
+\end{cours}
+
+\begin{reponse}
+Les gains respectent les objectifs (les journaux préfèrent publier librement, puis gagner un procès, puis se taire, puis être censurés ; Nixon préfère que rien ne sorte et évite les procès inutiles) et sont cohérents entre sous-jeux, car une seule équation par joueur s'applique partout. Par induction à rebours, l'ENPS est unique : le Times publie ; le Post publie en relais et se tait s'il est seul ; Nixon poursuit à ses trois nœuds. Résultat : $O_1$, procès contre les deux journaux, gains espérés $(60,6\ ;\ 8,82\ ;\ -189,7)$ ; tout sort avec $75,5\,\%$ de chances.
+\end{reponse}
+
+\section{Le résumé en une page}
+
+\begin{enumerate}[leftmargin=*,itemsep=3pt]
+\item \textbf{Joueurs} : Times, Post, Nixon. Les juges ne jouent pas : ils sont un tirage au sort, avec $q=30\,\%$ et $p=65\,\%$.
+\item \textbf{Issues} : sept feuilles, de $O_1$ (deux procès) à $O_7$ (rien ne sort).
+\item \textbf{Gains} : un journal a $0$ s'il ne publie pas ; sinon la valeur de ce qu'il publie, moins ses frais, moins sa sanction. Nixon a moins le dommage, moins ses procès. Avec procès, on prend la moyenne sur les verdicts.
+\item \textbf{Résolution} : on part de la fin. Nixon poursuit le Post ($-189,7>-210$), donc le Post compare $8,82$ et $0$ et publie ; Nixon poursuit le Times ($-189,7>-200$) ; le Times compare $60,6$ et $0$ et publie.
+\item \textbf{Seuils} : Times publie si ses chances finales $\ge25\,\%$ ; Post si $p\ge60,2\,\%$ ; Nixon poursuit le Post si $p<85,7\,\%$, le Times si $q<65,5\,\%$.
+\item \textbf{Coûts} : le procès coûte $24$ à Nixon et lui évite $34,3$ de dommage. Plus cher, il ne poursuivrait plus.
+\item \textbf{Pas de publication} : juges défavorables (Times seul : $q<25\,\%$) ou risques trop grands pour les journaux.
+\item \textbf{Message} : le Post ose parce que le Times a ouvert la voie, et la presse est protégée quand faire taire un journal coûte cher au pouvoir.
+\end{enumerate}
+
+\section{Les limites à mentionner}
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item Les nombres sont des hypothèses. Ce sont les \emph{conditions} (les seuils) qui comptent, pas les valeurs exactes.
+\item On suppose que la Cour suprême n'intervient en urgence que si deux journaux sont poursuivis.
+\item Tous les joueurs connaissent les mêmes probabilités et les gains des autres (information complète).
+\item Les allers-retours réels entre tribunaux sont résumés par un tirage par tribunal.
+\item Une seule affaire : on ne tient pas compte de la réputation pour les affaires futures (jeu répété).
+\end{itemize}
+
+\section{Lexique}
+\begin{description}[leftmargin=!,labelwidth=3.4cm,itemsep=1pt,font=\normalfont\bfseries]
+\item[Joueur] Quelqu'un qui choisit et qui a un gain.
+\item[Action] Un choix possible à un moment donné.
+\item[Gain] Note donnée à un résultat par un joueur ; plus elle est haute, mieux c'est.
+\item[Nœud] Point de l'arbre où un joueur décide.
+\item[Feuille (issue)] Fin possible de l'histoire, avec les gains de chacun.
+\item[Gain espéré] Moyenne des gains possibles, pondérée par leurs chances.
+\item[Stratégie] Plan complet : une action prévue à chaque nœud du joueur.
+\item[Sous-jeu] Morceau de l'arbre qui part d'un nœud et contient toute la suite.
+\item[Induction à rebours] Résoudre l'arbre en partant de la fin.
+\item[Équilibre de Nash] Situation où personne n'a intérêt à changer seul de stratégie.
+\item[ENPS] Équilibre de Nash dans chaque sous-jeu ; il élimine les menaces non crédibles.
+\item[Menace non crédible] Menace que l'on n'aurait pas intérêt à exécuter le moment venu.
+\item[Seuil] Valeur à partir de laquelle un joueur change de décision.
+\item[Censure] Interdiction de publier décidée par un tribunal.
+\end{description}
+
+\end{document}
