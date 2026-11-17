@@ -1,0 +1,148 @@
+\documentclass[tikz,border=16pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{icomma}
+\usetikzlibrary{shapes.geometric,arrows.meta,calc,positioning}
+\usepackage{amssymb}
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\newcommand{\pay}[3]{{\color{nyt}\textbf{#1}}\\{\color{wp}\textbf{#2}}\\{\color{gov}\textbf{#3}}}
+\newcommand{\m}{$-$}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  pl/.style={circle,fill=#1,minimum size=11pt,inner sep=0},
+  jn/.style={diamond,draw=nat,line width=1pt,fill=nat!18,minimum size=17pt,inner sep=0},
+  lf/.style={circle,fill=black,minimum size=6pt,inner sep=0},
+  act/.style={font=\normalsize,fill=white,inner sep=1.5pt},
+  dec/.style={line width=1.3pt},
+  ch/.style={draw=nat,dashed,line width=1.2pt},
+  pr/.style={font=\normalsize\bfseries,text=nat,fill=white,inner sep=1.5pt},
+  pay/.style={font=\normalsize,align=center,anchor=north,inner sep=2pt},
+  path/.style={font=\small\bfseries,text=nat,anchor=north,align=center},
+  box/.style={draw=#1!70,fill=#1!7,line width=0.8pt,rounded corners=4pt,align=left,font=\small,inner sep=6pt,anchor=north},
+  plab/.style={font=\large\bfseries,text=#1},
+  olab/.style={font=\Large\bfseries,fill=white,inner sep=1pt}]
+
+% ---------- positions ----------
+\coordinate (x0) at (28.6,0);
+\coordinate (x1) at (19.2,-2.6);   \coordinate (x4) at (38,-2.6);
+\coordinate (x2) at (13.3,-5.2);   \coordinate (x5) at (34.3,-5.2);
+\coordinate (x3) at (7.4,-7.8);
+\coordinate (J1) at (2.6,-10.4);   \coordinate (J2) at (12.25,-10.4);
+\coordinate (J3) at (19.25,-10.4); \coordinate (O4) at (25,-10.4);
+\coordinate (J5) at (31.25,-10.4); \coordinate (O6) at (37.3,-10.4);
+\coordinate (O7) at (41.8,-10.4);
+\coordinate (C1) at (5.25,-12.9);
+\coordinate (a1) at (0,-15.4);  \coordinate (a2) at (3.5,-15.4); \coordinate (a3) at (7,-15.4);
+\coordinate (b1) at (10.5,-15.4); \coordinate (b2) at (14,-15.4);
+\coordinate (c1) at (17.5,-15.4); \coordinate (c2) at (21,-15.4);
+\coordinate (e1) at (29.5,-15.4); \coordinate (e2) at (33,-15.4);
+
+% ---------- titre et légende ----------
+\node[anchor=north west,font=\huge\bfseries] at (-1.3,1.2) {Comment on calcule les gains de chaque feuille};
+\node[anchor=north west,font=\Large,text=gray!40!black] at (-1.3,0) {Gains dans l'ordre (\textcolor{nyt}{\textbf{Times}} ; \textcolor{wp}{\textbf{Post}} ; \textcolor{gov}{\textbf{Nixon}}). Explications en bas de l'image.};
+\node[anchor=north west,align=left,font=\large,text width=42.5cm,draw=gray!50,rounded corners=4pt,inner sep=8pt,fill=gray!4] at (-1.3,-23.6) {%
+\textbf{Ce qu'il y a sur l'image}\\[3pt]
+{\color{nyt}$\bullet$}\,{\color{wp}$\bullet$}\,{\color{gov}$\bullet$}\ \ Ronds de couleur : les \textbf{joueurs} (Times, Post, Nixon). Traits noirs : leurs \textbf{choix}.\\[2pt]
+{\color{nat}$\blacklozenge$}\ \ Losanges et pointillés : les \textbf{juges}. Ce ne sont pas des joueurs, c'est un \textbf{tirage au sort} (la « Nature »).\\[2pt]
+Trois nombres empilés : gains de \textbf{\color{nyt}Times}, \textbf{\color{wp}Post}, \textbf{\color{gov}Nixon}, dans cet ordre.\\[6pt]
+\textbf{Les 3 gestes du calcul}\\[3pt]
+\textbf{1.} Sous chaque verdict, on applique la règle de chaque joueur : on obtient ses gains.\\
+\textbf{2.} On écrit la \textbf{chance} de chaque chemin (on multiplie les chances le long du chemin).\\
+\textbf{3.} On fait la \textbf{moyenne} : chance $\times$ gain, puis on additionne. Ce résultat est le gain de la feuille.\\[4pt]
+Juge local : refuse la censure 30\,\% \quad Cour suprême : donne raison aux journaux 65\,\%};
+
+% ---------- branches des joueurs ----------
+\draw[dec] (x0)--(x1) node[act,pos=0.45,above]{Publier};
+\draw[dec] (x0)--(x4) node[act,pos=0.5,above right]{Ne pas publier};
+\draw[dec] (x1)--(x2) node[act,pos=0.5,above left]{Poursuivre};
+\draw[dec] (x1)--(O4) node[act,pos=0.45,right]{Laisser faire};
+\draw[dec] (x2)--(x3) node[act,pos=0.5,above left]{Publier};
+\draw[dec] (x2)--(J3) node[act,pos=0.45,right]{Ne pas publier};
+\draw[dec] (x3)--(J1) node[act,pos=0.5,above left]{Poursuivre};
+\draw[dec] (x3)--(J2) node[act,pos=0.5,above right]{Laisser faire};
+\draw[dec] (x4)--(x5) node[act,pos=0.5,above left]{Publier};
+\draw[dec] (x4)--(O7) node[act,pos=0.5,right]{Ne pas publier};
+\draw[dec] (x5)--(J5) node[act,pos=0.5,left]{Poursuivre};
+\draw[dec] (x5)--(O6) node[act,pos=0.5,right]{Laisser faire};
+
+\node[pl=nyt] at (x0){}; \node[plab=nyt,above=6pt] at (x0){Times};
+\node[pl=gov] at (x1){}; \node[plab=gov,above left=4pt] at (x1){Nixon};
+\node[pl=wp]  at (x2){}; \node[plab=wp,above left=4pt] at (x2){Post};
+\node[pl=gov] at (x3){}; \node[plab=gov,above left=4pt] at (x3){Nixon};
+\node[pl=wp]  at (x4){}; \node[plab=wp,above right=4pt] at (x4){Post};
+\node[pl=gov] at (x5){}; \node[plab=gov,above left=4pt] at (x5){Nixon};
+
+% ---------- tirages des juges ----------
+% O1 : deux tribunaux
+\draw[ch] (J1)--(a1) node[pr,pos=0.45,left]{refuse 30\,\%};
+\draw[ch] (J1)--(C1) node[pr,pos=0.5,above right]{censure 70\,\%};
+\draw[ch] (C1)--(a2) node[pr,pos=0.5,left]{journaux 65\,\%};
+\draw[ch] (C1)--(a3) node[pr,pos=0.5,right]{gouv. 35\,\%};
+\node[jn] at (C1){}; \node[font=\small\bfseries,text=nat,right=5pt] at (C1){Cour suprême};
+% O2, O3, O5 : juge local seulement
+\foreach \J/\l/\r in {J2/b1/b2,J3/c1/c2,J5/e1/e2}{
+  \draw[ch] (\J)--(\l) node[pr,pos=0.5,left]{refuse 30\,\%};
+  \draw[ch] (\J)--(\r) node[pr,pos=0.5,right]{censure 70\,\%};
+}
+\foreach \J in {J1,J2,J3,J5}{\node[jn] at (\J){};}
+\node[font=\small\bfseries,text=nat,below left=2pt and 4pt] at (J1){juge local};
+\foreach \J in {J2,J3,J5}{\node[font=\small\bfseries,text=nat,below=11pt] at (\J){juge local};}
+
+% étiquettes des feuilles
+\node[olab,above left=4pt and 2pt] at (J1){O1};
+\node[olab,above right=4pt and 2pt] at (J2){O2};
+\node[olab,above right=4pt and 2pt] at (J3){O3};
+\node[olab,above left=4pt and 2pt] at (J5){O5};
+\foreach \O in {O4,O6,O7}{\node[lf] at (\O){}; \node[olab,above right=4pt and 2pt] at (\O){\O};}
+
+% ---------- gains après chaque verdict (geste 1) et chances (geste 2) ----------
+\foreach \P/\t/\w/\n/\c in {
+  a1/90/0/\m210/{30\,\%},
+  a2/90/105/\m230/{0,7$\times$0,65\\= 45,5\,\%},
+  a3/\m30/\m159/\m90/{0,7$\times$0,35\\= 24,5\,\%},
+  b1/90/0/\m210/{30\,\%}, b2/90/120/\m210/{70\,\%},
+  c1/90/0/\m210/{30\,\%}, c2/\m30/0/\m70/{70\,\%},
+  e1/0/105/\m220/{30\,\%}, e2/0/\m159/\m80/{70\,\%}}{
+  \fill[nat] (\P) circle (3pt);
+  \node[pay] (p\P) at ($(\P)+(0,-0.15)$) {\pay{\t}{\w}{\n}};
+  \node[path] at ($(p\P.south)+(0,-0.05)$) {\c};
+}
+% feuilles sans procès : pas de tirage
+\foreach \O/\t/\w/\n in {O4/100/0/\m200, O6/0/120/\m200, O7/0/0/0}{
+  \node[pay] at ($(\O)+(0,-0.3)$) {\pay{\t}{\w}{\n}};
+  \node[font=\small,text=gray,align=center,anchor=north] at ($(\O)+(0,-2.4)$) {pas de procès\\= pas de hasard};
+}
+
+% ---------- moyennes (geste 3) ----------
+\node[box=gray,text width=8.4cm] at (3.5,-19.6) {%
+\textbf{\large O1 = (60,6 ; 8,82 ; \m189,7)}\\[3pt]
+{\color{nyt}Times : 0,3$\times$90 + 0,455$\times$90 + 0,245$\times$(\m30) = \textbf{60,6}}\\
+{\color{wp}Post : 0,3$\times$0 + 0,455$\times$105 + 0,245$\times$(\m159) = \textbf{8,82}}\\
+{\color{gov}Nixon : 0,3$\times$(\m210) + 0,455$\times$(\m230) + 0,245$\times$(\m90) = \textbf{\m189,7}}};
+\node[box=gray,text width=5.9cm] at (12.25,-19.6) {%
+\textbf{\large O2 = (90 ; 84 ; \m210)}\\[3pt]
+{\color{nyt}Times : 0,3$\times$90 + 0,7$\times$90 = \textbf{90}}\\
+{\color{wp}Post : 0,3$\times$0 + 0,7$\times$120 = \textbf{84}}\\
+{\color{gov}Nixon : 0,3$\times$(\m210) + 0,7$\times$(\m210) = \textbf{\m210}}};
+\node[box=gray,text width=5.9cm] at (19.25,-19.6) {%
+\textbf{\large O3 = (6 ; 0 ; \m112)}\\[3pt]
+{\color{nyt}Times : 0,3$\times$90 + 0,7$\times$(\m30) = \textbf{6}}\\
+{\color{wp}Post : 0 (il n'a pas publié)}\\
+{\color{gov}Nixon : 0,3$\times$(\m210) + 0,7$\times$(\m70) = \textbf{\m112}}};
+\node[box=gray,text width=5.9cm] at (31.25,-19.6) {%
+\textbf{\large O5 = (0 ; \m79,8 ; \m122)}\\[3pt]
+{\color{nyt}Times : 0 (il n'a pas publié)}\\
+{\color{wp}Post : 0,3$\times$105 + 0,7$\times$(\m159) = \textbf{\m79,8}}\\
+{\color{gov}Nixon : 0,3$\times$(\m220) + 0,7$\times$(\m80) = \textbf{\m122}}};
+\foreach \O/\v in {O4/{(100 ; 0 ; \m200)},O6/{(0 ; 120 ; \m200)},O7/{(0 ; 0 ; 0)}}{
+  \node[box=gray,text width=3.6cm,align=center] at ($(\O)+(0,-9.2)$) {\textbf{\large \O\ =}\\\textbf{\large \v}\\[2pt]rien à moyenner};
+}
+\node[anchor=west,font=\large\bfseries] at (-1,-18.9) {Geste 3 : la moyenne. C'est le gain écrit dans la feuille de l'arbre.};
+\end{tikzpicture}
+\end{document}

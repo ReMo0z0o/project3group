@@ -1,0 +1,87 @@
+\documentclass[tikz,border=16pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{icomma,amssymb,array,booktabs}
+\usetikzlibrary{shapes.geometric,arrows.meta,calc,positioning}
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\newcommand{\m}{$-$}
+\newcommand{\x}{$\times$}
+\begin{document}
+\begin{tikzpicture}[
+  pl/.style={circle,fill=#1,minimum size=11pt,inner sep=0},
+  jn/.style={diamond,draw=nat,line width=1pt,fill=nat!18,minimum size=20pt,inner sep=0},
+  dec/.style={line width=1.4pt},
+  ch/.style={draw=nat,dashed,line width=1.4pt},
+  pr/.style={font=\large\bfseries,text=nat,fill=white,inner sep=2pt},
+  res/.style={draw=#1!70,fill=#1!6,rounded corners=4pt,line width=0.8pt,align=left,anchor=west,font=\large,inner sep=8pt,text width=13cm},
+  num/.style={circle,fill=black,text=white,font=\large\bfseries,inner sep=2pt,minimum size=22pt}]
+
+\node[anchor=west,font=\huge\bfseries] at (-0.5,8.4) {Zoom sur la feuille O1 : les deux journaux sont poursuivis};
+\node[anchor=west,font=\Large,text=gray!40!black] at (-0.5,7.3) {Le Times publie $\to$ Nixon le poursuit $\to$ le Post publie $\to$ Nixon le poursuit aussi. Puis les juges tranchent.};
+
+% chemin des joueurs (résumé)
+\coordinate (n) at (0,0);
+\node[pl=gov] at (n){}; \node[font=\large\bfseries,text=gov,above=5pt] at (n){Nixon};
+\coordinate (J) at (3.6,0);
+\draw[dec] (n)--(J) node[midway,below,font=\large]{Poursuit le Post};
+
+% juges
+\coordinate (C) at (8.2,-3.4);
+\coordinate (t1) at (11.4,3.2);
+\coordinate (t2) at (12.4,-1.2);
+\coordinate (t3) at (12.4,-5.8);
+\draw[ch] (J)--(t1) node[pr,pos=0.45,above left]{refuse : 30\,\%};
+\draw[ch] (J)--(C)  node[pr,pos=0.5,below left]{censure : 70\,\%};
+\draw[ch] (C)--(t2) node[pr,pos=0.5,above left]{journaux : 65\,\%};
+\draw[ch] (C)--(t3) node[pr,pos=0.5,below left]{gouv. : 35\,\%};
+\node[jn] at (J){}; \node[font=\large\bfseries,text=nat,above=14pt] at (J){Juge local};
+\node[jn] at (C){}; \node[font=\large\bfseries,text=nat,left=14pt] at (C){Cour suprême};
+\foreach \t in {t1,t2,t3}{\fill[nat] (\t) circle (4pt);}
+
+% gains après chaque verdict (geste 1) + chance (geste 2)
+\node[res=nat] (r1) at ($(t1)+(0.4,0)$) {%
+\textbf{\Large Verdict A : le juge refuse la censure. Tout sort.}\\[2pt]
+{\color{nyt}Times : publie et gagne : 100 \m\ 10 = \textbf{90}}\\
+{\color{wp}Post : le relais ne sert plus : \textbf{0}}\\
+{\color{gov}Nixon : tout sort, 1 procès : \m200 \m\ 10 = \textbf{\m210}}\\[3pt]
+{\color{nat}\textbf{Chance du chemin : 30\,\%}}};
+\node[res=nat] (r2) at ($(t2)+(0.4,0)$) {%
+\textbf{\Large Verdict B : la Cour suprême soutient les journaux.}\\[2pt]
+{\color{nyt}Times : 100 \m\ 10 = \textbf{90}}\\
+{\color{wp}Post : 120 \m\ 15 = \textbf{105}}\\
+{\color{gov}Nixon : tout sort, 2 procès : \m200 \m\ 10 \m\ 20 = \textbf{\m230}}\\[3pt]
+{\color{nat}\textbf{Chance du chemin : 0,7 \x\ 0,65 = 45,5\,\%}}};
+\node[res=nat] (r3) at ($(t3)+(0.4,0)$) {%
+\textbf{\Large Verdict C : la censure est confirmée. 30\,\% sortent.}\\[2pt]
+{\color{nyt}Times : 0,3\x100 \m\ 10 \m\ 50 = \textbf{\m30}}\\
+{\color{wp}Post : 0,3\x120 \m\ 15 \m\ 180 = \textbf{\m159}}\\
+{\color{gov}Nixon : \m0,3\x200 \m\ 10 \m\ 20 = \textbf{\m90}}\\[3pt]
+{\color{nat}\textbf{Chance du chemin : 0,7 \x\ 0,35 = 24,5\,\%}}};
+
+\node[num] at ($(r1.north west)+(0,0.55)$) {1};
+\node[anchor=south west,font=\large\bfseries] at ($(r1.north west)+(0.45,0.15)$) {Geste 1 et 2 : gains après chaque verdict, et chance du chemin};
+
+% vérification 100 %
+\node[anchor=north west,font=\large,text=nat,align=left] at (-0.5,-8.6) {\textbf{Vérification :} 30\,\% + 45,5\,\% + 24,5\,\% = \textbf{100\,\%}. On n'oublie aucun cas.};
+
+% moyenne (geste 3)
+\node[num] at (-0.2,-10.3) {3};
+\node[anchor=west,font=\Large\bfseries] at (0.3,-10.3) {Geste 3 : la moyenne (chance \x\ gain, puis on additionne)};
+\node[anchor=north west,font=\Large] at (-0.5,-11) {%
+\renewcommand{\arraystretch}{1.5}%
+\begin{tabular}{@{}l r@{\ }c@{\ }r@{\ }c@{\ }r@{\ }c@{\ }l@{}}
+ & \textbf{Verdict A} & & \textbf{Verdict B} & & \textbf{Verdict C} & & \textbf{Gain de O1}\\
+\color{nyt}\textbf{Times} & \color{nyt}0,30\x90 & + & \color{nyt}0,455\x90 & + & \color{nyt}0,245\x(\m30) & = & \color{nyt}27 + 40,95 \m\ 7,35 = \textbf{60,6}\\
+\color{wp}\textbf{Post} & \color{wp}0,30\x0 & + & \color{wp}0,455\x105 & + & \color{wp}0,245\x(\m159) & = & \color{wp}0 + 47,78 \m\ 38,96 = \textbf{8,82}\\
+\color{gov}\textbf{Nixon} & \color{gov}0,30\x(\m210) & + & \color{gov}0,455\x(\m230) & + & \color{gov}0,245\x(\m90) & = & \color{gov}\m63 \m\ 104,65 \m\ 22,05 = \textbf{\m189,7}\\
+\end{tabular}};
+
+\node[draw=black,line width=1.2pt,rounded corners=5pt,fill=yellow!12,font=\huge\bfseries,inner sep=10pt,anchor=north west] at (-0.5,-15.6) {Dans l'arbre, on écrit sous O1 :\ \ (\textcolor{nyt}{60,6}\ ;\ \textcolor{wp}{8,82}\ ;\ \textcolor{gov}{\m189,7})};
+\end{tikzpicture}
+\end{document}
