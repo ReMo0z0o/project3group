@@ -1,0 +1,396 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{icomma}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{patterns,positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\definecolor{regnone}{HTML}{C6C2B8}
+\definecolor{regnosuit}{HTML}{CBE2C3}
+\definecolor{regnyt}{HTML}{F0C5BD}
+\definecolor{regboth}{HTML}{F1D69B}
+
+\newtcolorbox{cours}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Lien avec le cours}
+\newtcolorbox{resultat}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newtcolorbox{intuition}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=Intuition}
+
+\theoremstyle{definition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newcommand{\ind}[1]{\mathbf{1}_{\{\text{#1}\}}}
+\newcommand{\E}{\mathbb{E}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\captionsetup{font=small,labelfont=bf}
+
+\newtcolorbox{reponse}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newtcolorbox{simple}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=En mots}
+\newcommand{\T}[1]{\textcolor{nyt}{#1}}
+\newcommand{\W}[1]{\textcolor{wp}{#1}}
+\newcommand{\N}[1]{\textcolor{gov}{#1}}
+
+\title{\textbf{Pentagon Papers}\\[3pt]\large Les équations exactes du modèle, terme par terme}
+\author{Travail de théorie des jeux, groupe 5--6 · ECGEB366}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\begin{resultat}
+\textbf{Ce document} donne toutes les équations du modèle sous leur forme exacte (avec des lettres), explique chaque terme, puis remplace les lettres par les nombres. Ordre des gains : (\T{Times} ; \W{Post} ; \N{Nixon}). Les chances viennent des juges, qui ne sont pas des joueurs. Les autres valeurs sont des hypothèses : seul leur ordre compte.
+\end{resultat}
+
+\section{Notations}
+
+\subsection{Les paramètres}
+\begin{center}
+\small
+\begin{tabular}{@{}lllp{8.3cm}@{}}
+\toprule
+Symbole & Valeur & Qui & Sens \\
+\midrule
+$q$ & $0,3$ & juges & chance que le juge local (1\textsuperscript{re} cour) refuse la censure \\
+$p$ & $0,65$ & juges & chance que la Cour suprême (2\textsuperscript{e} cour) donne raison aux journaux \\
+$\theta$ & $0,3$ & tous & part des révélations déjà publiée quand une censure tombe \\
+$B_T,\ B_W$ & $100,\ 120$ & journaux & valeur d'une publication complète (scoop, prestige) \\
+$c_T,\ c_W$ & $10,\ 15$ & journaux & dommage d'être poursuivi : frais, temps, image (payé même en cas de victoire) \\
+$S_T,\ S_W$ & $50,\ 180$ & journaux & sanction si la censure est maintenue (bourse et licences pour le Post) \\
+$D$ & $200$ & Nixon & dommage si tout sort \\
+$k_T,\ k_W$ & $10,\ 20$ & Nixon & coût d'un procès contre le Times, contre le Post \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Deux outils}
+\paragraph{La part qui sort, $\sigma$.}
+\[
+\sigma=\begin{cases}1 & \text{tout sort,}\\ \theta & \text{une censure est maintenue (seuls les premiers articles sont parus),}\\ 0 & \text{rien ne sort.}\end{cases}
+\]
+\paragraph{L'indicatrice $\mathbf{1}_{\{\cdot\}}$.} Elle vaut $1$ si la phrase entre accolades est vraie, $0$ sinon. Exemple : $c_j\,\ind{poursuivi}$ vaut $c_j$ si le journal est poursuivi, $0$ sinon. C'est une case à cocher qui allume ou éteint un terme.
+
+\section{L'équation d'un journal}
+
+\subsection{La forme exacte}
+Pour le journal $j$ ($j=T$ pour le Times, $j=W$ pour le Post) :
+\begin{equation}
+u_j=\begin{cases}
+0 & \text{s'il ne publie pas,}\\[4pt]
+\underbrace{B_j\,\sigma}_{\text{ce qu'il a publié}}\;-\;\underbrace{c_j\,\ind{poursuivi}}_{\text{dommage d'être poursuivi}}\;-\;\underbrace{S_j\,\ind{censure maintenue}}_{\text{sanction s'il perd}} & \text{s'il publie.}
+\end{cases}\label{eq:uj}
+\end{equation}
+
+\subsection{Chaque terme}
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item $B_j\,\sigma$ : la valeur de ce que le journal a réussi à publier. Tout ($\sigma=1$) vaut $B_j$ ; seulement les premiers articles ($\sigma=\theta$) vaut $\theta B_j$.
+\item $c_j\,\ind{poursuivi}$ : le \textbf{dommage d'être poursuivi}. Il est payé dès que Nixon attaque, \emph{même si le journal gagne} : avocats, temps, stress, image.
+\item $S_j\,\ind{censure maintenue}$ : le \textbf{dommage de perdre}. Il n'est payé que si la censure tient à la fin.
+\item $0$ s'il ne publie pas : ni scoop, ni procès, ni sanction. C'est le point de référence.
+\end{itemize}
+
+\subsection{Le dommage total d'un journal qui perd}
+Par rapport à « publier sans procès » ($B_j$), un journal qui perd son procès perd trois choses :
+\[
+\underbrace{B_j}_{\text{sans procès}}-\underbrace{(\theta B_j-c_j-S_j)}_{\text{procès perdu}}
+=\underbrace{(1-\theta)B_j}_{\text{scoop perdu}}+\underbrace{c_j}_{\text{frais}}+\underbrace{S_j}_{\text{sanction}} .
+\]
+Pour le Post : $84+15+180=279$. Pour le Times : $70+10+50=130$.
+
+\subsection{Les quatre cas possibles}
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Cas & Formule & \T{Times} & \W{Post} \\
+\midrule
+Ne publie pas & $0$ & $0$ & $0$ \\
+Publie, pas de procès & $B_j$ & $100$ & $120$ \\
+Publie, poursuivi, gagne & $B_j-c_j$ & $100-10=90$ & $120-15=105$ \\
+Publie, poursuivi, perd & $\theta B_j-c_j-S_j$ & $0,3\times100-10-50=-30$ & $0,3\times120-15-180=-159$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{L'équation de Nixon}
+
+\subsection{La forme exacte}
+\begin{equation}
+u_N=-\underbrace{D\,\sigma}_{\text{dommage de ce qui sort}}-\underbrace{k_T\,\ind{Times poursuivi}}_{\text{procès du Times}}-\underbrace{k_W\,\ind{Post poursuivi}}_{\text{procès du Post}} . \label{eq:uN}
+\end{equation}
+Ses gains sont négatifs ou nuls : son meilleur cas est $0$ (rien ne sort, aucun procès).
+
+\subsection{Les cas possibles}
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Ce qui sort & Procès & Formule & Valeur \\
+\midrule
+Rien & aucun & $0$ & $0$ \\
+Tout & aucun & $-D$ & $-200$ \\
+Tout & Times & $-D-k_T$ & $-210$ \\
+Tout & Post seul & $-D-k_W$ & $-220$ \\
+Tout & Times et Post & $-D-k_T-k_W$ & $-230$ \\
+Premiers articles & Times & $-\theta D-k_T$ & $-70$ \\
+Premiers articles & Post seul & $-\theta D-k_W$ & $-80$ \\
+Premiers articles & Times et Post & $-\theta D-k_T-k_W$ & $-90$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Les probabilités des verdicts}
+
+\subsection{Les règles}
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item Tout procès commence devant le juge local : il refuse la censure avec la chance $q$, il censure avec $1-q$.
+\item La Cour suprême n'est saisie que si \textbf{les deux journaux} sont poursuivis (affaires jointes). Elle donne raison aux journaux avec $p$, au gouvernement avec $1-p$.
+\item Les deux tirages sont indépendants : la chance d'un chemin est le \textbf{produit} des chances le long du chemin.
+\end{itemize}
+
+\subsection{Deux journaux poursuivis : trois chemins}
+\begin{align*}
+\Pr(\text{A : juge local refuse}) &= q = 0,30\\
+\Pr(\text{B : censure, puis Cour pour les journaux}) &= (1-q)\,p = 0,7\times0,65 = 0,455\\
+\Pr(\text{C : censure, puis Cour pour le gouvernement}) &= (1-q)(1-p) = 0,7\times0,35 = 0,245
+\end{align*}
+\[
+q+(1-q)p+(1-q)(1-p)=q+(1-q)\big[p+(1-p)\big]=q+(1-q)=1 .
+\]
+
+\subsection{Un seul journal poursuivi : deux chemins}
+\[
+\Pr(\text{refus})=q=0,30,\qquad \Pr(\text{censure maintenue})=1-q=0,70 .
+\]
+
+\subsection{La chance que les journaux gagnent à la fin}
+\begin{equation}
+\pi=q+(1-q)\,p=1-(1-q)(1-p)=0,755 \quad\text{(deux journaux)},\qquad \pi=q=0,30\quad\text{(un seul).}\label{eq:pi}
+\end{equation}
+
+\section{Le gain espéré d'une feuille}
+\begin{equation}
+\E[u_i]=\sum_{\text{verdicts } v}\Pr(v)\times u_i(v),\qquad i\in\{T,W,N\}. \label{eq:esp}
+\end{equation}
+\begin{simple}
+Pour chaque verdict possible : chance du verdict $\times$ gain du joueur après ce verdict. Puis on additionne. C'est une moyenne pondérée, comme la valeur moyenne d'un billet de loterie.
+\end{simple}
+
+\section{Les sept feuilles, équation par équation}
+
+\subsection*{$O_1$ — les deux journaux sont poursuivis}
+\begin{center}
+\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Verdict & Chance & \T{Times} & \W{Post} & \N{Nixon} \\
+\midrule
+A : juge local refuse & $q$ & $B_T-c_T$ & $0$ & $-D-k_T$ \\
+B : Cour pour les journaux & $(1-q)p$ & $B_T-c_T$ & $B_W-c_W$ & $-D-k_T-k_W$ \\
+C : censure confirmée & $(1-q)(1-p)$ & $\theta B_T-c_T-S_T$ & $\theta B_W-c_W-S_W$ & $-\theta D-k_T-k_W$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+En A, le Times publie tout lui-même : le relais du Post ne sert plus, il n'est pas jugé et reçoit $0$.
+\begin{align*}
+\T{\E[u_T]} &= q\,(B_T-c_T)+(1-q)\,p\,(B_T-c_T)+(1-q)(1-p)\,(\theta B_T-c_T-S_T)\\
+&= 0,30\times90+0,455\times90+0,245\times(-30)=27+40,95-7,35=\mathbf{60,6}\\[5pt]
+\W{\E[u_W]} &= q\times0+(1-q)\,p\,(B_W-c_W)+(1-q)(1-p)\,(\theta B_W-c_W-S_W)\\
+&= 0,30\times0+0,455\times105+0,245\times(-159)=0+47,775-38,955=\mathbf{8,82}\\[5pt]
+\N{\E[u_N]} &= q\,(-D-k_T)+(1-q)\,p\,(-D-k_T-k_W)+(1-q)(1-p)\,(-\theta D-k_T-k_W)\\
+&= 0,30\times(-210)+0,455\times(-230)+0,245\times(-90)=-63-104,65-22,05=\mathbf{-189,7}
+\end{align*}
+
+\subsection*{$O_2$ — le Times est poursuivi, le Post publie librement}
+Si le juge local censure le Times, le Post publie tout : les documents sont dehors, la censure ne sert plus et le Times ne paie pas $S_T$.
+\begin{align*}
+\T{\E[u_T]} &= q\,(B_T-c_T)+(1-q)\,(B_T-c_T)=B_T-c_T=\mathbf{90}\\
+\W{\E[u_W]} &= q\times0+(1-q)\,B_W=0,7\times120=\mathbf{84}\\
+\N{\E[u_N]} &= q\,(-D-k_T)+(1-q)\,(-D-k_T)=-D-k_T=\mathbf{-210}
+\end{align*}
+
+\subsection*{$O_3$ — le Times est poursuivi, le Post se tait}
+\begin{align*}
+\T{\E[u_T]} &= q\,(B_T-c_T)+(1-q)\,(\theta B_T-c_T-S_T)=0,3\times90+0,7\times(-30)=27-21=\mathbf{6}\\
+\W{\E[u_W]} &= \mathbf{0}\quad\text{(il ne publie pas)}\\
+\N{\E[u_N]} &= q\,(-D-k_T)+(1-q)\,(-\theta D-k_T)=0,3\times(-210)+0,7\times(-70)=-63-49=\mathbf{-112}
+\end{align*}
+
+\subsection*{$O_4$ — le Times publie, pas de procès}
+\[
+(\T{B_T}\ ;\ \W{0}\ ;\ \N{-D})=(\mathbf{100}\ ;\ \mathbf{0}\ ;\ \mathbf{-200}).
+\]
+
+\subsection*{$O_5$ — le Post publie seul et est poursuivi}
+\begin{align*}
+\T{\E[u_T]} &= \mathbf{0}\quad\text{(il ne publie pas)}\\
+\W{\E[u_W]} &= q\,(B_W-c_W)+(1-q)\,(\theta B_W-c_W-S_W)\\ &=0,3\times105+0,7\times(-159)=31,5-111,3=\mathbf{-79,8}\\
+\N{\E[u_N]} &= q\,(-D-k_W)+(1-q)\,(-\theta D-k_W)\\ &=0,3\times(-220)+0,7\times(-80)=-66-56=\mathbf{-122}
+\end{align*}
+
+\subsection*{$O_6$ — le Post publie seul, pas de procès}
+\[
+(\T{0}\ ;\ \W{B_W}\ ;\ \N{-D})=(\mathbf{0}\ ;\ \mathbf{120}\ ;\ \mathbf{-200}).
+\]
+
+\subsection*{$O_7$ — personne ne publie}
+\[
+(\mathbf{0}\ ;\ \mathbf{0}\ ;\ \mathbf{0}).
+\]
+
+\subsection*{Récapitulatif}
+\begin{center}
+\small
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Feuille & Histoire & \T{Times} & \W{Post} & \N{Nixon} \\
+\midrule
+$O_1$ & Times et Post poursuivis & $60,6$ & $8,82$ & $-189,7$ \\
+$O_2$ & Times poursuivi, Post libre & $90$ & $84$ & $-210$ \\
+$O_3$ & Times poursuivi, Post muet & $6$ & $0$ & $-112$ \\
+$O_4$ & Times publie, pas de procès & $100$ & $0$ & $-200$ \\
+$O_5$ & Post seul, poursuivi & $0$ & $-79,8$ & $-122$ \\
+$O_6$ & Post seul, pas de procès & $0$ & $120$ & $-200$ \\
+$O_7$ & Personne ne publie & $0$ & $0$ & $0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{La résolution à rebours}
+À chaque nœud, le joueur compare \emph{sa} composante et prend la plus grande. On part du bas.
+\begin{center}
+\small
+\begin{tabular}{@{}clll@{}}
+\toprule
+Nœud & Qui & Comparaison & Choix \\
+\midrule
+$x_3$ & \N{Nixon} face au Post en relais & $O_1:-189,7$ \ vs \ $O_2:-210$ & poursuivre \\
+$x_2$ & \W{Post} en relais & $O_1:8,82$ \ vs \ $O_3:0$ & publier \\
+$x_1$ & \N{Nixon} face au Times & $O_1:-189,7$ \ vs \ $O_4:-200$ & poursuivre \\
+$x_5$ & \N{Nixon} face au Post seul & $O_5:-122$ \ vs \ $O_6:-200$ & poursuivre \\
+$x_4$ & \W{Post} seul & $O_5:-79,8$ \ vs \ $O_7:0$ & ne pas publier \\
+$x_0$ & \T{Times} & $O_1:60,6$ \ vs \ $O_7:0$ & publier \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{ENPS} : Times publie ; Post (publie en relais, se tait seul) ; Nixon poursuit à ses trois nœuds. Résultat : $O_1$.
+
+\section{Les seuils : dérivations exactes}
+Méthode : écrire « gain si j'agis $\ge$ gain si je n'agis pas », développer, isoler la probabilité ou le coût.
+
+\subsection{Le Post publie-t-il en relais ? (nœud $x_2$)}
+Il compare $O_1$ et $O_3$ (gain $0$) :
+\[
+(1-q)\big[p\,(B_W-c_W)+(1-p)(\theta B_W-c_W-S_W)\big]\ \ge\ 0 .
+\]
+Comme $1-q>0$, on le retire. On développe :
+\[
+p\,(B_W-c_W)-p\,(\theta B_W-c_W-S_W)\ \ge\ -(\theta B_W-c_W-S_W)
+\]
+\[
+\iff p\,\big[(1-\theta)B_W+S_W\big]\ \ge\ c_W+S_W-\theta B_W .
+\]
+\begin{equation}
+\boxed{\ p\ \ge\ \frac{c_W+S_W-\theta B_W}{(1-\theta)B_W+S_W}=\frac{15+180-36}{84+180}=\frac{159}{264}\approx60,2\,\%\ }
+\end{equation}
+\textbf{Post seul} (nœud $x_4$) : même calcul avec $q$ à la place de $p$, donc il publie seul si $q\ge60,2\,\%$.
+
+\subsection{Le Times publie-t-il ? (nœud $x_0$)}
+Avec $\pi$ la chance que le Times gagne à la fin (équation \eqref{eq:pi}) :
+\[
+\pi\,(B_T-c_T)+(1-\pi)(\theta B_T-c_T-S_T)\ \ge\ 0
+\]
+\[
+\iff
+\boxed{\ \pi\ \ge\ \frac{c_T+S_T-\theta B_T}{(1-\theta)B_T+S_T}=\frac{10+50-30}{70+50}=\frac{30}{120}=25\,\%\ }
+\]
+Si le Post prend le relais, $\pi=q+(1-q)p=75,5\,\%$ : il publie. S'il restait seul, $\pi=q$ et il publierait seulement si $q\ge25\,\%$.
+
+\subsection{Nixon poursuit-il le Post ? (nœud $x_3$)}
+On calcule la différence $O_1-O_2$ pour Nixon. Dans le verdict A, rien ne change ; dans B, il paie $k_W$ de plus ; dans C, il évite $(1-\theta)D$ de dommage mais paie $k_W$ :
+\[
+\E[u_N(O_1)]-\E[u_N(O_2)]=(1-q)\Big[p\,(-k_W)+(1-p)\big((1-\theta)D-k_W\big)\Big]=(1-q)\big[(1-p)(1-\theta)D-k_W\big].
+\]
+Nixon poursuit si c'est positif :
+\begin{equation}
+\boxed{\ (1-p)(1-\theta)D>k_W\iff p<1-\frac{k_W}{(1-\theta)D}=1-\frac{20}{140}=\frac67\approx85,7\,\%\ }
+\end{equation}
+Lu sur le coût : il poursuit si $k_W<(1-p)(1-\theta)D=0,35\times0,7\times200=49$.
+
+\subsection{Nixon poursuit-il le Times ? (nœud $x_1$)}
+Il sait que, s'il poursuit, la suite mène à $O_1$. Il compare $O_1$ et $O_4$ ($-D$) :
+\[
+\E[u_N(O_1)]-(-D)=-k_T-(1-q)\,k_W+(1-q)(1-p)(1-\theta)D .
+\]
+\begin{equation}
+\boxed{\ \underbrace{k_T+(1-q)\,k_W}_{\text{coût moyen des procès}}\ <\ \underbrace{(1-q)(1-p)(1-\theta)D}_{\text{dommage évité en moyenne}}\ }
+\end{equation}
+\[
+10+0,7\times20=24\ <\ 0,7\times0,35\times0,7\times200=34,3 .
+\]
+Lu sur $q$ : $(1-q)\big[(1-p)(1-\theta)D-k_W\big]>k_T\iff(1-q)\times29>10\iff q<\dfrac{19}{29}\approx65,5\,\%$.\\
+Lu sur $k_T$ : $k_T<0,7\times29=20,3$.\quad Lu sur $k_W$ : $k_W<49-\dfrac{10}{0,7}\approx34,7$.
+
+\subsection{Nixon poursuit-il le Post seul ? (nœud $x_5$)}
+\[
+\E[u_N(O_5)]-\E[u_N(O_6)]=-k_W+(1-q)(1-\theta)D>0\iff k_W<(1-q)(1-\theta)D=98 .
+\]
+Toujours vrai avec nos valeurs : il poursuit.
+
+\subsection{Les seuils sur les coûts des journaux}
+\textbf{Times} (avec relais, $\pi=0,755$) : il publie si $\pi(B_T-c_T)+(1-\pi)(\theta B_T-c_T-S_T)\ge0$, donc si
+\begin{align*}
+c_T &\le \pi(1-\theta)B_T+\theta B_T-(1-\pi)S_T = 52,85+30-12,25 = 70,6,\\
+S_T &\le \frac{\pi(B_T-c_T)+(1-\pi)(\theta B_T-c_T)}{1-\pi} = \frac{67,95+4,9}{0,245}\approx 297,3 .
+\end{align*}
+\textbf{Post} (relais) : il publie si $p(B_W-c_W)+(1-p)(\theta B_W-c_W-S_W)\ge0$, donc si
+\[
+c_W \le pB_W+(1-p)(\theta B_W-S_W) = 78+0,35\times(36-180) = 78-50,4 = 27,6 .
+\]
+
+\subsection{Récapitulatif des seuils}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Décision & Condition exacte & Valeur \\
+\midrule
+\W{Post} publie en relais & $p\ge\dfrac{c_W+S_W-\theta B_W}{(1-\theta)B_W+S_W}$ & $60,2\,\%$ \\[8pt]
+\W{Post} publie seul & $q\ge\dfrac{c_W+S_W-\theta B_W}{(1-\theta)B_W+S_W}$ & $60,2\,\%$ \\[8pt]
+\T{Times} publie & $\pi\ge\dfrac{c_T+S_T-\theta B_T}{(1-\theta)B_T+S_T}$ & $25\,\%$ \\[8pt]
+\N{Nixon} poursuit le Post & $p<1-\dfrac{k_W}{(1-\theta)D}$ & $85,7\,\%$ \\[8pt]
+\N{Nixon} poursuit le Times & $k_T+(1-q)k_W<(1-q)(1-p)(1-\theta)D$ & $q<65,5\,\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Ce qui se passe à l'équilibre}
+\begin{align*}
+\Pr(\text{tout sort par le juge local}) &= q=30\,\%\\
+\Pr(\text{la Cour suprême donne raison aux journaux}) &= (1-q)p=45,5\,\%\\
+\Pr(\text{censure confirmée}) &= (1-q)(1-p)=24,5\,\%\\
+\Pr(\text{tout finit par sortir}) &= q+(1-q)p=75,5\,\%\\
+\E[\sigma] &= 0,755\times1+0,245\times0,3=0,8285
+\end{align*}
+\begin{reponse}
+\textbf{Résultat} : feuille $O_1$, gains espérés $(\T{60,6}\ ;\ \W{8,82}\ ;\ \N{-189,7})$. Nixon accepte $24$ de coûts de procès en moyenne pour réduire le dommage attendu de $200$ à $200\times0,8285=165,7$, soit $34,3$ de moins.
+\end{reponse}
+
+\end{document}
