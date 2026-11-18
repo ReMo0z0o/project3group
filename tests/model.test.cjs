@@ -16,11 +16,11 @@ const context = vm.createContext({});
 vm.runInContext(
   '"use strict";' + html.slice(modelStart, modelEnd)
     + '\nconst PRESETS = ' + presetsSource[1] + ';'
-    + '\nglobalThis.model = { BASE, solve, outcomes, situations, gains, symbols, NODES, LEAVES, SITUATION, PRESETS, regKey };',
+    + '\nglobalThis.model = { BASE, solve, outcomes, situations, gains, symbols, NODES, LEAVES, SITUATION, PRESETS, regKey, scenario1971 };',
   context,
   { timeout: 1000 },
 );
-const { BASE, solve, NODES, LEAVES, SITUATION, PRESETS, regKey } = context.model;
+const { BASE, solve, outcomes, NODES, LEAVES, SITUATION, PRESETS, regKey, scenario1971 } = context.model;
 const EPS = 1e-9;
 const OUTCOMES = ['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7'];
 
@@ -260,5 +260,57 @@ test('probability endpoints and parameter sweeps preserve equilibrium consistenc
     const parameters = { ...BASE, q: random(), p: random() };
     for (const [parameter, candidates] of Object.entries(values)) parameters[parameter] = candidates[Math.floor(random() * candidates.length)];
     checkSolution(parameters, `deterministic mixed sample ${index}`);
+  }
+});
+
+test('the Nixon bonus R rewards a kept secret and only shifts his payoffs', () => {
+  assert.equal(BASE.R, 0, 'the bonus is off in the reference model');
+  const bonus = { ...BASE, R: 10 };
+  const O = outcomes(bonus), plain = outcomes(BASE), raised = outcomes({ ...BASE, D: BASE.D + 10 });
+  near(O.O7[2], 10, 'nothing comes out: Nixon receives the whole bonus');
+  for (const id of OUTCOMES) {
+    near(O[id][0], plain[id][0], `${id}: the Times payoff does not depend on R`);
+    near(O[id][1], plain[id][1], `${id}: the Post payoff does not depend on R`);
+    near(O[id][2], raised[id][2] + 10, `${id}: R(1 − σ) − Dσ = R − (D + R)σ`);
+  }
+  near(O.O3[2], .3 * (-210) + .7 * (10 * .7 - .3 * 200 - 10), 'a maintained censorship keeps 1 − θ of the secret');
+  assert.equal(solve(bonus).regime, solve({ ...BASE, D: 210 }).regime, 'the bonus acts like a larger damage');
+  const teammate = { ...BASE, B_T: 10, B_W: 10, c_T: 1, c_W: 5, S_T: 5, S_W: 5, D: 5, k_T: 1, k_W: 1, th: .3 };
+  assert.equal(solve(teammate).regime, 'NOSUIT', 'with a small damage Nixon does not sue');
+  assert.equal(solve({ ...teammate, R: 10 }).regime, 'BOTH', 'the bonus makes the 1971 path reappear');
+});
+
+test('the 1971 interval matches the solved tree', () => {
+  const reference = scenario1971(BASE);
+  assert.equal(reference.ok, true);
+  assert.equal(reference.conds.length, 4);
+  near(reference.pRange.lo, 159 / 264, 'the Post threshold is the lower bound of p');
+  near(reference.pRange.hi, 1 - (20 + 10 / .7) / 140, 'suing the Times bounds p from above');
+  near(reference.qRange.lo, 0, 'the Times publishes for every q');
+  near(reference.qRange.hi, 19 / 29, 'suing the Times bounds q from above');
+  const teammate = { ...BASE, B_T: 10, B_W: 10, c_T: 1, c_W: 5, S_T: 5, S_W: 5, D: 200, k_T: 1, k_W: 1 };
+  const noTheta = scenario1971({ ...teammate, th: 0 });
+  assert.equal(noTheta.ok, false);
+  assert.equal(noTheta.qRange.reason, 'post', 'without θ the Post needs p ≥ 2/3');
+  near(noTheta.pRange.lo, 2 / 3, 'the Post threshold without θ');
+  assert.equal(scenario1971({ ...teammate, th: .3 }).ok, true);
+  let seed = 366;
+  const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+  for (let index = 0; index < 300; index++) {
+    const P = {
+      ...BASE, B_T: 200 * random(), B_W: 200 * random(), c_T: 40 * random(), c_W: 40 * random(), S_T: 300 * random(), S_W: 300 * random(),
+      D: 400 * random(), k_T: 40 * random(), k_W: 40 * random(), th: random() < .3 ? 0 : .9 * random(), R: random() < .5 ? 0 : 50 * random(), q: random(), p: random(),
+    };
+    const S = scenario1971(P);
+    assert.equal(S.ok, solve(P).regime === 'BOTH', `sample ${index}: the four conditions describe the 1971 path`);
+    for (let i = 0; i <= 100; i++) {
+      const x = i / 100;
+      if (Math.abs(x - S.pRange.lo) > 1e-6 && Math.abs(x - S.pRange.hi) > 1e-6) {
+        assert.equal(!S.pRange.empty && x >= S.pRange.lo && x < S.pRange.hi, solve({ ...P, p: x }).regime === 'BOTH', `sample ${index}: p = ${x}`);
+      }
+      if (Math.abs(x - S.qRange.lo) > 1e-6 && Math.abs(x - S.qRange.hi) > 1e-6) {
+        assert.equal(!S.qRange.empty && x >= S.qRange.lo && x < S.qRange.hi, solve({ ...P, q: x }).regime === 'BOTH', `sample ${index}: q = ${x}`);
+      }
+    }
   }
 });

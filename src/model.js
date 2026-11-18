@@ -7,7 +7,7 @@
    gains des feuilles, sous forme de gains espérés.
    Six nœuds de décision (x0 … x5) et sept feuilles (O1 … O7, de gauche à droite sous l'arbre).
    Un journal qui ne publie pas a toujours un gain de 0 : c'est le cas du Times s'il renonce. */
-const BASE = { q: 0.30, p: 0.65, th: 0.30, B_T: 100, c_T: 10, S_T: 50, B_W: 120, c_W: 15, S_W: 180, D: 200, k_T: 10, k_W: 20 };
+const BASE = { q: 0.30, p: 0.65, th: 0.30, B_T: 100, c_T: 10, S_T: 50, B_W: 120, c_W: 15, S_W: 180, D: 200, k_T: 10, k_W: 20, R: 0 };
 const PLAYERS3 = ['Times', 'Post', 'Nixon'];
 
 /* Situations finales possibles, une fois les juges passés. Chacune est décrite par des faits :
@@ -29,7 +29,10 @@ const SITUATION = {
 };
 /* Une équation par joueur, appliquée de la même façon à toutes les situations (σ = part publique) :
    journal : 0 s'il n'a pas publié ; sinon B·σ − c (s'il est poursuivi) − S (si sa censure est maintenue) ;
-   Nixon   : −D·σ − k_T (s'il poursuit le Times) − k_W (s'il poursuit le Post). */
+   Nixon   : R·(1 − σ) − D·σ − k_T (s'il poursuit le Times) − k_W (s'il poursuit le Post).
+   R est un bonus facultatif (0 par défaut) : ce que Nixon gagne quand le secret est gardé, en
+   proportion de la part qui reste secrète. Comme R·(1 − σ) − D·σ = R − (D + R)·σ, il revient à
+   ajouter R à toutes ses feuilles et à porter son dommage de D à D + R. */
 const shareOf = (f, P) => (f.docs === 'all' ? 1 : f.docs === 'part' ? P.th : 0);
 function gains(f, P) {
   const sigma = shareOf(f, P);
@@ -37,7 +40,7 @@ function gains(f, P) {
   return [
     paper(f.pubT, f.suedT, f.censT, P.B_T, P.c_T, P.S_T),
     paper(f.pubW, f.suedW, f.censW, P.B_W, P.c_W, P.S_W),
-    -P.D * sigma - (f.suedT ? P.k_T : 0) - (f.suedW ? P.k_W : 0) + 0,
+    (P.R || 0) * (1 - sigma) - P.D * sigma - (f.suedT ? P.k_T : 0) - (f.suedW ? P.k_W : 0) + 0,
   ];
 }
 /* La même équation, écrite en symboles (pour l'affichage). */
@@ -128,7 +131,7 @@ function solve(P) {
    Un dénominateur nul est traité explicitement pour ne jamais afficher NaN. */
 function ratio(num, den) { return den > 0 ? num / den : num <= 0 ? -Infinity : Infinity; }
 function thresholds(P) {
-  const free = (1 - P.th) * P.D;                       // dommage encore évitable par une censure
+  const free = (1 - P.th) * (P.D + (P.R || 0));         // dommage encore évitable par une censure (bonus compris)
   const tauW = ratio(P.c_W + P.S_W - P.th * P.B_W, (1 - P.th) * P.B_W + P.S_W);
   const tauT = ratio(P.c_T + P.S_T - P.th * P.B_T, (1 - P.th) * P.B_T + P.S_T);
   const gPost = free > 0 ? 1 - P.k_W / free : -Infinity;          // Nixon poursuit le Post si p < gPost (relais) ou q < gPost (seul)
@@ -149,4 +152,42 @@ const REG = {
   NC: { label: 'Sans procès · menace non crédible', css: '--reg-nosuit', long: 'Nixon ne poursuivrait même pas le Post : toute menace contre lui serait non crédible.', hatch: true },
 };
 const regKey = M => (M.regime === 'NOSUIT' && !M.g2Sue ? 'NC' : M.regime);
+
+/* Le scénario de 1971 (feuille O1) : le Times publie, Nixon le poursuit, le Post publie à son tour,
+   Nixon le poursuit aussi. Avec F = (1 − θ)(D + R), les quatre choix donnent quatre conditions :
+   (1) x0, Times : π = q + (1 − q)p ≥ τ_T ;
+   (2) x1, Nixon contre le Times : k_T + (1 − q)k_W < (1 − q)(1 − p)F ;
+   (3) x2, Post : p ≥ τ_W (il faut aussi q < 1) ;
+   (4) x3, Nixon contre le Post : (1 − p)F > k_W (il faut aussi q < 1).
+   Les conditions « ok » sont lues sur les gains, avec les mêmes conventions que solve (publier à
+   égalité, ne pas poursuivre à égalité). Les intervalles sont de la forme [lo ; hi[ :
+   - p pour q fixé : max(τ_W, (τ_T − q)/(1 − q)) ≤ p < 1 − (k_W + k_T/(1 − q))/F ;
+   - q pour p fixé, si τ_W ≤ p < 1 − k_W/F : (τ_T − p)/(1 − p) ≤ q < 1 − k_T/((1 − p)F − k_W). */
+function scenario1971(P) {
+  const t = thresholds(P), F = t.free, q = P.q, p = P.p, EPS = 1e-9, O = outcomes(P);
+  const pi = q + (1 - q) * p;
+  const conds = [
+    { id: 'times', node: 'x0', ok: O.O1[0] >= -EPS, gap: O.O1[0], pi, tau: t.tauT },
+    { id: 'nixonTimes', node: 'x1', ok: O.O1[2] - O.O4[2] > EPS, gap: O.O1[2] - O.O4[2], cost: P.k_T + (1 - q) * P.k_W, gain: (1 - q) * (1 - p) * F },
+    { id: 'post', node: 'x2', ok: O.O1[1] - O.O3[1] >= -EPS, gap: O.O1[1] - O.O3[1], tau: t.tauW },
+    { id: 'nixonPost', node: 'x3', ok: O.O1[2] - O.O2[2] > EPS, gap: O.O1[2] - O.O2[2], bound: t.gPost },
+  ];
+  const interval = (lo, hi, reason) => {
+    const a = Math.max(0, lo), b = Math.min(1, hi);
+    return { lo: a, hi: b, rawLo: lo, rawHi: hi, empty: !(a < b), reason: a < b ? null : reason };
+  };
+  let pRange;
+  if (!(F > 0)) pRange = interval(0, 0, 'noDamage');
+  else if (q >= 1) pRange = interval(0, 0, 'q1');
+  else pRange = interval(Math.max(t.tauW, (t.tauT - q) / (1 - q)), 1 - (P.k_W + P.k_T / (1 - q)) / F, 'conflict');
+  let qRange;
+  if (!(F > 0)) qRange = interval(0, 0, 'noDamage');
+  else if (!(p < t.gPost)) qRange = interval(0, 0, 'nixonPost');
+  else if (!(p >= t.tauW)) qRange = interval(0, 0, 'post');
+  else {
+    const net = (1 - p) * F - P.k_W;
+    qRange = interval((t.tauT - p) / (1 - p), 1 - P.k_T / net, 'conflict');
+  }
+  return { ok: conds.every(c => c.ok), conds, pRange, qRange, F, pi, th: t };
+}
 // ====================== FIN DU MODÈLE
