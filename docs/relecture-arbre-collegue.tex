@@ -1,0 +1,362 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{icomma}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{patterns,positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\definecolor{regnone}{HTML}{C6C2B8}
+\definecolor{regnosuit}{HTML}{CBE2C3}
+\definecolor{regnyt}{HTML}{F0C5BD}
+\definecolor{regboth}{HTML}{F1D69B}
+
+\newtcolorbox{cours}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Lien avec le cours}
+\newtcolorbox{resultat}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newtcolorbox{intuition}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=Intuition}
+
+\theoremstyle{definition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newcommand{\ind}[1]{\mathbf{1}_{\{\text{#1}\}}}
+\newcommand{\E}{\mathbb{E}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\captionsetup{font=small,labelfont=bf}
+
+\newtcolorbox{erreur}{colback=gov!5,colframe=gov!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Erreur}
+\newtcolorbox{discuter}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=À discuter}
+\newtcolorbox{simple}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=En mots}
+\newcommand{\T}[1]{\textcolor{nyt}{#1}}
+\newcommand{\W}[1]{\textcolor{wp}{#1}}
+\newcommand{\N}[1]{\textcolor{gov}{#1}}
+
+\title{\textbf{Pentagon Papers}\\[3pt]\large Relecture de l'arbre du collègue : erreurs, corrections et calculs}
+\author{Travail de théorie des jeux, groupe 5--6 · ECGEB366}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\begin{resultat}
+\textbf{En bref.}
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+\item L'arbre du collègue est \textbf{le bon} : mêmes joueurs, même ordre, mêmes sept feuilles que notre modèle.
+\item Quatre feuilles sont justes ($O_3$, $O_4$, $O_5$, $O_6$). Les erreurs sont dans $O_1$ (trois), $O_2$ (une) et $O_7$ (une).
+\item Avec ses valeurs corrigées et sans la part déjà publiée $\theta$, \textbf{rien n'est publié} ($O_7$).
+\item Avec $\theta=0,3$, \textbf{on retrouve 1971} ($O_1$).
+\end{itemize}
+\end{resultat}
+
+\begin{discuter}
+\textbf{Attention aux lettres.} Dans ce document, on garde les lettres du collègue : $p$ = chance que le \textbf{juge local} refuse la censure ; $q$ = chance que la \textbf{Cour suprême} donne raison aux journaux. C'est l'inverse de nos autres PDF. Le collègue n'a pas fixé de valeurs : les exemples chiffrés utilisent $p=0,3$ et $q=0,65$.
+\end{discuter}
+
+\section{Les valeurs}
+
+\subsection{Ce que le dessin utilise, et ce que la liste dit}
+En lisant les feuilles du dessin, on retrouve les valeurs employées. Elles ne correspondent pas toutes à la liste annoncée.
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}llll@{}}
+\toprule
+Paramètre & Symbole & Dans le dessin & Dans la liste \\
+\midrule
+Bénéfice (les deux journaux) & $B$ & $10$ & $10$ \\
+Coût du procès, Times & $c_T$ & $1$ \quad ($9=10-1$) & $1$ \\
+Coût du procès, Post & $c_W$ & $\mathbf{3}$ \quad ($7=10-3$ ; $-8=-3-5$) & $\mathbf{5}$ \\
+Sanction si censuré & $S$ & $\mathbf{5}$ \quad ($-6=-1-5$) & non mentionnée \\
+Dommage de Nixon si tout sort & $D$ & $\mathbf{5}$ \quad (feuilles à $-5$ et $-6$) & $\mathbf{200}$ \\
+Coût d'un procès pour Nixon & $k$ & $1$ & $1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Les valeurs retenues ici}
+On suit la liste, et on garde la sanction du dessin :
+\[
+B_T=B_W=10,\quad c_T=1,\quad c_W=5,\quad S_T=S_W=5,\quad D=200,\quad k_T=k_W=1 .
+\]
+\begin{simple}
+On écrit tous les paramètres en \textbf{positif} et on met les signes « $-$ » dans les équations. Le dessin écrit « $\cdot-1$ » ou « $\cdot-6$ » : cela marche, mais les doubles moins font facilement des erreurs.
+\end{simple}
+
+\section{Les erreurs, feuille par feuille}
+
+\subsection{Le tableau de contrôle}
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}Xl@{}}
+\toprule
+Feuille & Ce que le collègue a écrit (Times ; Post ; Nixon) & Verdict \\
+\midrule
+$O_4$ Times publie, pas de procès & $(10\ ;\ 0\ ;\ -5)$ & juste \\
+$O_3$ Times poursuivi, Post muet & $p\cdot9+(1-p)(-6)$ ; $0$ ; $(1-p)(-1)+p(-6)$ & juste \\
+$O_5$ Post seul, poursuivi & $0$ ; $p\cdot7+(1-p)(-8)$ ; $(1-p)(-1)+p(-6)$ & juste (avec $c_W=3$) \\
+$O_6$ Post seul, pas de procès & $(0\ ;\ 10\ ;\ -5)$ & juste \\
+$O_7$ Personne ne publie & $(0\ ;\ 0\ ;\ \mathbf{10})$ & \textbf{incohérent} \\
+$O_2$ Times poursuivi, Post libre & $p\cdot9+(1-p)(-6)$ ; $10$ ; $(1-p)(-1)+p(-6)$ & \textbf{1 erreur} \\
+$O_1$ Les deux poursuivis & $p\cdot9+(1-p)(-6)$ ; $pq\cdot7+(1-p)(1-q)(-8)$ ; $(1-p)(1-q)(-1)+pq(-6)$ & \textbf{3 erreurs} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{$O_7$ : Nixon ne peut pas avoir $+10$}
+\begin{erreur}
+Partout ailleurs, le meilleur cas de Nixon est « rien ne sort, aucun procès », qui vaut $0$ avec son équation $-D\sigma-k$. Un $+10$ ici n'a pas de justification.
+\end{erreur}
+Conséquence : aucune sur l'équilibre, car Nixon ne décide jamais dans cette branche. Mais l'incohérence se verrait dans le rapport. \textbf{Correction} : $(0\ ;\ 0\ ;\ 0)$.
+
+\subsection{$O_2$ : Nixon oublie que le Post a tout publié}
+\begin{erreur}
+Le collègue écrit pour Nixon $(1-p)(-1)+p(-6)$ : quand le Times est censuré ($1-p$), Nixon n'aurait que le coût du procès. Or dans $O_2$ le Post publie librement : \textbf{tout sort, quel que soit le verdict}. Nixon a donc toujours $-D-k_T=-201$.
+\end{erreur}
+\begin{discuter}
+\textbf{Le Times dans $O_2$.} Le collègue lui donne la même chose qu'en $O_3$. Mais si le Post a tout publié, la censure du Times ne sert plus à rien : dans notre modèle, le Times a $B_T-c_T=9$ dans tous les cas. On retient ce choix ici.
+\end{discuter}
+
+\subsection{$O_1$ : trois erreurs}
+\begin{erreur}
+\textbf{1. Le Times oublie la Cour suprême.} Les deux affaires vont \emph{ensemble} devant la Cour suprême : le Times peut donc aussi y gagner. Sa formule doit contenir $q$ :
+\[
+p\cdot9+(1-p)\,q\cdot9+(1-p)(1-q)\cdot(-6).
+\]
+\end{erreur}
+\begin{erreur}
+\textbf{2. Les chances du Post ne font pas 100\,\%.} Le collègue n'utilise que deux cas, $pq$ et $(1-p)(1-q)$. Avec $p=0,3$ et $q=0,65$ : $0,195+0,245=0,44$. Il manque $56\,\%$ des cas.
+
+Le terme $pq$ voudrait dire « gagner au juge local \emph{et} à la Cour suprême ». Mais si le juge local refuse la censure, l'affaire s'arrête : la Cour suprême n'est jamais saisie. Les trois chemins corrects sont :
+\[
+\underbrace{p}_{\text{juge local refuse}}\ +\ \underbrace{(1-p)\,q}_{\text{censure, puis Cour pour les journaux}}\ +\ \underbrace{(1-p)(1-q)}_{\text{censure confirmée}}\ =\ 1 .
+\]
+\end{erreur}
+\begin{erreur}
+\textbf{3. Nixon : mêmes chances fausses, et un procès oublié.} Dans $O_1$, Nixon poursuit \emph{deux} journaux. Il faut $-2$ (pas $-1$) si la censure tient et $-202$ (pas $-6$ ou $-201$) si tout sort.
+\end{erreur}
+\begin{discuter}
+\textbf{Le Post si le juge local libère le Times.} Le collègue lui donne $7$. Mais dans ce cas le Times publie tout lui-même : le relais du Post ne sert plus et il n'est pas jugé. Notre modèle lui donne $0$. On retient ce choix ici.
+\end{discuter}
+
+\section{Les équations corrigées (sans \texorpdfstring{$\theta$}{theta})}
+
+\subsection{Les deux règles}
+\begin{align}
+\text{Journal } j :\quad u_j&=\begin{cases}0 & \text{s'il ne publie pas,}\\ B_j\,\ind{ça sort}-c_j\,\ind{poursuivi}-S_j\,\ind{censuré} & \text{s'il publie,}\end{cases}\\[4pt]
+\text{Nixon :}\quad u_N&=-D\,\ind{ça sort}-k_T\,\ind{Times poursuivi}-k_W\,\ind{Post poursuivi}.
+\end{align}
+Sans $\theta$, une censure veut dire que \textbf{rien ne sort} : le journal censuré ne touche aucun bénéfice et Nixon n'a pas de dommage.
+
+\subsection{Les gains après un verdict}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{\qquad}lll@{}}
+\toprule
+\multicolumn{3}{@{}l}{Journaux} & \multicolumn{3}{l@{}}{Nixon} \\
+\midrule
+\T{Times gagne} & $B_T-c_T$ & $9$ & Tout sort, 1 procès & $-D-k$ & $-201$ \\
+\T{Times perd} & $-c_T-S_T$ & $-6$ & Tout sort, 2 procès & $-D-k_T-k_W$ & $-202$ \\
+\W{Post gagne} & $B_W-c_W$ & $5$ & Censure, 1 procès & $-k$ & $-1$ \\
+\W{Post perd} & $-c_W-S_W$ & $-10$ & Censure, 2 procès & $-k_T-k_W$ & $-2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Les sept feuilles}
+\paragraph{$O_1$ — les deux journaux poursuivis.}
+\begin{align*}
+\T{\E[u_T]} &= p\,(B_T-c_T)+(1-p)\,q\,(B_T-c_T)+(1-p)(1-q)\,(-c_T-S_T)\\
+&= 0,3\times9+0,455\times9+0,245\times(-6)=2,7+4,095-1,47=\mathbf{5,325}\\[4pt]
+\W{\E[u_W]} &= p\times0+(1-p)\,q\,(B_W-c_W)+(1-p)(1-q)\,(-c_W-S_W)\\
+&= 0+0,455\times5+0,245\times(-10)=2,275-2,45=\mathbf{-0,175}\\[4pt]
+\N{\E[u_N]} &= p\,(-D-k_T)+(1-p)\,q\,(-D-k_T-k_W)+(1-p)(1-q)\,(-k_T-k_W)\\
+&= 0,3\times(-201)+0,455\times(-202)+0,245\times(-2)=-60,3-91,91-0,49=\mathbf{-152,7}
+\end{align*}
+
+\paragraph{$O_2$ — Times poursuivi, Post libre.}
+\begin{align*}
+\T{\E[u_T]} &= B_T-c_T=\mathbf{9}\\
+\W{\E[u_W]} &= p\times0+(1-p)\,B_W=0,7\times10=\mathbf{7}\\
+\N{\E[u_N]} &= -D-k_T=\mathbf{-201}
+\end{align*}
+
+\paragraph{$O_3$ — Times poursuivi, Post muet.}
+\begin{align*}
+\T{\E[u_T]} &= p\,(B_T-c_T)+(1-p)(-c_T-S_T)=0,3\times9+0,7\times(-6)=2,7-4,2=\mathbf{-1,5}\\
+\W{\E[u_W]} &= \mathbf{0}\\
+\N{\E[u_N]} &= p\,(-D-k_T)+(1-p)(-k_T)=0,3\times(-201)+0,7\times(-1)=-60,3-0,7=\mathbf{-61}
+\end{align*}
+
+\paragraph{$O_4$, $O_6$, $O_7$ — pas de procès.}
+\begin{align*}
+O_4 &= (\T{B_T}\,;\,\W{0}\,;\,\N{-D})=(10\,;\,0\,;\,-200)\\
+O_6 &= (\T{0}\,;\,\W{B_W}\,;\,\N{-D})=(0\,;\,10\,;\,-200)\\
+O_7 &= (0\,;\,0\,;\,0)
+\end{align*}
+
+\paragraph{$O_5$ — Post seul, poursuivi.}
+\begin{align*}
+\T{\E[u_T]} &= \mathbf{0}\\
+\W{\E[u_W]} &= p\,(B_W-c_W)+(1-p)(-c_W-S_W)=0,3\times5+0,7\times(-10)=1,5-7=\mathbf{-5,5}\\
+\N{\E[u_N]} &= p\,(-D-k_W)+(1-p)(-k_W)=\mathbf{-61}
+\end{align*}
+
+\subsection{La résolution, en partant de la fin}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Qui décide & Comparaison & Choix \\
+\midrule
+\N{Nixon} face au Post en relais & $O_1:-152,7$ contre $O_2:-201$ & poursuit \\
+\W{Post} en relais & $O_1:-0,175$ contre $O_3:0$ & \textbf{se tait} \\
+\N{Nixon} face au Times & $O_3:-61$ contre $O_4:-200$ & poursuit \\
+\N{Nixon} face au Post seul & $O_5:-61$ contre $O_6:-200$ & poursuit \\
+\W{Post} seul & $O_5:-5,5$ contre $O_7:0$ & se tait \\
+\T{Times} & $O_3:-1,5$ contre $O_7:0$ & \textbf{ne publie pas} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{resultat}
+\textbf{Résultat sans $\theta$ : $O_7$, rien n'est publié.} Ce n'est pas l'histoire de 1971.
+\end{resultat}
+
+\subsection{Pourquoi : les seuils}
+\textbf{Le Post en relais} publie si son gain espéré est positif. On divise par $1-p>0$ :
+\[
+q\,(B_W-c_W)+(1-q)(-c_W-S_W)\ge0\iff q\ \ge\ \frac{c_W+S_W}{B_W+S_W}=\frac{5+5}{10+5}=\frac23\approx66,7\,\%.
+\]
+Avec $q=65\,\%$, il est juste en dessous : il se tait.
+
+\textbf{Le Times}, resté seul face au juge local, publie si
+\[
+p\,(B_T-c_T)+(1-p)(-c_T-S_T)\ge0\iff p\ \ge\ \frac{c_T+S_T}{B_T+S_T}=\frac{1+5}{10+5}=40\,\%.
+\]
+Avec $p=30\,\%$, il renonce.
+
+\textbf{Nixon} poursuit presque toujours : un procès lui coûte $1$ et peut lui éviter $200$. Par exemple, il poursuit le Times resté seul si $p<1-\dfrac{k_T}{D}=99,5\,\%$.
+
+\begin{simple}
+Sans $\theta$, perdre son procès efface \emph{tout} le bénéfice. Les journaux risquent alors beaucoup pour un gain de seulement $10$ : il leur faut de très bonnes chances de gagner.
+\end{simple}
+
+\section{Avec \texorpdfstring{$\theta$}{theta} : la part déjà publiée avant la censure}
+
+\subsection{Ce qui change dans les équations}
+Une censure n'arrête la publication qu'après les premiers articles. En 1971, le Times avait publié trois articles avant d'être stoppé. Seules les lignes « censure » changent :
+\begin{align*}
+\text{Journal censuré :}\quad & \theta B_j-c_j-S_j \quad\text{au lieu de}\quad -c_j-S_j,\\
+\text{Nixon après une censure :}\quad & -\theta D-k \quad\text{au lieu de}\quad -k .
+\end{align*}
+Les règles deviennent, avec $\sigma=1$ (tout sort), $\theta$ (censure) ou $0$ (rien) :
+\begin{align*}
+u_j &= B_j\,\sigma-c_j\,\ind{poursuivi}-S_j\,\ind{censuré}\quad(\text{s'il publie ; }0\text{ sinon}),\\
+u_N &= -D\,\sigma-k_T\,\ind{Times poursuivi}-k_W\,\ind{Post poursuivi}.
+\end{align*}
+
+\subsection{Les gains après une censure, avec \texorpdfstring{$\theta=0,3$}{theta = 0,3}}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Situation & Calcul & Valeur \\
+\midrule
+\T{Times perd} & $0,3\times10-1-5$ & $-3$ \quad (au lieu de $-6$) \\
+\W{Post perd} & $0,3\times10-5-5$ & $-7$ \quad (au lieu de $-10$) \\
+\N{Nixon}, censure, 1 procès & $-0,3\times200-1$ & $-61$ \quad (au lieu de $-1$) \\
+\N{Nixon}, censure, 2 procès & $-0,3\times200-2$ & $-62$ \quad (au lieu de $-2$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Les feuilles qui changent}
+\begin{align*}
+O_1:\quad \T{\E[u_T]} &= p(B_T-c_T)+(1-p)q(B_T-c_T)+(1-p)(1-q)(\theta B_T-c_T-S_T)\\
+&= 2,7+4,095+0,245\times(-3)=\mathbf{6,06}\\
+\W{\E[u_W]} &= (1-p)q(B_W-c_W)+(1-p)(1-q)(\theta B_W-c_W-S_W)=2,275+0,245\times(-7)=\mathbf{0,56}\\
+\N{\E[u_N]} &= p(-D-k_T)+(1-p)q(-D-k_T-k_W)+(1-p)(1-q)(-\theta D-k_T-k_W)\\
+&= -60,3-91,91+0,245\times(-62)=\mathbf{-167,4}\\[6pt]
+O_3:\quad \T{\E[u_T]} &= p(B_T-c_T)+(1-p)(\theta B_T-c_T-S_T)=2,7+0,7\times(-3)=\mathbf{0,6}\\
+\N{\E[u_N]} &= p(-D-k_T)+(1-p)(-\theta D-k_T)=-60,3+0,7\times(-61)=\mathbf{-103}\\[6pt]
+O_5:\quad \W{\E[u_W]} &= p(B_W-c_W)+(1-p)(\theta B_W-c_W-S_W)\\ &=1,5+0,7\times(-7)=\mathbf{-3,4}\\
+\N{\E[u_N]} &= p(-D-k_W)+(1-p)(-\theta D-k_W)=\mathbf{-103}
+\end{align*}
+$O_2$, $O_4$, $O_6$ et $O_7$ ne changent pas : aucune censure n'y tient.
+
+\subsection{La résolution}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Qui décide & Comparaison & Choix \\
+\midrule
+\N{Nixon} face au Post en relais & $O_1:-167,4$ contre $O_2:-201$ & poursuit \\
+\W{Post} en relais & $O_1:0,56$ contre $O_3:0$ & \textbf{publie} \\
+\N{Nixon} face au Times & $O_1:-167,4$ contre $O_4:-200$ & poursuit \\
+\N{Nixon} face au Post seul & $O_5:-103$ contre $O_6:-200$ & poursuit \\
+\W{Post} seul & $O_5:-3,4$ contre $O_7:0$ & se tait \\
+\T{Times} & $O_1:6,06$ contre $O_7:0$ & \textbf{publie} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{resultat}
+\textbf{Résultat avec $\theta=0,3$ : $O_1$.} Le Times publie, Nixon le poursuit, le Post prend le relais, Nixon le poursuit aussi : c'est 1971.
+\end{resultat}
+
+\subsection{Les seuils avec \texorpdfstring{$\theta$}{theta}}
+\begin{align*}
+\text{Post en relais :}\quad & q\ \ge\ \frac{c_W+S_W-\theta B_W}{(1-\theta)B_W+S_W}=\frac{5+5-3}{7+5}=\frac{7}{12}\approx58,3\,\%\quad(\text{au lieu de }66,7\,\%),\\[4pt]
+\text{Times :}\quad & \pi\ \ge\ \frac{c_T+S_T-\theta B_T}{(1-\theta)B_T+S_T}=\frac{1+5-3}{7+5}=25\,\%\quad(\text{au lieu de }40\,\%),\\[4pt]
+\text{Nixon contre le Post :}\quad & q\ <\ 1-\frac{k_W}{(1-\theta)D}=1-\frac{1}{140}\approx99,3\,\%,\\[4pt]
+\text{Nixon contre le Times :}\quad & k_T+(1-p)\,k_W\ <\ (1-p)(1-q)(1-\theta)D,\quad\text{soit}\quad 1,7<34,3 .
+\end{align*}
+Ici $\pi=p+(1-p)q=0,755$ est la chance que le Times gagne à la fin quand le Post prend le relais.
+
+\section{Comparaison et recommandation}
+\begin{center}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & Sans $\theta$ & Avec $\theta=0,3$ \\
+\midrule
+$O_1$ (Times ; Post ; Nixon) & $(5,325\ ;\ -0,175\ ;\ -152,7)$ & $(6,06\ ;\ 0,56\ ;\ -167,4)$ \\
+$O_3$ & $(-1,5\ ;\ 0\ ;\ -61)$ & $(0,6\ ;\ 0\ ;\ -103)$ \\
+$O_5$ & $(0\ ;\ -5,5\ ;\ -61)$ & $(0\ ;\ -3,4\ ;\ -103)$ \\
+Seuil du Post en relais & $q\ge66,7\,\%$ & $q\ge58,3\,\%$ \\
+Seuil du Times & $40\,\%$ & $25\,\%$ \\
+Résultat & $O_7$ : rien ne sort & $O_1$ : 1971 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{simple}
+\textbf{Recommandation : garder $\theta$.} C'est historiquement juste (trois articles parus avant la censure), et sans lui une censure efface tout, ce qui rend la publication trop risquée pour un bénéfice de $10$.
+\end{simple}
+
+\section{Les points à trancher ensemble}
+\begin{enumerate}[leftmargin=*,itemsep=3pt]
+\item \textbf{Le coût du Post} : $3$ (dessin) ou $5$ (liste) ? Avec $3$ et sans $\theta$, le seuil du Post devient $\frac{3+5}{10+5}\approx53,3\,\%$ et il prendrait le relais.
+\item \textbf{Le dommage de Nixon} : $5$ (dessin) ou $200$ (liste) ? C'est décisif. Avec $D=5$ et $\theta=0,3$, Nixon ne poursuit plus le Times : le coût moyen des procès ($1,7$) dépasse le dommage qu'il évite ($0,7\times0,35\times0,7\times5\approx0,86$). Tout sort sans procès ($O_4$). Pour retrouver 1971, $D$ doit être grand par rapport au coût des procès.
+\item \textbf{La sanction $S=5$} : la garder ? La même pour les deux journaux ? Dans notre modèle principal, le Post risque plus à cause de son entrée en bourse et de ses licences de télévision.
+\item \textbf{$O_2$} : le Times censuré garde-t-il $9$ si le Post a tout publié ? (Ici : oui.)
+\item \textbf{$O_1$} : le Post a-t-il $0$ si le juge local libère le Times ? (Ici : oui.)
+\item \textbf{Les probabilités} $p$ et $q$ ne sont pas fixées. Sans $\theta$, il faut $q\ge66,7\,\%$ pour que le Post prenne le relais.
+\end{enumerate}
+
+\end{document}
