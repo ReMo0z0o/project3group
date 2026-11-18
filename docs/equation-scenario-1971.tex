@@ -1,0 +1,300 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{icomma}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{patterns,positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdflscape}
+\usepackage{pifont}
+
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\definecolor{regnone}{HTML}{C6C2B8}
+\definecolor{regnosuit}{HTML}{CBE2C3}
+\definecolor{regnyt}{HTML}{F0C5BD}
+\definecolor{regboth}{HTML}{F1D69B}
+
+\newtcolorbox{cours}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Lien avec le cours}
+\newtcolorbox{resultat}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newtcolorbox{intuition}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=Intuition}
+
+\theoremstyle{definition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newcommand{\ind}[1]{\mathbf{1}_{\{\text{#1}\}}}
+\newcommand{\E}{\mathbb{E}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\captionsetup{font=small,labelfont=bf}
+
+\newtcolorbox{erreur}{colback=gov!5,colframe=gov!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Erreur}
+\newtcolorbox{discuter}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=À discuter}
+\newtcolorbox{simple}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=En mots}
+\newcommand{\T}[1]{\textcolor{nyt}{#1}}
+\newcommand{\W}[1]{\textcolor{wp}{#1}}
+\newcommand{\N}[1]{\textcolor{gov}{#1}}
+
+
+\newtcolorbox{reponse}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Réponse}
+\newcommand{\zone}[4]{%
+\begin{tikzpicture}[x=5cm,y=5cm]
+\node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=5cm,height=5cm]{figures/#1}};
+\draw[black!50] (0,0) rectangle (1,1);
+\foreach \t/\l in {0/0,0.25/25,0.5/50,0.75/75,1/100}{\draw[black!50] (\t,0)--(\t,-0.02) node[below,font=\scriptsize]{\l\,\%};\draw[black!50] (0,\t)--(-0.02,\t) node[left,font=\scriptsize]{\l\,\%};}
+\fill[gov] (#3,#4) circle (2.2pt); \draw[white,line width=0.8pt] (#3,#4) circle (2.2pt);
+\node[font=\small\bfseries,above] at (0.5,1.01) {#2};
+\node[font=\scriptsize,below] at (0.5,-0.11) {$q$ : tribunal 1 (juge local)};
+\node[font=\scriptsize,rotate=90,above] at (-0.17,0.5) {$p$ : tribunal 2 (Cour suprême)};
+\end{tikzpicture}}
+
+\title{\textbf{Pentagon Papers}\\[3pt]\large L'équation du scénario de 1971, sans $\theta$ puis avec $\theta$}
+\author{Travail de théorie des jeux, groupe 5--6 · ECGEB366}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\begin{resultat}
+\textbf{La question.} Pour quelles probabilités des tribunaux l'histoire de 1971 se produit-elle ? Le Times publie, Nixon le poursuit, le Post publie à son tour, Nixon le poursuit aussi (feuille $O_1$).
+
+\textbf{La réponse en une ligne.} Pour une chance $q$ fixée au tribunal 1, il faut que la chance $p$ au tribunal 2 soit dans l'intervalle
+\[
+\boxed{\ \max\!\Big(\tau_W\ ;\ \frac{\tau_T-q}{1-q}\Big)\ \le\ p\ <\ 1-\frac{k_W+\dfrac{k_T}{1-q}}{(1-\theta)\,D}\ }
+\]
+où $\tau_T$ et $\tau_W$ sont les seuils de publication du Times et du Post. Sans $\theta$, on pose $\theta=0$.
+\end{resultat}
+
+\begin{discuter}
+\textbf{Lettres utilisées} (celles de l'application et du simulateur) : $q$ = chance que le \textbf{tribunal 1} (juge local) refuse la censure ; $p$ = chance que le \textbf{tribunal 2} (Cour suprême) donne raison aux journaux. Dans les PDF de relecture du dessin du collègue, les deux lettres étaient inversées.
+\end{discuter}
+
+\section{L'idée : quatre décisions, quatre conditions}
+
+Le scénario de 1971 est un \emph{chemin} dans l'arbre. Il se réalise si, à chacun des quatre nœuds de ce chemin, le joueur préfère l'action de 1971 à l'autre. Chaque comparaison donne une condition.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=2.9cm,y=1.6cm,
+  pl/.style={circle,fill=#1,minimum size=10pt,inner sep=0},
+  eq/.style={line width=2pt,draw=gov},
+  alt/.style={dashed,draw=black!50,line width=0.7pt},
+  lab/.style={font=\small,fill=white,inner sep=1.5pt},
+  num/.style={circle,draw=gov,fill=gov!8,font=\small\bfseries,text=gov,inner sep=1.2pt,minimum size=15pt}]
+\coordinate (x0) at (0,0); \coordinate (x1) at (1,0); \coordinate (x2) at (2,0); \coordinate (x3) at (3,0); \coordinate (O1) at (4,0);
+\draw[eq] (x0)--(x1) node[lab,midway,above]{Publier};
+\draw[eq] (x1)--(x2) node[lab,midway,above]{Poursuivre};
+\draw[eq] (x2)--(x3) node[lab,midway,above]{Publier};
+\draw[eq] (x3)--(O1) node[lab,midway,above]{Poursuivre};
+\draw[alt] (x0)--(0,-1.3) node[below,font=\small,align=center]{Ne pas publier\\Times : $0$};
+\draw[alt] (x1)--(1,-1.3) node[below,font=\small,align=center]{Laisser faire\\$O_4$};
+\draw[alt] (x2)--(2,-1.3) node[below,font=\small,align=center]{Ne pas publier\\$O_3$};
+\draw[alt] (x3)--(3,-1.3) node[below,font=\small,align=center]{Laisser faire\\$O_2$};
+\node[pl=nyt] at (x0){}; \node[font=\small\bfseries,text=nyt,above=6pt] at (x0){Times};
+\node[pl=gov] at (x1){}; \node[font=\small\bfseries,text=gov,above=6pt] at (x1){Nixon};
+\node[pl=wp] at (x2){}; \node[font=\small\bfseries,text=wp,above=6pt] at (x2){Post};
+\node[pl=gov] at (x3){}; \node[font=\small\bfseries,text=gov,above=6pt] at (x3){Nixon};
+\fill (O1) circle (2.5pt); \node[right,font=\small\bfseries] at (O1){$O_1$ : 1971};
+\node[num] at (0.18,-0.45){1}; \node[num] at (1.18,-0.45){2}; \node[num] at (2.18,-0.45){3}; \node[num] at (3.18,-0.45){4};
+\end{tikzpicture}
+\caption{Le chemin de 1971 (trait rouge). À chaque nœud, l'action de 1971 doit rapporter au moins autant que l'action en pointillés.}
+\end{figure}
+
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}clll@{}}
+\toprule
+& Qui décide & Il compare & Condition \\
+\midrule
+\textbf{1} & \T{Times} & $O_1$ contre « ne pas publier » ($0$) & le Times publie si son gain espéré est $\ge0$ \\
+\textbf{2} & \N{Nixon} face au Times & $O_1$ contre $O_4$ (tout sort sans procès) & poursuivre doit rapporter \emph{plus} \\
+\textbf{3} & \W{Post} & $O_1$ contre $O_3$ (il se tait : $0$) & le Post publie si son gain espéré est $\ge0$ \\
+\textbf{4} & \N{Nixon} face au Post & $O_1$ contre $O_2$ (le Post publie librement) & poursuivre doit rapporter \emph{plus} \\
+\bottomrule
+\end{tabular}
+\end{center}
+Conventions d'égalité, les mêmes que dans l'application : à gain égal, un journal publie et Nixon ne poursuit pas. D'où les « $\ge$ » pour les journaux et les « $>$ » pour Nixon.
+
+\section{Les quatre conditions, en équations générales}
+
+\subsection{Les gains dans la feuille \texorpdfstring{$O_1$}{O1}}
+Trois verdicts sont possibles quand les deux journaux sont poursuivis :
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}llll@{}}
+\toprule
+Verdict & Chance & \T{Times} & \W{Post} \\
+\midrule
+A : le tribunal 1 refuse la censure & $q$ & $B_T-c_T$ & $0$ \\
+B : censure, puis le tribunal 2 donne raison aux journaux & $(1-q)\,p$ & $B_T-c_T$ & $B_W-c_W$ \\
+C : censure confirmée & $(1-q)(1-p)$ & $\theta B_T-c_T-S_T$ & $\theta B_W-c_W-S_W$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Pour Nixon : $-D-k_T$ en A, $-D-k_T-k_W$ en B, $-\theta D-k_T-k_W$ en C.
+
+On note $\pi=q+(1-q)\,p$ la chance que le Times gagne à la fin (verdict A ou B).
+
+\subsection{Condition 1 : le Times publie}
+\[
+\pi\,(B_T-c_T)+(1-\pi)\,(\theta B_T-c_T-S_T)\ \ge\ 0
+\iff
+\boxed{\ \pi\ \ge\ \tau_T=\frac{c_T+S_T-\theta B_T}{(1-\theta)B_T+S_T}\ }
+\]
+\textit{En mots} : sa chance de gagner à la fin doit dépasser son seuil $\tau_T$, d'autant plus haut que perdre lui coûte cher.
+
+\subsection{Condition 2 : Nixon poursuit le Times}
+On compare $O_1$ à $O_4$ (tout sort, aucun procès : $-D$) :
+\[
+\E[u_N(O_1)]-(-D)=-k_T-(1-q)\,k_W+(1-q)(1-p)(1-\theta)\,D\ >\ 0
+\]
+\[
+\iff\quad
+\boxed{\ \underbrace{k_T+(1-q)\,k_W}_{\text{coût moyen des procès}}\ <\ \underbrace{(1-q)(1-p)(1-\theta)\,D}_{\text{dommage évité en moyenne}}\ }
+\]
+\textit{En mots} : Nixon poursuit si les procès lui coûtent, en moyenne, moins que le dommage qu'ils lui évitent. Ce dommage n'est évité que si la censure est confirmée, et seulement pour la part $1-\theta$ encore secrète.
+
+\subsection{Condition 3 : le Post publie à son tour}
+On compare $O_1$ à $O_3$ (il se tait : $0$). Si $q<1$, on peut diviser par $1-q$ :
+\[
+(1-q)\big[p\,(B_W-c_W)+(1-p)\,(\theta B_W-c_W-S_W)\big]\ \ge\ 0
+\iff
+\boxed{\ p\ \ge\ \tau_W=\frac{c_W+S_W-\theta B_W}{(1-\theta)B_W+S_W}\ }
+\]
+\textit{En mots} : le Post ne dépend que du tribunal 2 ; s'il est jugé, c'est que le Times a été censuré au tribunal 1.
+
+\subsection{Condition 4 : Nixon poursuit aussi le Post}
+On compare $O_1$ à $O_2$ (le Post publie librement : $-D-k_T$) :
+\[
+(1-q)\big[(1-p)(1-\theta)\,D-k_W\big]\ >\ 0
+\iff
+\boxed{\ p\ <\ 1-\frac{k_W}{(1-\theta)\,D}\ }
+\]
+Cette condition est toujours vraie quand la condition 2 l'est : en effet, la condition 2 donne $(1-p)(1-\theta)D>k_W+\frac{k_T}{1-q}\ge k_W$. Elle ne limite donc jamais l'intervalle.
+
+\subsection{L'intervalle de probabilités}
+On réunit les conditions 1 à 3, en isolant $p$ (pour $q$ fixé) ou $q$ (pour $p$ fixé) :
+\begin{align}
+\text{pour } q \text{ fixé :}\quad & \max\!\Big(\tau_W\ ;\ \frac{\tau_T-q}{1-q}\Big)\ \le\ p\ <\ 1-\frac{k_W+\frac{k_T}{1-q}}{(1-\theta)\,D},\label{eq:p}\\[4pt]
+\text{pour } p \text{ fixé :}\quad & \frac{\tau_T-p}{1-p}\ \le\ q\ <\ 1-\frac{k_T}{(1-p)(1-\theta)\,D-k_W}\quad\text{si } \tau_W\le p<1-\frac{k_W}{(1-\theta)D}.\label{eq:q}
+\end{align}
+La borne basse vient des \textbf{journaux} : ils doivent oser publier. La borne haute vient de \textbf{Nixon} : la Cour suprême ne doit pas être si favorable aux journaux que poursuivre ne vaudrait plus la peine.
+
+\section{Sans \texorpdfstring{$\theta$}{theta} (\texorpdfstring{$\theta=0$}{theta = 0})}
+
+\subsection{Ce que cela veut dire}
+Une censure maintenue empêche \emph{tout} : rien ne sort. Le journal censuré ne garde aucun bénéfice, et Nixon évite tout le dommage $D$.
+
+\subsection{Les équations}
+\begin{align*}
+\tau_T &= \frac{c_T+S_T}{B_T+S_T}, \qquad \tau_W=\frac{c_W+S_W}{B_W+S_W},\\[4pt]
+\text{Condition 2 :}\quad & k_T+(1-q)\,k_W\ <\ (1-q)(1-p)\,D,\\[4pt]
+\boxed{\text{Intervalle :}}\quad & \boxed{\ \max\!\Big(\frac{c_W+S_W}{B_W+S_W}\ ;\ \frac{\tau_T-q}{1-q}\Big)\ \le\ p\ <\ 1-\frac{k_W+\frac{k_T}{1-q}}{D}\ }
+\end{align*}
+
+\subsection{Avec les valeurs du collègue}
+$B_T=B_W=10$, $c_T=1$, $c_W=5$, $S_T=S_W=5$, $D=200$, $k_T=k_W=1$, $q=30\,\%$.
+\begin{align*}
+\tau_T &= \frac{1+5}{10+5}=40\,\%, \qquad \tau_W=\frac{5+5}{10+5}=66,7\,\%, \qquad \frac{\tau_T-q}{1-q}=\frac{0,4-0,3}{0,7}=14,3\,\%,\\[4pt]
+\text{borne haute} &= 1-\frac{1+\frac{1}{0,7}}{200}=1-\frac{2,43}{200}=98,8\,\%.
+\end{align*}
+\begin{reponse}
+\textbf{Sans $\theta$ (valeurs du collègue, $q=30\,\%$) : $66,7\,\%\le p<98,8\,\%$.} Avec $p=65\,\%$, on est \textbf{juste en dessous} : le Post n'ose pas prendre le relais (son gain espéré vaut $-0,175$), et le scénario ne se réalise pas. Il faudrait que la Cour suprême soit un peu plus favorable, par exemple $p=70\,\%$ ; alors, pour $q$ : $0\le q<98,3\,\%$.
+\end{reponse}
+
+\subsection{Avec les valeurs de référence de l'application}
+$B_T=100$, $c_T=10$, $S_T=50$, $B_W=120$, $c_W=15$, $S_W=180$, $D=200$, $k_T=10$, $k_W=20$, $q=30\,\%$ :
+\[
+\tau_T=\frac{60}{150}=40\,\%,\qquad \tau_W=\frac{195}{300}=65\,\%,\qquad \text{borne haute}=1-\frac{20+\frac{10}{0,7}}{200}=82,9\,\%,
+\]
+donc $65\,\%\le p<82,9\,\%$.
+Pour $p=65\,\%$ : $0\le q<1-\frac{10}{0,35\times200-20}=80\,\%$. Avec $p=65\,\%$ exactement, le Post est indifférent : par convention, il publie.
+
+\section{Avec \texorpdfstring{$\theta$}{theta} (part déjà publiée avant la censure)}
+
+\subsection{Ce qui change}
+Une censure maintenue n'arrête la publication qu'après les premiers articles : la part $\theta$ est déjà sortie. Deux effets :
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{pour les journaux}, perdre coûte moins cher : ils gardent $\theta B$. Leurs seuils $\tau$ \textbf{baissent}, ils osent publier plus facilement ;
+\item \textbf{pour Nixon}, gagner rapporte moins : il n'évite plus que $(1-\theta)D$. La borne haute \textbf{baisse}, il renonce plus facilement à poursuivre.
+\end{itemize}
+
+\subsection{Les équations}
+\begin{align*}
+\tau_T &= \frac{c_T+S_T-\theta B_T}{(1-\theta)B_T+S_T}, \qquad \tau_W=\frac{c_W+S_W-\theta B_W}{(1-\theta)B_W+S_W},\\[4pt]
+\text{Condition 2 :}\quad & k_T+(1-q)\,k_W\ <\ (1-q)(1-p)(1-\theta)\,D,\\[4pt]
+\boxed{\text{Intervalle :}}\quad & \boxed{\ \max\!\Big(\tau_W\ ;\ \frac{\tau_T-q}{1-q}\Big)\ \le\ p\ <\ 1-\frac{k_W+\frac{k_T}{1-q}}{(1-\theta)\,D}\ }
+\end{align*}
+
+\subsection{Avec les valeurs du collègue et \texorpdfstring{$\theta=0,3$}{theta = 0,3}}
+\begin{align*}
+\tau_T &= \frac{1+5-3}{7+5}=25\,\%, \qquad \tau_W=\frac{5+5-3}{7+5}=58,3\,\%, \qquad \frac{\tau_T-q}{1-q}<0,\\[4pt]
+\text{borne haute} &= 1-\frac{1+\frac{1}{0,7}}{0,7\times200}=1-\frac{2,43}{140}=98,3\,\%.
+\end{align*}
+\begin{reponse}
+\textbf{Avec $\theta=0,3$ (valeurs du collègue, $q=30\,\%$) : $58,3\,\%\le p<98,3\,\%$.} Avec $p=65\,\%$, on est \textbf{dedans} : le scénario de 1971 se réalise. Pour $p=65\,\%$ : $0\le q<1-\frac{1}{0,35\times140-1}=97,9\,\%$.
+\end{reponse}
+
+\subsection{Avec les valeurs de référence de l'application}
+\[
+\tau_T=\frac{30}{120}=25\,\%,\qquad \tau_W=\frac{159}{264}=60,2\,\%,\qquad \text{borne haute}=1-\frac{20+\frac{10}{0,7}}{140}=75,5\,\%,
+\]
+donc $60,2\,\%\le p<75,5\,\%$.
+Pour $p=65\,\%$ : $0\le q<1-\frac{10}{0,35\times140-20}=\frac{19}{29}\approx65,5\,\%$.
+
+\section{Voir les intervalles : la zone de 1971}
+Chaque carte est le plan ($q$, $p$). En vert : les couples de probabilités pour lesquels le scénario de 1971 se réalise, les autres valeurs restant fixées. Le point rouge : $q=30\,\%$, $p=65\,\%$.
+
+\begin{figure}[H]
+\centering
+\zone{zone-1971-col-sans-theta.png}{Collègue, sans $\theta$}{0.3}{0.65}\hspace{1.2cm}
+\zone{zone-1971-col-theta.png}{Collègue, avec $\theta=0,3$}{0.3}{0.65}
+
+\vspace{6mm}
+\zone{zone-1971-ref-sans-theta.png}{Référence, sans $\theta$}{0.3}{0.65}\hspace{1.2cm}
+\zone{zone-1971-ref-theta.png}{Référence, avec $\theta=0,3$}{0.3}{0.65}
+\caption{En haut, les valeurs du collègue : sans $\theta$, le point rouge est juste sous la zone ; avec $\theta$, la zone descend et l'englobe. En bas, les valeurs de référence : avec $\theta$, la zone est plus basse et moins haute.}
+\end{figure}
+
+\section{Comparaison}
+\begin{center}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+ & \multicolumn{2}{c}{Valeurs du collègue} & \multicolumn{2}{c}{Valeurs de référence} \\
+ & sans $\theta$ & $\theta=0,3$ & sans $\theta$ & $\theta=0,3$ \\
+\midrule
+Seuil du Times $\tau_T$ & $40\,\%$ & $25\,\%$ & $40\,\%$ & $25\,\%$ \\
+Seuil du Post $\tau_W$ & $66,7\,\%$ & $58,3\,\%$ & $65\,\%$ & $60,2\,\%$ \\
+Intervalle de $p$ ($q=30\,\%$) & $[66,7\,;\,98,8[$ & $[58,3\,;\,98,3[$ & $[65\,;\,82,9[$ & $[60,2\,;\,75,5[$ \\
+Intervalle de $q$ ($p=65\,\%$) & aucun & $[0\,;\,97,9[$ & $[0\,;\,80[$ & $[0\,;\,65,5[$ \\
+1971 avec $q=30\,\%$, $p=65\,\%$ ? & non & \textbf{oui} & oui (de justesse) & \textbf{oui} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{simple}
+\textbf{À retenir.} La borne basse vient des journaux, la borne haute de Nixon. Ajouter $\theta$ abaisse les deux : les journaux osent plus tôt, et Nixon renonce plus tôt. Avec les valeurs du collègue, le dommage de Nixon ($200$) est si grand par rapport au coût d'un procès ($1$) que la borne haute reste proche de $100\,\%$ : c'est la borne basse, celle du Post, qui décide de tout.
+\end{simple}
+
+\paragraph{Avec le bonus de Nixon $R$.} Si l'on ajoute le bonus $R\,(1-\sigma)$ du scénario « bonus de Nixon », il suffit de remplacer $D$ par $D+R$ dans les conditions 2 et 4 et dans la borne haute. Les seuils des journaux ne changent pas.
+
+\paragraph{Vérification.} Les intervalles ont été comparés à la résolution complète de l'arbre (simulateur de l'application) : ils coïncident.
+
+\end{document}
