@@ -62,7 +62,7 @@
 \textbf{En bref.}
 \begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
 \item L'arbre du collègue est \textbf{le bon} : mêmes joueurs, même ordre, mêmes sept feuilles que notre modèle.
-\item Quatre feuilles sont justes ($O_3$, $O_4$, $O_5$, $O_6$). Les erreurs sont dans $O_1$ (trois), $O_2$ (une) et $O_7$ (une).
+\item Quatre feuilles sont justes ($O_3$, $O_4$, $O_5$, $O_6$). Les erreurs sont dans $O_1$ (trois) et $O_2$ (une). Le $+10$ de $O_7$ est une bonne idée, mais il faut l'appliquer de façon cohérente.
 \item Avec ses valeurs corrigées et sans la part déjà publiée $\theta$, \textbf{rien n'est publié} ($O_7$).
 \item Avec $\theta=0,3$, \textbf{on retrouve 1971} ($O_1$).
 \end{itemize}
@@ -119,18 +119,28 @@ $O_4$ Times publie, pas de procès & $(10\ ;\ 0\ ;\ -5)$ & juste \\
 $O_3$ Times poursuivi, Post muet & $p\cdot9+(1-p)(-6)$ ; $0$ ; $(1-p)(-1)+p(-6)$ & juste \\
 $O_5$ Post seul, poursuivi & $0$ ; $p\cdot7+(1-p)(-8)$ ; $(1-p)(-1)+p(-6)$ & juste (avec $c_W=3$) \\
 $O_6$ Post seul, pas de procès & $(0\ ;\ 10\ ;\ -5)$ & juste \\
-$O_7$ Personne ne publie & $(0\ ;\ 0\ ;\ \mathbf{10})$ & \textbf{incohérent} \\
+$O_7$ Personne ne publie & $(0\ ;\ 0\ ;\ \mathbf{10})$ & \textbf{à rendre cohérent} \\
 $O_2$ Times poursuivi, Post libre & $p\cdot9+(1-p)(-6)$ ; $10$ ; $(1-p)(-1)+p(-6)$ & \textbf{1 erreur} \\
 $O_1$ Les deux poursuivis & $p\cdot9+(1-p)(-6)$ ; $pq\cdot7+(1-p)(1-q)(-8)$ ; $(1-p)(1-q)(-1)+pq(-6)$ & \textbf{3 erreurs} \\
 \bottomrule
 \end{tabularx}
 \end{center}
 
-\subsection{$O_7$ : Nixon ne peut pas avoir $+10$}
-\begin{erreur}
-Partout ailleurs, le meilleur cas de Nixon est « rien ne sort, aucun procès », qui vaut $0$ avec son équation $-D\sigma-k$. Un $+10$ ici n'a pas de justification.
-\end{erreur}
-Conséquence : aucune sur l'équilibre, car Nixon ne décide jamais dans cette branche. Mais l'incohérence se verrait dans le rapport. \textbf{Correction} : $(0\ ;\ 0\ ;\ 0)$.
+\subsection{$O_7$ : le $+10$ de Nixon}
+\textbf{L'idée du collègue est juste} : « personne ne publie » est la meilleure situation pour Nixon. Mais il y a deux façons de la représenter, et il faut rester cohérent.
+
+\paragraph{1. Le $0$ est déjà son meilleur gain.} Avec l'équation $u_N=-D\sigma-k_T\,\ind{Times poursuivi}-k_W\,\ind{Post poursuivi}$, toutes les autres feuilles valent au plus $-1$. Le $0$ de $O_7$ est donc déjà le maximum : il dit « meilleure situation ». Et Nixon ne choisit jamais entre $O_7$ et une autre feuille : mettre $0$ ou $+10$ à cet endroit ne change aucune décision.
+
+\paragraph{2. Si on veut un bonus, il faut l'ajouter partout où il s'applique.} Le $+10$ veut dire : « Nixon gagne $10$ quand rien ne sort ». Il faut alors l'écrire dans son équation,
+\[
+u_N=R\,\ind{rien ne sort}-D\,\sigma-k_T\,\ind{Times poursuivi}-k_W\,\ind{Post poursuivi},\qquad R=10 ,
+\]
+et l'appliquer à \textbf{toutes} les feuilles où rien ne sort. Sans $\theta$, c'est aussi le cas après une censure maintenue : Nixon devrait y avoir $10-1=9$ (un procès) ou $10-2=8$ (deux procès), et pas $-1$. Le dessin ne met le bonus qu'en $O_7$ : c'est là qu'est l'incohérence.
+
+\begin{discuter}
+\textbf{Effet sur les calculs} (sans $\theta$, $p=0,3$, $q=0,65$) : $O_3$ et $O_5$ passent pour Nixon de $-61$ à $0,3\times(-201)+0,7\times9=-54$ ; $O_1$ passe de $-152,7$ à $-60,3-91,91+0,245\times8=-150,25$. \textbf{L'équilibre ne change pas} : Nixon poursuivait déjà, et les gains des journaux sont les mêmes. Avec $\theta$, une censure laisse sortir $30\,\%$ : le bonus ne s'applique qu'à $O_7$, où Nixon ne décide jamais.
+\end{discuter}
+\textbf{Conseil} : garder $0$, plus simple et cohérent avec l'équation. Si le groupe préfère $+10$, l'ajouter aussi aux censures sans $\theta$ et le justifier dans le rapport.
 
 \subsection{$O_2$ : Nixon oublie que le Post a tout publié}
 \begin{erreur}
