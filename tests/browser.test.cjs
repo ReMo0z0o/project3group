@@ -139,7 +139,12 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     // The simulator: every value, θ and the bonus R, the path followed by the tree and the 1971 interval.
     const until=async(check,message)=>{for(let i=0;i<60;i++){if(await check())return;await page.waitForTimeout(50);}assert.fail(message);};
     const verdict=()=>page.locator('#sim-verdict').textContent();
-    await page.evaluate(()=>window.Papers.navigate('simulateur'));
+    await page.evaluate(()=>window.Papers.navigate('accueil'));
+    assert.equal(await page.locator('#accueil .sim-feature').isVisible(),true,'the overview highlights the simulator');
+    assert.equal(await page.locator('#toc a[href="#simulateur"] .toc-new').count(),1,'the table of contents flags the new chapter');
+    await page.locator('.masthead .sim-launch').click();
+    assert.equal(await page.locator('#simulateur').isVisible(),true,'the header button opens the simulator from any page');
+    assert.equal(await page.locator('.masthead .sim-launch').getAttribute('aria-current'),'page');
     const sim=page.locator('#simulateur');
     await sim.locator('[data-sim-preset="0"]').click();
     await until(async()=>/se réalise\./.test(await verdict()),'the reference values reproduce 1971');

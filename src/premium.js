@@ -19,7 +19,7 @@
   const getGroup = id => groups.find(g => g.pages.includes(id))?.id || 'accueil';
 
   qs('#toc').innerHTML = '<li class="toc-home"><a href="#accueil"><span>⌂</span><span>Vue d’ensemble</span></a></li>' + groups.map(group =>
-    `<li><div class="toc-group">${group.label}</div><ol>${group.pages.map(id => `<li><a href="#${id}"><span>${id === 'video' ? '▷' : String(order.indexOf(id)).padStart(2,'0')}</span><span>${escapeText(labels[id])}</span></a></li>`).join('')}</ol></li>`
+    `<li><div class="toc-group">${group.label}</div><ol>${group.pages.map(id => `<li><a href="#${id}"><span>${id === 'video' ? '▷' : String(order.indexOf(id)).padStart(2,'0')}</span><span>${escapeText(labels[id])}${id === 'simulateur' ? ' <em class="toc-new">Nouveau</em>' : ''}</span></a></li>`).join('')}</ol></li>`
   ).join('');
 
   function updateVisited() {
@@ -57,6 +57,7 @@
       if (selected) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
     });
     qs('#breadcrumb').textContent = id === 'accueil' ? 'Vue d’ensemble' : labels[id];
+    all('.sim-launch').forEach(a => { a.classList.toggle('is-active', id === 'simulateur'); if (id === 'simulateur') a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
     qs('#reader-count').textContent = id === 'accueil' ? 'THÉORIE DES JEUX · GROUPE 5–6' : `CHAPITRE ${String(order.indexOf(id) + 1).padStart(2,'0')} / ${order.length}`;
     document.title = id === 'accueil' ? 'Pentagon Papers — Une affaire de décisions' : `${labels[id]} — Pentagon Papers`;
     const nav = qs('#chapter-nav');
