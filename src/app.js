@@ -1,19 +1,3 @@
-// ====================== OUTILS ======================
-const $ = s => document.querySelector(s);
-const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-function fr(x, dec = 1) {
-  if (!Number.isFinite(x)) return x > 0 ? '+∞' : x < 0 ? '−∞' : '—';
-  const r = Math.round(x * 10 ** dec) / 10 ** dec;
-  let s = Math.abs(r).toFixed(dec); if (s.includes('.')) s = s.replace(/0+$/, '').replace(/\.$/, '');
-  s = s.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  return (r < 0 ? '−' : '') + s;
-}
-const pct = (x, d = 1) => Number.isFinite(x) ? fr(x * 100, d) + ' %' : '—';
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const subH = s => s.replace(/([A-Za-zθ])_([A-Z])/g, '$1<sub>$2</sub>');
-const clamp01 = x => Math.max(0, Math.min(1, x));
-const vec = v => '(' + v.map(x => fr(x, 2)).join(' ; ') + ')';
-const dec = x => fr(x, 2);
 const BOUNDS = { q: [0, 1], p: [0, 1], th: [0, 0.95], B_T: [0, 300], c_T: [0, 120], S_T: [0, 400], B_W: [0, 300], c_W: [0, 120], S_W: [0, 400], D: [0, 500], k_T: [0, 120], k_W: [0, 120] };
 let saved = null; try { saved = JSON.parse(localStorage.getItem('pp-lab-v3') || 'null'); } catch (e) { saved = null; }
 if (saved && typeof saved === 'object') saved = Object.fromEntries(Object.entries(saved).filter(([k, v]) => BOUNDS[k] && Number.isFinite(v) && v >= BOUNDS[k][0] && v <= BOUNDS[k][1]));
@@ -37,7 +21,7 @@ function thresholdText(who, M) {
 const CONSIGNES = [
   { n: 1, short: 'Les joueurs et leur ordre', text: 'Identifier les joueurs prenant part à cette histoire et l’ordre dans lequel ils interviennent', pages: ['joueurs'] },
   { n: 2, short: 'Les résultats possibles', text: 'Identifier les différents résultats potentiels : pas de publication, pas d’action en justice, une action en justice contre le New York Times uniquement, une action contre le Washington Post également…', pages: ['arbre'] },
-  { n: 3, short: 'L’effet des coûts et des probabilités', text: 'Montrer l’impact du coût total des procédures judiciaires et des probabilités que le juge local puis la Cour Suprême soient favorables aux journaux. Pour quelles probabilités les journaux vont-ils publier les documents ? Pour quelles probabilités l’administration va-t-elle attaquer en justice ?', pages: ['carte', 'couts'] },
+  { n: 3, short: 'L’effet des coûts et des probabilités', text: 'Montrer l’impact du coût total des procédures judiciaires et des probabilités que le juge local puis la Cour Suprême soient favorables aux journaux. Pour quelles probabilités les journaux vont-ils publier les documents ? Pour quelles probabilités l’administration va-t-elle attaquer en justice ?', pages: ['carte', 'couts', 'simulateur'] },
   { n: 4, short: 'Quand les documents ne sortent pas', text: 'Identifier des valeurs de payoffs/de probabilités pour lesquels les documents ne seront pas publiés et expliquez dans chaque cas pourquoi ils ne le seront pas. Discutez de l’importance des valeurs des coûts associés aux différentes actions en justice.', pages: ['secret', 'couts'] },
   { n: 5, short: 'Des gains cohérents et les ENPS', text: 'Identifier des payoffs, cohérents avec les objectifs des différents joueurs et cohérents entre les (sous)-jeux, permettant de rationaliser l’issue de la situation (trouver les ENPS de ces jeux et leur résultat associé)', pages: ['gains', 'resolution'] },
 ];
@@ -231,7 +215,7 @@ const LEAF_DETAILS = {
       'Nixon paie le procès du Times dans tous les cas, et celui du Post si la 1re cour a censuré le Times. Il ne limite le dommage à θD que si la 2e cour lui donne raison.',
     ],
     eq: ['\\mathbb{E}[u_T]=q\\,(B_T-c_T)+(1-q)\\big[p\\,(B_T-c_T)+(1-p)\\,(\\theta B_T-c_T-S_T)\\big]', '\\mathbb{E}[u_W]=q\\times 0+(1-q)\\big[p\\,(B_W-c_W)+(1-p)\\,(\\theta B_W-c_W-S_W)\\big]', '\\mathbb{E}[u_N]=q\\,(-D-k_T)+(1-q)\\big[p\\,(-D-k_T-k_W)+(1-p)\\,(-\\theta D-k_T-k_W)\\big]'],
-    course: 'Feuille atteinte à l’équilibre : c’est le « résultat » de l’ENPS, distinct des stratégies (S6, diapositives 14–18). Gain espéré, car les verdicts sont incertains (notre ajout).',
+    course: 'Feuille atteinte à l’équilibre : c’est le « résultat » de l’ENPS, distinct des stratégies (S6, diapositives 14–18). Gain espéré, car les verdicts sont incertains (même calcul que dans les jeux bayésiens, diapositive 11).',
   },
   O2: {
     path: 'Le Times publie → Nixon le poursuit → le Post publie → Nixon laisse faire.',
@@ -652,7 +636,8 @@ const ANSWERS = {
   3: `<p><b>Les journaux.</b> Face à un procès, un journal publie si la probabilité que la justice lui donne finalement raison atteint son seuil <span class="m">τ = (c + S − θB) / ((1 − θ)B + S)</span>.</p>
      <ul><li>Post en relais : <span class="m">p</span> ≥ 159/264 ≈ <b>60,2 %</b> (son sort dépend de la 2e cour).</li><li>Post seul : <span class="m">q</span> ≥ <b>60,2 %</b> (il n’a que la 1re cour).</li><li>Times : <span class="m">q + (1 − q)p</span> ≥ <b>25 %</b> s’il anticipe le relais du Post, <span class="m">q</span> ≥ 25 % sinon.</li><li>Si la menace de procès n’est pas crédible, le journal publie sans condition.</li></ul>
      <p><b>L’administration.</b> Elle poursuit le Post en relais si <span class="m">p</span> &lt; <b>85,7 %</b>, le Post seul si <span class="m">q</span> &lt; 85,7 %, et le Times si <span class="m">q</span> &lt; <b>65,5 %</b> (avec <span class="m">p</span> = 65 %, quand le Post prendrait le relais), <span class="m">q</span> &lt; 92,9 % si le Post se tairait, jamais si le Post publierait sans être poursuivi.</p>
-     <p><b>Le coût total.</b> Nixon engage les deux procès si <span class="m">k<sub>T</sub> + (1 − q)k<sub>W</sub> &lt; (1 − q)(1 − p)(1 − θ)D</span> (ici 24 &lt; 34,3) et si <span class="m">k<sub>W</sub> &lt; (1 − p)(1 − θ)D</span> (20 &lt; 49). Plus les procès coûtent, plus ces conditions se resserrent.</p>`,
+     <p><b>Le coût total.</b> Nixon engage les deux procès si <span class="m">k<sub>T</sub> + (1 − q)k<sub>W</sub> &lt; (1 − q)(1 − p)(1 − θ)D</span> (ici 24 &lt; 34,3) et si <span class="m">k<sub>W</sub> &lt; (1 − p)(1 − θ)D</span> (20 &lt; 49). Plus les procès coûtent, plus ces conditions se resserrent.</p>
+     <p><b>Le scénario de 1971 en entier.</b> Toutes ces conditions doivent tenir à la fois. Avec <span class="m">q</span> = 30 %, il faut <b>60,2 % ≤ <span class="m">p</span> &lt; 75,5 %</b> : au-delà de 75,5 %, Nixon ne poursuivrait plus le Times, car le second procès aurait trop de chances d’échouer. Le chapitre « Le simulateur » recalcule cet intervalle pour n’importe quelles valeurs.</p>`,
   4: `<p><b>Quand les documents ne sortent pas.</b></p>
      <ul><li><b>Le Post prend peur</b> (<span class="m">p</span> = 50 %, ou <span class="m">S<sub>W</sub></span> = 250, ou <span class="m">c<sub>W</sub></span> &gt; 27,6) : en relais, il perdrait en moyenne (−27 ou −11,9), donc il se tait. Nixon poursuit le Times : feuille O3, et la censure tient 70 % du temps.</li>
      <li><b>Le Times renonce</b> (<span class="m">c<sub>T</sub></span> = 80, ou <span class="m">S<sub>T</sub></span> &gt; 297) : publier lui rapporterait −9,4, moins que le 0 de celui qui ne publie pas. Seul, le Post perdrait 79,8 : personne ne publie (O7).</li>
@@ -703,6 +688,9 @@ const GL = [
   ['Jeu séquentiel', 'Jeu où les joueurs décident à tour de rôle, en connaissant les coups précédents.'],
   ['Information parfaite', 'Chaque joueur sait exactement où il se trouve dans l’arbre quand il décide : chaque ensemble d’information contient un seul nœud.'],
   ['Gain espéré', 'Moyenne des gains pondérée par les probabilités : p × a + (1 − p) × b. Ici, il intègre les verdicts des juges dans les gains des feuilles.'],
+  ['Nature', 'Tirage au hasard placé dans un arbre ; ce n’est pas un joueur (ni gains ni choix). Ici, les verdicts des juges : on les remplace par des gains espérés dans les feuilles.'],
+  ['Information complète', 'Chaque joueur connaît les gains de tous les joueurs. C’est notre cas. Si un joueur ignorait le « type » (la fonction de gains) d’un autre, l’information serait incomplète et le jeu bayésien.'],
+  ['Jeu répété', 'Un même jeu de période rejoué plusieurs fois, avec des gains actualisés par δ. Notre modèle décrit une seule affaire : ce n’est pas un jeu répété.'],
   ['Action', 'Choix possible à un nœud donné.'],
   ['Stratégie', 'Plan complet qui précise une action à chaque nœud où le joueur pourrait jouer.'],
   ['Profil de stratégies', 'Une stratégie pour chaque joueur. Ici 2 × 4 × 8 = 64 profils.'],

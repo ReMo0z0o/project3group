@@ -1,0 +1,71 @@
+\documentclass[border=18pt,varwidth=23cm]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{icomma}
+\usepackage{xcolor}
+\usepackage{booktabs,array}
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\newcommand{\pr}[2]{\underbrace{\color{nat}#1}_{\text{\normalsize\color{nat}$#2$}}}
+\newcommand{\g}[3]{\underbrace{\color{#1}#2}_{\text{\normalsize\color{#1}$#3$}}}
+\begin{document}
+\large
+{\LARGE\bfseries Feuille $O_1$ : les deux journaux sont poursuivis}\par\medskip
+Gains dans l'ordre (\textcolor{nyt}{\textbf{Times}} ; \textcolor{wp}{\textbf{Post}} ; \textcolor{gov}{\textbf{Nixon}}). Sous chaque accolade : la valeur du symbole.
+
+\bigskip
+{\Large\bfseries 1. Les nombres utilisés}\par\medskip
+\renewcommand{\arraystretch}{1.3}\begin{tabular}{@{}l@{\qquad}l@{\qquad}l@{}}
+\toprule
+\textbf{Ce que c'est} & \textbf{Symbole} & \textbf{Valeur} \\
+\midrule
+\color{nat}Le juge local refuse la censure & \color{nat}$q$ & \color{nat}$0,30$\\
+\color{nat}Censure, puis Cour suprême pour les journaux & \color{nat}$(1-q)\,p$ & \color{nat}$0,7\times0,65=0,455$\\
+\color{nat}Censure, puis Cour suprême pour le gouvernement & \color{nat}$(1-q)(1-p)$ & \color{nat}$0,7\times0,35=0,245$\\
+\midrule
+\color{nyt}Times gagne son procès & \color{nyt}$B_T-c_T$ & \color{nyt}$100-10=90$\\
+\color{nyt}Times perd (censure) & \color{nyt}$\theta B_T-c_T-S_T$ & \color{nyt}$0,3\times100-10-50=-30$\\
+\color{wp}Post gagne son procès & \color{wp}$B_W-c_W$ & \color{wp}$120-15=105$\\
+\color{wp}Post perd (censure) & \color{wp}$\theta B_W-c_W-S_W$ & \color{wp}$0,3\times120-15-180=-159$\\
+\color{gov}Nixon : tout sort, 1 procès & \color{gov}$-D-k_T$ & \color{gov}$-200-10=-210$\\
+\color{gov}Nixon : tout sort, 2 procès & \color{gov}$-D-k_T-k_W$ & \color{gov}$-200-10-20=-230$\\
+\color{gov}Nixon : censure, 2 procès & \color{gov}$-\theta D-k_T-k_W$ & \color{gov}$-0,3\times200-10-20=-90$\\
+\bottomrule
+\end{tabular}
+
+\bigskip
+{\Large\bfseries 2. Les équations, sans les chiffres}\par\medskip
+\begin{align*}
+\color{nyt}\mathbb{E}[u_T] &= q\,(B_T-c_T) + (1-q)\,p\,(B_T-c_T) + (1-q)(1-p)\,(\theta B_T-c_T-S_T)\\[4pt]
+\color{wp}\mathbb{E}[u_W] &= q\times 0 + (1-q)\,p\,(B_W-c_W) + (1-q)(1-p)\,(\theta B_W-c_W-S_W)\\[4pt]
+\color{gov}\mathbb{E}[u_N] &= q\,(-D-k_T) + (1-q)\,p\,(-D-k_T-k_W) + (1-q)(1-p)\,(-\theta D-k_T-k_W)
+\end{align*}
+\small Chaque terme : \textbf{chance du verdict} $\times$ \textbf{gain après ce verdict}. Le Post a $0$ si le juge local libère le Times : son relais ne sert plus.\large
+
+\bigskip
+{\Large\bfseries 3. Les mêmes équations, avec les chiffres sous chaque symbole}\par\medskip
+\begin{align*}
+\color{nyt}\mathbb{E}[u_T] &= \pr{q}{0,30}\,\g{nyt}{(B_T-c_T)}{90} + \pr{(1-q)\,p}{0,455}\,\g{nyt}{(B_T-c_T)}{90} + \pr{(1-q)(1-p)}{0,245}\,\g{nyt}{(\theta B_T-c_T-S_T)}{-30}\\[10pt]
+\color{wp}\mathbb{E}[u_W] &= \pr{q}{0,30}\times\g{wp}{0}{0} + \pr{(1-q)\,p}{0,455}\,\g{wp}{(B_W-c_W)}{105} + \pr{(1-q)(1-p)}{0,245}\,\g{wp}{(\theta B_W-c_W-S_W)}{-159}\\[10pt]
+\color{gov}\mathbb{E}[u_N] &= \pr{q}{0,30}\,\g{gov}{(-D-k_T)}{-210} + \pr{(1-q)\,p}{0,455}\,\g{gov}{(-D-k_T-k_W)}{-230} + \pr{(1-q)(1-p)}{0,245}\,\g{gov}{(-\theta D-k_T-k_W)}{-90}
+\end{align*}
+
+\bigskip
+{\Large\bfseries 4. Le calcul}\par\medskip
+\begin{align*}
+\color{nyt}\textbf{Times :}\quad & \color{nyt}0,30\times90+0,455\times90+0,245\times(-30) = 27+40,95-7,35 = \boxed{60,6}\\[4pt]
+\color{wp}\textbf{Post :}\quad & \color{wp}0,30\times0+0,455\times105+0,245\times(-159) = 0+47,78-38,96 = \boxed{8,82}\\[4pt]
+\color{gov}\textbf{Nixon :}\quad & \color{gov}0,30\times(-210)+0,455\times(-230)+0,245\times(-90) = -63-104,65-22,05 = \boxed{-189,7}
+\end{align*}
+
+\medskip
+\fcolorbox{black}{yellow!12}{\parbox{0.96\linewidth}{\centering\Large\bfseries Sous la feuille $O_1$ : \quad (\textcolor{nyt}{60,6} ; \textcolor{wp}{8,82} ; \textcolor{gov}{$-189,7$})}}
+
+\medskip
+\small Vérification des chances : $0,30+0,455+0,245=1$. Paramètres : $q=0,3$ ; $p=0,65$ ; $\theta=0,3$ ; $B_T=100$ ; $c_T=10$ ; $S_T=50$ ; $B_W=120$ ; $c_W=15$ ; $S_W=180$ ; $D=200$ ; $k_T=10$ ; $k_W=20$.
+\end{document}

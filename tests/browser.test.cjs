@@ -13,7 +13,8 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
 
 (async () => {
   const html = fs.readFileSync(path.join(__dirname,'../index.html'));
-  const server = http.createServer((req,res) => {res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});res.end(html);});
+  const simulator = fs.readFileSync(path.join(__dirname,'../simulateur.html'));
+  const server = http.createServer((req,res) => {res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});res.end(req.url.startsWith('/simulateur.html')?simulator:html);});
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const url=`http://127.0.0.1:${server.address().port}/`;
   const executablePath = process.env.CHROMIUM_PATH || (fs.existsSync('/usr/bin/chromium') ? '/usr/bin/chromium' : undefined);
@@ -30,7 +31,7 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     assert.equal(await page.title(),'Pentagon Papers — Une affaire de décisions');
     assert.equal(await page.locator('#chapter-nav').isVisible(),false,'no previous-chapter controls on the overview');
     const ids=await page.locator('section.piece').evaluateAll(elements=>elements.map(e=>e.id));
-    assert.equal(ids.length,18,'all the educational chapters are available');
+    assert.equal(ids.length,19,'all the educational chapters are available');
     let routes=0;
     for(const width of [1440,768,390,320]){
       await page.setViewportSize({width,height:900});
@@ -124,7 +125,7 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     await page.locator('[data-step-target="gain-step-4"]').click();
     console.log('PASS guided construction, seven leaves, path exploration, subgames and the payoff lesson');
     // Every instruction of the assignment is quoted where it is answered.
-    assert.equal(await page.locator('.consigne').count(),7,'seven chapters recall the instruction they answer');
+    assert.equal(await page.locator('.consigne').count(),8,'eight chapters recall the instruction they answer');
     assert.equal(await page.locator('#consigne-map li').count(),5);
     assert.equal(await page.locator('#home-consignes li').count(),5);
     assert.equal(await page.locator('#answers .answer').count(),5,'one written answer per instruction');
@@ -134,6 +135,36 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     await page.locator('#gains .consigne-link').click();
     assert.equal(await page.locator('#enonce').isVisible(),true);
     console.log('PASS instructions mapped to chapters and answers');
+
+    // The simulator: every value, θ and the bonus R, the path followed by the tree and the 1971 interval.
+    const until=async(check,message)=>{for(let i=0;i<60;i++){if(await check())return;await page.waitForTimeout(50);}assert.fail(message);};
+    const verdict=()=>page.locator('#sim-verdict').textContent();
+    await page.evaluate(()=>window.Papers.navigate('simulateur'));
+    const sim=page.locator('#simulateur');
+    await sim.locator('[data-sim-preset="0"]').click();
+    await until(async()=>/se réalise\./.test(await verdict()),'the reference values reproduce 1971');
+    assert.match(await page.locator('#sim-int-p').textContent(),/60,2 % ; 75,5 %/,'interval of p for the chosen q');
+    assert.match(await page.locator('#sim-int-q').textContent(),/0 % ; 65,5 %/,'interval of q for the chosen p');
+    assert.equal(await page.locator('#sim-path li').count(),5,'four decisions, then the leaf');
+    assert.equal(await page.locator('#sim-tree .dt-history').count(),4,'the followed path is highlighted on the tree');
+    assert.equal(await page.locator('#sim-conds li.is-ok').count(),4);
+    await sim.locator('[data-sim-preset="1"]').click();
+    await until(async()=>/ne se réalise pas.*O7/.test(await verdict()),'the teammate values without θ keep the secret');
+    assert.equal(await sim.locator('input[data-k="th"][type="number"]').isDisabled(),true,'θ can be switched off');
+    await sim.locator('input[data-flag="thOn"]').check();
+    await until(async()=>/se réalise\./.test(await verdict()),'θ brings back 1971');
+    await sim.locator('input[data-k="D"]').fill('5');
+    await until(async()=>/ne se réalise pas/.test(await verdict()),'a small damage stops the lawsuits');
+    await sim.locator('input[data-flag="rOn"]').check();
+    await until(async()=>/se réalise\./.test(await verdict()),'the bonus R brings back 1971');
+    await sim.locator('input[data-k="p"][type="number"]').fill('90');
+    await until(async()=>/en dehors/.test(await page.locator('#sim-int-p').textContent()),'a value outside the interval is reported');
+    await sim.locator('input[data-k="c_W"]').fill('-3');
+    assert.equal(await sim.locator('input[data-k="c_W"]').getAttribute('aria-invalid'),'true','negative values are refused');
+    assert.doesNotMatch(await sim.textContent(),/NaN|Infinity|undefined/);
+    await sim.locator('#sim-reset').click();
+    await until(async()=>/se réalise\./.test(await verdict()),'reset restores the reference values');
+    console.log('PASS simulator: all values, θ and R switches, path, intervals and validation');
 
     await page.evaluate(()=>window.Papers.navigate('rappels'));
     await page.locator('#thr-k').focus();await page.keyboard.press('End');
@@ -183,13 +214,23 @@ if (!playwright) throw new Error('Install playwright-core or set PLAYWRIGHT_MODU
     await page.reload();assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
     await page.locator('#theme-toggle').click();
     await page.emulateMedia({media:'print'});
-    assert.equal(await page.locator('section.piece:visible').count(),18,'print includes every chapter');
+    assert.equal(await page.locator('section.piece:visible').count(),19,'print includes every chapter');
     assert.equal(await page.locator('#accueil').isVisible(),true,'print includes the overview');
     await page.emulateMedia({media:'screen',reducedMotion:'reduce'});
     const animation=await page.locator('.archive-art').evaluate(element=>getComputedStyle(element).animationName);
     assert.equal(animation,'none','motion preferences are respected');
     await page.evaluate(()=>window.Papers.navigate('accueil'));
     assert.equal(await page.locator('#chapter-nav').isVisible(),false);
+    // The standalone simulator works on its own, offline, on a phone.
+    await page.setViewportSize({width:390,height:844});
+    await page.goto(url+'simulateur.html');
+    assert.equal(await page.title(),'Pentagon Papers — Simulateur');
+    assert.match(await page.locator('#sim-verdict').textContent(),/scénario de 1971/);
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'the standalone simulator fits a phone');
+    await page.locator('#sim-theme').click();
+    assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
+    await page.locator('#sim-theme').click();
+    console.log('PASS standalone simulator');
     assert.deepEqual(external,[],'the artifact uses no remote fonts, media, scripts or styles');
     assert.deepEqual(errors,[],'no browser console or script errors');
     console.log('PASS theme persistence, complete print layout, reduced motion and zero external dependencies');

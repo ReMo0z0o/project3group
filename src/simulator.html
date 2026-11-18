@@ -1,0 +1,81 @@
+    <section class="piece" id="simulateur" data-toc="Le simulateur">
+      <div class="piece-head"><div class="eyebrow">Pièce 12 bis · Simulateur</div><h2>Choisissez toutes les valeurs, suivez le chemin de l’arbre</h2></div>
+      <div class="prose"><p>Entrez vos propres valeurs : bénéfices, frais de procès et sanctions des deux journaux, dommage et coûts de Nixon, probabilités des deux tribunaux. Vous pouvez aussi activer ou non la part déjà publiée avant une censure (<span class="m">θ</span>) et le bonus de Nixon quand le secret est gardé (<span class="m">R</span>). L’arbre, le chemin d’équilibre et l’intervalle de probabilités du scénario de 1971 se recalculent à chaque modification.</p></div>
+
+      <div class="sim-presets" id="sim-presets" aria-label="Valeurs prêtes à l’emploi"></div>
+
+      <form class="sim-form" id="sim-form" autocomplete="off" onsubmit="return false">
+        <fieldset class="sim-card" style="--c:var(--nyt)">
+          <legend><span class="dot"></span>New York Times · journal 1</legend>
+          <label class="sim-field"><span>Bénéfice s’il publie tout (<span class="m">B<sub>T</sub></span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="B_T"></label>
+          <label class="sim-field"><span>Coût de son procès (<span class="m">c<sub>T</sub></span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="c_T"></label>
+          <label class="sim-field"><span>Sanction s’il perd (<span class="m">S<sub>T</sub></span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="S_T"></label>
+        </fieldset>
+        <fieldset class="sim-card" style="--c:var(--wp)">
+          <legend><span class="dot"></span>Washington Post · journal 2</legend>
+          <label class="sim-field"><span>Bénéfice s’il publie tout (<span class="m">B<sub>W</sub></span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="B_W"></label>
+          <label class="sim-field"><span>Coût de son procès (<span class="m">c<sub>W</sub></span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="c_W"></label>
+          <label class="sim-field"><span>Sanction s’il perd (<span class="m">S<sub>W</sub></span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="S_W"></label>
+        </fieldset>
+        <fieldset class="sim-card" style="--c:var(--gov)">
+          <legend><span class="dot"></span>Administration Nixon</legend>
+          <label class="sim-field"><span>Dommage si tout sort (<span class="m">D</span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="D"></label>
+          <label class="sim-field"><span>Coût d’un procès contre le Times (<span class="m">k<sub>T</sub></span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="k_T"></label>
+          <label class="sim-field"><span>Coût d’un procès contre le Post (<span class="m">k<sub>W</sub></span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="k_W"></label>
+          <label class="sim-switch"><input type="checkbox" data-flag="rOn"><span>Nixon gagne un bonus quand le secret est gardé (sa meilleure situation : personne ne publie)</span></label>
+          <label class="sim-field" data-needs="rOn"><span>Bonus si rien ne sort (<span class="m">R</span>)</span><input type="number" inputmode="decimal" step="any" min="0" data-k="R"></label>
+        </fieldset>
+        <fieldset class="sim-card" style="--c:var(--nat)">
+          <legend><span class="dot"></span>Juges · pas des joueurs</legend>
+          <div class="sim-field sim-range"><label for="sim-q">Tribunal 1, juge local : chance de refuser la censure (<span class="m">q</span>)</label><div><input type="range" id="sim-q" min="0" max="100" step="0.5" data-k="q" data-pct><input type="number" inputmode="decimal" step="any" min="0" max="100" data-k="q" data-pct aria-label="q en pourcentage"><span class="unit">%</span></div></div>
+          <div class="sim-field sim-range"><label for="sim-p">Tribunal 2, Cour suprême : chance de donner raison aux journaux (<span class="m">p</span>)</label><div><input type="range" id="sim-p" min="0" max="100" step="0.5" data-k="p" data-pct><input type="number" inputmode="decimal" step="any" min="0" max="100" data-k="p" data-pct aria-label="p en pourcentage"><span class="unit">%</span></div></div>
+          <p class="sim-hint">La Cour suprême n’est saisie que si les deux journaux sont poursuivis.</p>
+        </fieldset>
+        <fieldset class="sim-card" style="--c:var(--ink2)">
+          <legend><span class="dot"></span>Part publiée avant une censure</legend>
+          <label class="sim-switch"><input type="checkbox" data-flag="thOn"><span>Tenir compte de <span class="m">θ</span> : les premiers articles restent publiés même si la censure tient</span></label>
+          <div class="sim-field sim-range" data-needs="thOn"><label for="sim-th">Part déjà publiée (<span class="m">θ</span>)</label><div><input type="range" id="sim-th" min="0" max="100" step="1" data-k="th" data-pct><input type="number" inputmode="decimal" step="any" min="0" max="100" data-k="th" data-pct aria-label="θ en pourcentage"><span class="unit">%</span></div></div>
+          <p class="sim-hint">Case décochée : une censure maintenue veut dire que rien ne sort (<span class="m">θ</span> = 0).</p>
+        </fieldset>
+        <div class="sim-actions"><button type="button" class="btn sm ghost" id="sim-reset">Revenir aux valeurs de référence</button><span class="small ui" id="sim-saved"></span></div>
+      </form>
+
+      <div class="sim-verdict" id="sim-verdict" role="status" aria-live="polite"></div>
+
+      <div class="sim-block">
+        <div class="eyebrow">La direction prise par l’arbre</div>
+        <ol class="sim-path" id="sim-path"></ol>
+        <div class="sim-leaf" id="sim-leaf"></div>
+        <details class="sim-off"><summary>Ce que chacun ferait ailleurs dans l’arbre (stratégies complètes)</summary><div class="chips" id="sim-strat"></div></details>
+      </div>
+
+      <figure><div class="tree-wrap"><svg id="sim-tree" viewBox="0 0 1100 900" role="img" aria-label="Arbre du jeu avec le chemin d’équilibre pour vos valeurs"></svg></div><figcaption>Surligné : le chemin suivi. Traits épais : choix retenus à chaque nœud. Pointillés et × : choix écartés. ★ : feuille atteinte.</figcaption></figure>
+
+      <div class="sim-block">
+        <div class="eyebrow">Le scénario de 1971 : pour quelles probabilités ?</div>
+        <p class="sim-lead">Le Times publie, Nixon le poursuit, le Post publie à son tour, Nixon le poursuit aussi (feuille O1). Il faut que les quatre choix aillent dans ce sens. Chaque ligne suppose que les autres joueurs font comme en 1971 : elle dit si ce joueur suivrait l’histoire à son tour.</p>
+        <ul class="sim-conds" id="sim-conds"></ul>
+        <div class="sim-intervals">
+          <div class="sim-interval" id="sim-int-p"></div>
+          <div class="sim-interval" id="sim-int-q"></div>
+        </div>
+        <div class="sim-zone-wrap">
+          <div class="sim-zone">
+            <div class="sim-zone-y"><b>p</b> · tribunal 2 →</div>
+            <canvas id="sim-zone" width="440" height="440" aria-label="Zone des probabilités où le scénario de 1971 se réalise"></canvas>
+            <div class="sim-zone-x"><b>q</b> · tribunal 1 →</div>
+          </div>
+          <div class="sim-zone-legend">
+            <p><span class="sw sw-ok"></span> zone où le scénario de 1971 se réalise, les autres valeurs restant les vôtres</p>
+            <p><span class="sw sw-no"></span> un autre chemin est suivi</p>
+            <p><span class="sw sw-pt"></span> vos probabilités ; les traits épais montrent les deux intervalles ci-dessus</p>
+            <details><summary>Les formules des bornes</summary><div id="sim-formulas"></div></details>
+          </div>
+        </div>
+      </div>
+
+      <details class="sim-block sim-eq" open>
+        <summary class="eyebrow">Les équations utilisées, avec vos valeurs</summary>
+        <div id="sim-eq"></div>
+      </details>
+    </section>

@@ -6,7 +6,7 @@
   const groups = [
     { id:'histoire', label:'01 — Comprendre', pages:['video','affaire','question','rappels','joueurs'] },
     { id:'modele', label:'02 — Modéliser', pages:['arbre','choix','gains','resolution'] },
-    { id:'explorer', label:'03 — Expérimenter', pages:['carte','secret','couts','labo'] },
+    { id:'explorer', label:'03 — Expérimenter', pages:['carte','secret','couts','labo','simulateur'] },
     { id:'synthese', label:'04 — Retenir', pages:['enonce','limites','quiz','lexique','sources'] },
   ];
   const labels = Object.fromEntries(sections.map(s => [s.id, s.dataset.toc]));

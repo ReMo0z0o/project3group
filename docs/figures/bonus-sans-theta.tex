@@ -1,0 +1,34 @@
+\begin{tikzpicture}[x=1cm,y=1cm,lab/.style={font=\scriptsize,fill=white,inner sep=1pt,sloped},eq/.style={line width=1.8pt,draw=gov},br/.style={line width=0.6pt,draw=black!55}]
+\draw[br] (0.4,-7.928125)--(2.6,-4.56875) node[lab,midway,above]{Publier};
+\draw[eq] (0.4,-7.928125)--(5.0,-11.2875) node[lab,midway,below]{Ne pas publier};
+\draw[eq] (2.6,-4.56875)--(5.0,-2.6875) node[lab,midway,above]{Poursuivre};
+\draw[br] (2.6,-4.56875)--(9.6,-6.449999999999999) node[lab,midway,below]{Laisser faire};
+\draw[br] (5.0,-2.6875)--(7.4,-1.075) node[lab,midway,above]{Publier};
+\draw[eq] (5.0,-2.6875)--(9.6,-4.3) node[lab,midway,below]{Ne pas publier};
+\draw[eq] (7.4,-1.075)--(9.6,0.0) node[lab,midway,above]{Poursuivre};
+\draw[br] (7.4,-1.075)--(9.6,-2.15) node[lab,midway,below]{Laisser faire};
+\draw[br] (5.0,-11.2875)--(7.4,-9.675) node[lab,midway,above]{Publier};
+\draw[eq] (5.0,-11.2875)--(9.6,-12.899999999999999) node[lab,midway,below]{Ne pas publier};
+\draw[eq] (7.4,-9.675)--(9.6,-8.6) node[lab,midway,above]{Poursuivre};
+\draw[br] (7.4,-9.675)--(9.6,-10.75) node[lab,midway,below]{Laisser faire};
+\fill[nyt] (0.4,-7.928125) circle (4pt); \node[font=\small\bfseries,text=nyt,above left=3pt and -2pt] at (0.4,-7.928125) {Times};
+\fill[gov] (2.6,-4.56875) circle (4pt); \node[font=\small\bfseries,text=gov,above left=3pt and -2pt] at (2.6,-4.56875) {Nixon};
+\fill[wp] (5.0,-2.6875) circle (4pt); \node[font=\small\bfseries,text=wp,above left=3pt and -2pt] at (5.0,-2.6875) {Post};
+\fill[gov] (7.4,-1.075) circle (4pt); \node[font=\small\bfseries,text=gov,above left=3pt and -2pt] at (7.4,-1.075) {Nixon};
+\fill[wp] (5.0,-11.2875) circle (4pt); \node[font=\small\bfseries,text=wp,above left=3pt and -2pt] at (5.0,-11.2875) {Post};
+\fill[gov] (7.4,-9.675) circle (4pt); \node[font=\small\bfseries,text=gov,above left=3pt and -2pt] at (7.4,-9.675) {Nixon};
+\fill (9.6,0.0) circle (2pt);
+\node[anchor=west,draw=black!35,fill=white,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=4pt] at (9.85,0.0) {\textbf{$O_1$ · les deux journaux poursuivis}\\\textcolor{nyt}{\textbf{Times} : $p\cdot9+(1-p)\,q\cdot9+(1-p)(1-q)\cdot(-6)$ $=\mathbf{5,325}$}\\\textcolor{wp}{\textbf{Post} : $p\cdot0+(1-p)\,q\cdot5+(1-p)(1-q)\cdot(-10)$ $=\mathbf{-0,175}$}\\\textcolor{gov}{\textbf{Nixon} : $p\cdot(-201)+(1-p)\,q\cdot(-202)+(1-p)(1-q)\cdot\mathbf{8}$ $=\mathbf{-150,25}$}};
+\fill (9.6,-2.15) circle (2pt);
+\node[anchor=west,draw=black!35,fill=white,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=4pt] at (9.85,-2.15) {\textbf{$O_2$ · Times poursuivi, Post libre}\\\textcolor{nyt}{\textbf{Times} : $9$}\\\textcolor{wp}{\textbf{Post} : $p\cdot0+(1-p)\cdot10$ $=\mathbf{7}$}\\\textcolor{gov}{\textbf{Nixon} : $-201$}};
+\fill (9.6,-4.3) circle (2pt);
+\node[anchor=west,draw=black!35,fill=white,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=4pt] at (9.85,-4.3) {\textbf{$O_3$ · Times poursuivi, Post muet}\\\textcolor{nyt}{\textbf{Times} : $p\cdot9+(1-p)\cdot(-6)$ $=\mathbf{-1,5}$}\\\textcolor{wp}{\textbf{Post} : $0$}\\\textcolor{gov}{\textbf{Nixon} : $p\cdot(-201)+(1-p)\cdot\mathbf{9}$ $=\mathbf{-54}$}};
+\fill (9.6,-6.449999999999999) circle (2pt);
+\node[anchor=west,draw=black!35,fill=white,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=4pt] at (9.85,-6.449999999999999) {\textbf{$O_4$ · Times publie, pas de procès}\\\textcolor{nyt}{\textbf{Times} : $10$}\\\textcolor{wp}{\textbf{Post} : $0$}\\\textcolor{gov}{\textbf{Nixon} : $-200$}};
+\fill (9.6,-8.6) circle (2pt);
+\node[anchor=west,draw=black!35,fill=white,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=4pt] at (9.85,-8.6) {\textbf{$O_5$ · Post seul, poursuivi}\\\textcolor{nyt}{\textbf{Times} : $0$}\\\textcolor{wp}{\textbf{Post} : $p\cdot5+(1-p)\cdot(-10)$ $=\mathbf{-5,5}$}\\\textcolor{gov}{\textbf{Nixon} : $p\cdot(-201)+(1-p)\cdot\mathbf{9}$ $=\mathbf{-54}$}};
+\fill (9.6,-10.75) circle (2pt);
+\node[anchor=west,draw=black!35,fill=white,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=4pt] at (9.85,-10.75) {\textbf{$O_6$ · Post seul, pas de procès}\\\textcolor{nyt}{\textbf{Times} : $0$}\\\textcolor{wp}{\textbf{Post} : $10$}\\\textcolor{gov}{\textbf{Nixon} : $-200$}};
+\fill (9.6,-12.899999999999999) circle (2pt);
+\node[anchor=west,draw=black!35,fill=white,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=4pt] at (9.85,-12.899999999999999) {\textbf{$O_7$ · personne ne publie}\\\textcolor{nyt}{\textbf{Times} : $0$}\\\textcolor{wp}{\textbf{Post} : $0$}\\\textcolor{gov}{\textbf{Nixon} : $\mathbf{10}$}};
+\end{tikzpicture}

@@ -1,0 +1,305 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{icomma}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{patterns,positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdflscape}
+\usepackage{pifont}
+
+\definecolor{nyt}{HTML}{1F3B63}
+\definecolor{wp}{HTML}{17695B}
+\definecolor{gov}{HTML}{B42318}
+\definecolor{nat}{HTML}{9A6212}
+\definecolor{regnone}{HTML}{C6C2B8}
+\definecolor{regnosuit}{HTML}{CBE2C3}
+\definecolor{regnyt}{HTML}{F0C5BD}
+\definecolor{regboth}{HTML}{F1D69B}
+
+\newtcolorbox{cours}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Lien avec le cours}
+\newtcolorbox{resultat}{colback=wp!6,colframe=wp!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newtcolorbox{intuition}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=Intuition}
+
+\theoremstyle{definition}
+\newtheorem{lemme}{Lemme}
+\newtheorem{proposition}{Proposition}
+\newcommand{\ind}[1]{\mathbf{1}_{\{\text{#1}\}}}
+\newcommand{\E}{\mathbb{E}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\captionsetup{font=small,labelfont=bf}
+
+\newtcolorbox{erreur}{colback=gov!5,colframe=gov!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=Erreur}
+\newtcolorbox{discuter}{colback=nat!6,colframe=nat!70,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,title=À discuter}
+\newtcolorbox{simple}{colback=nyt!4,colframe=nyt!50,boxrule=0.4pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\bfseries\small,title=En mots}
+\newcommand{\T}[1]{\textcolor{nyt}{#1}}
+\newcommand{\W}[1]{\textcolor{wp}{#1}}
+\newcommand{\N}[1]{\textcolor{gov}{#1}}
+
+
+\title{\textbf{Pentagon Papers}\\[3pt]\large Scénario « bonus de Nixon » : le $+10$ rendu cohérent}
+\author{Travail de théorie des jeux, groupe 5--6 · ECGEB366}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.2cm}
+
+\begin{resultat}
+\textbf{En bref.}
+\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=2pt]
+\item Le collègue donne $+10$ à Nixon quand personne ne publie ($O_7$), car c'est sa meilleure situation. L'idée est juste.
+\item Pour être cohérent, ce $+10$ doit devenir un \textbf{bonus $R=10$ dans l'équation de Nixon}, appliqué à \emph{toutes} les feuilles où le secret est gardé.
+\item Équation retenue : $u_N=R\,(1-\sigma)-D\,\sigma-k_T\,\ind{Times poursuivi}-k_W\,\ind{Post poursuivi}$.
+\item Avec $D=200$, le bonus \textbf{ne change pas l'équilibre} : $O_7$ sans $\theta$, $O_1$ (1971) avec $\theta=0,3$.
+\item Il compte quand le dommage $D$ est petit : avec $D=5$ et $\theta=0,3$, il fait passer de $O_4$ (aucun procès) à $O_1$ (1971).
+\end{itemize}
+\end{resultat}
+
+\begin{discuter}
+\textbf{Lettres.} Comme dans le dessin du collègue : $p$ = chance que le \textbf{juge local} refuse la censure, $q$ = chance que la \textbf{Cour suprême} donne raison aux journaux. Exemple chiffré : $p=0,3$, $q=0,65$.
+\end{discuter}
+
+\section{Le problème de départ}
+Dans le dessin, Nixon a $+10$ en $O_7$ (personne ne publie), mais $-1$ quand une censure tient et que rien ne sort non plus. Deux situations où le secret est gardé reçoivent donc des valeurs très différentes, sans raison. Le $+10$ n'est pas une erreur d'idée : c'est un \textbf{terme qui manque dans l'équation}.
+
+\begin{simple}
+Règle d'or : une seule équation par joueur, appliquée à toutes les feuilles. Si Nixon gagne quelque chose quand le secret est gardé, il le gagne \emph{chaque fois} que le secret est gardé.
+\end{simple}
+
+\section{L'équation de Nixon avec bonus}
+
+\subsection{La forme exacte}
+\[
+u_N=\underbrace{R\,(1-\sigma)}_{\text{bonus : part gardée secrète}}\;-\;\underbrace{D\,\sigma}_{\text{dommage : part qui sort}}
+\]
+\[
+\hphantom{u_N={}}\;-\;\underbrace{k_T\,\ind{Times poursuivi}}_{\text{procès du Times}}\;-\;\underbrace{k_W\,\ind{Post poursuivi}}_{\text{procès du Post}}
+\]
+avec $\sigma$ la part des documents qui sort :
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Situation & $\sigma$ & Part gardée secrète $1-\sigma$ & Bonus $R(1-\sigma)$ \\
+\midrule
+Tout sort & $1$ & $0$ & $0$ \\
+Censure maintenue & $\theta$ & $1-\theta$ & $R(1-\theta)$ \\
+Rien ne sort & $0$ & $1$ & $R$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Les deux cas}
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Sans $\theta$} ($\theta=0$) : une censure veut dire que \emph{rien ne sort}. Le bonus est entier, $R=10$, dans $O_7$ \emph{et} après chaque censure. L'équation devient $u_N=R\,\ind{rien ne sort}-D\,\ind{tout sort}-k_T\,\ind{\dots}-k_W\,\ind{\dots}$.
+\item \textbf{Avec $\theta=0,3$} : une censure laisse sortir $30\,\%$. Nixon reçoit le bonus pour les $70\,\%$ gardés secrets : $R(1-\theta)=7$. Seul $O_7$ donne le bonus entier.
+\end{itemize}
+Les gains des journaux ne changent pas : le bonus ne concerne que Nixon.
+
+\subsection{Les valeurs}
+\[
+B_T=B_W=10,\quad c_T=1,\quad c_W=5,\quad S_T=S_W=5,\quad D=200,\quad k_T=k_W=1,
+\]
+\[
+\mathbf{R=10},\qquad p=0,3,\qquad q=0,65 .
+\]
+
+\subsection{Les gains de Nixon après chaque situation}
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Situation & Formule & Sans $\theta$ & Avec $\theta=0,3$ \\
+\midrule
+Rien ne sort, aucun procès & $R$ & $10$ & $10$ \\
+Censure, 1 procès & $R(1-\theta)-\theta D-k$ & $10-1=\mathbf{9}$ & $7-60-1=\mathbf{-54}$ \\
+Censure, 2 procès & $R(1-\theta)-\theta D-k_T-k_W$ & $10-2=\mathbf{8}$ & $7-60-2=\mathbf{-55}$ \\
+Tout sort, aucun procès & $-D$ & $-200$ & $-200$ \\
+Tout sort, 1 procès & $-D-k$ & $-201$ & $-201$ \\
+Tout sort, 2 procès & $-D-k_T-k_W$ & $-202$ & $-202$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Pour comparer, sans bonus : censure à $-1$ et $-2$ (sans $\theta$), à $-61$ et $-62$ (avec $\theta$).
+
+\subsection{Les gains des journaux (inchangés)}
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Situation & Formule & Sans $\theta$ & Avec $\theta=0,3$ \\
+\midrule
+\T{Times gagne} & $B_T-c_T$ & $9$ & $9$ \\
+\T{Times perd} & $\theta B_T-c_T-S_T$ & $-6$ & $-3$ \\
+\W{Post gagne} & $B_W-c_W$ & $5$ & $5$ \\
+\W{Post perd} & $\theta B_W-c_W-S_W$ & $-10$ & $-7$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{landscape}
+\begin{center}{\large\bfseries L'arbre avec bonus, en lettres}\\[2pt]{\small Gains dans l'ordre \textcolor{nyt}{\textbf{Times}}, \textcolor{wp}{\textbf{Post}}, \textcolor{gov}{\textbf{Nixon}}. $p$ = juge local, $q$ = Cour suprême. En gras : là où le bonus $R$ intervient. Sans $\theta$, poser $\theta=0$ : le terme $R(1-\theta)$ devient $R$.}\end{center}\vspace{-4pt}
+\noindent\resizebox{\linewidth}{!}{\input{figures/bonus-lettres}}
+\end{landscape}
+
+\section{Scénario A : bonus, sans \texorpdfstring{$\theta$}{theta}}
+
+\begin{landscape}
+\begin{center}{\large\bfseries Scénario A : bonus $R=10$, sans $\theta$}\\[2pt]{\small Gains dans l'ordre \textcolor{nyt}{\textbf{Times}}, \textcolor{wp}{\textbf{Post}}, \textcolor{gov}{\textbf{Nixon}}. $p$ = juge local, $q$ = Cour suprême. En gras : là où le bonus $R$ intervient. Traits rouges épais : choix à l'équilibre $\Rightarrow$ $O_7$.}\end{center}\vspace{-4pt}
+\noindent\resizebox{\linewidth}{!}{\input{figures/bonus-sans-theta}}
+\end{landscape}
+
+\subsection{Les feuilles de Nixon qui changent}
+\begin{align*}
+O_1:\quad \N{\E[u_N]} &= p\,(-D-k_T)+(1-p)\,q\,(-D-k_T-k_W)+(1-p)(1-q)\,(R-k_T-k_W)\\
+&= 0,3\times(-201)+0,455\times(-202)+0,245\times8=-60,3-91,91+1,96=\mathbf{-150,25}\\[4pt]
+O_3:\quad \N{\E[u_N]} &= p\,(-D-k_T)+(1-p)\,(R-k_T)=0,3\times(-201)+0,7\times9=-60,3+6,3=\mathbf{-54}\\[4pt]
+O_5:\quad \N{\E[u_N]} &= p\,(-D-k_W)+(1-p)\,(R-k_W)=\mathbf{-54}\\[4pt]
+O_7:\quad \N{u_N} &= R=\mathbf{10}
+\end{align*}
+Sans bonus, ces valeurs étaient $-152,7$ ; $-61$ ; $-61$ ; $0$.
+
+\subsection{La résolution}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Qui décide & Comparaison & Choix \\
+\midrule
+\N{Nixon} face au Post en relais & $O_1:-150,25$ contre $O_2:-201$ & poursuit \\
+\W{Post} en relais & $O_1:-0,175$ contre $O_3:0$ & se tait \\
+\N{Nixon} face au Times & $O_3:-54$ contre $O_4:-200$ & poursuit \\
+\N{Nixon} face au Post seul & $O_5:-54$ contre $O_6:-200$ & poursuit \\
+\W{Post} seul & $O_5:-5,5$ contre $O_7:0$ & se tait \\
+\T{Times} & $O_3:-1,5$ contre $O_7:0$ & ne publie pas \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{resultat}
+\textbf{Résultat A : $O_7$, rien ne sort.} Même résultat que sans bonus : Nixon poursuivait déjà, et les journaux décident avec leurs propres gains, qui n'ont pas changé.
+\end{resultat}
+
+\section{Scénario B : bonus, avec \texorpdfstring{$\theta=0,3$}{theta = 0,3}}
+
+\begin{landscape}
+\begin{center}{\large\bfseries Scénario B : bonus $R=10$, avec $\theta=0,3$}\\[2pt]{\small Gains dans l'ordre \textcolor{nyt}{\textbf{Times}}, \textcolor{wp}{\textbf{Post}}, \textcolor{gov}{\textbf{Nixon}}. $p$ = juge local, $q$ = Cour suprême. En gras : là où le bonus $R$ intervient. Traits rouges épais : choix à l'équilibre $\Rightarrow$ $O_1$, c'est 1971.}\end{center}\vspace{-4pt}
+\noindent\resizebox{\linewidth}{!}{\input{figures/bonus-avec-theta}}
+\end{landscape}
+
+\subsection{Les feuilles de Nixon qui changent}
+\begin{align*}
+O_1:\quad \N{\E[u_N]} &= p\,(-D-k_T)+(1-p)\,q\,(-D-k_T-k_W)\\
+&\quad+(1-p)(1-q)\,\big(R(1-\theta)-\theta D-k_T-k_W\big)\\
+&= 0,3\times(-201)+0,455\times(-202)+0,245\times(-55)=-60,3-91,91-13,475=\mathbf{-165,69}\\[4pt]
+O_3:\quad \N{\E[u_N]} &= p\,(-D-k_T)+(1-p)\,\big(R(1-\theta)-\theta D-k_T\big)\\
+&=0,3\times(-201)+0,7\times(-54)=-60,3-37,8=\mathbf{-98,1}\\[4pt]
+O_5:\quad \N{\E[u_N]} &= p\,(-D-k_W)+(1-p)\,\big(R(1-\theta)-\theta D-k_W\big)=\mathbf{-98,1}\\[4pt]
+O_7:\quad \N{u_N} &= R=\mathbf{10}
+\end{align*}
+Sans bonus, ces valeurs étaient $-167,4$ ; $-103$ ; $-103$ ; $0$.
+
+\subsection{La résolution}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Qui décide & Comparaison & Choix \\
+\midrule
+\N{Nixon} face au Post en relais & $O_1:-165,69$ contre $O_2:-201$ & poursuit \\
+\W{Post} en relais & $O_1:0,56$ contre $O_3:0$ & publie \\
+\N{Nixon} face au Times & $O_1:-165,69$ contre $O_4:-200$ & poursuit \\
+\N{Nixon} face au Post seul & $O_5:-98,1$ contre $O_6:-200$ & poursuit \\
+\W{Post} seul & $O_5:-3,4$ contre $O_7:0$ & se tait \\
+\T{Times} & $O_1:6,06$ contre $O_7:0$ & publie \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{resultat}
+\textbf{Résultat B : $O_1$, c'est 1971.} Même résultat que sans bonus.
+\end{resultat}
+
+\section{Pourquoi le bonus change si peu}
+
+\subsection{Une réécriture qui explique tout}
+On regroupe les termes en $\sigma$ :
+\[
+R\,(1-\sigma)-D\,\sigma \;=\; R-R\,\sigma-D\,\sigma \;=\; \underbrace{R}_{\text{constante}}\;-\;\underbrace{(D+R)}_{\text{nouveau dommage}}\,\sigma .
+\]
+Le bonus fait donc deux choses :
+\begin{enumerate}[leftmargin=*,itemsep=1pt]
+\item \textbf{il ajoute $R=10$ à toutes les feuilles de Nixon}. Cela ne change aucune comparaison : si $a>b$, alors $a+10>b+10$ ;
+\item \textbf{il fait passer le dommage de $D$ à $D+R$}, de $200$ à $210$ : un secret gardé compte un peu plus pour Nixon, qui a un peu plus envie de poursuivre.
+\end{enumerate}
+Vérification sur $O_1$ avec $\theta=0,3$ : avec $D=210$ et sans bonus, $0,3\times(-211)+0,455\times(-212)+0,245\times(-65)=-175,69$ ; on ajoute $10$ : $-165,69$. C'est bien la même valeur.
+
+\subsection{Les seuils de Nixon avec bonus}
+Il suffit de remplacer $D$ par $D+R$ dans les seuils de Nixon. Ceux des journaux ne changent pas.
+
+\textbf{Nixon poursuit le Post en relais} si
+\[
+q<1-\frac{k_W}{(1-\theta)D}\ \ \text{(sans bonus)}\qquad\text{devient}\qquad q<1-\frac{k_W}{(1-\theta)(D+R)}\ \ \text{(avec bonus)}.
+\]
+Avec $\theta=0,3$ : $q<99,29\,\%$ devient $q<99,32\,\%$.
+
+\textbf{Nixon poursuit le Times} (Post en relais) si
+\[
+k_T+(1-p)\,k_W<(1-p)(1-q)(1-\theta)\,D\qquad\text{devient}\qquad k_T+(1-p)\,k_W<(1-p)(1-q)(1-\theta)\,(D+R).
+\]
+Avec $\theta=0,3$ : $1,7<34,3$ devient $1,7<36,0$.
+
+Avec $D=200$, passer à $210$ ne change aucune décision.
+
+\section{Quand le bonus compte : un petit dommage}
+Dans le dessin, le dommage de Nixon valait $D=5$. Le bonus pèse alors lourd : $D+R=15$, trois fois plus.
+
+\paragraph{Sans bonus ($D=5$, $\theta=0,3$).} Nixon poursuit-il le Times ?
+\[
+k_T+(1-p)\,k_W=1+0,7\times1=1,7\quad\text{contre}\quad(1-p)(1-q)(1-\theta)D=0,7\times0,35\times0,7\times5\approx0,86 .
+\]
+Le procès coûte plus qu'il ne rapporte : \textbf{Nixon laisse faire}, tout sort sans procès ($O_4$).
+
+\paragraph{Avec bonus ($D=5$, $R=10$, $\theta=0,3$).}
+\[
+1,7\quad\text{contre}\quad 0,7\times0,35\times0,7\times(5+10)\approx2,57 .
+\]
+Maintenant le procès vaut la peine : \textbf{Nixon poursuit}, et on retrouve 1971 ($O_1$). Son gain en $O_1$ vaut
+\[
+0,3\times(-6)+0,455\times(-7)+0,245\times(7-1,5-2)=-1,8-3,185+0,8575\approx-4,13>-5=O_4 .
+\]
+\begin{simple}
+Le bonus mesure \emph{combien Nixon tient au secret}. Quand le dommage d'une fuite est déjà énorme ($200$), $10$ de plus ne change rien. Quand il est petit ($5$), le bonus devient décisif.
+\end{simple}
+
+\section{Récapitulatif et conseil}
+\begin{center}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+ & \multicolumn{2}{c}{$D=200$} & \multicolumn{2}{c}{$D=5$} \\
+ & sans $\theta$ & $\theta=0,3$ & sans $\theta$ & $\theta=0,3$ \\
+\midrule
+Sans bonus & $O_7$ & $O_1$ & $O_7$ & $O_4$ \\
+Avec bonus $R=10$ & $O_7$ & $O_1$ & $O_7$ & $\mathbf{O_1}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{simple}
+\textbf{Conseil.} Si le groupe garde le $+10$, l'écrire comme un bonus $R(1-\sigma)$ dans l'équation de Nixon, avec $\theta$. Phrase possible pour le rapport : « Nixon gagne $R=10$ quand le secret est gardé, en proportion de la part des documents qui reste secrète. » Sinon, laisser $0$ en $O_7$ : avec $D=200$, c'est équivalent et plus simple.
+\end{simple}
+
+\end{document}
