@@ -18,6 +18,8 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{caption}
 \usepackage{float}
+\usepackage{pdflscape}
+\usepackage{pifont}
 
 \definecolor{nyt}{HTML}{1F3B63}
 \definecolor{wp}{HTML}{17695B}
@@ -100,6 +102,11 @@ On écrit tous les paramètres en \textbf{positif} et on met les signes « $-$ �
 \end{simple}
 
 \section{Les erreurs, feuille par feuille}
+\begin{landscape}
+\begin{center}{\large\bfseries L'arbre du collègue, annoté}\\[2pt]{\small Gains dans l'ordre \textcolor{nyt}{\textbf{Times}}, \textcolor{wp}{\textbf{Post}}, \textcolor{gov}{\textbf{Nixon}}. $p$ = juge local, $q$ = Cour suprême. \textcolor{wp}{\ding{51}} juste \quad \textcolor{gov}{\ding{55}} erreur \quad \textcolor{nat}{?} à discuter}\end{center}\vspace{-4pt}
+\noindent\resizebox{\linewidth}{!}{\input{figures/arbre-collegue-annote}}
+\end{landscape}
+
 
 \subsection{Le tableau de contrôle}
 \begin{center}
@@ -156,6 +163,11 @@ Le terme $pq$ voudrait dire « gagner au juge local \emph{et} à la Cour suprêm
 \end{discuter}
 
 \section{Les équations corrigées (sans \texorpdfstring{$\theta$}{theta})}
+\begin{landscape}
+\begin{center}{\large\bfseries L'arbre corrigé, en lettres}\\[2pt]{\small Gains dans l'ordre \textcolor{nyt}{\textbf{Times}}, \textcolor{wp}{\textbf{Post}}, \textcolor{gov}{\textbf{Nixon}}. $p$ = juge local, $q$ = Cour suprême. Version générale avec $\theta$ ; sans $\theta$, on pose $\theta=0$ et les termes $\theta B$ et $\theta D$ disparaissent.}\end{center}\vspace{-4pt}
+\noindent\resizebox{\linewidth}{!}{\input{figures/arbre-corrige-lettres}}
+\end{landscape}
+
 
 \subsection{Les deux règles}
 \begin{align}
@@ -218,6 +230,10 @@ O_7 &= (0\,;\,0\,;\,0)
 \N{\E[u_N]} &= p\,(-D-k_W)+(1-p)(-k_W)=\mathbf{-61}
 \end{align*}
 
+\begin{landscape}
+\begin{center}{\large\bfseries L'arbre corrigé, en chiffres, sans $\theta$}\\[2pt]{\small Gains dans l'ordre \textcolor{nyt}{\textbf{Times}}, \textcolor{wp}{\textbf{Post}}, \textcolor{gov}{\textbf{Nixon}}. $p$ = juge local, $q$ = Cour suprême. Exemple : $p=0,3$, $q=0,65$. Traits rouges épais : choix à l'équilibre $\Rightarrow$ $O_7$, rien ne sort.}\end{center}\vspace{-4pt}
+\noindent\resizebox{\linewidth}{!}{\input{figures/arbre-corrige-sans-theta}}
+\end{landscape}
 \subsection{La résolution, en partant de la fin}
 \begin{center}
 \small
@@ -300,6 +316,10 @@ O_5:\quad \W{\E[u_W]} &= p(B_W-c_W)+(1-p)(\theta B_W-c_W-S_W)\\ &=1,5+0,7\times(
 \end{align*}
 $O_2$, $O_4$, $O_6$ et $O_7$ ne changent pas : aucune censure n'y tient.
 
+\begin{landscape}
+\begin{center}{\large\bfseries L'arbre corrigé, en chiffres, avec $\theta=0,3$}\\[2pt]{\small Gains dans l'ordre \textcolor{nyt}{\textbf{Times}}, \textcolor{wp}{\textbf{Post}}, \textcolor{gov}{\textbf{Nixon}}. $p$ = juge local, $q$ = Cour suprême. Exemple : $p=0,3$, $q=0,65$. Traits rouges épais : choix à l'équilibre $\Rightarrow$ $O_1$, c'est 1971.}\end{center}\vspace{-4pt}
+\noindent\resizebox{\linewidth}{!}{\input{figures/arbre-corrige-avec-theta}}
+\end{landscape}
 \subsection{La résolution}
 \begin{center}
 \small
