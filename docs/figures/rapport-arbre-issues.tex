@@ -1,0 +1,34 @@
+\begin{tikzpicture}[x=1cm,y=1cm,lab/.style={font=\scriptsize,fill=white,inner sep=1pt,sloped},eq/.style={line width=1.8pt,draw=gov},br/.style={line width=0.6pt,draw=black!55}]
+\draw[br] (0.4,-7.928125)--(2.6,-4.56875) node[lab,midway,above]{Publier};
+\draw[br] (0.4,-7.928125)--(5.0,-11.2875) node[lab,midway,below]{Ne pas publier};
+\draw[br] (2.6,-4.56875)--(5.0,-2.6875) node[lab,midway,above]{Poursuivre};
+\draw[br] (2.6,-4.56875)--(9.6,-6.449999999999999) node[lab,midway,below]{Laisser faire};
+\draw[br] (5.0,-2.6875)--(7.4,-1.075) node[lab,midway,above]{Publier};
+\draw[br] (5.0,-2.6875)--(9.6,-4.3) node[lab,midway,below]{Ne pas publier};
+\draw[br] (7.4,-1.075)--(9.6,0.0) node[lab,midway,above]{Poursuivre};
+\draw[br] (7.4,-1.075)--(9.6,-2.15) node[lab,midway,below]{Laisser faire};
+\draw[br] (5.0,-11.2875)--(7.4,-9.675) node[lab,midway,above]{Publier};
+\draw[br] (5.0,-11.2875)--(9.6,-12.899999999999999) node[lab,midway,below]{Ne pas publier};
+\draw[br] (7.4,-9.675)--(9.6,-8.6) node[lab,midway,above]{Poursuivre};
+\draw[br] (7.4,-9.675)--(9.6,-10.75) node[lab,midway,below]{Laisser faire};
+\fill[nyt] (0.4,-7.928125) circle (4pt); \node[font=\small\bfseries,text=nyt,above left=3pt and -2pt] at (0.4,-7.928125) {Times};
+\fill[gov] (2.6,-4.56875) circle (4pt); \node[font=\small\bfseries,text=gov,above left=3pt and -2pt] at (2.6,-4.56875) {Nixon};
+\fill[wp] (5.0,-2.6875) circle (4pt); \node[font=\small\bfseries,text=wp,above left=3pt and -2pt] at (5.0,-2.6875) {Post};
+\fill[gov] (7.4,-1.075) circle (4pt); \node[font=\small\bfseries,text=gov,above left=3pt and -2pt] at (7.4,-1.075) {Nixon};
+\fill[wp] (5.0,-11.2875) circle (4pt); \node[font=\small\bfseries,text=wp,above left=3pt and -2pt] at (5.0,-11.2875) {Post};
+\fill[gov] (7.4,-9.675) circle (4pt); \node[font=\small\bfseries,text=gov,above left=3pt and -2pt] at (7.4,-9.675) {Nixon};
+\fill (9.6,0.0) circle (2pt);
+\fill (9.6,-2.15) circle (2pt);
+\fill (9.6,-4.3) circle (2pt);
+\fill (9.6,-6.449999999999999) circle (2pt);
+\fill (9.6,-8.6) circle (2pt);
+\fill (9.6,-10.75) circle (2pt);
+\fill (9.6,-12.899999999999999) circle (2pt);
+\node[anchor=west,draw=gov,line width=0.9pt,fill=gov!6,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=5pt] at (9.85,0.0) {\textbf{$O_1$} \quad \textcolor{gov}{\textbf{Action contre le Times \emph{et} le Post}}\\Les deux journaux publient et sont poursuivis : c'est 1971. Les juges tranchent (3 verdicts possibles).};
+\node[anchor=west,draw=nat,line width=0.9pt,fill=nat!6,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=5pt] at (9.85,-2.15) {\textbf{$O_2$} \quad \textcolor{nat}{\textbf{Action contre le Times uniquement}}\\Le Times est poursuivi ; le Post publie aussi, mais Nixon le laisse faire.};
+\node[anchor=west,draw=nat,line width=0.9pt,fill=nat!6,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=5pt] at (9.85,-4.3) {\textbf{$O_3$} \quad \textcolor{nat}{\textbf{Action contre le Times uniquement}}\\Le Times est poursuivi ; le Post se tait. Si le juge censure le Times, le secret tient.};
+\node[anchor=west,draw=wp,line width=0.9pt,fill=wp!6,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=5pt] at (9.85,-6.449999999999999) {\textbf{$O_4$} \quad \textcolor{wp}{\textbf{Pas d'action en justice}}\\Le Times publie et Nixon le laisse faire : tout sort.};
+\node[anchor=west,draw=nat,line width=0.9pt,fill=nat!6,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=5pt] at (9.85,-8.6) {\textbf{$O_5$} \quad \textcolor{nat}{\textbf{Action contre le Post uniquement}}\\Le Times s'est tu ; le Post publie seul et Nixon le poursuit (juge local seulement).};
+\node[anchor=west,draw=wp,line width=0.9pt,fill=wp!6,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=5pt] at (9.85,-10.75) {\textbf{$O_6$} \quad \textcolor{wp}{\textbf{Pas d'action en justice}}\\Le Times s'est tu ; le Post publie seul et Nixon le laisse faire : tout sort.};
+\node[anchor=west,draw=nyt,line width=0.9pt,fill=nyt!6,rounded corners=3pt,text width=15.2cm,align=left,font=\footnotesize,inner sep=5pt] at (9.85,-12.899999999999999) {\textbf{$O_7$} \quad \textcolor{nyt}{\textbf{Pas de publication}}\\Personne ne publie : rien ne sort, aucun procès.};
+\end{tikzpicture}
